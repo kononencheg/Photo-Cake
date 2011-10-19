@@ -1,0 +1,32 @@
+html,
+body {
+    height: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.floats-wrapper {
+    zoom: 1;
+}
+
+.floats-wrapper:before,
+.floats-wrapper:after {
+    content: "";
+    display: table;
+}
+
+.floats-wrapper:after {
+    clear: both;
+}
+
+a {
+    text-decoration: none;
+    color: #0066cc;
+    border-bottom: 1px dashed #0066CC
+}
+
+a:hover {
+    border-bottom: none;
+}

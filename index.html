@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:tuna="http://localhost/tuna">
+    <head>
+        <meta charset="utf-8" />
+        
+        <title>Заказ торта</title>
+
+        <link href="/css/jquery-ui/jquery.ui.core.css"   media="screen" rel="stylesheet" type="text/css" >
+        <link href="/css/jquery-ui/jquery.ui.slider.css" media="screen" rel="stylesheet" type="text/css" >
+        <link href="/css/jquery-ui/jquery.ui.custom.css" media="screen" rel="stylesheet" type="text/css" >
+
+        <link href="/css/reset.css"  media="screen" rel="stylesheet" type="text/css" />
+        <link href="/css/style.css"  media="screen" rel="stylesheet" type="text/css" />
+        <link href="/css/main.css"   media="screen" rel="stylesheet" type="text/css" />
+    </head>
+        
+    <body>
+
+        <div class="j-item-selector body-container">
+
+                <div id="first_step"
+                     class="j-selection-item j-template-container wizard-step current"
+                     data-template-id="first_step_template"
+                     data-template-url="/parts/first-step.html"
+                     data-db-path="order">
+                    
+                    <!-- верстка из data-template-url либо уже тут -->
+
+                </div>
+
+                <div id="second_step"
+                     class="j-selection-item j-template-container wizard-step"
+                     data-template-id="second_step_template"
+                     data-template-url="/parts/second-step.html"
+                     data-db-path=""
+                     data-init-on="ui-select">
+
+                </div>
+
+
+                <div id="third_step"
+                     class="j-selection-item j-template-container wizard-page"
+                     data-template-id="third_step_template"
+                     data-template-url="/parts/third-step.html"
+                     data-init-on="ui-select">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="hidden">
+
+            <div id="recipe_renderer" class="recipe-item">
+                <div class="recipe-image">
+                    <img class="t-recipe-img j-popup" src="" alt="">
+                </div>
+                <div class="recipe-input">
+                    <label>
+                        <input class="t-recipe-radio" type="radio" name="recipeID" value="" />
+                        <span class="t-recipe-name"></span>
+                    </label>
+                </div>
+            </div>
+
+            <tuna:template id="first_step_template">
+				<tuna:spot tuna:class="t-cake-mass"    tuna:path="cake/mass" />
+				<tuna:spot tuna:class="t-cake-persons" tuna:path="cake/personsCount" />
+				<tuna:spot tuna:class="t-cake-width"   tuna:path="cake/width" />
+                <tuna:spot tuna:class="t-cake-height"  tuna:path="cake/height" />
+
+                <tuna:attr tuna:class="t-cake-width-slider" tuna:path="view/currentMass"
+                           tuna:name="data-value" tuna:event />
+
+                <tuna:attr tuna:class="t-cake-width-slider" tuna:path="view/massesCount"
+                           tuna:name="data-count" tuna:event />
+
+                <tuna:attr tuna:class="t-cake-height-slider" tuna:path="view/currentMass"
+                           tuna:name="data-value" tuna:event />
+
+                <tuna:attr tuna:class="t-cake-height-slider" tuna:path="view/massesCount"
+                           tuna:name="data-count" tuna:event />
+
+			</tuna:template>
+
+            <tuna:template id="second_step_template">
+                <tuna:spot tuna:class="t-cake-mass"  tuna:path="order/cake/mass" />
+                <tuna:spot tuna:class="t-cake-price" tuna:path="order/price" />
+
+                <tuna:list tuna:class="t-recipes-list" tuna:path="recipes"
+						   tuna:item-renderer-id="recipe_renderer"
+						   tuna:item-template-id="recipe_template"
+						   tuna:key-path="_id/$id" />
+            </tuna:template>
+
+            <tuna:template id="recipe_template">
+                <tuna:attr tuna:class="t-recipe-img" tuna:path="imageURL" tuna:name="src"/>
+                <tuna:attr tuna:class="t-recipe-img" tuna:path="name" tuna:name="alt"/>
+                <tuna:attr tuna:class="t-recipe-radio" tuna:path="_id/$id" tuna:name="value" />
+
+                <tuna:spot tuna:class="t-recipe-name" tuna:path="name" />
+
+            </tuna:template>
+
+            <tuna:template id="third_step_template"></tuna:template>
+        </div>
+
+        <script src="/js/lib/tuna.js"></script>
+
+        <script src="/js/lib/sizzle.js"></script>
+
+        <script src="/js/lib/tuna/utils/i-notifier.js"></script>
+        <script src="/js/lib/tuna/utils/notifier.js"></script>
+
+        <script src="/js/lib/tuna/net/i-request.js"></script>
+        <script src="/js/lib/tuna/net/request.js"></script>
+
+        <script src="/js/lib/tuna/dom.js"></script>
+
+        <script src="/js/lib/tuna/tmpl/spot.js"></script>
+        <script src="/js/lib/tuna/tmpl/attribute.js"></script>
+        <script src="/js/lib/tuna/tmpl/list.js"></script>
+        <script src="/js/lib/tuna/tmpl/template.js"></script>
+        <script src="/js/lib/tuna/tmpl/markup-template-builder.js"></script>
+        <script src="/js/lib/tuna/tmpl/i-compiled-unit.js"></script>
+        <script src="/js/lib/tuna/tmpl/compiled-unit.js"></script>
+        <script src="/js/lib/tuna/tmpl/compiled-spot.js"></script>
+        <script src="/js/lib/tuna/tmpl/compiled-attribute.js"></script>
+        <script src="/js/lib/tuna/tmpl/compiled-list.js"></script>
+        <script src="/js/lib/tuna/tmpl/compiled-template.js"></script>
+        <script src="/js/lib/tuna/tmpl/i-template-compiler.js"></script>
+        <script src="/js/lib/tuna/tmpl/template-compiler.js"></script>
+        <script src="/js/lib/tuna/tmpl/template-transformer.js"></script>
+        <script src="/js/lib/tuna/tmpl/data-node.js"></script>
+        <script src="/js/lib/tuna/tmpl/path-evaluator.js"></script>
+        <script src="/js/lib/tuna/tmpl/i-node-handler.js"></script>
+
+        <script src="/js/lib/tuna/ui/modules.js"></script>
+        <script src="/js/lib/tuna/ui/container.js"></script>
+        <script src="/js/lib/tuna/ui/data-container.js"></script>
+        <script src="/js/lib/tuna/ui/template-container.js"></script>
+        <script src="/js/lib/tuna/ui/item-selector.js"></script>
+
+        <script src="/js/lib/tuna/ui/modules/template-container.js"></script>
+        <script src="/js/lib/tuna/ui/modules/item-selector.js"></script>
+
+        <script src="/js/lib/tuna/control/data-dispatcher.js"></script>
+        <script src="/js/lib/tuna/control/view-controller.js"></script>
+
+        <script src="/js/lib/jquery/jquery-1.6.4.js"></script>
+
+        <script src="/js/lib/jquery/ui/jquery.ui.core.js"></script>
+        <script src="/js/lib/jquery/ui/jquery.ui.widget.js"></script>
+        <script src="/js/lib/jquery/ui/jquery.ui.mouse.js"></script>
+        <script src="/js/lib/jquery/ui/jquery.ui.slider.js"></script>
+
+        <script src="/js/lib/json.js"></script>
+
+        <script src="/js/src/modules/popup.js"></script>
+        <script src="/js/src/modules/slider.js"></script>
+
+        <script src="/js/src/view/first-step.js"></script>
+        <script src="/js/src/view/second-step.js"></script>
+
+        <!-- Инициализация -->
+        <script>
+            var DIMENSIONS_URL = '/api/dimensions.php';
+            var RECIPES_URL = '/api/recipes.php';
+
+            // Хранилище
+            var db = new tuna.control.DataDispatcher();
+
+            // Контейнер страницы
+            var body = new tuna.ui.DataContainer(document.body);
+            body.setDB(db); // Глобальное хранилище
+            body.addModule('template-container'); // модули
+            body.addModule('item-selector');
+            body.initModules();
+
+        </script>
+    </body>
+</html>

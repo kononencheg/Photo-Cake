@@ -1,0 +1,174 @@
+h2 {
+    color: #750000;
+    font-style: italic;
+    font-size: 24px;
+    font-family: Georgia;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 24px;
+    font-family: Georgia;
+}
+
+.wizard-step {
+    display: none;
+}
+
+.wizard-step.current {
+    display: block;
+}
+
+.body-container {
+    width: 710px;
+    margin: auto;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.header {
+    height: 50px;
+    line-height: 50px;
+}
+
+.right-container {
+    float: right;
+    width: 300px
+}
+
+.main-container {
+    margin-right: 300px;
+}
+
+.first-step-top {
+    margin-right: 80px;
+    padding-bottom: 20px;
+}
+
+
+.persons-pic {
+    float: right;
+
+    height: 36px;
+    line-height: 36px;
+}
+
+.persons-pic .persons-count {
+    color: #750000;
+    font-size: 12px;
+    font-style: italic;
+    position: relative;
+    top: -12px;
+}
+
+.cake-info {
+    font-size: 24px;
+    font-family: Georgia;
+}
+
+.cake-info .mass-value {
+    color: #0066cc;
+    font-style: italic;
+    border-bottom: 1px dashed #0066CC
+}
+
+.cake-box-wrapper {
+    letter-spacing: -4px;
+    padding-bottom: 20px;
+}
+
+.cake-image-box {
+    width: 300px;
+    height: 100%;
+
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.cake-image-box img {
+    margin-left: -58px;
+}
+
+.cake-height-box {
+    letter-spacing: 0;
+
+    width: 110px;
+
+    display:inline-block;
+    vertical-align:middle;
+
+    text-align: center;
+}
+
+.height-slider {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.cake-width-box {
+    letter-spacing: 0;
+
+    width: 300px;
+    text-align: center;
+}
+
+.step-desc p {
+    padding-bottom: 10px;
+}
+
+.next-button {
+    background: url(/img/btn-next.png) 0 0 no-repeat;
+    width: 119px;
+    height: 37px;
+
+    border: 0;
+    cursor: pointer;
+}
+
+.first-step-footer {
+    padding-top: 30px;
+    width: 400px;
+    text-align: justify;
+}
+
+.recipes-list {
+	margin-left: 0px;
+	margin-top: 0px;
+	text-align: left;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+}
+
+.recipes-list .recipe-item {
+	margin: 10px;
+    margin-bottom: 30px;
+    
+	padding: 0px;
+	display: -moz-inline-box;
+	display: inline-block;
+	//display: inline;
+	word-spacing: normal;
+	vertical-align: top;
+	border: white solid 1px;
+	overflow: visible;
+
+    width: 98px;
+
+    background: url(/img/recipe-item-border.png) 0 0 no-repeat;
+}
+
+.recipes-list .recipe-item .recipe-image {
+    margin: 9.5px;
+}
+
+
+.recipes-list .recipe-item .recipe-input  {
+    text-align: center;
+
+}
+
+.recipes-list .recipe-item .recipe-input input {
+    position: relative;
+    top: 2px;
+}
