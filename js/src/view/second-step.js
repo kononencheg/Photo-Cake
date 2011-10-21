@@ -23,12 +23,7 @@
     });
 
     controller.subscribe('create-node', function(type, node) {
-        debugger;
         container.initModules(node);
-    });
-
-    controller.subscribe('remove-node', function(type, node) {
-
     });
 
     controller.wait();

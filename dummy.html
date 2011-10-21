@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Фотонаторте</title>
+    </head>
+    <body>
+        <h1>Фотонаторте</h1>
+
+        <div class="cake-designer">
+
+            <object id="cake_designer" width="660" height="600"
+                    classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+
+                <param name="movie" value="/swf/cake-designer-fake.swf" />
+                <param name="allowscriptaccess" value="always" />
+
+                <!--[if !IE]>-->
+                <object width="660" height="600"
+                        data="/swf/cake-designer-fake.swf"
+                        type="application/x-shockwave-flash"
+                        allowscriptaccess="always">
+                <!--<![endif]-->
+
+                    Для работы приложения вам необходим Flash Player!
+                
+                <!--[if !IE]>-->
+                </object>
+                <!--<![endif]-->
+                
+            </object>
+            
+
+        </div>
+
+        <a href="javascript: open('/app/auth/auth-popup.php?auth_target=vk&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
+            Войти через ВКонтакте!
+        </a>
+        <a href="javascript: open('/app/auth/auth-popup.php?auth_target=ok&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
+            Войти через Одноклассники!
+        </a>
+
+        <script src="/js/lib/swfobject.js" charset="utf-8"></script>
+
+        <script>
+            swfobject.registerObject('cake_designer', '9.0.0');
+
+            function handleAuth(message) {
+                document.write(message)
+            }
+
+            function onFlashReady() {
+                setTimeout(function() {
+                    swfobject.getObjectById('cake_designer').initialize('round', 0.75);
+                }, 0);
+            }
+        </script>
+    </body>
+</html>

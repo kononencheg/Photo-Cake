@@ -1,9 +1,8 @@
 (function() {
 	tuna.ui.modules.register('popup', {
-		init: function (target, container, a, b) {
-            debugger;
-            
+		init: function (target, container) {
             $('.j-popup', target).each(function() {
+                
             });
 		}
 	});
