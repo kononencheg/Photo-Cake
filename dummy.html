@@ -3,13 +3,6 @@
     <head>
         <title>Фотонаторте</title>
 
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta name="title" content="Заголовок статьи" />
-        <meta name="description" content="Описание статьи.
-
-        Это очень интересная статья." />
-        <link rel="image_src" href="http://mysite.com/mypic.jpg" />
-
         <link href="http://stg.odnoklassniki.ru/share/odkl_share.css" rel="stylesheet">
         
         <script src="http://vkontakte.ru/js/api/share.js?11" charset="windows-1251"></script>
@@ -53,13 +46,21 @@
                 Войти через Одноклассники!
             </a>
 
-            <a class="odkl-share-oc" href="http://localhost/dummy.html"
+            <a class="odkl-share-oc" href="http://178.250.241.76/dummy.html"
                onclick="ODKL.Share(this); return false;" >
                 <span>0</span>
             </a>
 
             <script type="text/javascript">
-                document.write(VK.Share.button(false,{type: "button", text: "Поделиться"}));
+                document.write(VK.Share.button(false,{
+                    type: "button",
+                    text: "Поделиться",
+                    url: 'http://178.250.241.76/',
+                    title: 'Фотонаторте',
+                    description: 'Конструктор торта!',
+                    image: 'http://178.250.241.76/img/logo.png',
+                    noparse: true
+                }));
             </script>
         </div>
 
