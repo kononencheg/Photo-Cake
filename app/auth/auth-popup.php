@@ -35,7 +35,7 @@ if (isset($_GET['auth_target'])) {
         'Location: ' . $appData['auth_url'] .
         '?client_id=' . $appData['app_code'] .
         '&scope=' . $appData['app_settings'] .
-        '&redirect_uri=http://' . $_SERVER['SERVER_NAME'] . $_SERVER['PATH_INFO'] .
+        '&redirect_uri=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PATH_INFO'] .
         '&response_type=code'
     );
 
