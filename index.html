@@ -1,182 +1,139 @@
-<!DOCTYPE html>
-<html xmlns:tuna="http://localhost/tuna">
+<!DOCTYPE HTML>
+<html>
     <head>
-        <meta charset="utf-8" />
-        
-        <title>Заказ торта</title>
+        <title>Фотонаторте</title>
 
-        <link href="/css/jquery-ui/jquery.ui.core.css"   media="screen" rel="stylesheet" type="text/css" >
-        <link href="/css/jquery-ui/jquery.ui.slider.css" media="screen" rel="stylesheet" type="text/css" >
-        <link href="/css/jquery-ui/jquery.ui.custom.css" media="screen" rel="stylesheet" type="text/css" >
+        <link href="http://stg.odnoklassniki.ru/share/odkl_share.css" media="screen" rel="stylesheet" type="text/css" />
 
         <link href="/css/reset.css"  media="screen" rel="stylesheet" type="text/css" />
         <link href="/css/style.css"  media="screen" rel="stylesheet" type="text/css" />
-        <link href="/css/main.css"   media="screen" rel="stylesheet" type="text/css" />
-    </head>
         
+        <style>
+            .layout {
+                width: 660px;
+                margin: auto;
+            }
+
+            .header {
+                padding: 30px 0 10px 20px;
+            }
+
+            .header .logo {
+                margin-right: 90px;
+            }
+
+            .share {
+                float: left;
+                padding-left: 10px;
+            }
+
+            .share a {
+                border-bottom: none;
+            }
+
+            #fb_share.share {
+                margin-top: 1px;
+            }
+
+        </style>
+    </head>
     <body>
+        <div class="layout">
+            <div class="header">
 
-        <div class="j-item-selector body-container">
-
-                <div id="first_step"
-                     class="j-selection-item j-template-container wizard-step current"
-                     data-template-id="first_step_template"
-                     data-template-url="/parts/first-step.html"
-                     data-db-path="order">
-                    
-                    <!-- верстка из data-template-url либо уже тут -->
-
-                </div>
-
-                <div id="second_step"
-                     class="j-selection-item j-template-container wizard-step"
-                     data-template-id="second_step_template"
-                     data-template-url="/parts/second-step.html"
-                     data-db-path=""
-                     data-init-on="ui-select">
-
-                </div>
-
-
-                <div id="third_step"
-                     class="j-selection-item j-template-container wizard-page"
-                     data-template-id="third_step_template"
-                     data-template-url="/parts/third-step.html"
-                     data-init-on="ui-select">
-
-                </div>
-            </div>
-        </div>
-
-        <div class="hidden">
-
-            <div id="recipe_renderer" class="recipe-item">
-                <div class="recipe-image">
-                    <img class="t-recipe-img j-popup" src="" alt="">
-                </div>
-                <div class="recipe-input">
-                    <label>
-                        <input class="t-recipe-radio" type="radio" name="recipeID" value="" />
-                        <span class="t-recipe-name"></span>
-                    </label>
+                <div class="logo">
+                    <img alt="Фотонаторте" src="/img/logo.png" />
                 </div>
             </div>
 
-            <tuna:template id="first_step_template">
-				<tuna:spot tuna:class="t-cake-mass"    tuna:path="cake/mass" />
-				<tuna:spot tuna:class="t-cake-persons" tuna:path="cake/personsCount" />
-				<tuna:spot tuna:class="t-cake-width"   tuna:path="cake/width" />
-                <tuna:spot tuna:class="t-cake-height"  tuna:path="cake/height" />
+            <div class="body">
+                <object id="cake_designer" width="660" height="600"
+                        classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
 
-                <tuna:attr tuna:class="t-cake-width-slider" tuna:path="view/currentMass"
-                           tuna:name="data-value" tuna:event />
+                    <param name="movie" value="/swf/cake-designer-fake.swf" />
+                    <param name="allowscriptaccess" value="always" />
 
-                <tuna:attr tuna:class="t-cake-width-slider" tuna:path="view/massesCount"
-                           tuna:name="data-count" tuna:event />
+                    <!--[if !IE]>-->
+                    <object width="660" height="600"
+                            data="/swf/cake-designer-fake.swf"
+                            type="application/x-shockwave-flash"
+                            allowscriptaccess="always">
+                    <!--<![endif]-->
 
-                <tuna:attr tuna:class="t-cake-height-slider" tuna:path="view/currentMass"
-                           tuna:name="data-value" tuna:event />
+                        Для работы приложения вам необходим Flash Player!
 
-                <tuna:attr tuna:class="t-cake-height-slider" tuna:path="view/massesCount"
-                           tuna:name="data-count" tuna:event />
+                    <!--[if !IE]>-->
+                    </object>
+                    <!--<![endif]-->
 
-			</tuna:template>
+                </object>
+            </div>
 
-            <tuna:template id="second_step_template">
-                <tuna:spot tuna:class="t-cake-mass"  tuna:path="order/cake/mass" />
-                <tuna:spot tuna:class="t-cake-price" tuna:path="order/price" />
+            <div class="footer">
+                <div class="share-block">
+                    <div id="ok_share" class="share">
+                        <a class="odkl-share-stat" href="http://178.250.241.76/"
+                           onclick="ODKL.Share(this); return false;">
+                            <span>0</span>
+                        </a>
+                    </div>
 
-                <tuna:list tuna:class="t-recipes-list" tuna:path="recipes"
-						   tuna:item-renderer-id="recipe_renderer"
-						   tuna:item-template-id="recipe_template"
-						   tuna:key-path="_id/$id" />
-            </tuna:template>
+                    <div id="vk_share" class="share"></div>
 
-            <tuna:template id="recipe_template">
-                <tuna:attr tuna:class="t-recipe-img" tuna:path="imageURL" tuna:name="src"/>
-                <tuna:attr tuna:class="t-recipe-img" tuna:path="name" tuna:name="alt"/>
-                <tuna:attr tuna:class="t-recipe-radio" tuna:path="_id/$id" tuna:name="value" />
+                    <div id="fb_share" class="share">
+                        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%178.250.241.76%2F&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=true&amp;action=recommend&amp;colorscheme=light&amp;font&amp;height=50"
+                                scrolling="no" frameborder="0" allowTransparency="true"
+                                style="border:none; overflow:hidden; width:150px; height:34px;" ></iframe>
+                    </div>
+                </div>
+            </div>
 
-                <tuna:spot tuna:class="t-recipe-name" tuna:path="name" />
+            <!--a href="javascript: open('/app/auth/auth-popup.php?auth_target=vk&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
+                Войти через ВКонтакте!
+            </a>
+            
+            <a href="javascript: open('/app/auth/auth-popup.php?auth_target=ok&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
+                Войти через Одноклассники!
+            </a-->
 
-            </tuna:template>
 
-            <tuna:template id="third_step_template"></tuna:template>
         </div>
 
-        <script src="/js/lib/tuna.js"></script>
+        <script src="http://vkontakte.ru/js/api/share.js?11" charset="windows-1251"></script>
+        <script src="http://stg.odnoklassniki.ru/share/odkl_share.js"></script>
+        <script src="/js/lib/swfobject.js" charset="utf-8"></script>
 
-        <script src="/js/lib/tuna/utils/i-notifier.js"></script>
-        <script src="/js/lib/tuna/utils/notifier.js"></script>
-
-        <script src="/js/lib/tuna/net/i-request.js"></script>
-        <script src="/js/lib/tuna/net/request.js"></script>
-
-        <script src="/js/lib/tuna/dom.js"></script>
-
-        <script src="/js/lib/tuna/tmpl/spot.js"></script>
-        <script src="/js/lib/tuna/tmpl/attribute.js"></script>
-        <script src="/js/lib/tuna/tmpl/list.js"></script>
-        <script src="/js/lib/tuna/tmpl/template.js"></script>
-        <script src="/js/lib/tuna/tmpl/markup-template-builder.js"></script>
-        <script src="/js/lib/tuna/tmpl/i-compiled-unit.js"></script>
-        <script src="/js/lib/tuna/tmpl/compiled-unit.js"></script>
-        <script src="/js/lib/tuna/tmpl/compiled-spot.js"></script>
-        <script src="/js/lib/tuna/tmpl/compiled-attribute.js"></script>
-        <script src="/js/lib/tuna/tmpl/compiled-list.js"></script>
-        <script src="/js/lib/tuna/tmpl/compiled-template.js"></script>
-        <script src="/js/lib/tuna/tmpl/i-template-compiler.js"></script>
-        <script src="/js/lib/tuna/tmpl/template-compiler.js"></script>
-        <script src="/js/lib/tuna/tmpl/template-transformer.js"></script>
-        <script src="/js/lib/tuna/tmpl/data-node.js"></script>
-        <script src="/js/lib/tuna/tmpl/path-evaluator.js"></script>
-        <script src="/js/lib/tuna/tmpl/i-node-handler.js"></script>
-
-        <script src="/js/lib/tuna/ui/modules.js"></script>
-        <script src="/js/lib/tuna/ui/container.js"></script>
-        <script src="/js/lib/tuna/ui/data-container.js"></script>
-        <script src="/js/lib/tuna/ui/template-container.js"></script>
-        <script src="/js/lib/tuna/ui/item-selector.js"></script>
-
-        <script src="/js/lib/tuna/ui/modules/template-container.js"></script>
-        <script src="/js/lib/tuna/ui/modules/item-selector.js"></script>
-
-        <script src="/js/lib/tuna/control/data-dispatcher.js"></script>
-        <script src="/js/lib/tuna/control/view-controller.js"></script>
-
-        <script src="/js/lib/jquery/jquery-1.6.4.js"></script>
-
-        <script src="/js/lib/jquery/ui/jquery.ui.core.js"></script>
-        <script src="/js/lib/jquery/ui/jquery.ui.widget.js"></script>
-        <script src="/js/lib/jquery/ui/jquery.ui.mouse.js"></script>
-        <script src="/js/lib/jquery/ui/jquery.ui.slider.js"></script>
-
-        <script src="/js/lib/sizzle.js"></script>
-        <script src="/js/lib/json.js"></script>
-        <script src="/js/lib/swfobject.js"></script>
-
-        <script src="/js/src/modules/swf.js"></script>
-        <script src="/js/src/modules/popup.js"></script>
-        <script src="/js/src/modules/slider.js"></script>
-
-        <script src="/js/src/view/first-step.js"></script>
-        <script src="/js/src/view/second-step.js"></script>
-        <script src="/js/src/view/third-step.js"></script>
-
-        <!-- Инициализация -->
         <script>
-            var DIMENSIONS_URL = '/api/dimensions.php';
-            var RECIPES_URL = '/api/recipes.php';
+            swfobject.registerObject('cake_designer', '9.0.0');
 
-            // Хранилище
-            var db = new tuna.control.DataDispatcher();
+            function handleAuth(message) {
+                document.alert(message);
+            }
 
-            // Контейнер страницы
-            var body = new tuna.ui.DataContainer(document.body);
-            body.setDB(db); // Глобальное хранилище
-            body.addModule('template-container'); // модули
-            body.addModule('item-selector');
-            body.initModules();
+            function onFlashReady() {
+                setTimeout(function() {
+                    swfobject.getObjectById('cake_designer').initialize('round', 0.75);
+                }, 0);
+            }
+
+            function initShareButtons() {
+                ODKL.init();
+
+                document.getElementById('vk_share').innerHTML =
+                    VK.Share.button({
+                        url: 'http://178.250.241.76/',
+                        title: 'Фотонаторте',
+                        description: 'Конструктор торта!',
+                        image: 'http://178.250.241.76/img/logo.png',
+                        noparse: true
+                    }, {
+                        type: 'button',
+                        text: 'Поделиться'
+                    });
+            }
+
+            initShareButtons();
+
 
         </script>
     </body>
