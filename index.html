@@ -7,35 +7,8 @@
 
         <link href="/css/reset.css"  media="screen" rel="stylesheet" type="text/css" />
         <link href="/css/style.css"  media="screen" rel="stylesheet" type="text/css" />
+        <link href="/css/dummy.css"  media="screen" rel="stylesheet" type="text/css" />
         
-        <style>
-            .layout {
-                width: 660px;
-                margin: auto;
-            }
-
-            .header {
-                padding: 30px 0 10px 20px;
-            }
-
-            .header .logo {
-                margin-right: 90px;
-            }
-
-            .share {
-                float: left;
-                padding-left: 10px;
-            }
-
-            .share a {
-                border-bottom: none;
-            }
-
-            #fb_share.share {
-                margin-top: 1px;
-            }
-
-        </style>
     </head>
     <body>
         <div class="layout">
@@ -52,9 +25,10 @@
 
                     <param name="movie" value="/swf/cake-designer-fake.swf" />
                     <param name="allowscriptaccess" value="always" />
+                    <param name="wmode" value="opaque" />
 
                     <!--[if !IE]>-->
-                    <object width="660" height="600"
+                    <object width="660" height="600" wmode="opaque"
                             data="/swf/cake-designer-fake.swf"
                             type="application/x-shockwave-flash"
                             allowscriptaccess="always">
@@ -88,14 +62,37 @@
                 </div>
             </div>
 
-            <!--a href="javascript: open('/app/auth/auth-popup.php?auth_target=vk&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
-                Войти через ВКонтакте!
-            </a>
-            
-            <a href="javascript: open('/app/auth/auth-popup.php?auth_target=ok&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
-                Войти через Одноклассники!
-            </a-->
 
+
+            <div class="popup-overlay"></div>
+            <div class="popup">
+                <div class="popup-content">
+
+                    <div class="login-dialog">
+
+                        Войти на сайт используя:
+
+                        <ul>
+                            <li>
+                                <a href="javascript: open('/app/scripts/auth-popup.php?auth_target=vk&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
+                                    ВКонтакте
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript: open('/app/scripts/auth-popup.php?auth_target=ok&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
+                                    Одноклассники
+                                </a>
+                            </li>
+                        </ul>
+
+
+
+
+                    </div>
+
+                </div>
+                <div class="align-helper"></div>
+            </div>
 
         </div>
 
@@ -107,7 +104,7 @@
             swfobject.registerObject('cake_designer', '9.0.0');
 
             function handleAuth(message) {
-                document.alert(message);
+                debugger;
             }
 
             function onFlashReady() {

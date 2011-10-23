@@ -21,12 +21,24 @@ body {
     clear: both;
 }
 
-a {
+.align-helper {
+    zoom:1;
+
+    //display:inline;
+    display:-moz-inline-box;
+    display:inline-block;
+    vertical-align:middle;
+
+    height:100%;
+    width:0;
+}
+
+a.common {
     text-decoration: none;
     color: #0066cc;
     border-bottom: 1px dashed #0066CC
 }
 
-a:hover {
+a.common:hover {
     border-bottom: none;
 }
