@@ -3,6 +3,8 @@
     <head>
         <title>Фотонаторте</title>
 
+        <meta charset="utf-8" />
+
         <link href="http://stg.odnoklassniki.ru/share/odkl_share.css" media="screen" rel="stylesheet" type="text/css" />
 
         <link href="/css/reset.css"  media="screen" rel="stylesheet" type="text/css" />
@@ -13,7 +15,6 @@
     <body>
         <div class="layout">
             <div class="header">
-
                 <div class="logo">
                     <img alt="Фотонаторте" src="/img/logo.png" />
                 </div>
@@ -63,35 +64,44 @@
             </div>
 
 
+            <form id="image_form" target="frame_transport" action="/app/scripts/save-image.php" method="POST">
+                <input id="image_hidden" type="hidden" name="image_data" />
+            </form>
 
-            <div class="popup-overlay"></div>
-            <div class="popup">
-                <div class="popup-content">
+            <iframe name="frame_transport" src="about: blank" width="0" height="0"></iframe>
 
-                    <div class="login-dialog">
+            <div id="popup" class="hidden">
+                <div class="popup-overlay"></div>
+                <div class="popup" onclick=" if((event.target || event.srcElement) === this) hide('popup')">
+                    <div class="popup-content">
 
-                        Войти на сайт используя:
+                        <div id="login_dialog" class="login-dialog">
+                            <div>
+                                Для того чтобы сохранить ваш тортик вам необходимо
+                                авторизоваться на сайте, используя:
+                            </div>
 
-                        <ul>
-                            <li>
+                            <div>
                                 <a href="javascript: open('/app/scripts/auth-popup.php?auth_target=vk&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
-                                    ВКонтакте
+                                    <img src="img/vk-logo.png" alt="ВКонтакте" />
                                 </a>
-                            </li>
-                            <li>
+
                                 <a href="javascript: open('/app/scripts/auth-popup.php?auth_target=ok&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
-                                    Одноклассники
+                                    <img src="img/ok-logo.png" alt="Одноклассники" />
                                 </a>
-                            </li>
-                        </ul>
+                            </div>
 
+                        </div>
 
-
+                        <div id="cake_dialog" class="cake-dialog hidden">
+                            <h2>Ваш тортик!</h2>
+                            
+                            <img id="cake_image" alt="Ваш тортик" src="" />
+                        </div>
 
                     </div>
-
+                    <div class="align-helper"></div>
                 </div>
-                <div class="align-helper"></div>
             </div>
 
         </div>
@@ -103,30 +113,64 @@
         <script>
             swfobject.registerObject('cake_designer', '9.0.0');
 
-            function handleAuth(message) {
-                debugger;
-            }
+            var cakeDesigner = null;
+            var isLoggedIn = false;
 
             function onFlashReady() {
-                setTimeout(function() {
-                    swfobject.getObjectById('cake_designer').initialize('round', 0.75);
-                }, 0);
+                cakeDesigner = swfobject.getObjectById('cake_designer');
+                cakeDesigner.initialize('round', 0.75);
+            }
+
+            function saveCakeData(junk, imageData) {
+                $('image_hidden').value = imageData;
+                if (isLoggedIn) {
+                    $('image_form').submit();
+                }
+
+                show('popup');
+            }
+
+
+            function handleAuth(isSuccess) {
+                isLoggedIn = isSuccess;
+                if (isLoggedIn) {
+                    $('image_form').submit();
+                }
+            }
+
+            function handleImage(src) {
+                $('cake_image').src = src;
+
+                hide('login_dialog');
+                show('cake_dialog');
+            }
+
+
+            function $(id) {
+                return document.getElementById(id);
+            }
+
+            function show(id) {
+                $(id).style.display = 'block';
+            }
+
+            function hide(id) {
+                $(id).style.display = 'none';
             }
 
             function initShareButtons() {
                 ODKL.init();
 
-                document.getElementById('vk_share').innerHTML =
-                    VK.Share.button({
-                        url: 'http://178.250.241.76/',
-                        title: 'Фотонаторте',
-                        description: 'Конструктор торта!',
-                        image: 'http://178.250.241.76/img/logo.png',
-                        noparse: true
-                    }, {
-                        type: 'button',
-                        text: 'Поделиться'
-                    });
+                $('vk_share').innerHTML = VK.Share.button({
+                    url: 'http://178.250.241.76/',
+                    title: 'Фотонаторте',
+                    description: 'Конструктор торта!',
+                    image: 'http://178.250.241.76/img/logo.png',
+                    noparse: true
+                }, {
+                    type: 'button',
+                    text: 'Поделиться'
+                });
             }
 
             initShareButtons();

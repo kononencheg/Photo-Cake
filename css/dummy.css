@@ -31,7 +31,7 @@
 }
 
 .popup-overlay {
-    position: fixed;
+    position: absolute;
 
     top: 0;
     left: 0;
@@ -45,7 +45,7 @@
 }
 
 .popup {
-    position: fixed;
+    position: absolute;
 
     top: 0;
     left: 0;
@@ -68,9 +68,36 @@
 }
 
 .login-dialog {
-
     background: white;
-    width: 400px;
-    height: 200px;
 
+    width: 300px;
+    height: 150px;
+
+    text-align: center;
+}
+
+.login-dialog a {
+    text-decoration: none;
+}
+
+.login-dialog div {
+    padding-top: 10px;
+}
+
+.cake-dialog {
+    background: white;
+
+    width: 350px;
+    height: 400px;
+
+    text-align: center;
+}
+
+.cake-dialog h2 {
+    color: #750000;
+    font-style: italic;
+    font-size: 24px;
+    font-family: Georgia;
+    font-weight: bold;
+    padding: 20px;
 }

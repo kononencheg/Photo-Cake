@@ -4,23 +4,23 @@ session_start();
 
 // Move to ini file
 $applicationsData = array(
-        'vk' => array(
-            'app_code' => '2649910',
-            'app_secret' => '2tnQ0UHwhcpmgVMZupu7',
-            'app_settings' => 'friends,wall',
+    'vk' => array(
+        'app_code' => '2649910',
+        'app_secret' => '2tnQ0UHwhcpmgVMZupu7',
+        'app_settings' => 'friends,wall,photos',
 
-            'auth_url' => 'http://api.vkontakte.ru/oauth/authorize',
-            'token_url' => 'https://api.vkontakte.ru/oauth/access_token'
-        ),
-        'ok' => array(
-            'app_code' => '4908032',
-            'app_secret' => 'CC7450FC9662E854B06D959C',
-            'app_settings' => 'PHOTO CONTENT',
+        'auth_url' => 'http://api.vkontakte.ru/oauth/authorize',
+        'token_url' => 'https://api.vkontakte.ru/oauth/access_token'
+    ),
+    'ok' => array(
+        'app_code' => '4908032',
+        'app_secret' => 'CC7450FC9662E854B06D959C',
+        'app_settings' => 'PHOTO CONTENT',
 
-            'auth_url' => 'http://www.odnoklassniki.ru/oauth/authorize',
-            'token_url' => 'http://api.odnoklassniki.ru/oauth/token.do'
-        )
-    );
+        'auth_url' => 'http://www.odnoklassniki.ru/oauth/authorize',
+        'token_url' => 'http://api.odnoklassniki.ru/oauth/token.do'
+    )
+);
 
 if (isset($_GET['auth_target'])) {
 
