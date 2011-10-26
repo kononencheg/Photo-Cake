@@ -92,6 +92,7 @@ function saveUserData() {
         case 'vk': {
             $url = 'https://api.vkontakte.ru/method/getProfiles' .
                         '?uid=' . $_SESSION['user_id'] .
+                        '&fields=uid,first_name,last_name,sex,bdate,city,country,photo,has_mobile,contacts' .
                         '&access_token=' . $_SESSION['access_token'];
             
             break;

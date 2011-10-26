@@ -1,5 +1,19 @@
+h2 {
+    color: #750000;
+    font-style: italic;
+    font-size: 170%;
+    margin-left: 15px;
+}
+
+p {
+    font-size: small;
+    margin-left: 15px;
+    padding-top: 10px;
+    font-family: Arial;
+}
+
 .layout {
-    width: 660px;
+    width: 1000px;
     margin: auto;
 }
 
@@ -9,25 +23,93 @@
 
 .body {
     height: 600px;
-    line-height: 600px;
-    text-align: center;
 }
 
-.header .logo {
-    margin-right: 90px;
-}
-
-.share {
+.left-column {
+    width: 340px;
     float: left;
-    padding-left: 10px;
 }
 
-.share a {
-    border-bottom: none;
+.center-column {
+    width: 660px;
+    float: right;
 }
 
-#fb_share.share {
-    margin-top: 1px;
+.footer {
+    clear: both;
+}
+
+.logo {
+    margin-right: 90px;
+    height: 120px;
+}
+
+.logo-subtitle {
+    color: #750000;
+    font-style: italic;
+    font-size: 115%;
+    margin-left: 10px;
+}
+
+.share-block {
+    float: right;
+}
+
+#share .b-share-icon {
+    width: 32px;
+    height: 32px;
+    background: url(/img/social-ico.png);
+}
+
+#share .b-share-icon_facebook {
+    background-position: 0 0;
+}
+
+#share .b-share-icon_yaru {
+    background-position: 32px 0;
+}
+
+#share .b-share-icon_vkontakte {
+    background-position: 71px 0;
+}
+
+#share .b-share-icon_odnoklassniki {
+    background-position: 110px 0;
+}
+
+#share .b-share-icon_lj {
+    background-position: 149px 0;
+}
+
+.share-title {
+    font-size: large;
+    margin-left: 5px;
+}
+
+.submit-email {
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+
+    background-color: #750000;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#980000), to(#750000) );
+    background-image: -moz-linear-gradient(top, #980000, #750000);
+
+    width: 120px;
+    height: 35px;
+
+    border: none;
+
+    color: white;
+    font-size: 180%;
+    font-family: "Times New Roman"
+}
+
+.email-text {
+    height: 25px;
+    width: 250px;
+
+    border: 1px solid #aaaaaa ;
 }
 
 .popup-overlay {
@@ -99,5 +181,4 @@
     font-size: 24px;
     font-family: Georgia;
     font-weight: bold;
-    padding: 20px;
 }

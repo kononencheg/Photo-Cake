@@ -5,7 +5,8 @@
 
         <meta charset="utf-8" />
 
-        <link href="http://stg.odnoklassniki.ru/share/odkl_share.css" media="screen" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+
 
         <link href="/css/reset.css"  media="screen" rel="stylesheet" type="text/css" />
         <link href="/css/style.css"  media="screen" rel="stylesheet" type="text/css" />
@@ -15,64 +16,87 @@
     <body>
         <div class="layout">
             <div class="header">
+                <div id="share" class="share-block">
+                    <div class="share-title">Поделитесь с друзьями:</div>
+                    <div class="yashare-auto-init"
+                         data-yashareL10n="ru"
+                         data-yashareType="none"
+                         data-yashareQuickServices="facebook,lj,odnoklassniki,vkontakte,yaru"></div>
+                </div>
+
                 <div class="logo">
                     <img alt="Фотонаторте" src="/img/logo.png" />
+                    <div class="logo-subtitle">Скоро открытие! А пока...</div>
                 </div>
             </div>
 
             <div class="body">
-                <object id="cake_designer" width="660" height="600"
-                        classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+                <div class="left-column">
+                    <h2>Что это?</h2>
 
-                    <param name="movie" value="/swf/cake-designer-fake.swf" />
-                    <param name="allowscriptaccess" value="always" />
-                    <param name="wmode" value="opaque" />
+                    <p>
+                        Никогда не пекли тортики?
+                    </p>
 
-                    <!--[if !IE]>-->
-                    <object width="660" height="600" wmode="opaque"
-                            data="/swf/cake-designer-fake.swf"
-                            type="application/x-shockwave-flash"
-                            allowscriptaccess="always">
-                    <!--<![endif]-->
+                    <p>
+                        Попробуйте: создайте свой дизайн торта – изменяйте форму,
+                        украшайте, подписывайте – дарите своим близким людям!
+                    </p>
 
-                        Для работы приложения вам необходим Flash Player!
+                    <p>
+                        Готовится к открытию: скоро мы сможем изготавливать торты
+                        по Вашему дизайну и привозить их к Вам в день праздника!
+                    </p>
+                    <form id="email_form" target="frame_transport" action="/app/scripts/save-email.php" method="POST">
+                        <p>
+                            Сообщите мне, когда Вы откроетесь:
+                        </p>
+                        <p>
+                            <input class="email-text" name="email" type="text" />
+                        </p>
+                        <p>
+                            <input class="submit-email" type="submit" value="Хочу &raquo;"/>
+                        </p>
+                    </form>
+                </div>
+                <div class="center-column">
+                    <h2>Делаем торт!</h2>
+                    <object id="cake_designer" width="660" height="600"
+                            classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
 
-                    <!--[if !IE]>-->
+                        <param name="movie" value="/swf/cake-designer-fake.swf" />
+                        <param name="allowscriptaccess" value="always" />
+                        <param name="wmode" value="opaque" />
+
+                        <!--[if !IE]>-->
+                        <object width="660" height="600" wmode="opaque"
+                                data="/swf/cake-designer-fake.swf"
+                                type="application/x-shockwave-flash"
+                                allowscriptaccess="always">
+                        <!--<![endif]-->
+
+                            Для работы приложения вам необходим Flash Player!
+
+                        <!--[if !IE]>-->
+                        </object>
+                        <!--<![endif]-->
+
                     </object>
-                    <!--<![endif]-->
-
-                </object>
-            </div>
-
-            <div class="footer">
-                <div class="share-block">
-                    <div id="ok_share" class="share">
-                        <a class="odkl-share-stat" href="http://178.250.241.76/"
-                           onclick="ODKL.Share(this); return false;">
-                            <span>0</span>
-                        </a>
-                    </div>
-
-                    <div id="vk_share" class="share"></div>
-
-                    <div id="fb_share" class="share">
-                        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%178.250.241.76%2F&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=true&amp;action=recommend&amp;colorscheme=light&amp;font&amp;height=50"
-                                scrolling="no" frameborder="0" allowTransparency="true"
-                                style="border:none; overflow:hidden; width:150px; height:34px;" ></iframe>
-                    </div>
                 </div>
             </div>
 
 
-            <form id="image_form" target="frame_transport" action="/app/scripts/save-image.php" method="POST">
+            <form id="image_form" class="hidden" target="frame_transport"
+                  action="/app/scripts/save-image.php" method="POST">
                 <input id="image_hidden" type="hidden" name="image_data" />
             </form>
 
-            <iframe name="frame_transport" src="about: blank" width="0" height="0"></iframe>
+            <iframe id="frame_transport" name="frame_transport"
+                    src="about: blank" width="0" height="0"></iframe>
 
             <div id="popup" class="hidden">
                 <div class="popup-overlay"></div>
-                <div class="popup" onclick=" if((event.target || event.srcElement) === this) hide('popup')">
+                <div class="popup" onclick=" if((event.target || event.srcElement) === this) hide('popup');">
                     <div class="popup-content">
 
                         <div id="login_dialog" class="login-dialog">
@@ -106,8 +130,6 @@
 
         </div>
 
-        <script src="http://vkontakte.ru/js/api/share.js?11" charset="windows-1251"></script>
-        <script src="http://stg.odnoklassniki.ru/share/odkl_share.js"></script>
         <script src="/js/lib/swfobject.js" charset="utf-8"></script>
 
         <script>
@@ -130,12 +152,19 @@
                 show('popup');
             }
 
-
             function handleAuth(isSuccess) {
                 isLoggedIn = isSuccess;
                 if (isLoggedIn) {
                     $('image_form').submit();
                 }
+            }
+
+            function handleEmail() {
+                hide('email_form');
+            }
+
+            function handleEmailError() {
+                alert('Извините, ваш e-mail не действителен!');
             }
 
             function handleImage(src) {
@@ -157,24 +186,6 @@
             function hide(id) {
                 $(id).style.display = 'none';
             }
-
-            function initShareButtons() {
-                ODKL.init();
-
-                $('vk_share').innerHTML = VK.Share.button({
-                    url: 'http://178.250.241.76/',
-                    title: 'Фотонаторте',
-                    description: 'Конструктор торта!',
-                    image: 'http://178.250.241.76/img/logo.png',
-                    noparse: true
-                }, {
-                    type: 'button',
-                    text: 'Поделиться'
-                });
-            }
-
-            initShareButtons();
-
 
         </script>
     </body>
