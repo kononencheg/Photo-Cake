@@ -4,7 +4,7 @@
     if (isset($_POST['image_data']) && isset($_SESSION['access_token'])) {
         $imageData = base64_decode($_POST['image_data']);
         $imageID = uniqid('cake_image_');
-        file_put_contents('../../files/' . $imageID . '.jpg', $imageData);
+        file_put_contents('../files/' . $imageID . '.jpg', $imageData);
 
         echo '<script>parent.handleImage("/files/' . $imageID . '.jpg");</script>';
 

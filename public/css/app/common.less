@@ -1,0 +1,26 @@
+.hidden {
+    display: none;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.btn {
+    &.primary {
+        &.large {
+            .gradientBar(@red, #750000);
+
+            padding: 3px 12px 3px;
+            font-size: 24px;
+        }
+    }
+}
+
+.step {
+    display: none;
+
+    &.current {
+        display: block;
+    }
+}

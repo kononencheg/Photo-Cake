@@ -5,63 +5,46 @@
         
         <title>Заказ торта</title>
 
-        <link href="/css/jquery-ui/jquery.ui.core.css"   media="screen" rel="stylesheet" type="text/css" >
+        <!--link href="/css/jquery-ui/jquery.ui.core.css"   media="screen" rel="stylesheet" type="text/css" >
         <link href="/css/jquery-ui/jquery.ui.slider.css" media="screen" rel="stylesheet" type="text/css" >
         <link href="/css/jquery-ui/jquery.ui.custom.css" media="screen" rel="stylesheet" type="text/css" >
 
         <link href="/css/reset.css"  media="screen" rel="stylesheet" type="text/css" />
         <link href="/css/style.css"  media="screen" rel="stylesheet" type="text/css" />
-        <link href="/css/main.css"   media="screen" rel="stylesheet" type="text/css" />
+        <link href="/css/main.css"   media="screen" rel="stylesheet" type="text/css" /-->
+
+        <link rel="stylesheet/less" type="text/css" href="/css/style.less">
+        
+        <script src="/js/lib/less.js" type="text/javascript"></script>
+
     </head>
         
     <body>
 
-        <div class="j-item-selector body-container">
+        <div class="j-item-selector container">
 
-                <div id="first_step"
-                     class="j-selection-item j-template-container wizard-step current"
-                     data-template-id="first_step_template"
-                     data-template-url="/parts/first-step.html"
-                     data-db-path="order">
-                    
-                    <!-- верстка из data-template-url либо уже тут -->
+            <div id="first_step"
+                 class="j-selection-item j-template-container step current"
+                 data-template-id="first_step_template"
+                 data-template-url="/parts/first-step.html"
+                 data-db-path="order"></div>
 
-                </div>
-
-                <div id="second_step"
-                     class="j-selection-item j-template-container wizard-step"
-                     data-template-id="second_step_template"
-                     data-template-url="/parts/second-step.html"
-                     data-db-path=""
-                     data-init-on="ui-select">
-
-                </div>
+            <div id="second_step"
+                 class="j-selection-item j-template-container step"
+                 data-template-id="second_step_template"
+                 data-template-url="/parts/second-step.html"
+                 data-db-path=""
+                 data-init-on="ui-select"></div>
 
 
-                <div id="third_step"
-                     class="j-selection-item j-template-container wizard-page"
-                     data-template-id="third_step_template"
-                     data-template-url="/parts/third-step.html"
-                     data-init-on="ui-select">
-
-                </div>
-            </div>
+            <div id="third_step"
+                 class="j-selection-item j-template-container step"
+                 data-template-id="third_step_template"
+                 data-template-url="/parts/third-step.html"
+                 data-init-on="ui-select"></div>
         </div>
 
         <div class="hidden">
-
-            <div id="recipe_renderer" class="recipe-item">
-                <div class="recipe-image">
-                    <img class="t-recipe-img j-popup" src="" alt="">
-                </div>
-                <div class="recipe-input">
-                    <label>
-                        <input class="t-recipe-radio" type="radio" name="recipeID" value="" />
-                        <span class="t-recipe-name"></span>
-                    </label>
-                </div>
-            </div>
-
             <tuna:template id="first_step_template">
 				<tuna:spot tuna:class="t-cake-mass"    tuna:path="cake/mass" />
 				<tuna:spot tuna:class="t-cake-persons" tuna:path="cake/personsCount" />

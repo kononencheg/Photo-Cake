@@ -5,13 +5,7 @@
 
         <meta charset="utf-8" />
 
-        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-
-
-        <link href="/css/reset.css"  media="screen" rel="stylesheet" type="text/css" />
-        <link href="/css/style.css"  media="screen" rel="stylesheet" type="text/css" />
         <link href="/css/dummy.css"  media="screen" rel="stylesheet" type="text/css" />
-        
     </head>
     <body>
         <div class="layout">
@@ -47,7 +41,7 @@
                         Готовится к открытию: скоро мы сможем изготавливать торты
                         по Вашему дизайну и привозить их к Вам в день праздника!
                     </p>
-                    <form id="email_form" target="frame_transport" action="/app/scripts/save-email.php" method="POST">
+                    <form id="email_form" target="frame_transport" action="/scripts/save-email.php" method="POST">
                         <p>
                             Сообщите мне, когда Вы откроетесь:
                         </p>
@@ -87,7 +81,7 @@
 
 
             <form id="image_form" class="hidden" target="frame_transport"
-                  action="/app/scripts/save-image.php" method="POST">
+                  action="/scripts/save-image.php" method="POST">
                 <input id="image_hidden" type="hidden" name="image_data" />
             </form>
 
@@ -106,11 +100,11 @@
                             </div>
 
                             <div>
-                                <a href="javascript: open('/app/scripts/auth-popup.php?auth_target=vk&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
+                                <a href="javascript: open('/scripts/auth-popup.php?auth_target=vk&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
                                     <img src="img/vk-logo.png" alt="ВКонтакте" />
                                 </a>
 
-                                <a href="javascript: open('/app/scripts/auth-popup.php?auth_target=ok&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
+                                <a href="javascript: open('/scripts/auth-popup.php?auth_target=ok&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
                                     <img src="img/ok-logo.png" alt="Одноклассники" />
                                 </a>
                             </div>
@@ -130,6 +124,7 @@
 
         </div>
 
+        <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
         <script src="/js/lib/swfobject.js" charset="utf-8"></script>
 
         <script>
@@ -156,6 +151,8 @@
                 isLoggedIn = isSuccess;
                 if (isLoggedIn) {
                     $('image_form').submit();
+                } else {
+                    alert('Извините, авторизация не удалась! Попробуйте использовать другою социальнцю сеть!');
                 }
             }
 

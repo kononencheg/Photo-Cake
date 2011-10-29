@@ -1,9 +1,15 @@
 <?php
 
-$mongo = new Mongo();
-$db = $mongo->tortdb;
+class Responce {
+    public function render() {
 
-$cursor = $db->recipes->find(array(
+    }
+}
+
+$mongo = new Mongo();
+$db = $mongo->selectDB('tortdb');
+
+$cursor = $db->selectCollection('recipes')->find(array(
     'isVisible' => true
 ));
 
