@@ -134,6 +134,10 @@
                 self.setCurrentIndex(Number(this.getAttribute('data-index')));
             }
         );*/
+
+        this.subscribe('select', function() {
+            tuna.dom.dispatchEvent(self.getCurrentItem(), 'ui-select');
+        });
 	};
 
 	tuna.ui.ItemSelector = ItemSelector;

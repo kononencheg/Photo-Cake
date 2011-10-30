@@ -1,7 +1,7 @@
 <?php
 
 $mongo = new Mongo();
-$db = $mongo->tortdb;
+$db = $mongo->cakes;
 $cursor = $db->dimensions->find();
 
 $result = array();

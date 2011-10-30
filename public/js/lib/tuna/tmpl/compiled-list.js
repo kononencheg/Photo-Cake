@@ -64,7 +64,8 @@
 
             this.__itemsTable = {};
             for (var index in sample) {
-                this.__updateItem(sampleNode.growChild(index), oldItemsTable);
+                this.__updateItem
+                    (sampleNode.growChild(index), oldItemsTable, index);
             }
 
             this.__destroyItems(oldItemsTable);
@@ -78,9 +79,16 @@
     };
 
     CompiledList.prototype.__updateItem
-        = function(itemNode, oldItemsTable) {
+        = function(itemNode, oldItemsTable, index) {
 
-        var key = this.__keyPathEvaluator.evaluate(itemNode).getValue();
+        var key = null;
+
+        var keyNode = this.__keyPathEvaluator.evaluate(itemNode);
+        if (keyNode === undefined) {
+            key = index;
+        } else {
+            key = keyNode.getValue();
+        }
 
         if (oldItemsTable[key] === undefined) {
             this.addCompiledItem(this.__makeNewItem(), key);

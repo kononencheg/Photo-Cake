@@ -6,11 +6,11 @@
     <div class="span8">
         <div class="row cake-info-row">
             <div class="span6">
-                <h2>Вес торта: <small class="t-cake-mass">1.000 кг.</small></h2>
+                <h2>Вес торта: <small class="t-cake-mass"></small></h2>
             </div>
             <div class="span2 persons-count">
                 <i class="ico ico-persons"></i>
-                <span class="t-cake-persons ico-super">15</span>
+                <span class="t-cake-persons ico-super"></span>
             </div>
         </div>
         <div class="row">
@@ -18,7 +18,7 @@
                 <img class="cake-image" src="/img/cake.png" alt="Тортик" />
             </div>
             <div class="span1 cake-height">
-                <span class="t-cake-height">12</span> см.
+                <span class="t-cake-height"></span>.
             </div>
             <div class="span1 cake-height">
                 <div class="j-vertical-slider t-cake-height-slider height-slider"></div>
@@ -26,7 +26,7 @@
         </div>
         <div class="row">
             <div class="span6 align-center">
-                <span class="t-cake-width">34</span> см.
+                <span class="t-cake-width"></span>
                 <div class="j-horizontal-slider t-cake-width-slider width-slider"></div>
             </div>
         </div>
@@ -40,14 +40,13 @@
         <p>Запутались с размерами торта?<br />
            <a href="#">Почитайте наши советы.</a></p>
         <p>
-            <a class="j-selection-next btn primary large">
-                Дальше &raquo;
-            </a>
+            <a class="j-selection-next btn primary large">Дальше &raquo;</a>
         </p>
         <p>На следующем шаге можно выбрать рецепт тортика (или его начинку -
            что внутри).Выбирайте и пробуйте!</p>
     </div>
 </div>
+
 <div class="row">
     <div class="span8">
 
@@ -72,4 +71,26 @@
            украсить его на следующем шаге.
            Определились с размером торта? Переходим к выбору рецепта.</p>
     </div>
+</div>
+
+<div class="hidden" xmlns:tuna="http://localhost/tuna">
+    <tuna:template id="first_step_template">
+        <tuna:spot tuna:class="t-cake-mass"    tuna:path="cake/dimensions/mass" />
+        <tuna:spot tuna:class="t-cake-persons" tuna:path="cake/dimensions/persons_count" />
+        <tuna:spot tuna:class="t-cake-width"   tuna:path="cake/dimensions/width" />
+        <tuna:spot tuna:class="t-cake-height"  tuna:path="cake/dimensions/height" />
+
+        <tuna:attr tuna:class="t-cake-width-slider" tuna:path="cake/current_mass"
+                   tuna:name="data-value" tuna:event />
+
+        <tuna:attr tuna:class="t-cake-width-slider" tuna:path="cake/masses_count"
+                   tuna:name="data-count" tuna:event />
+
+        <tuna:attr tuna:class="t-cake-height-slider" tuna:path="cake/current_mass"
+                   tuna:name="data-value" tuna:event />
+
+        <tuna:attr tuna:class="t-cake-height-slider" tuna:path="cake/masses_count"
+                   tuna:name="data-count" tuna:event />
+
+    </tuna:template>
 </div>

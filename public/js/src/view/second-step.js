@@ -1,87 +1,88 @@
 (function() {
 
-    var container = null;
-    var target = null;
-    var db = null;
+    var SecondStepController = function(id) {
+        tuna.control.ViewController.call(this, id);
+    };
 
-    var controller = new tuna.control.ViewController('second_step');
+    tuna.extend(SecondStepController, tuna.control.ViewController);
 
-    controller.subscribe('prepare', function(type, targetContainer) {
-        container = targetContainer;
-        container.addModule('popup', 3, this);
+    SecondStepController.prototype._requireModules = function() {
+        this._container.requireModule('popup', 3, this);
+    };
 
-        db = container.getDB();
-    });
+    SecondStepController.prototype._initListeners = function() {
+        var self = this;
 
-    controller.subscribe('init', function(type, element) {
-        target = element;
-
-        container.initModules();
-
-        initData();
-        initListeners();
-    });
-
-    controller.subscribe('create-node', function(type, node) {
-        container.initModules(node);
-    });
-
-    controller.wait();
-
-
-    function initListeners() {
         tuna.dom.addChildEventListener(
-            target, 'input[type=radio]', 'change',
+            this._target, 'input[type=radio]', 'change',
             function(event) {
-                var currentRecipe = selectRecipeWithID(event.target.value);
+                var currentRecipe = self.__selectRecipeWithID(event.target.getAttribute('data-value'));
 
-                var prices = db.get('recipes.' + currentRecipe + '.prices');
-                var mass =  db.get('order.cake.mass');
+                var prices = self._db.get('recipes.' + currentRecipe + '.prices');
+                var mass =  self._db.get('order.cake.dimensions.mass');
 
-                db.set('order.price', prices[mass]);
-                db.notify();
+                self._db.set('order.price', prices[mass]); // calculate price globally
+                self._db.set('view.price', prices[mass] + ' рублей.'); // calculate price globally
+                self._db.notify('view');
             }
         );
 
         tuna.dom.addChildEventListener(
-            target, '.j-selection-next', 'click',
+            this._target, 'img.j-popup', 'click',
             function(event) {
-                if (db.get('order.view.currentRecipe') === -1) {
+                var popupRecipe = self.__selectRecipeWithID(event.target.getAttribute('data-value'));
+                var recipe = self._db.get('recipes.' + popupRecipe);
+
+                self._db.set('view.popup_recipe', recipe);
+                self._db.notify('view');
+            }
+        );
+
+        tuna.dom.addChildEventListener(
+            this._target, '.j-selection-next', 'click',
+            function(event) {
+                if (self._db.get('view.current_recipe') === -1) {
                     tuna.dom.stopPropogation(event);
                     alert('Выберите начинку для торта!')
                 }
             }
         );
-    }
+    };
 
-    function initData() {
+    SecondStepController.prototype._initData = function() {
+        var self = this;
+
         var request = new tuna.net.Request(RECIPES_URL);
         request.subscribe('complete', function(type, response) {
-            //try {
-                handleRecipes(JSON.parse(response));
-            //} catch (error) {
-            //    console.error(error);
-            //}
+            var data = JSON.parse(response);
+
+            self._db.set('recipes', data);
+            self._db.set('view.current_recipe', -1);
+            self._db.set('view.recipes', data);
+
+            self._db.notify('view');
         });
 
         request.send();
-    }
+    };
 
-    function handleRecipes(data) {
-        db.set('recipes', data);
-        db.set('order.view.currentRecipe', -1);
-        db.notify();
-    }
+    SecondStepController.prototype.handleCreatedElement = function(element) {
+        this._container.initModules(element);
+    };
 
-    function selectRecipeWithID(id) {
-        var recipes = db.get('recipes');
+    SecondStepController.prototype.handleRemovedElement = function(element) {};
+
+    SecondStepController.prototype.__selectRecipeWithID = function(id) {
+        var recipes = this._db.get('recipes');
 
         for (var i in recipes) {
             if (recipes[i]._id.$id === id) {
-                db.set('order.view.currentRecipe', i);
+                this._db.set('view.current_recipe', i);
                 return i;
             }
         }
-    }
+    };
+
+    tuna.control.ViewController.registerController(new SecondStepController('second_step'));
 
 })();

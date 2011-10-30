@@ -8,9 +8,9 @@
 
 .btn {
     &.primary {
-        &.large {
-            .gradientBar(@red, #750000);
+        .gradientBar(@red, #750000);
 
+        &.large {
             padding: 3px 12px 3px;
             font-size: 24px;
         }
@@ -22,5 +22,22 @@
 
     &.current {
         display: block;
+    }
+}
+
+.popup {
+    display: none;
+
+    .overlay {
+        position: fixed;
+
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+
+        background: @black;
+
+        .opacity(50);
     }
 }

@@ -1,0 +1,67 @@
+<div class="page-header">
+    <h1>Шаг 3. Конструируем торт</h1>
+</div>
+
+<div class="row">
+    <div class="span14">
+        <div class="cake-designer">
+            <div id="cake_designer" class="j-swf"
+                 data-movie-url="/swf/cake-designer.swf">
+                Для работы приложения вам необходим Flash Player!
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="item_selection_popup" class="j-template-container popup"
+     data-template-id="item_selection_template"
+     data-db-path="view.selection_popup"
+     data-init-on="ui-popup-open">
+
+    <div class="overlay"></div>
+    
+    <div class="modal">
+        <div class="modal-header">
+            <a href="#" class="j-popup-close close">×</a>
+            <h3>Готовые шаблоны</h3>
+        </div>
+        <div class="modal-body">
+            <ul class="t-item-list media-grid"></ul>
+            <img class="t-selected-item" src="" alt="" />
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="j-popup-close btn">Закрыть</a>
+            <a href="#" class="j-popup-close btn primary">Выбрать</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="hidden" xmlns:tuna="http://localhost/tuna">
+    <ul>
+        <li id="selection_item_renderer">
+            <a>
+                <img src="http://placehold.it/106x106" alt=""/>
+            </a>
+        </li>
+    </ul>
+
+
+    <tuna:template id="third_step_template">
+
+    </tuna:template>
+
+    <tuna:template id="item_selection_template">
+        <tuna:attr tuna:class="t-selected-item" tuna:path="current/image_url" tuna:name="src"/>
+
+        <tuna:list tuna:class="t-item-list" tuna:path="items"
+                   tuna:item-renderer-id="selection_item_renderer"
+                   tuna:item-template-id="selection_item_template"
+                   tuna:key-path="_id/$id" />
+
+    </tuna:template>
+
+    <tuna:template id="selection_item_template">
+
+    </tuna:template>
+</div>

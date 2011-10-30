@@ -2,50 +2,58 @@
     tuna.namespace('tuna.control');
 
     var ViewController = function(targetID) {
-        tuna.utils.Notifier.call(this);
-
         this.__targetID = targetID;
-
-        this.__target = null;
-        this.__container = null;
+        this._target = null;
+        
+        this._container = null;
+        this._db = null;
     };
 
-    tuna.extend(ViewController, tuna.utils.Notifier);
-    tuna.implement(ViewController, tuna.tmpl.INodeHandler);
+    tuna.implement(ViewController, tuna.tmpl.IElementHandler);
+
+    ViewController.prototype.getTargetID = function() {
+        return this.__targetID;
+    };
 
     ViewController.prototype.init = function() {
-        this.notify('init', this.__target);
+        this._target = document.getElementById(this.__targetID);
+
+        this._requireModules();
+
+        this._initListeners();
+        this._initData();
+        this._initModules();
     };
 
-    ViewController.prototype.prepare = function(container) {
-        this.__target = Sizzle('#' + this.__targetID)[0];
-
-        if (this.__target) {
-            this.__container = container;
-        }
-
-        this.notify('prepare', this.__container);
+    ViewController.prototype.setContainer = function(container) {
+        this._container = container;
     };
 
-    ViewController.prototype.wait = function() {
-        ViewController.__waitTable[this.__targetID] = this;
+    ViewController.prototype.setDB = function(db) {
+        this._db = db;
     };
 
-    ViewController.prototype.handleCreated = function(node) {
-        this.notify('create-node', node);
+    ViewController.prototype._requireModules = function() {};
+    ViewController.prototype._initListeners = function() {};
+    ViewController.prototype._initData = function() {};
+    
+    ViewController.prototype._initModules = function(target) {
+        this._container.initModules(target || this._target);
     };
 
-    ViewController.prototype.handleRemoved = function(node) {
-        this.notify('remove-node', node);
+    // Static methods
+
+    ViewController.registerController = function(controller) {
+        ViewController.__idTable[controller.getTargetID()] = controller;
     };
 
-    ViewController.__waitTable = {};
+    ViewController.__idTable = {};
 
-    ViewController.fetchController = function(target) {
-        var viewController = ViewController.__waitTable[target.id];
+    ViewController.getController = function(target) {
+        var viewController = ViewController.__idTable[target.id];
 
         if (viewController !== undefined) {
-            delete ViewController.__waitTable[target.id];;
+            delete ViewController.__idTable[target.id];
         }
 
         return viewController;

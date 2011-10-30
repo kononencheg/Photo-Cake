@@ -1,27 +1,19 @@
 (function() {
-    tuna.ui.modules.register('item-selector', {
-        init: function (context, container) {
-            var targets = Sizzle('.j-item-selector', context);
 
-            var i = 0,
-                l = targets.length;
+    // TODO: Rename into ViewStack
 
-            while (i < l) {
-                initItemSelector(targets[i]);
+    var ItemSelector = function() {
+        tuna.ui.modules.Module.call(this, 'item-selector', '.j-item-selector');
+    };
 
-                i++;
-            }
-        }
-    });
+    tuna.extend(ItemSelector, tuna.ui.modules.Module);
 
-    function initItemSelector(target) {
+    ItemSelector.prototype._initItem = function(target) {
         var selector = new tuna.ui.ItemSelector(target, '.j-selection-item');
         selector.setNavigationButtonSelectors('.j-selection-next', '.j-selection-prev');
-        selector.subscribe('select', function() {
-            tuna.dom.dispatchEvent(selector.getCurrentItem(), 'ui-select');
-        });
-
         selector.init();
-    }
+    };
+
+    tuna.ui.modules.register(new ItemSelector());
 
 })();

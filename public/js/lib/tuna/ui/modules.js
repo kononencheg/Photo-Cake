@@ -19,8 +19,9 @@
         }
     };
 
-    tuna.ui.modules.register = function(name, module, isGlobal) {
-        var table = isGlobal ? globalTable : localTable;
+    tuna.ui.modules.register = function(module) {
+        var table = module.isGlobal() ? globalTable : localTable;
+        var name = module.getName();
 
         if (table[name] !== undefined) {
             console.warn('Module with name "' + name + '" already registered!');

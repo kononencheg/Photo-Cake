@@ -1,74 +1,78 @@
 (function() {
 
-    // TODO: Make module class
+    var TemplateContainer = function() {
+        tuna.ui.modules.Module.call(this, 'template-container', '.j-template-container');
 
-    tuna.ui.modules.register('template-container', {
-        init: function(context, container) {
-            var targets = Sizzle('.j-template-container', context);
+        this.__templateBuilder = new tuna.tmpl.MarkupTemplateBuilder(document);
+        this.__templateCompiler = new tuna.tmpl.TemplateCompiler(document);
 
-            var i = 0,
-                l = targets.length;
+        this.__templatesTable = {};
+    };
 
-            while (i < l) {
-                initContainer(targets[i], container);
-                i++;
-            }
-        }
-    });
+    tuna.extend(TemplateContainer, tuna.ui.modules.Module);
 
-    var templateBuilder = new tuna.tmpl.MarkupTemplateBuilder(document);
-    var templateCompiler = new tuna.tmpl.TemplateCompiler(document);
-
-    var templateTable = {};
-
-    function getTemplate(id) {
-        if (templateTable[id] === undefined) {
-            templateTable[id] = templateBuilder.buildTemplate(id);
+    TemplateContainer.prototype.__getTemplate = function(id) {
+        if (this.__templatesTable[id] === undefined) {
+            this.__templatesTable[id] = this.__templateBuilder.buildTemplate(id);
         }
 
-        return templateTable[id];
-    }
+        return this.__templatesTable[id];
+    };
 
-    function initContainer(target, parent) {
-        var template = getTemplate(target.getAttribute('data-template-id'));
-        var dbPath = target.getAttribute('data-db-path');
+    TemplateContainer.prototype.__initContainer = function(container, template) {
+        var transformer = this.__templateCompiler.makeTransformer
+                                    (template, container.getTarget());
 
-        var container = new tuna.ui.TemplateContainer(target, parent);
-        container.setTemplateCompiler(templateCompiler);
-        container.setTemplate(template);
+        container.setTransformer(transformer);
+
+        var controller = tuna.control.ViewController.getController
+                                                (container.getTarget());
+        if (controller !== undefined) {
+            controller.setContainer(container);
+            controller.setDB(container.getDB());
+            controller.init();
+
+            transformer.setChildHandler(controller);
+        }
+    };
+
+    TemplateContainer.prototype._initItem = function(target, parentContainer) {
+        var templateURL = target.getAttribute('data-template-url');
+        var templateID  = target.getAttribute('data-template-id');
+        var initEvent   = target.getAttribute('data-init-on');
+        var dbPath      = target.getAttribute('data-db-path');
+
+        var container = new tuna.ui.TemplateContainer(target, parentContainer);
         container.setDBPath(dbPath);
 
-        var controller = tuna.control.ViewController.fetchController(target);
-        if (controller !== undefined) {
-            controller.prepare(container);
-        }
-
-        var templateURL = target.getAttribute('data-template-url');
+        var self = this;
+        
         if (templateURL !== null) {
-            var initEvent = target.getAttribute('data-init-on');
+            var request = new tuna.net.Request(templateURL);
+            request.subscribe('complete', function(type, response) {
+                container.render(tuna.dom.createFragment(response, document));
+
+                self.__initContainer(container, self.__getTemplate(templateID));
+            });
 
             if (initEvent !== null) {
                 tuna.dom.addOneEventListener(target, initEvent, function() {
-                    loadTemplate(templateURL, container, controller);
+                    request.send();
                 });
             } else {
-                loadTemplate(templateURL, container, controller);
+                request.send();
             }
+        } else {
+            if (initEvent !== null) {
+                tuna.dom.addOneEventListener(target, initEvent, function() {
+                    self.__initContainer(container, self.__getTemplate(templateID));
+                });
+            } else {
+                this.__initContainer(container, this.__getTemplate(templateID));
+            }
+
         }
-    }
-    
-    function loadTemplate(url, container, controller) {
-        var request = new tuna.net.Request(url);
-        request.subscribe('complete', function(type, response) {
-            container.render(tuna.dom.createFragment(response, document));
+    };
 
-            if (controller !== undefined) {
-                container.setChildHandler(controller);
-                controller.init();
-            }
-        });
-        
-        request.send();
-    }
-
+    tuna.ui.modules.register(new TemplateContainer());
 })();

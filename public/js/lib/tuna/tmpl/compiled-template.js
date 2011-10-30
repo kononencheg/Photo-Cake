@@ -39,19 +39,19 @@
         this.__lists.push(list);
     };
 
-    CompiledTemplate.prototype.setChildHandler = function(childHadler) {
-        this.__childHadler = childHadler;
+    CompiledTemplate.prototype.setChildHandler = function(childHandler) {
+        this.__childHadler = childHandler;
     };
 
     CompiledTemplate.prototype.handleCreatedChild = function(node) {
         if (this.__childHadler !== null) {
-            this.__childHadler.handleCreated(node);
+            this.__childHadler.handleCreatedElement(node);
         }
     };
 
     CompiledTemplate.prototype.handleRemovedChild = function(node) {
         if (this.__childHadler !== null) {
-            this.__childHadler.handleRemoved(node);
+            this.__childHadler.handleRemovedElement(node);
         }
     };
 

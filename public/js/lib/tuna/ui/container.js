@@ -8,6 +8,10 @@
         this.__modulesTable = {};
     };
 
+    Container.prototype.getTarget = function() {
+        return this._target;
+    };
+
     Container.prototype.render = function(element) {
         this.clear();
 
@@ -18,25 +22,25 @@
         this._target.innerHTML = '';
     };
 
-    Container.prototype.addModule = function(names) {
+    Container.prototype.requireModule = function(names) {
         if (names instanceof Array) {
             var i = 0,
                 l = names.length;
 
             while (i < l) {
-                this.__addOneModule(names[i]);
+                this.__requireOneModule(names[i]);
                 i++;
             }
         } else {
-            this.__addOneModule.apply(this, arguments);
+            this.__requireOneModule.apply(this, arguments);
         }
     };
 
     Container.prototype.initModules = function(target) {
-        tuna.ui.modules.init(this, target || this._target, this.__modulesTable);
+        tuna.ui.modules.init(this, target, this.__modulesTable);
     };
 
-    Container.prototype.__addOneModule = function() {
+    Container.prototype.__requireOneModule = function() {
         var args = tuna.toArray(arguments);
         var name = args.shift();
 

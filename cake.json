@@ -1,0 +1,123 @@
+{
+    "dimensions": [
+        {
+            "_id": "",
+            "mass": 0.8,
+            "persons_count": 5,
+            "circle": {
+                "width": 21,
+                "height": 5
+            },
+            "square": {
+                "width": 20,
+                "height": 20
+            },
+            "ratio": 0.7
+        }
+    ],
+
+    "recipes": [
+        {
+            "_id": "",
+            "image_url": "/files/cake.jpg",
+            "is_visible": true,
+            "name": "Наполеон",
+            "description": "",
+            "prices": {
+                "1": 1500,
+                "0.8": 1000,
+                "1.5" :2250
+            }
+        }
+    ],
+
+    "orders": [
+        {
+            "_id": "",
+            "status": "",
+            "order_date": "",
+            "creation_date": "",
+            "price": 100.00,
+            "delivery_type": "common|pickup",
+
+            "customer": {
+                "uid": "",
+                "city": "",
+                "first_name": "",
+                "last_name": ""
+            },
+
+            "cake": {
+                "dimensions": {
+                    "mass": 1,
+                    "shape": "square|circle",
+                    "width": 21,
+                    "height": 5,
+                    "persons_count": 5,
+                    "ratio": 0.75
+                },
+                "recipe": {
+                    "id": "",
+                    "name": ""
+                },
+                "image_url": "",
+                "content": {
+                    "base_color": 3342336,
+                    "deco": [
+                        {
+                            "name": "",
+                            "picture_url": "",
+                            "transform": [
+                                [0.0, 0.0, 0.0],
+                                [0.0, 0.0, 0.0],
+                                [0.0, 0.0, 0.0]
+                            ]
+                        }
+                    ],
+                    "text": {
+                        "color": 16777215,
+                        "value": "Hello, world!",
+                        "size":42,
+                        "font":"Verdana",
+                        "transform": [
+                            [0.0, 0.0, 0.0],
+                            [0.0, 0.0, 0.0],
+                            [0.0, 0.0, 0.0]
+                        ]
+                    },
+                    "photo" : {
+                        "photo_url": "",
+                        "transform": [
+                            [0.0, 0.0, 0.0],
+                            [0.0, 0.0, 0.0],
+                            [0.0, 0.0, 0.0]
+                        ]
+                    }
+                }
+            },
+
+            "payment": {
+
+            },
+
+            "customer_comment": "",
+            "client_comment": ""
+        }
+    ],
+
+    "users": [
+        {
+            "_id": "",
+            "name": "",
+            "type": "client|admin",
+            "address": "",
+            "phone": "",
+            "email": "",
+            "manager": {
+                "name": "",
+                "phone": "",
+                "email": ""
+            }
+        }
+    ]
+}

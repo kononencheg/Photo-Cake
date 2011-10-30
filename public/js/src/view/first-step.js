@@ -1,77 +1,69 @@
 (function() {
 
-    // Return to OOP adn extend controllers
+    var FirstStepController = function(id) {
+        tuna.control.ViewController.call(this, id);
+    };
 
-    var controller = new tuna.control.ViewController('first_step');
+    tuna.extend(FirstStepController, tuna.control.ViewController);
 
-    var container = null;
-    var target = null;
-    var db = null;
+    FirstStepController.prototype._requireModules = function() {
+        this._container.requireModule('slider');
+    };
 
-    controller.subscribe('prepare', function(type, targetContainer) {
-        container = targetContainer;
-        db = container.getDB();
+    FirstStepController.prototype._initListeners = function() {
+        var self = this;
 
-        container.addModule('slider');
-    });
-
-    controller.subscribe('init', function(type, element) {
-        target = element;
-
-        container.initModules();
-
-        initData();
-        initListeners();
-    });
-
-    controller.wait();
-
-    function initListeners() {
         tuna.dom.addChildEventListener(
-            target, '.j-horizontal-slider, .j-vertical-slider', 'ui-value-change',
+            this._target, '.j-horizontal-slider, .j-vertical-slider', 'ui-value-change',
             function(event) {
-                db.set('order.view.currentMass', event.data);
+                self._db.set('view.cake.current_mass', event.data);
 
-                syncCakeData();
+                self.__syncCakeData();
             }
         );
-    }
+    };
 
-    function initData() {
+    FirstStepController.prototype._initData = function() {
+        var self = this;
+
         var dimensionsRequest = new tuna.net.Request(DIMENSIONS_URL);
         dimensionsRequest.subscribe('complete', function(type, response) {
-            try {
-                handleDimensions(JSON.parse(response));
-            } catch (error) {
-                console.error(error);
-            }
+            var dimensions = JSON.parse(response);
+
+            self._db.set('dimensions', dimensions);
+
+            self._db.set('view.cake.masses_count', dimensions.length);
+            self._db.set('view.cake.current_mass', 0);
+
+            self.__syncCakeData();
         });
 
         dimensionsRequest.send();
-    }
+    };
 
-    function handleDimensions(dimensions) {
-        db.set('dimensions', dimensions);
+    FirstStepController.prototype.__syncCakeData = function() {
+        var currentMass = this._db.get('view.cake.current_mass');
+        var dimensions = this._db.get('dimensions.' + currentMass);
 
-        db.set('order.view.massesCount', dimensions.length);
-        db.set('order.view.currentMass', 2);
+        this._db.set('order.cake.dimensions', {
+            "shape":  "circle",
+            "mass":   dimensions.mass,
+            "ratio":  dimensions.ratio,
+            "width":  dimensions.circle.width,
+            "height": dimensions.circle.height,
+            "persons_count": dimensions.persons_count
+        });
 
-        syncCakeData();
-    }
+        this._db.set('view.cake.dimensions', {
+            "mass":   dimensions.mass + '00 кг.',
+            "width":  dimensions.circle.width + ' см.',
+            "height": dimensions.circle.height + ' см.',
+            "persons_count": dimensions.persons_count
+        });
 
-    function syncCakeData() {
-        var currentMass = db.get('order.view.currentMass');
-        var dimension = db.get('dimensions.' + currentMass);
-        var cake = db.get('order.cake') || {};
+        this._db.notify('view');
+    };
 
-        cake.width = dimension.circleWidth;
-        cake.height = dimension.circleHeight;
-        cake.personsCount = dimension.personsCount;
-        cake.mass = dimension.mass;
-
-        db.set('order.cake', cake);
-        db.notify('order.cake');
-    }
-
+    tuna.control.ViewController.registerController(new FirstStepController('first_step'));
 
 })();

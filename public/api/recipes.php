@@ -1,16 +1,10 @@
 <?php
 
-class Responce {
-    public function render() {
-
-    }
-}
-
 $mongo = new Mongo();
-$db = $mongo->selectDB('tortdb');
+$db = $mongo->cakes;
 
-$cursor = $db->selectCollection('recipes')->find(array(
-    'isVisible' => true
+$cursor = $db->recipes->find(array(
+    'is_visible' => true
 ));
 
 $result = array();

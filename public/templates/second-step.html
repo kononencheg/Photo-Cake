@@ -1,0 +1,85 @@
+<div class="page-header">
+    <h1>Шаг 2. Выбираем начинку</h1>
+</div>
+
+<div class="row">
+    <div class="span8">
+        <ul class="t-recipes-list media-grid">
+            
+        </ul>
+    </div>
+    <div class="span6">
+        <p><h2>Вес торта: <small class="t-cake-mass">1.5 кг.</small></h2></p>
+
+        <p class="align-center"><img src="/img/cake-second.png" alt="Тортик" /></p>
+
+        <p>Текст описания начинок. Довольно длинный, но не так чтобы очень.
+           Главное чтобы он хорошо описывал начинки и оправдывал место
+           выделенное под него.</p>
+
+        <p><h2>Цена: <small class="t-cake-price">0 рублей.</small></h2></p>
+
+        <p>
+            <a class="j-selection-next btn primary large">
+                Дальше &raquo;
+            </a>
+        </p>
+
+        <p>Текст описания следубщего шага.</p>
+    </div>
+</div>
+
+<div id="description_popup" class="popup">
+    <div class="overlay"></div>
+    <div class="modal">
+        <div class="modal-header">
+            <a href="#" class="j-popup-close close">×</a>
+            <h3 class="t-popup-recipe-name"></h3>
+        </div>
+        <div class="modal-body">
+            <p class="t-popup-recipe-desc"></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="j-popup-close btn primary">Закрыть</a>
+        </div>
+    </div>
+</div>
+
+<div class="hidden" xmlns:tuna="http://localhost/tuna">
+
+    <tuna:template id="second_step_template">
+        <tuna:spot tuna:class="t-cake-mass"  tuna:path="cake/dimensions/mass" />
+        <tuna:spot tuna:class="t-cake-price" tuna:path="price" />
+
+        <tuna:spot tuna:class="t-popup-recipe-name" tuna:path="popup_recipe/name" />
+        <tuna:spot tuna:class="t-popup-recipe-desc" tuna:path="popup_recipe/description" />
+
+        <tuna:list tuna:class="t-recipes-list" tuna:path="recipes"
+                   tuna:item-renderer-id="recipe_renderer"
+                   tuna:item-template-id="recipe_template"
+                   tuna:key-path="_id/$id" />
+    </tuna:template>
+
+    <tuna:template id="recipe_template">
+        <tuna:attr tuna:class="t-recipe-img" tuna:path="image_url" tuna:name="src"/>
+        <tuna:attr tuna:class="t-recipe-img" tuna:path="name" tuna:name="alt"/>
+        <tuna:attr tuna:class="t-recipe-id" tuna:path="_id/$id" tuna:name="data-value" />
+
+        <tuna:spot tuna:class="t-recipe-name" tuna:path="name" />
+
+    </tuna:template>
+
+    <ul>
+        <li id="recipe_renderer">
+            <a>
+                <img class="t-recipe-img t-recipe-id j-popup" src="" alt="" width="90" height="90"
+                     data-popup-selector="#description_popup"/>
+
+                <label>
+                    <input class="t-recipe-id" type="radio" name="recipe_id" />
+                    <span class="t-recipe-name"></span>
+                </label>
+            </a>
+        </li>
+    </ul>
+</div>
