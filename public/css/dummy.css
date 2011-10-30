@@ -16,6 +16,14 @@ h2 {
     font-weight: normal;
 }
 
+a {
+    border: none;
+}
+
+img {
+    border: none;
+}
+
 .hidden {
     display: none;
 }
@@ -154,26 +162,24 @@ p {
 }
 
 .popup-content {
-    zoom:1;
-
-    //display:inline;
     display:-moz-inline-box;
     display:inline-block;
     vertical-align:middle;
+    zoom:1;
+    //display:inline
 
     text-align: left;
 }
 
 
 .align-helper {
-    zoom:1;
-
-    //display:inline;
     display:-moz-inline-box;
     display:inline-block;
+    height:100%;
+    width:0px;
     vertical-align:middle;
-
-    height: 100%;
+    zoom:1;
+    //display:inline
 }
 
 
