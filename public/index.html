@@ -100,11 +100,11 @@
                             </div>
 
                             <div>
-                                <a href="javascript: open('/scripts/auth-popup.php?auth_target=vk&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
+                                <a href="#" onclick="open('/scripts/auth-popup.php?auth_target=vk&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0'); return false;">
                                     <img src="img/vk-logo.png" alt="ВКонтакте" />
                                 </a>
 
-                                <a href="javascript: open('/scripts/auth-popup.php?auth_target=ok&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0');">
+                                <a href="#" onclick="open('/scripts/auth-popup.php?auth_target=ok&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0'); return false;">
                                     <img src="img/ok-logo.png" alt="Одноклассники" />
                                 </a>
                             </div>
@@ -135,7 +135,10 @@
 
             function onFlashReady() {
                 cakeDesigner = swfobject.getObjectById('cake_designer');
-                cakeDesigner.initialize('round', 0.75);
+
+                setTimeout(function() {
+                    cakeDesigner.initialize('round', 0.75);
+                }, 500);
             }
 
             function saveCakeData(junk, imageData) {
