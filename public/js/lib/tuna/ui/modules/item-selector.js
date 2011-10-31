@@ -12,6 +12,8 @@
         var selector = new tuna.ui.ItemSelector(target, '.j-selection-item');
         selector.setNavigationButtonSelectors('.j-selection-next', '.j-selection-prev');
         selector.init();
+
+        return selector;
     };
 
     tuna.ui.modules.register(new ItemSelector());

@@ -13,6 +13,7 @@
     </div>
 </div>
 
+
 <div id="item_selection_popup" class="j-template-container popup"
      data-template-id="item_selection_template"
      data-db-path="view.selection_popup"
@@ -26,8 +27,11 @@
             <h3>Готовые шаблоны</h3>
         </div>
         <div class="modal-body">
-            <ul class="t-item-list media-grid"></ul>
-            <img class="t-selected-item" src="" alt="" />
+            <ul class="t-item-list j-item-selector media-grid"></ul>
+
+            <div class="j-current-item hidden">
+                <img class="t-selected-item" src="" alt="" />
+            </div>
         </div>
         <div class="modal-footer">
             <a href="#" class="j-popup-close btn">Закрыть</a>
@@ -39,7 +43,7 @@
 
 <div class="hidden" xmlns:tuna="http://localhost/tuna">
     <ul>
-        <li id="selection_item_renderer">
+        <li id="selection_item_renderer" class="j-selection-item">
             <a>
                 <img src="http://placehold.it/106x106" alt=""/>
             </a>

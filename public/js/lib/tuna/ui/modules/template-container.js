@@ -72,6 +72,8 @@
             }
 
         }
+
+        return container;
     };
 
     tuna.ui.modules.register(new TemplateContainer());

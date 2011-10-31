@@ -21,8 +21,14 @@
         var i = 0,
             l = targets.length;
 
+        var target = null;
+        var instance = null;
         while (i < l) {
-            this._initItem(targets[i], container, options);
+            target = targets[i];
+            instance = this._initItem(target, container, options);
+
+            tuna.dom.dispatchEvent(target, 'ui-' + this._name + '-init', instance);
+
             i++;
         }
     };

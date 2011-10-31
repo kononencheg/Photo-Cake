@@ -15,6 +15,8 @@
                 wmode: 'opaque'
             }
         );
+
+        return target.id;
     };
 
     tuna.ui.modules.register(new SWF());

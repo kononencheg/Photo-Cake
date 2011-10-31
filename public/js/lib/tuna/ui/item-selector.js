@@ -19,6 +19,7 @@
 
 	ItemSelector.prototype.init = function() {
         this.__initListeners();
+
         this.update();
 	};
 	
@@ -51,7 +52,9 @@
 				index = 0;
 			}
 
-			this.__deselectAt(this.__currentIndex);
+            if (this.__currentIndex !== -1) {
+                this.__deselectAt(this.__currentIndex);
+            }
 
 			this.__currentIndex = index;
 
@@ -94,13 +97,22 @@
 			i++;
 		}
 
-        if (this.__currentIndex === -1) {
+        if (this.__currentIndex === -1 && l > 0) {
             this.setCurrentIndex(0);
         }
     };
 
-	ItemSelector.prototype.__initListeners = function() {
+    ItemSelector.prototype.__initListeners = function() {
 		var self = this;
+
+        tuna.dom.addChildEventListener(
+            this.__target, this.__itemSelector, 'click',
+            function(event) {
+                tuna.dom.stopPropogation(event);
+
+                self.setCurrentIndex(Number(this.getAttribute('data-index')));
+            }
+        );
 
         if (this.__nextButtonSelector) {
             tuna.dom.addChildEventListener(
@@ -126,17 +138,8 @@
             );
         }
 
-        /*tuna.dom.addChildEventListener(
-            this.__target, this.__itemSelector, 'click',
-            function(event) {
-                tuna.dom.preventDefault(event);
-
-                self.setCurrentIndex(Number(this.getAttribute('data-index')));
-            }
-        );*/
-
         this.subscribe('select', function() {
-            tuna.dom.dispatchEvent(self.getCurrentItem(), 'ui-select');
+            tuna.dom.dispatchEvent(self.getCurrentItem(), 'ui-select', self);
         });
 	};
 

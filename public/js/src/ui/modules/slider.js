@@ -27,6 +27,8 @@
             $this.slider('option', 'max', $this.attr('data-count') - 1);
             $this.slider('value', $this.attr('data-value'));
         });
+
+        return $this;
     };
 
     tuna.ui.modules.register(new Slider());

@@ -10,9 +10,9 @@
 
     var IElementHandler = function() {};
 
-    IElementHandler.prototype.handleCreatedElement = function(element) {};
+    IElementHandler.prototype.handleCreatedElements = function(elements) {};
  
-    IElementHandler.prototype.handleRemovedElement = function(element) {};
+    IElementHandler.prototype.handleRemovedElements = function(elements) {};
 
     tuna.tmpl.IElementHandler = IElementHandler;
 })();

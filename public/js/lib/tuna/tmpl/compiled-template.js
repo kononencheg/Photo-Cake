@@ -43,15 +43,23 @@
         this.__childHadler = childHandler;
     };
 
-    CompiledTemplate.prototype.handleCreatedChild = function(node) {
-        if (this.__childHadler !== null) {
-            this.__childHadler.handleCreatedElement(node);
+    CompiledTemplate.prototype.handleCreatedChildren = function(nodes) {
+        if (this.__childHadler !== null && nodes.length > 0) {
+            var self = this;
+            
+            setTimeout(function() {
+                self.__childHadler.handleCreatedElements(nodes);
+            }, 0);
         }
     };
 
-    CompiledTemplate.prototype.handleRemovedChild = function(node) {
-        if (this.__childHadler !== null) {
-            this.__childHadler.handleRemovedElement(node);
+    CompiledTemplate.prototype.handleRemovedChildren = function(nodes) {
+        if (this.__childHadler !== null && nodes.length > 0) {
+            var self = this;
+
+            setTimeout(function() {
+                self.__childHadler.handleRemovedElements(nodes);
+            }, 0);
         }
     };
 
@@ -89,7 +97,7 @@
 
         this.__target.parentNode.removeChild(this.__target);
 
-        this.getRootTemplate().handleRemovedChild(this.__target);
+        this.getRootTemplate().handleRemovedChildren([this.__target]);
     };
 
     tuna.tmpl.__CompiledTemplate = CompiledTemplate;

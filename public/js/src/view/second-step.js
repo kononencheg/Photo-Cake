@@ -7,7 +7,7 @@
     tuna.extend(SecondStepController, tuna.control.ViewController);
 
     SecondStepController.prototype._requireModules = function() {
-        this._container.requireModule('popup', 3, this);
+        this._container.requireModule('popup');
     };
 
     SecondStepController.prototype._initListeners = function() {
@@ -66,11 +66,13 @@
         request.send();
     };
 
-    SecondStepController.prototype.handleCreatedElement = function(element) {
-        this._container.initModules(element);
+    SecondStepController.prototype.handleCreatedElements = function(elements) {
+        for (var key in elements) {
+            this._container.initModules(elements[key]);
+        }
     };
 
-    SecondStepController.prototype.handleRemovedElement = function(element) {};
+    SecondStepController.prototype.handleRemovedElements = function(elements) {};
 
     SecondStepController.prototype.__selectRecipeWithID = function(id) {
         var recipes = this._db.get('recipes');

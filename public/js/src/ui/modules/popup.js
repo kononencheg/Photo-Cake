@@ -14,6 +14,8 @@
             
             popup.open();
         });
+
+        return popup;
     };
 
     tuna.ui.modules.register(new Popup());
