@@ -5,6 +5,7 @@
         tuna.utils.Notifier.call(this);
         
         this.__target = target;
+        this.__isOpen = false;
 
         var self = this;
         tuna.dom.addChildEventListener(
@@ -35,31 +36,68 @@
         });
 
         this.subscribe('popup-apply', function(type, data) {
-            debugger;
             tuna.dom.dispatchEvent(self.__target, 'ui-popup-apply', data);
         });
     };
 
     tuna.extend(Popup, tuna.utils.Notifier);
 
+    Popup.prototype.isOpen = function() {
+        return this.__isOpen;
+    };
+
     Popup.prototype.open = function() {
-        $(this.__target).show();
+        this.__show();
         this.notify('popup-open');
     };
 
     Popup.prototype.close = function() {
-        $(this.__target).hide();
+        this.__hide();
         this.notify('popup-close');
     };
 
     Popup.prototype.apply = function() {
-        $(this.__target).hide();
+        this.__hide();
+
         this.notify('popup-apply', this.__collectData());
     };
 
+    Popup.prototype.__hide = function() {
+        this.__isOpen = false;
+        $(this.__target).hide();
+    };
+
+    Popup.prototype.__show = function() {
+        this.__isOpen = true;
+        $(this.__target).show();;
+    };
+
     Popup.prototype.__collectData = function() {
+        var result = {};
+
         var $form = $(this.__target).find('form.j-popup-form');
-        return $form.serializeArray();
+        var array = $form.serializeArray();
+
+        var i = 0,
+            l = array.length;
+
+        var name = null;
+        while (i < l) {
+            name = array[i].name;
+
+            if (result[name] !== undefined) {
+                if (!(result[name] instanceof Array)) {
+                    result[name] = [result[name]];
+                }
+                result[name].push(array[i].value);
+            } else {
+                result[name] = array[i].value;
+            }
+
+            i++
+        }
+
+        return result;
     };
 
     Popup.create = function(target) {

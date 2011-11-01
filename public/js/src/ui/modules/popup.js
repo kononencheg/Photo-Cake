@@ -11,7 +11,6 @@
 
         tuna.dom.addEventListener(target, 'click', function(event) {
             tuna.dom.preventDefault(event);
-            
             popup.open();
         });
 

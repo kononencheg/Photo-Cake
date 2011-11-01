@@ -50,7 +50,7 @@
     };
 
     DataDispatcher.prototype.get = function(path) {
-        var result = null;
+        var result = undefined;
 
         if(path instanceof Array) {
             var scope = this;

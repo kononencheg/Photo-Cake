@@ -7,6 +7,7 @@
     tuna.extend(SecondStepController, tuna.control.ViewController);
 
     SecondStepController.prototype._requireModules = function() {
+        // TODO: Разобраться с инициализацией спрятанных итем рентдереров
         this._container.requireModule('popup');
     };
 
@@ -66,14 +67,11 @@
         request.send();
     };
 
-    SecondStepController.prototype.handleCreatedElements = function(elements) {
-        for (var key in elements) {
-            this._container.initModules(elements[key]);
+    SecondStepController.prototype.handleTransformComplete = function(target, created, removed) {
+        for (var key in created) {
+            this._container.initModules(created[key]);
         }
     };
-
-    SecondStepController.prototype.handleRemovedElements = function(elements) {};
-
     SecondStepController.prototype.__selectRecipeWithID = function(id) {
         var recipes = this._db.get('recipes');
 

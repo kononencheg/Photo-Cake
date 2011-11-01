@@ -62,11 +62,15 @@
 
 			this.notify('select');
 		}
-	};
+    };
 
-	ItemSelector.prototype.getCurrentItem = function() {
-		return this.__items[this.__currentIndex];
-	};
+    ItemSelector.prototype.getCurrentItem = function() {
+        return this.__items[this.__currentIndex];
+    };
+
+    ItemSelector.prototype.getCurrentIndex = function() {
+        return this.__currentIndex;
+    };
 
 	ItemSelector.prototype.__selectAt = function(i) {
         tuna.dom.addClass(this.__items[i], 'current');
@@ -96,10 +100,6 @@
 
 			i++;
 		}
-
-        if (this.__currentIndex === -1 && l > 0) {
-            this.setCurrentIndex(0);
-        }
     };
 
     ItemSelector.prototype.__initListeners = function() {

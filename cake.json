@@ -120,5 +120,10 @@
                 "email": ""
             }
         }
+    ],
+
+    "photo_gallery": [
+        { "image_url" : "http://cs11298.vkontakte.ru/u28117948/145350182/z_89899ad7.jpg" }
+
     ]
 }

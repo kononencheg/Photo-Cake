@@ -14,29 +14,79 @@
     };
 
     ThirdStepController.prototype._initListeners = function() {
-        this.__itemSelectionPopup = ui.Popup.create($('#item_selection_popup').get(0));
+        var self = this;
 
+        this.__itemSelectionPopup = ui.Popup.create($('#item_selection_popup').get(0));
+        this.__itemSelectionPopup.subscribe('popup-apply', function(type, data) {
+            self.__handlePopupData(data);
+            self.__clearPopupData();
+        });
+        this.__itemSelectionPopup.subscribe('popup-close', function() {
+            self.__clearPopupData();
+        });
     };
 
-    ThirdStepController.prototype._initData = function() {
+    ThirdStepController.prototype.__handlePopupData = function(data) {
+        switch (data.popup_type) {
+            case 'images': {
 
+                break;
+            }
+
+            case 'presets': {
+
+                break;
+            }
+        }
+    };
+
+    ThirdStepController.prototype.__clearPopupData = function() {
+        this._db.unset('view.selection_popup.items');
+        this._db.unset('view.selection_popup.type');
+        this._db.unset('view.selection_popup.current');
+
+        this._db.notify('view.selection_popup');
     };
 
     ThirdStepController.prototype.onFlashReady = function() {
         var cakeDesigner = swfobject.getObjectById('cake_designer');
         setTimeout(function() {
             cakeDesigner.initialize('round', 0.9);
-        }, 1000);
+        }, 0);
+    };
+
+    ThirdStepController.prototype.__loadPhotoGallery = function() {
+        var self = this;
+
+        var request = new tuna.net.Request(PHOTO_GALLERY_URL);
+        request.subscribe('complete', function(type, response) {
+            var data = JSON.parse(response);
+
+            self._db.set('photo_gallery', data);
+
+            if (self.__itemSelectionPopup.isOpen() &&
+                self._db.get('view.selection_popup.type') === 'images') {
+
+                self._db.set('view.selection_popup.items', data);
+                self._db.notify('view.selection_popup');
+            }
+        });
+
+        request.send();
     };
 
     ThirdStepController.prototype.openImageGallery = function() {
+        var photoGalley = this._db.get('photo_gallery');
+        if (photoGalley === undefined) {
+            this.__loadPhotoGallery();
+        } else {
+            this._db.set('view.selection_popup.items', photoGalley);
+            this._db.notify('view.selection_popup');
+        }
+
+        this._db.set('view.selection_popup.type', 'images');
+
         this.__itemSelectionPopup.open();
-
-        this._db.set('view.selection_popup.items', [
-            {}, {}, {}, {}, {}, {}, {}, {} //http://placehold.it/106x106
-        ]);
-
-        this._db.notify('view.selection_popup');
     };
 
     ThirdStepController.prototype.openCakePresets = function() {
