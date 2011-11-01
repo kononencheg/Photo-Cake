@@ -9,7 +9,7 @@
         this._db = null;
     };
 
-    tuna.implement(ViewController, tuna.tmpl.IElementHandler);
+    tuna.implement(ViewController, tuna.tmpl.ITransformHandler);
 
     ViewController.prototype.getTargetID = function() {
         return this.__targetID;

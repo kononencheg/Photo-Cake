@@ -34,7 +34,9 @@
          * @private
          * @type {Element}
          */
-        this.__targetElement = null;
+        this.__target = null
+
+        this.__transformHandler = null;
     };
 
     //tuna.implement(TemplateTransformer, tuna.view.ITransformer);
@@ -44,14 +46,21 @@
      *
      * @public
      * @param {*} data Data to transform.
-     * @return {Element|string} Transform result.
      */
     TemplateTransformer.prototype.applyTransform = function(data) {
-        var dataRoot = new tuna.tmpl.__DataNode(data);
+        if (this.__transformHandler !== null) {
+            this.__transformHandler.handleTransformStart(this.__target);
+        }
 
-        this.__core.applyData(dataRoot);
+        this.__core.applyData(new tuna.tmpl.__DataNode(data));
 
-        return this.__targetElement;
+        if (this.__transformHandler !== null) {
+            this.__transformHandler.handleTransformComplete(
+                this.__target,
+                this.__core.fetchCreatedChildren(),
+                this.__core.fetchRemovedChildren()
+            );
+        }
     };
 
     TemplateTransformer.prototype.setCore = function(compiledTemplate) {
@@ -60,14 +69,12 @@
 
 
     TemplateTransformer.prototype.setTargetElement = function(element) {
-        this.__targetElement = element;
+        this.__target = element;
     };
 
 
-    TemplateTransformer.prototype.setChildHandler = function(childHandler) {
-        if (this.__core) {
-            this.__core.setChildHandler(childHandler);
-        }
+    TemplateTransformer.prototype.setTransformHandler = function(handler) {
+        this.__transformHandler = handler;
     };
 
 

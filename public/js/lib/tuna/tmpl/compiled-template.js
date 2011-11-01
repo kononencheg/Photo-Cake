@@ -16,7 +16,8 @@
         this.__lists = [];
         this.__attrs = [];
 
-        this.__childHadler = null;
+        this.__createdChildren = [];
+        this.__removedChildren = [];
 
         this.__target = null;
     };
@@ -39,28 +40,20 @@
         this.__lists.push(list);
     };
 
-    CompiledTemplate.prototype.setChildHandler = function(childHandler) {
-        this.__childHadler = childHandler;
+    CompiledTemplate.prototype.addCreatedChild = function(child) {
+        this.__createdChildren.push(child);
     };
 
-    CompiledTemplate.prototype.handleCreatedChildren = function(nodes) {
-        if (this.__childHadler !== null && nodes.length > 0) {
-            var self = this;
-            
-            setTimeout(function() {
-                self.__childHadler.handleCreatedElements(nodes);
-            }, 0);
-        }
+    CompiledTemplate.prototype.fetchCreatedChildren = function() {
+        return this.__createdChildren.splice(0, this.__createdChildren.length);
     };
 
-    CompiledTemplate.prototype.handleRemovedChildren = function(nodes) {
-        if (this.__childHadler !== null && nodes.length > 0) {
-            var self = this;
+    CompiledTemplate.prototype.addRemovedChild = function(child) {
+        this.__removedChildren.push(child);
+    };
 
-            setTimeout(function() {
-                self.__childHadler.handleRemovedElements(nodes);
-            }, 0);
-        }
+    CompiledTemplate.prototype.fetchRemovedChildren = function() {
+        return this.__removedChildren.splice(0, this.__removedChildren.length);
     };
 
     CompiledTemplate.prototype.applyData = function(dataNode) {
@@ -97,7 +90,7 @@
 
         this.__target.parentNode.removeChild(this.__target);
 
-        this.getRootTemplate().handleRemovedChildren([this.__target]);
+        this.getRootTemplate().addRemovedChild(this.__target);
     };
 
     tuna.tmpl.__CompiledTemplate = CompiledTemplate;

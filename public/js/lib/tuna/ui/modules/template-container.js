@@ -32,7 +32,7 @@
             controller.setDB(container.getDB());
             controller.init();
 
-            transformer.setChildHandler(controller);
+            transformer.setTransformHandler(controller);
         }
     };
 

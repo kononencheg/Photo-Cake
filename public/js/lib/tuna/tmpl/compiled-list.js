@@ -60,16 +60,14 @@
             var sample = sampleNode.getValue();
 
             var oldItemsTable = this.__itemsTable;
-            var newChildren = [];
 
             this.__itemsTable = {};
             for (var index in sample) {
-                this.__updateItem(sampleNode.growChild(index), oldItemsTable, newChildren, index);
+                this.__updateItem
+                    (sampleNode.growChild(index), oldItemsTable, index);
             }
 
             this.__destroyItems(oldItemsTable);
-
-            this.getRootTemplate().handleCreatedChildren(newChildren);
         } else {
             this.__destroyItems(this.__itemsTable);
         }
@@ -80,7 +78,7 @@
     };
 
     CompiledList.prototype.__updateItem
-        = function(itemNode, oldItemsTable, newChildren, index) {
+        = function(itemNode, oldItemsTable, index) {
 
         var key = null;
 
@@ -92,7 +90,7 @@
         }
 
         if (oldItemsTable[key] === undefined) {
-            this.addCompiledItem(this.__makeNewItem(newChildren), key);
+            this.addCompiledItem(this.__makeNewItem(), key);
         } else {
             this.__itemsTable[key] = oldItemsTable[key];
             delete oldItemsTable[key];
@@ -109,14 +107,16 @@
         }
     };
 
-    CompiledList.prototype.__makeNewItem = function(newChildren) {
+    CompiledList.prototype.__makeNewItem = function() {
         var itemElement = this.__itemRenderer.cloneNode(true);
-        newChildren.push(itemElement);
 
+        var rootTemplate = this.getRootTemplate();
         var template = this.__compiler.compileTemplate
-            (this.__itemTemplate, itemElement, this.getRootTemplate());
+            (this.__itemTemplate, itemElement, rootTemplate);
 
         this.__listNodeRouter.append(itemElement);
+
+        rootTemplate.addCreatedChild(itemElement);
 
         return template;
     };

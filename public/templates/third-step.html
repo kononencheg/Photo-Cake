@@ -29,13 +29,14 @@
         <div class="modal-body">
             <ul class="t-item-list j-item-selector media-grid"></ul>
 
-            <div class="j-current-item hidden">
-                <img class="t-selected-item" src="" alt="" />
-            </div>
+            <form class="j-current-item j-popup-form hidden">
+                <img class="t-selected-image" src="" alt="" />
+                <input class="t-selected-id" type="hidden" name="selection_id" value=":::" />
+            </form>
         </div>
         <div class="modal-footer">
             <a href="#" class="j-popup-close btn">Закрыть</a>
-            <a href="#" class="j-popup-close btn primary">Выбрать</a>
+            <a href="#" class="j-popup-apply btn primary">Выбрать</a>
         </div>
     </div>
 </div>
@@ -45,7 +46,7 @@
     <ul>
         <li id="selection_item_renderer" class="j-selection-item">
             <a>
-                <img src="http://placehold.it/106x106" alt=""/>
+                <img class="t-item-image" src="" alt="Изображение" width="106" height="106"/>
             </a>
         </li>
     </ul>
@@ -56,7 +57,8 @@
     </tuna:template>
 
     <tuna:template id="item_selection_template">
-        <tuna:attr tuna:class="t-selected-item" tuna:path="current/image_url" tuna:name="src"/>
+        <tuna:attr tuna:class="t-selected-image" tuna:path="current/image_url" tuna:name="src"/>
+        <tuna:attr tuna:class="t-selected-id" tuna:path="current/_id/$id" tuna:name="value"/>
 
         <tuna:list tuna:class="t-item-list" tuna:path="items"
                    tuna:item-renderer-id="selection_item_renderer"
