@@ -1,7 +1,5 @@
 (function() {
 
-    // TODO: Rename into ViewStack
-
     var ItemSelector = function() {
         tuna.ui.modules.Module.call(this, 'item-selector', '.j-item-selector');
     };

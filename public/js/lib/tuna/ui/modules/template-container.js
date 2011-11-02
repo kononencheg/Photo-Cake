@@ -20,10 +20,14 @@
     };
 
     TemplateContainer.prototype.__initContainer = function(container, template) {
-        var transformer = this.__templateCompiler.makeTransformer
-                                    (template, container.getTarget());
+        var transformer = null;
+        if (template !== null) {
+            transformer = this.__templateCompiler.makeTransformer
+                                        (template, container.getTarget());
 
-        container.setTransformer(transformer);
+            container.setTransformer(transformer);
+        }
+
 
         var controller = tuna.control.ViewController.getController
                                                 (container.getTarget());
@@ -32,7 +36,9 @@
             controller.setDB(container.getDB());
             controller.init();
 
-            transformer.setTransformHandler(controller);
+            if (transformer !== null) {
+                transformer.setTransformHandler(controller);
+            }
         }
     };
 

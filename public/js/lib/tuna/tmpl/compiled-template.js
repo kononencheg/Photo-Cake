@@ -73,7 +73,6 @@
 
         i = this.__lists.length - 1;
         while (i >= 0) {
-            // TODO: collect new and deleted list items recursively
             this.__lists[i].applyData(dataNode);
 
             i--;

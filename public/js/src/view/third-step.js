@@ -29,6 +29,9 @@
     ThirdStepController.prototype.__handlePopupData = function(data) {
         switch (data.popup_type) {
             case 'images': {
+                var photo = this.__getPhotoWithID(data.selection_id);
+
+                
 
                 break;
             }
@@ -46,6 +49,16 @@
         this._db.unset('view.selection_popup.current');
 
         this._db.notify('view.selection_popup');
+    };
+
+    ThirdStepController.prototype.__getPhotoWithID = function(id) {
+        var photoGallery = this._db.get('photo_gallery');
+
+        for (var i in photoGallery) {
+            if (photoGallery[i]._id.$id === id) {
+                return photoGallery[i];
+            }
+        }
     };
 
     ThirdStepController.prototype.onFlashReady = function() {
@@ -85,7 +98,7 @@
         }
 
         this._db.set('view.selection_popup.type', 'images');
-
+        
         this.__itemSelectionPopup.open();
     };
 
@@ -101,7 +114,6 @@
     onFlashReady = tuna.bind(controller.onFlashReady, controller);
     openImageGallery = tuna.bind(controller.openImageGallery, controller);
     openCakePresets = tuna.bind(controller.openCakePresets, controller);
-
 
     tuna.control.ViewController.registerController(controller);
 })();

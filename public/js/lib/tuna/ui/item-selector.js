@@ -7,7 +7,7 @@
 		this.__currentIndex = -1;
 
 		this.__itemSelector = itemSelector;
-		this.__target = targetElement;
+		this._target = targetElement;
 
 		this.__items = [];
 
@@ -24,7 +24,7 @@
 	};
 	
 	ItemSelector.prototype.update = function() {
-		this.__items = Sizzle(this.__itemSelector, this.__target);
+		this.__items = Sizzle(this.__itemSelector, this._target);
 
 		this.__syncCurrentIndex();
 
@@ -53,12 +53,12 @@
 			}
 
             if (this.__currentIndex !== -1) {
-                this.__deselectAt(this.__currentIndex);
+                this._deselectAt(this.__currentIndex);
             }
 
 			this.__currentIndex = index;
 
-			this.__selectAt(this.__currentIndex);
+			this._selectAt(this.__currentIndex);
 
 			this.notify('select');
 		}
@@ -72,14 +72,13 @@
         return this.__currentIndex;
     };
 
-	ItemSelector.prototype.__selectAt = function(i) {
+	ItemSelector.prototype._selectAt = function(i) {
         tuna.dom.addClass(this.__items[i], 'current');
 	};
 
-	ItemSelector.prototype.__deselectAt = function(i) {
+	ItemSelector.prototype._deselectAt = function(i) {
         tuna.dom.removeClass(this.__items[i], 'current');
 	};
-
 
 	ItemSelector.prototype.__syncCurrentIndex = function() {
         this.__currentIndex = -1;
@@ -106,7 +105,7 @@
 		var self = this;
 
         tuna.dom.addChildEventListener(
-            this.__target, this.__itemSelector, 'click',
+            this._target, this.__itemSelector, 'click',
             function(event) {
                 tuna.dom.stopPropogation(event);
 
@@ -116,7 +115,7 @@
 
         if (this.__nextButtonSelector) {
             tuna.dom.addChildEventListener(
-                this.__target, this.__nextButtonSelector, 'click',
+                this._target, this.__nextButtonSelector, 'click',
                 function(event) {
                     tuna.dom.preventDefault(event);
                     tuna.dom.stopPropogation(event);
@@ -128,7 +127,7 @@
 
         if (this.__prevButtonSelector) {
             tuna.dom.addChildEventListener(
-                this.__target, this.__prevButtonSelector, 'click',
+                this._target, this.__prevButtonSelector, 'click',
                 function(event) {
                     tuna.dom.preventDefault(event);
                     tuna.dom.stopPropogation(event);

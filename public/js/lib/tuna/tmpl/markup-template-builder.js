@@ -28,18 +28,16 @@
      * @param {Element} markupNode Element with markup inside.
      */
     MarkupTemplateBuilder.prototype.buildTemplate = function(templateID) {
+        var template = null;
 
         var templateNode = this.__doc.getElementById(templateID);
-        if (templateNode === null) {
-            console.error('Cannot find template node with id "' + templateID + '"')
+        if (templateNode !== null) {
+            this.__templatesTable[templateID] = template = new tuna.tmpl.Template();
+
+            this.__extractSpots(templateNode.getElementsByTagName('tuna:spot'), template);
+            this.__extractAttributes(templateNode.getElementsByTagName('tuna:attr'), template);
+            this.__extractLists(templateNode.getElementsByTagName('tuna:list'), template);
         }
-
-        var template = this.__templatesTable[templateID]
-                        = new tuna.tmpl.Template();
-
-        this.__extractSpots(templateNode.getElementsByTagName('tuna:spot'), template);
-        this.__extractAttributes(templateNode.getElementsByTagName('tuna:attr'), template);
-        this.__extractLists(templateNode.getElementsByTagName('tuna:list'), template);
 
         return template;
     };

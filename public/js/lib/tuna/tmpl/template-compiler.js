@@ -26,8 +26,6 @@
     /**
      * Compiling template with target DOM element.
      *
-     * TODO: Extract list and templates nodes to prevent class names collisions
-     *
      * @param {tuna.tmpl.Template} template Template to compile.
      * @param {Element} element Target DOM element.
      * @return {tuna.tmpl.TemplateTransformer} New template transformer.

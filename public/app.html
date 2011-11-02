@@ -13,8 +13,14 @@
     <body>
 
         <div class="j-item-selector container">
-            <div id="first_step"
+            <div id="title_step"
                  class="j-selection-item j-template-container step current"
+                 data-template-id="title_template"
+                 data-template-url="/templates/title.html"
+                 data-db-path="view"></div>
+
+            <div id="first_step"
+                 class="j-selection-item j-template-container step"
                  data-template-id="first_step_template"
                  data-template-url="/templates/first-step.html"
                  data-db-path="view"></div>
@@ -29,9 +35,7 @@
 
             <div id="third_step"
                  class="j-selection-item j-template-container step"
-                 data-template-id="third_step_template"
                  data-template-url="/templates/third-step.html"
-                 data-db-path="view"
                  data-init-on="ui-select"></div>
         </div>
 
@@ -88,11 +92,14 @@
         <script src="/js/lib/swfobject.js"></script>
 
         <script src="/js/src/ui/popup.js"></script>
+        <script src="/js/src/ui/carousel.js"></script>
 
         <script src="/js/src/ui/modules/swf.js"></script>
         <script src="/js/src/ui/modules/popup.js"></script>
         <script src="/js/src/ui/modules/slider.js"></script>
+        <script src="/js/src/ui/modules/carousel.js"></script>
 
+        <script src="/js/src/view/title.js"></script>
         <script src="/js/src/view/first-step.js"></script>
         <script src="/js/src/view/second-step.js"></script>
         <script src="/js/src/view/third-step.js"></script>
