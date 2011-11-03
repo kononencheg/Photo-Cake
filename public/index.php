@@ -58,16 +58,17 @@ $request = new Request();
             function handleImage(data) {
                 $('cake_image').src = data.cake;
 
-                initCakeShare(data._id.$id);
+                initCakeShare(data._id.$id, data.cake);
 
                 hide('login_dialog');
                 show('cake_dialog');
             }
 
-            function initCakeShare(id) {
+            function initCakeShare(id, image) {
                 var YaShareInstance = new Ya.share({
                     element: 'cake_share',
                     link: 'http://<?php echo $_SERVER['HTTP_HOST'] ?>?i=' + id,
+                    image: image,
                     elementStyle: {
                         type: 'none'
                     }
