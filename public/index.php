@@ -57,6 +57,7 @@ $request = new Request();
 
             function handleImage(data) {
                 $('cake_image').src = data.cake;
+                $('cake_link').href = data.cake;
 
                 initCakeShare(data._id.$id, data.cake);
 
@@ -186,7 +187,11 @@ $request = new Request();
 
                         <img id="cake_image" alt="Ваш тортик" src="" />
 
-                        Поделиться: <div id="cake_share"></div>
+                        <a href="#" onclick="hide('popup'); return false;">Вернуться</a>,
+                        <a id="cake_link" href="#" target="_blank">Сохранить</a> или <br />
+                        Поделиться: <span id="cake_share"></span>
+
+
                     </div>
 
                 </div>
