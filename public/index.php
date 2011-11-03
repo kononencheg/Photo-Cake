@@ -6,6 +6,69 @@
         <meta charset="utf-8" />
 
         <link href="/css/dummy.css"  media="screen" rel="stylesheet" type="text/css" />
+        <script src="/js/lib/swfobject.js" charset="utf-8"></script>
+
+        <script>
+            swfobject.registerObject('cake_designer', '9.0.0');
+
+            var cakeDesigner = null;
+            var isLoggedIn = false;
+
+            function onFlashReady() {
+                cakeDesigner = swfobject.getObjectById('cake_designer');
+
+                setTimeout(function() {
+                    cakeDesigner.initialize('round', 0.75);
+                }, 500);
+            }
+
+            function saveCakeData(junk, imageData) {
+                $('image_hidden').value = imageData;
+                if (isLoggedIn) {
+                    $('image_form').submit();
+                }
+
+                show('popup');
+            }
+
+            function handleAuth(isSuccess) {
+                isLoggedIn = isSuccess;
+                if (isLoggedIn) {
+                    $('image_form').submit();
+                } else {
+                    alert('Извините, авторизация не удалась! Попробуйте использовать другою социальнцю сеть!');
+                }
+            }
+
+            function handleEmail() {
+                hide('email_form');
+            }
+
+            function handleEmailError() {
+                alert('Извините, ваш e-mail не действителен!');
+            }
+
+            function handleImage(src) {
+                $('cake_image').src = src;
+
+                hide('login_dialog');
+                show('cake_dialog');
+            }
+
+
+            function $(id) {
+                return document.getElementById(id);
+            }
+
+            function show(id) {
+                $(id).style.display = 'block';
+            }
+
+            function hide(id) {
+                $(id).style.display = 'none';
+            }
+
+        </script>
     </head>
     <body>
         <div class="layout">
@@ -118,68 +181,5 @@
         </div>
 
         <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
-        <script src="/js/lib/swfobject.js" charset="utf-8"></script>
-
-        <script>
-            swfobject.registerObject('cake_designer', '9.0.0');
-
-            var cakeDesigner = null;
-            var isLoggedIn = false;
-
-            function onFlashReady() {
-                cakeDesigner = swfobject.getObjectById('cake_designer');
-
-                setTimeout(function() {
-                    cakeDesigner.initialize('round', 0.75);
-                }, 500);
-            }
-
-            function saveCakeData(junk, imageData) {
-                $('image_hidden').value = imageData;
-                if (isLoggedIn) {
-                    $('image_form').submit();
-                }
-
-                show('popup');
-            }
-
-            function handleAuth(isSuccess) {
-                isLoggedIn = isSuccess;
-                if (isLoggedIn) {
-                    $('image_form').submit();
-                } else {
-                    alert('Извините, авторизация не удалась! Попробуйте использовать другою социальнцю сеть!');
-                }
-            }
-
-            function handleEmail() {
-                hide('email_form');
-            }
-
-            function handleEmailError() {
-                alert('Извините, ваш e-mail не действителен!');
-            }
-
-            function handleImage(src) {
-                $('cake_image').src = src;
-
-                hide('login_dialog');
-                show('cake_dialog');
-            }
-
-
-            function $(id) {
-                return document.getElementById(id);
-            }
-
-            function show(id) {
-                $(id).style.display = 'block';
-            }
-
-            function hide(id) {
-                $(id).style.display = 'none';
-            }
-
-        </script>
     </body>
 </html>
