@@ -1,3 +1,12 @@
+<?php
+
+require_once('../lib/auth/session.php');
+require_once('../lib/net/request.php');
+
+$session = new Session();
+$request = new Request();
+
+?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -6,67 +15,69 @@
         <meta charset="utf-8" />
 
         <link href="/css/dummy.css"  media="screen" rel="stylesheet" type="text/css" />
+
         <script src="/js/lib/swfobject.js" charset="utf-8"></script>
 
         <script>
-            swfobject.registerObject('cake_designer', '9.0.0');
+            function $(id) { return document.getElementById(id); }
 
-            var cakeDesigner = null;
-            var isLoggedIn = false;
+            function show(id) { $(id).style.display = 'block'; }
+            function hide(id) { $(id).style.display = 'none'; }
+
+            function handleEmail() { hide('email_form'); }
+            function handleEmailError() { alert('Извините, ваш e-mail не действителен!'); }
 
             function onFlashReady() {
                 cakeDesigner = swfobject.getObjectById('cake_designer');
-
-                setTimeout(function() {
-                    cakeDesigner.initialize('round', 0.75);
-                }, 500);
+                cakeDesigner.initialize('round', 0.75);
             }
 
             function saveCakeData(junk, imageData) {
                 $('image_hidden').value = imageData;
-                if (isLoggedIn) {
+
+                if (authToken) {
                     $('image_form').submit();
+
+                    hide('login_dialog');
+                    show('cake_dialog');
                 }
 
                 show('popup');
             }
 
-            function handleAuth(isSuccess) {
-                isLoggedIn = isSuccess;
-                if (isLoggedIn) {
+            function handleAuth(token) {
+                authToken = token;
+
+                if (authToken) {
                     $('image_form').submit();
                 } else {
                     alert('Извините, авторизация не удалась! Попробуйте использовать другою социальнцю сеть!');
                 }
             }
 
-            function handleEmail() {
-                hide('email_form');
-            }
+            function handleImage(data) {
+                $('cake_image').src = data.cake;
 
-            function handleEmailError() {
-                alert('Извините, ваш e-mail не действителен!');
-            }
-
-            function handleImage(src) {
-                $('cake_image').src = src;
+                initCakeShare(data._id.$id);
 
                 hide('login_dialog');
                 show('cake_dialog');
             }
 
-
-            function $(id) {
-                return document.getElementById(id);
+            function initCakeShare(id) {
+                var YaShareInstance = new Ya.share({
+                    element: 'cake_share',
+                    link: 'http://<?php echo $_SERVER['HTTP_HOST'] ?>?i=' + id,
+                    elementStyle: {
+                        type: 'none'
+                    }
+                });
             }
 
-            function show(id) {
-                $(id).style.display = 'block';
-            }
+            swfobject.registerObject('cake_designer', '9.0.0');
 
-            function hide(id) {
-                $(id).style.display = 'none';
-            }
+            var cakeDesigner = null;
+            var authToken = '<?php if (isset($session->user)) echo $session->user->access_token; ?>';
 
         </script>
     </head>
@@ -141,44 +152,51 @@
                     </object>
                 </div>
             </div>
+        </div>
 
+        <form id="image_form" class="hidden" target="frame_transport"
+              action="/scripts/save-image.php" method="POST">
+            <input id="image_hidden" type="hidden" name="image_data" />
+        </form>
 
-            <form id="image_form" class="hidden" target="frame_transport"
-                  action="/scripts/save-image.php" method="POST">
-                <input id="image_hidden" type="hidden" name="image_data" />
-            </form>
+        <iframe id="frame_transport" name="frame_transport"
+                src="about: blank" width="0" height="0"></iframe>
 
-            <iframe id="frame_transport" name="frame_transport"
-                    src="about: blank" width="0" height="0"></iframe>
+        <div id="popup" class="hidden">
+            <div class="popup-overlay"></div>
+            <div class="popup" onclick=" if((event.target || event.srcElement) === this) hide('popup');">
+                <div class="popup-content">
 
-            <div id="popup" class="hidden">
-                <div class="popup-overlay"></div>
-                <div class="popup" onclick=" if((event.target || event.srcElement) === this) hide('popup');">
-                    <div class="popup-content">
-
-                        <div id="login_dialog" class="login-dialog">
-                            <div>
-                                Для того чтобы сохранить ваш тортик вам необходимо
-                                авторизоваться на сайте, используя:
-                            </div>
-
-                            <div>
-                            </div>
-
+                    <div id="login_dialog" class="login-dialog">
+                        <div>
+                            Для того чтобы сохранить ваш тортик вам необходимо
+                            авторизоваться на сайте, используя:
                         </div>
 
-                        <div id="cake_dialog" class="cake-dialog hidden">
-                            <h2>Ваш тортик!</h2>
-                            
-                            <img id="cake_image" alt="Ваш тортик" src="" />
+                        <div>
+                            <div id="uLogin"></div>
+                            <script src="http://ulogin.ru/js/widget.js?display=panel&fields=first_name,last_name,photo&providers=vkontakte,odnoklassniki,mailru,facebook&hidden=twitter,google,yandex,livejournal,openid&redirect_uri=http://<?php echo $_SERVER['HTTP_HOST'] ?>/scripts/auth-handler.php&callback=handleAuth"></script>
                         </div>
 
                     </div>
-                    <div class="align-helper"></div>
-                </div>
-            </div>
 
+                    <div id="cake_dialog" class="cake-dialog hidden">
+                        <h2>Ваш тортик!</h2>
+
+                        <img id="cake_image" alt="Ваш тортик" src="" />
+
+                        Поделиться: <div id="cake_share"></div>
+                    </div>
+
+                </div>
+                <div class="align-helper"></div>
+            </div>
         </div>
+
+        <?php if (isset($request->i)) { ?>
+            <?php require('scripts/user-cake.php'); ?>
+        <?php } ?>
+
 
         <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
     </body>

@@ -1,18 +1,27 @@
 <?php
-    session_start();
 
-    if (isset($_POST['image_data']) && isset($_SESSION['access_token'])) {
-        $imageData = base64_decode($_POST['image_data']);
-        $imageID = uniqid('cake_image_');
-        file_put_contents('../files/' . $imageID . '.jpg', $imageData);
+require_once('../../lib/auth/session.php');
+require_once('../../lib/net/request.php');
 
-        echo '<script>parent.handleImage("/files/' . $imageID . '.jpg");</script>';
+$request = new Request();
+$session = new Session();
 
-        $mongo = new Mongo();
-        $db = $mongo->tortdb;
-        $db->dummy_cakes->save(array(
-            'user' => $_SESSION['user'],
-            'cake' => '/files/' . $imageID . '.jpg'
-        ));
-    }
+if (isset($request->image_data) && isset($session->user)) {
+    $imageID = uniqid('cake_image_');
+    
+    file_put_contents
+        ('../files/' . $imageID . '.jpg', base64_decode($request->image_data));
+
+    $mongo = new Mongo();
+    $db = $mongo->cakes;
+
+    $image = array(
+        'user' => $session->user,
+        'cake' => '/files/' . $imageID . '.jpg'
+    );
+
+    $db->dummy_cakes->save($image);
+}
 ?>
+
+<script>parent.handleImage(<?php echo json_encode($image) ?>);</script>
