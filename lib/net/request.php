@@ -10,7 +10,7 @@ class Request {
     private $_source;
 
     public function __construct($type = -1) {
-        initSource($type);
+        $this->initSource($type);
     }
 
     private function initSource($type) {
@@ -37,6 +37,10 @@ class Request {
 
     public function __isset($name) {
         return isset($this->_source[$name]);
+    }
+
+    public function getSource() {
+        return $this->_source;
     }
 
     public function validate($name, $filter, $options) {

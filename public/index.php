@@ -100,13 +100,6 @@
                             </div>
 
                             <div>
-                                <a href="#" onclick="open('/scripts/auth-popup.php?auth_target=vk&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0'); return false;">
-                                    <img src="img/vk-logo.png" alt="ВКонтакте" />
-                                </a>
-
-                                <a href="#" onclick="open('/scripts/auth-popup.php?auth_target=ok&js_callback=handleAuth', 'auth_popup', 'status=1, height=300, width = 600, resizable = 0'); return false;">
-                                    <img src="img/ok-logo.png" alt="Одноклассники" />
-                                </a>
                             </div>
 
                         </div>

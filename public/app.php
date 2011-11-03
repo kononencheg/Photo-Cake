@@ -1,3 +1,16 @@
+<?php
+
+require_once('../lib/net/request.php');
+require_once('../lib/auth/session.php');
+
+$request = new Request(Request::GET);
+
+$session = new Session();
+$session->app = $request->getSource();
+
+var_dump($session->app);
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -120,6 +133,7 @@
             body.requireModule('template-container'); // модули
             body.requireModule('item-selector');
             body.initModules();
+
         </script>
     </body>
 </html>
