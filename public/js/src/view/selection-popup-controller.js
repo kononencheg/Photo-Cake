@@ -20,7 +20,7 @@
         this.__$currentItem = $(this._target).find('.j-current-item');
         this.__$itemList = $(this._target).find('.j-item-selector');
 
-        tuna.dom.addEventListener(this.__$itemList[0], 'ui-item-selector-init', function(event) {
+        tuna.dom.addOneEventListener(this.__$itemList[0], 'ui-item-selector-init', function(event) {
             self.__itemSelector = event.data;
         });
 

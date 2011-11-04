@@ -8,43 +8,47 @@
 
     tuna.namespace("tuna.tmpl");
 
-    var DataNode = function(value, parent) {
+    var DataNode = function(value, parent, key) {
         this.__value = value;
         this.__parent = parent;
+        this.__key = key;
 
         this.__children = {};
     };
 
-    DataNode.NULL_NODE = new DataNode();
+    DataNode.NULL_NODE = new DataNode(null, null, null);
 
     DataNode.prototype.getParent = function() {
         return this.__parent;
     };
 
+    DataNode.prototype.getKey = function() {
+        return this.__key;
+    };
+
     DataNode.prototype.getRoot = function() {
-        return this.__parent ? this.__parent.getRoot() : this;
+        return this.__parent !== null ? this.__parent.getRoot() : this;
+    };
+
+    DataNode.prototype.getValue = function() {
+        return this.__value;
     };
 
     DataNode.prototype.growChild = function(key) {
-        var result = this.__children[key];
+        var result = null;
 
-        if (result === undefined &&
-            this.__value !== undefined &&
-            this.__value !== null) {
-            
+        if (this.__children[key] !== undefined) {
+            result = this.__children[key];
+        } else if (this.__value !== null) {
             var keyValue = this.__value[key];
             if (keyValue !== undefined) {
-                result = this.__children[key] = new DataNode(keyValue, this);
+                result = this.__children[key] = new DataNode(keyValue, this, key);
             } else {
                 this.__children[key] = DataNode.NULL_NODE;
             }
         }
 
         return result;
-    };
-
-    DataNode.prototype.getValue = function() {
-        return this.__value;
     };
 
     tuna.tmpl.__DataNode = DataNode;

@@ -8,8 +8,6 @@ $request = new Request(Request::GET);
 $session = new Session();
 $session->app = $request->getSource();
 
-var_dump($session->app);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,14 +21,13 @@ var_dump($session->app);
         <script src="/js/lib/less.js" type="text/javascript"></script>
     </head>
         
-    <body>
-
-        <div class="j-item-selector container">
+    <body class="j-item-selector">
+        <div class="container">
             <div id="title_step"
                  class="j-selection-item j-template-container step current"
                  data-template-id="title_template"
                  data-template-url="/templates/title.html"
-                 data-db-path="view"></div>
+                 data-db-path=""></div>
 
             <div id="first_step"
                  class="j-selection-item j-template-container step"
@@ -112,17 +109,19 @@ var_dump($session->app);
         <script src="/js/src/ui/modules/slider.js"></script>
         <script src="/js/src/ui/modules/carousel.js"></script>
 
-        <script src="/js/src/view/title.js"></script>
-        <script src="/js/src/view/first-step.js"></script>
-        <script src="/js/src/view/second-step.js"></script>
-        <script src="/js/src/view/third-step.js"></script>
-        <script src="/js/src/view/selection-popup.js"></script>
+        <script src="/js/src/view/title-controller.js"></script>
+        <script src="/js/src/view/first-step-controller.js"></script>
+        <script src="/js/src/view/second-step-controller.js"></script>
+        <script src="/js/src/view/third-step-controller.js"></script>
+        <script src="/js/src/view/selection-popup-controller.js"></script>
 
         <!-- Инициализация -->
         <script>
-            var DIMENSIONS_URL = '/api/dimensions.php';
-            var RECIPES_URL = '/api/recipes.php';
+            var DIMENSIONS_URL    = '/api/dimensions.php';
+            var RECIPES_URL       = '/api/recipes.php';
             var PHOTO_GALLERY_URL = '/api/photo-gallery.php';
+            var USER_INFO_URL     = '/api/user-info.php';
+            var CITIES_URL        = '/api/cities.php';
 
             // Хранилище
             var db = new tuna.control.DataDispatcher();
@@ -132,6 +131,12 @@ var_dump($session->app);
             body.setDB(db); // Глобальное хранилище
             body.requireModule('template-container'); // модули
             body.requireModule('item-selector');
+
+            var stepSelector = null;
+            tuna.dom.addOneEventListener(document.body, 'ui-item-selector-init', function(event) {
+                stepSelector = event.data;
+            });
+
             body.initModules();
 
         </script>

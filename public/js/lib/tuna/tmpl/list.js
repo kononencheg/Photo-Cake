@@ -7,7 +7,7 @@
 
 (function() {
 
-	tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl");
 
     var List = function() {
         tuna.tmpl.Spot.call(this);

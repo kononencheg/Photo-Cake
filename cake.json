@@ -107,19 +107,7 @@
     ],
 
     "users": [
-        {
-            "_id": "",
-            "name": "",
-            "type": "client|admin",
-            "address": "",
-            "phone": "",
-            "email": "",
-            "manager": {
-                "name": "",
-                "phone": "",
-                "email": ""
-            }
-        }
+        { "name": "", "type": "client|admin", "city": "Москва" }
     ],
 
     "photo_gallery": [

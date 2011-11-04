@@ -39,7 +39,7 @@ tuna.IS_IE = !'\v1';
  * @return {Array} Converted array.
  */
 tuna.toArray = function(list) {
-	return Array.prototype.slice.call(list);
+    return Array.prototype.slice.call(list);
 };
 
 /**
@@ -60,11 +60,11 @@ tuna.toArray = function(list) {
  * @param {!Object} Interface Класс "интерфейс" для реализации.
  */
 tuna.implement = function(Class, Interface) {
-	for (var method in Interface.prototype) {
-		if (typeof Interface.prototype[method] === 'function') {
-			Class.prototype[method] = Interface.prototype[method];
-		}
-	}
+    for (var method in Interface.prototype) {
+        if (typeof Interface.prototype[method] === 'function') {
+            Class.prototype[method] = Interface.prototype[method];
+        }
+    }
 };
 
 /**
@@ -79,7 +79,7 @@ tuna.implement = function(Class, Interface) {
  * 
  * Пример использования:
  * <code>
- * 		Class._super.constructor.call(this, argument);
+ *         Class._super.constructor.call(this, argument);
  * </code>
  *
  * @public
@@ -88,12 +88,12 @@ tuna.implement = function(Class, Interface) {
  * @param {!Object} Parent Родительский класс.
  */
 tuna.extend = function(Class, Parent) {
-	var Link = function() {};
-	Link.prototype = Parent.prototype;
+    var Link = function() {};
+    Link.prototype = Parent.prototype;
 
-	Class.prototype = new Link();
-	Class.prototype.constructor = Class;
-	Class.prototype._super = Parent.prototype;
+    Class.prototype = new Link();
+    Class.prototype.constructor = Class;
+    Class.prototype._super = Parent.prototype;
 };
 
 /**
@@ -105,7 +105,7 @@ tuna.extend = function(Class, Parent) {
  * @param {!string} name Имя переменной в глобальной области видимости.
  */
 tuna.typedef = function(object, name) {
-	window[name] = object;
+    window[name] = object;
 };
 
 /**
@@ -118,20 +118,20 @@ tuna.typedef = function(object, name) {
  */
 tuna.namespace = function(path) {
 
-	var pathHash = path.split('.');
-	var scope = window, next;
+    var pathHash = path.split('.');
+    var scope = window, next;
 
-	while(pathHash.length > 0) {
-		next = pathHash.shift();
+    while(pathHash.length > 0) {
+        next = pathHash.shift();
 
-		if (scope[next] === undefined) {
-			scope[next] = {};
-		}
+        if (scope[next] === undefined) {
+            scope[next] = {};
+        }
 
-		scope = scope[next];
-	}
+        scope = scope[next];
+    }
 
-	return scope;
+    return scope;
 };
 
 
@@ -148,8 +148,8 @@ tuna.namespace = function(path) {
  * @deprecated
  */
 tuna.eval = function(code) {
-	return (window.execScript !== undefined) ?
-			window.execScript(code) : window.eval(code);
+    return (window.execScript !== undefined) ?
+            window.execScript(code) : window.eval(code);
 };
 
 tuna.bind = function(fn, context) {

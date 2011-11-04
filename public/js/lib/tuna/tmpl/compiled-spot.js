@@ -6,7 +6,7 @@
  */
 (function() {
 
-	tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl");
 
     var CompiledSpot = function(rootTemplate) {
         tuna.tmpl.__CompiledUnit.call(this, rootTemplate);
@@ -22,13 +22,7 @@
     };
 
     CompiledSpot.prototype.applyData = function(dataNode) {
-        var sampleNode = this.__pathEvaluator.evaluate(dataNode);
-        if (sampleNode !== undefined) {
-            var value = sampleNode.getValue();
-            if (value !== null) {
-                this._applyValue(value);
-            }
-        }
+        this._applyValue(this.__pathEvaluator.apply(dataNode));
     };
 
     CompiledSpot.prototype.addTargets = function(elements) {
@@ -36,6 +30,10 @@
     };
 
     CompiledSpot.prototype._applyValue = function(value) {
+        if (value === null) {
+            value = '';
+        }
+
         var html = value.toString();
 
         var i = this.__nodes.length - 1;

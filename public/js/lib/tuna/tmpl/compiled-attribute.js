@@ -6,7 +6,7 @@
  */
 (function() {
 
-	tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl");
 
     var CompiledAttribute = function(rootTemplate) {
         tuna.tmpl.__CompiledSpot.call(this, rootTemplate);
@@ -29,6 +29,21 @@
     };
 
     CompiledAttribute.prototype._applyValue = function(value) {
+        if (value !== null) {
+            this.__setAttribute(value);
+        } else {
+            this.__removeAttribute();
+        }
+
+        if (this.__hasEvent) {
+            var self = this;
+            setTimeout(function() {
+                self.__dispatchAttribute(value);
+            }, 0);
+        }
+    };
+
+    CompiledAttribute.prototype.__setAttribute = function(value) {
         var i = this.__nodes.length - 1;
         while (i >= 0) {
             this.__nodes[i].setAttribute(this.__attributeName, value);
@@ -36,6 +51,23 @@
             if (this.__hasEvent) {
                 tuna.dom.dispatchEvent(this.__nodes[i], this.__eventName, value);
             }
+
+            i--;
+        }
+    };
+
+    CompiledAttribute.prototype.__removeAttribute = function() {
+        var i = this.__nodes.length - 1;
+        while (i >= 0) {
+            this.__nodes[i].removeAttribute(this.__attributeName);
+            i--;
+        }
+    };
+
+    CompiledAttribute.prototype.__dispatchAttribute = function(value) {
+        var i = this.__nodes.length - 1;
+        while (i >= 0) {
+            tuna.dom.dispatchEvent(this.__nodes[i], this.__eventName, value);
 
             i--;
         }

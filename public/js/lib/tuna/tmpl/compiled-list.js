@@ -6,7 +6,7 @@
  */
 (function() {
 
-	tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl");
 
     var CompiledList = function(rootTemplate) {
         tuna.tmpl.__CompiledUnit.call(this, rootTemplate);
@@ -56,9 +56,8 @@
 
     CompiledList.prototype.applyData = function(dataNode) {
         var sampleNode = this.__pathEvaluator.evaluate(dataNode);
-        if (sampleNode !== undefined) {
+        if (sampleNode !== null) {
             var sample = sampleNode.getValue();
-
             var oldItemsTable = this.__itemsTable;
 
             this.__itemsTable = {};
@@ -80,14 +79,7 @@
     CompiledList.prototype.__updateItem
         = function(itemNode, oldItemsTable, index) {
 
-        var key = null;
-
-        var keyNode = this.__keyPathEvaluator.evaluate(itemNode);
-        if (keyNode === undefined) {
-            key = index;
-        } else {
-            key = keyNode.getValue();
-        }
+        var key = this.__keyPathEvaluator.apply(itemNode);
 
         if (oldItemsTable[key] === undefined) {
             this.addCompiledItem(this.__makeNewItem(), key);
