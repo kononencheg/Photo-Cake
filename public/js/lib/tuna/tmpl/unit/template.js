@@ -35,7 +35,7 @@
         this.__lists.push(list);
     };
 
-    Template.prototype.addCreatedChild = function(child) {
+    Template.prototype.registerChildCreation = function(child) {
         this.__createdChildren.push(child);
     };
 
@@ -43,7 +43,7 @@
         return this.__createdChildren.splice(0, this.__createdChildren.length);
     };
 
-    Template.prototype.addRemovedChild = function(child) {
+    Template.prototype.registerChildRemoval = function(child) {
         this.__removedChildren.push(child);
     };
 
@@ -77,7 +77,7 @@
 
         this.__target.parentNode.removeChild(this.__target);
 
-        this.getRootTemplate().addRemovedChild(this.__target);
+        this.getRootTemplate().registerChildRemoval(this.__target);
     };
 
     tuna.tmpl.unit.Template = Template;

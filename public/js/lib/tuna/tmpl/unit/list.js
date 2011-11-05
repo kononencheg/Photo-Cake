@@ -108,7 +108,7 @@
 
         this.__listNodeRouter.append(itemElement);
 
-        rootTemplate.addCreatedChild(itemElement);
+        rootTemplate.registerChildCreation(itemElement);
 
         return template;
     };
