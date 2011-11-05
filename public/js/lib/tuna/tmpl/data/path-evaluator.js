@@ -6,7 +6,7 @@
  */
 
 (function() {
-    tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl.data");
 
     var PathEvaluator = function() {
         this.__parsedPath = null;
@@ -19,13 +19,14 @@
     PathEvaluator.prototype.apply = function(dataNode) {
         var result = this.evaluate(dataNode);
 
-        if (result instanceof tuna.tmpl.__DataNode) {
+        if (result instanceof tuna.tmpl.data.DataNode) {
             result = result.getValue();
         }
 
         return result;
     };
 
+    // TODO: make this return only a data-node
     PathEvaluator.prototype.evaluate = function(dataNode) {
         return this.__applyNextToken(this.__parsedPath, dataNode, 0);
     };
@@ -74,5 +75,5 @@
         return result;
     };
 
-    tuna.tmpl.PathEvaluator = PathEvaluator;
+    tuna.tmpl.data.PathEvaluator = PathEvaluator;
 })();

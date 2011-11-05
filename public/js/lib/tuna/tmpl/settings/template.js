@@ -7,7 +7,7 @@
 
 (function() {
 
-    tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl.settings");
 
 
     /**
@@ -21,38 +21,34 @@
      * @constructor
      */
     var Template = function() {
-
-        /**
-         * Spots array.
-         *
-         * @private
-         * @type {Array.<tuna.tmpl.Spot>}
-         */
         this.__spots = [];
-
-        /**
-         * Lists array.
-         *
-         * @private
-         * @type {Array.<tuna.tmpl.Spot>}
-         */
         this.__lists = [];
-
-        this.__attrs = [];
+        this.__attributes = [];
+        this.__conditions = [];
     };
 
+    Template.prototype.addCondition = function(attr) {
+        this.__conditions.push(attr);
+    };
 
+    Template.prototype.getConditionAt = function(i) {
+        return this.__conditions[i];
+    };
+
+    Template.prototype.getConditionsCount = function() {
+        return this.__conditions.length;
+    };
 
     Template.prototype.addAttribute = function(attr) {
-        this.__attrs.push(attr);
+        this.__attributes.push(attr);
     };
 
     Template.prototype.getAttributeAt = function(i) {
-        return this.__attrs[i];
+        return this.__attributes[i];
     };
 
     Template.prototype.getAttributesCount = function() {
-        return this.__attrs.length;
+        return this.__attributes.length;
     };
 
     Template.prototype.addList = function(list) {
@@ -67,34 +63,18 @@
         return this.__lists.length;
     };
 
-    /**
-     * Adding spot data.
-     *
-     * @param {tuna.tmpl.Spot} spot Spot data.
-     */
     Template.prototype.addSpot = function(spot) {
         this.__spots.push(spot);
     };
 
-    /**
-     * Return spot with index.
-     *
-     * @param {number} i Spot index.
-     * @return {tuna.tmpl.Spot} Spot at index.
-     */
     Template.prototype.getSpotAt = function(i) {
         return this.__spots[i];
     };
 
-    /**
-     * Return spots count.
-     *
-     * @return {number} Spots count.
-     */
     Template.prototype.getSpotsCount = function() {
         return this.__spots.length;
     };
 
-    tuna.tmpl.Template = Template;
+    tuna.tmpl.settings.Template = Template;
 
 })();

@@ -52,7 +52,7 @@
             this.__transformHandler.handleTransformStart(this.__target);
         }
 
-        this.__core.applyData(new tuna.tmpl.__DataNode(data));
+        this.__core.applyData(new tuna.tmpl.data.DataNode(data));
 
         if (this.__transformHandler !== null) {
             this.__transformHandler.handleTransformComplete(

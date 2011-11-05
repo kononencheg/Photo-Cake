@@ -26,7 +26,7 @@ $session->app = $request->getSource();
             <div id="title_step"
                  class="j-selection-item j-template-container step current"
                  data-template-id="title_template"
-                 data-template-url="/templates/title.html"
+                 data-template-url="/templates/title-step.html"
                  data-db-path=""></div>
 
             <div id="first_step"
@@ -42,10 +42,14 @@ $session->app = $request->getSource();
                  data-db-path="view"
                  data-init-on="ui-select"></div>
 
-
             <div id="third_step"
                  class="j-selection-item j-template-container step"
                  data-template-url="/templates/third-step.html"
+                 data-init-on="ui-select"></div>
+
+            <div id="result_step"
+                 class="j-selection-item j-template-container step"
+                 data-template-url="/templates/share-step.html"
                  data-init-on="ui-select"></div>
         </div>
 
@@ -59,22 +63,26 @@ $session->app = $request->getSource();
 
         <script src="/js/lib/tuna/dom.js"></script>
 
-        <script src="/js/lib/tuna/tmpl/spot.js"></script>
-        <script src="/js/lib/tuna/tmpl/attribute.js"></script>
-        <script src="/js/lib/tuna/tmpl/list.js"></script>
-        <script src="/js/lib/tuna/tmpl/template.js"></script>
-        <script src="/js/lib/tuna/tmpl/markup-template-builder.js"></script>
-        <script src="/js/lib/tuna/tmpl/i-compiled-unit.js"></script>
-        <script src="/js/lib/tuna/tmpl/compiled-unit.js"></script>
-        <script src="/js/lib/tuna/tmpl/compiled-spot.js"></script>
-        <script src="/js/lib/tuna/tmpl/compiled-attribute.js"></script>
-        <script src="/js/lib/tuna/tmpl/compiled-list.js"></script>
-        <script src="/js/lib/tuna/tmpl/compiled-template.js"></script>
-        <script src="/js/lib/tuna/tmpl/i-template-compiler.js"></script>
+        <script src="/js/lib/tuna/tmpl/data/data-node.js"></script>
+        <script src="/js/lib/tuna/tmpl/data/path-evaluator.js"></script>
+
+        <script src="/js/lib/tuna/tmpl/settings/spot.js"></script>
+        <script src="/js/lib/tuna/tmpl/settings/attribute.js"></script>
+        <script src="/js/lib/tuna/tmpl/settings/condition.js"></script>
+        <script src="/js/lib/tuna/tmpl/settings/list.js"></script>
+        <script src="/js/lib/tuna/tmpl/settings/template.js"></script>
+
+        <script src="/js/lib/tuna/tmpl/markup/markup-template-builder.js"></script>
+
+        <script src="/js/lib/tuna/tmpl/unit/compiled-unit.js"></script>
+        <script src="/js/lib/tuna/tmpl/unit/spot.js"></script>
+        <script src="/js/lib/tuna/tmpl/unit/attribute.js"></script>
+        <script src="/js/lib/tuna/tmpl/unit/condition.js"></script>
+        <script src="/js/lib/tuna/tmpl/unit/list.js"></script>
+        <script src="/js/lib/tuna/tmpl/unit/template.js"></script>
+
         <script src="/js/lib/tuna/tmpl/template-compiler.js"></script>
         <script src="/js/lib/tuna/tmpl/template-transformer.js"></script>
-        <script src="/js/lib/tuna/tmpl/data-node.js"></script>
-        <script src="/js/lib/tuna/tmpl/path-evaluator.js"></script>
         <script src="/js/lib/tuna/tmpl/i-transform-handler.js"></script>
 
         <script src="/js/lib/tuna/ui/container.js"></script>

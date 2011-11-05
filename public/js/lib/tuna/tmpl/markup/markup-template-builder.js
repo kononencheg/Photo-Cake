@@ -6,7 +6,7 @@
  */
 (function() {
 
-    tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl.markup");
 
     /**
      * Template transformer compiler from markup source.
@@ -22,6 +22,12 @@
         this.__templatesTable = {};
     };
 
+    MarkupTemplateBuilder.__conditionAttrs = [
+        tuna.tmpl.settings.Condition.IS_SET,
+        tuna.tmpl.settings.Condition.EQUALS,
+        tuna.tmpl.settings.Condition.NOT_EQUALS
+    ];
+
     /**
      * Build template from markup.
      *
@@ -32,16 +38,34 @@
 
         var templateNode = this.__doc.getElementById(templateID);
         if (templateNode !== null) {
-            this.__templatesTable[templateID] = template = new tuna.tmpl.Template();
+            this.__templatesTable[templateID] = template = new tuna.tmpl.settings.Template();
 
+            // TODO: Make extractor class
             this.__extractSpots(templateNode.getElementsByTagName('tuna:spot'), template);
             this.__extractAttributes(templateNode.getElementsByTagName('tuna:attr'), template);
+            this.__extractConditions(templateNode.getElementsByTagName('tuna:if'), template);
             this.__extractLists(templateNode.getElementsByTagName('tuna:list'), template);
         }
 
         return template;
     };
 
+    MarkupTemplateBuilder.prototype.__extractConditions = function(spotNodes, template) {
+        var i = 0,
+            l = spotNodes.length;
+
+        var cond = null;
+        while (i < l) {
+            cond = new tuna.tmpl.settings.Condition();
+
+            this.__nodeToSpot(spotNodes.item(i), cond);
+            this.__nodeToCondition(spotNodes.item(i), cond);
+
+            template.addCondition(cond);
+
+            i++;
+        }
+    };
 
     MarkupTemplateBuilder.prototype.__extractAttributes = function(spotNodes, template) {
         var i = 0,
@@ -49,7 +73,7 @@
 
         var attr = null;
         while (i < l) {
-            attr = new tuna.tmpl.Attribute();
+            attr = new tuna.tmpl.settings.Attribute();
 
             this.__nodeToSpot(spotNodes.item(i), attr);
             this.__nodeToAttribute(spotNodes.item(i), attr);
@@ -67,7 +91,7 @@
 
         var spot = null;
         while (i < l) {
-            spot = new tuna.tmpl.Spot();
+            spot = new tuna.tmpl.settings.Spot();
 
             this.__nodeToSpot(spotNodes.item(i), spot);
 
@@ -86,7 +110,7 @@
         var list = null;
         var listNode = null;
         while (i < l) {
-            list = new tuna.tmpl.List();
+            list = new tuna.tmpl.settings.List();
             listNode = listNodes.item(i);
 
             this.__nodeToSpot(listNode, list);
@@ -99,7 +123,7 @@
     };
 
     MarkupTemplateBuilder.prototype.__nodeToSpot = function(node, spot) {
-        spot.setTargetClass(node.getAttribute('tuna:class'));
+        spot.setTargetClass(node.getAttribute('tuna:target'));
         spot.setDataPath(node.getAttribute('tuna:path'));
     };
 
@@ -122,6 +146,39 @@
         list.setItemTemplate(template);
     };
 
-    tuna.tmpl.MarkupTemplateBuilder = MarkupTemplateBuilder;
+    MarkupTemplateBuilder.prototype.__nodeToCondition = function(node, cond) {
+        this.__findOperator(node, cond);
+        this.__findClassAction(node, cond);
+    };
+
+    MarkupTemplateBuilder.prototype.__findClassAction = function(node, cond) {
+        cond.setAction(
+            tuna.tmpl.settings.Condition.CLASS,
+            node.getAttribute('tuna:' + tuna.tmpl.settings.Condition.CLASS)
+        );
+    };
+
+    MarkupTemplateBuilder.prototype.__findOperator = function(node, cond) {
+        var attrs = MarkupTemplateBuilder.__conditionAttrs;
+
+        var i = 0,
+            l = attrs.length;
+
+        var type = null;
+        var value = null;
+        while (i < l) {
+            type = attrs[i];
+            value = node.getAttribute('tuna:' + type);
+
+            if (value !== null) {
+                cond.setOperator(type, value);
+                break;
+            }
+
+            i++;
+        }
+    };
+
+    tuna.tmpl.markup.MarkupTemplateBuilder = MarkupTemplateBuilder;
 
 })();

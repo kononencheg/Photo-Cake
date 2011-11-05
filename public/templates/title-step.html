@@ -23,7 +23,7 @@
     </div>
     <div class="span6">
         <h2>Ваш город <span class="t-current-city"></span>?</h2>
-        <span id="city_warning" class="hidden">Извините, в данном городе нельзя заказать торт!</span>
+        <span id="city_warning" class="t-city-warning">Извините, в данном городе нельзя заказать торт!</span>
         <a class="btn primary">Выбрать другой</a>
 
         <select id="city_list" class="t-city-list"></select>
@@ -41,9 +41,12 @@
 
 <div class="hidden" xmlns:tuna="http://localhost/tuna">
     <tuna:template id="title_template">
-        <tuna:spot tuna:class="t-current-city"  tuna:path="user/location/city" />
+        <tuna:if tuna:path="is_game" tuna:ne="true"
+                 tuna:target="t-city-warning" tuna:class="hidden" />
 
-        <tuna:list tuna:class="t-city-list" tuna:path="cities"
+        <tuna:spot tuna:target="t-current-city"  tuna:path="user/location/city" />
+
+        <tuna:list tuna:target="t-city-list" tuna:path="cities"
                    tuna:item-renderer-id="city_renderer"
                    tuna:item-template-id="city_template"
                    tuna:key-path="$key" />
@@ -51,9 +54,8 @@
     </tuna:template>
 
     <tuna:template id="city_template">
-        <tuna:spot tuna:class="t-city" tuna:path="value" />
-        <tuna:attr tuna:class="t-city" tuna:path="$key" tuna:name="value" />
-        <tuna:attr tuna:class="t-city" tuna:path="selected" tuna:name="selected" />
+        <tuna:spot tuna:target="t-city" tuna:path="value" />
+        <tuna:attr tuna:target="t-city" tuna:path="selected" tuna:name="selected" />
     </tuna:template>
 
     <select>

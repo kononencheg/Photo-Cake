@@ -6,17 +6,15 @@
  */
 (function() {
 
-    tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl.unit");
 
     var CompiledUnit = function(rootTemplate) {
         this.__rootTemplate = rootTemplate;
     };
 
-    tuna.implement(CompiledUnit, tuna.tmpl.__ICompiledUnit);
-
     CompiledUnit.prototype.getRootTemplate = function() {
         return this.__rootTemplate;
     };
 
-    tuna.tmpl.__CompiledUnit = CompiledUnit;
+    tuna.tmpl.unit.CompiledUnit = CompiledUnit;
 })();

@@ -48,24 +48,24 @@
 <div class="hidden" xmlns:tuna="http://localhost/tuna">
 
     <tuna:template id="second_step_template">
-        <tuna:spot tuna:class="t-cake-mass"  tuna:path="cake/dimensions/mass" />
-        <tuna:spot tuna:class="t-cake-price" tuna:path="price" />
+        <tuna:spot tuna:target="t-cake-mass"  tuna:path="cake/dimensions/mass" />
+        <tuna:spot tuna:target="t-cake-price" tuna:path="price" />
 
-        <tuna:spot tuna:class="t-popup-recipe-name" tuna:path="popup_recipe/name" />
-        <tuna:spot tuna:class="t-popup-recipe-desc" tuna:path="popup_recipe/description" />
+        <tuna:spot tuna:target="t-popup-recipe-name" tuna:path="popup_recipe/name" />
+        <tuna:spot tuna:target="t-popup-recipe-desc" tuna:path="popup_recipe/description" />
 
-        <tuna:list tuna:class="t-recipes-list" tuna:path="recipes"
+        <tuna:list tuna:target="t-recipes-list" tuna:path="recipes"
                    tuna:item-renderer-id="recipe_renderer"
                    tuna:item-template-id="recipe_template"
                    tuna:key-path="_id/$id" />
     </tuna:template>
 
     <tuna:template id="recipe_template">
-        <tuna:attr tuna:class="t-recipe-img" tuna:path="image_url" tuna:name="src"/>
-        <tuna:attr tuna:class="t-recipe-img" tuna:path="name" tuna:name="alt"/>
-        <tuna:attr tuna:class="t-recipe-id" tuna:path="_id/$id" tuna:name="data-value" />
+        <tuna:attr tuna:target="t-recipe-img" tuna:path="image_url" tuna:name="src"/>
+        <tuna:attr tuna:target="t-recipe-img" tuna:path="name" tuna:name="alt"/>
+        <tuna:attr tuna:target="t-recipe-id" tuna:path="_id/$id" tuna:name="data-value" />
 
-        <tuna:spot tuna:class="t-recipe-name" tuna:path="name" />
+        <tuna:spot tuna:target="t-recipe-name" tuna:path="name" />
 
     </tuna:template>
 

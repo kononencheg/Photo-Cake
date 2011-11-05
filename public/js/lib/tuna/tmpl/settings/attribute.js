@@ -7,18 +7,18 @@
 
 (function() {
 
-    tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl.settings");
 
 
     var Attribute = function() {
-        tuna.tmpl.Spot.call(this);
+        tuna.tmpl.settings.Spot.call(this);
 
         this.__attributeName = null;
         
         this.__hasEvent = false;
     };
 
-    tuna.extend(Attribute, tuna.tmpl.Spot);
+    tuna.extend(Attribute, tuna.tmpl.settings.Spot);
 
     Attribute.prototype.setEvent = function(hasEvent) {
         this.__hasEvent = hasEvent;
@@ -36,5 +36,5 @@
         return this.__attributeName;
     };
 
-    tuna.tmpl.Attribute = Attribute;
+    tuna.tmpl.settings.Attribute = Attribute;
 })();

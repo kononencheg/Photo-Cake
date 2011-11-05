@@ -7,10 +7,10 @@
 
 (function() {
 
-    tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl.settings");
 
     var List = function() {
-        tuna.tmpl.Spot.call(this);
+        tuna.tmpl.settings.Spot.call(this);
 
         this.__keyPath = '';
 
@@ -18,7 +18,7 @@
         this.__itemTemplate = null;
     };
 
-    tuna.extend(List, tuna.tmpl.Spot);
+    tuna.extend(List, tuna.tmpl.settings.Spot);
 
     List.prototype.setItemKeyDataPath = function(path) {
         this.__keyPath = path;
@@ -44,7 +44,7 @@
         return this.__itemTemplate;
     };
 
-    tuna.tmpl.List = List;
+    tuna.tmpl.settings.List = List;
 
 })();
 

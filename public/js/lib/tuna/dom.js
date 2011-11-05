@@ -151,6 +151,8 @@
         return parent === context ? null : parent;
     };
 
+    // TODO: implement new classList API
+
     tuna.dom.hasClass = function(element, className) {
         return element.className.match
             (new RegExp('(\\s|^)' + className + '(\\s|$)'));

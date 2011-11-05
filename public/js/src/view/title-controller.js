@@ -4,6 +4,7 @@
         tuna.control.ViewController.call(this, id);
 
         this.__$citySelect = null;
+        this.__$cityWarning = null;
     };
 
     tuna.extend(TitleController, tuna.control.ViewController);
@@ -15,23 +16,24 @@
     TitleController.prototype._initListeners = function() {
         var self = this;
 
-        this.__$citySelect = $('select#city_list');
+        this.__$citySelect = $('#city_list');
+        this.__$cityWarning = $('#city_warning');
+
         this.__$citySelect.bind('change', function(event) {
-            var index = self.__$citySelect[0].selectedIndex;
-            var cityName = self._db.get('cities.' + index + '._id');
+            var cityName =  self.__$citySelect.val();
 
-            self._db.set('is_city_available', cityName !== undefined)
+            self._db.set('is_game', cityName === '');
 
-            self.__updateCity(cityName);
+            self.__setCurrentCity(cityName);
         });
 
         tuna.dom.addChildEventListener(
             this._target, '.j-selection-next', 'click',
             function(event) {
-                var isAvailable = self._db.get('is_city_available');
+                var isNotGame = !self._db.get('is_game');
                 
-                stepSelector.setIndexEnabled(1, isAvailable);
-                stepSelector.setIndexEnabled(2, isAvailable);
+                stepSelector.setIndexEnabled(1, isNotGame);
+                stepSelector.setIndexEnabled(2, isNotGame);
             }
         );
     };
@@ -41,18 +43,12 @@
         this.__loadCityList();
     };
 
-    TitleController.prototype.__updateCity = function(cityName) {
-        var isCityAvailable = this._db.get('is_city_available');
-        var currentCity = isCityAvailable ? cityName : this._db.get('user.location.original');
-
-        if (isCityAvailable) {
-            $('#city_warning').hide();
-        } else {
-            $('#city_warning').show();
+    TitleController.prototype.__setCurrentCity = function(cityName) {
+        if (cityName === '') {
+            cityName = this._db.get('user.location.original');
         }
 
-        this._db.set('is_city_available', isCityAvailable);
-        this._db.set('user.location.city', currentCity);
+        this._db.set('user.location.city', cityName);
 
         this._db.notify('cities');
         this._db.notify('user');
@@ -68,8 +64,8 @@
             var isMatch = false;
             for (var i in cities) {
                 if (cities[i]._id === currentCity) {
-                    isMatch = true;
                     this.__$citySelect[0].selectedIndex = i;
+                    isMatch = true;
                     break;
                 }
             }
@@ -78,7 +74,10 @@
                 cities.unshift({});
             }
 
-            this.__updateCity(currentCity);
+            this._db.set('is_game', !isMatch);
+
+
+            this.__setCurrentCity(currentCity);
         }
     };
 
@@ -90,7 +89,7 @@
             var users = JSON.parse(response);
 
             self._db.set('user', users[0]);
-            self._db.set('user.location.city', 'Суперово');
+            self._db.set('user.location.city', 'Санкт-Петербург');
 
             self.__testCurrentCity();
         });

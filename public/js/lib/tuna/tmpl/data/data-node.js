@@ -6,7 +6,7 @@
  */
 (function() {
 
-    tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl.data");
 
     var DataNode = function(value, parent, key) {
         this.__value = value;
@@ -51,5 +51,5 @@
         return result;
     };
 
-    tuna.tmpl.__DataNode = DataNode;
+    tuna.tmpl.data.DataNode = DataNode;
 })();

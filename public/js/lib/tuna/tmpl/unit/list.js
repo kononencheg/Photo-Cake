@@ -6,10 +6,10 @@
  */
 (function() {
 
-    tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl.unit");
 
-    var CompiledList = function(rootTemplate) {
-        tuna.tmpl.__CompiledUnit.call(this, rootTemplate);
+    var List = function(rootTemplate) {
+        tuna.tmpl.unit.CompiledUnit.call(this, rootTemplate);
 
         this.__compiler = null;
 
@@ -17,44 +17,44 @@
         this.__itemTemplate = null;
 
         this.__itemsTable = {};
-        this.__pathEvaluator = new tuna.tmpl.PathEvaluator();
-        this.__keyPathEvaluator = new tuna.tmpl.PathEvaluator();
+        this.__pathEvaluator = new tuna.tmpl.data.PathEvaluator();
+        this.__keyPathEvaluator = new tuna.tmpl.data.PathEvaluator();
 
         this.__listNodeRouter = null;
     };
 
-    tuna.extend(CompiledList, tuna.tmpl.__CompiledUnit);
+    tuna.extend(List, tuna.tmpl.unit.CompiledUnit);
 
-    CompiledList.prototype.setListNodeRouter = function(router) {
+    List.prototype.setListNodeRouter = function(router) {
         this.__listNodeRouter = router;
     };
 
-    CompiledList.prototype.setPath = function(path) {
+    List.prototype.setPath = function(path) {
         this.__pathEvaluator.setPath(path);
     };
 
-    CompiledList.prototype.setKeyPath = function(path) {
+    List.prototype.setKeyPath = function(path) {
         this.__keyPathEvaluator.setPath(path);
     };
 
-    CompiledList.prototype.setCompiler = function(compiler) {
+    List.prototype.setCompiler = function(compiler) {
         this.__compiler = compiler;
     };
 
-    CompiledList.prototype.setItemRenderer = function(element) {
+    List.prototype.setItemRenderer = function(element) {
         this.__itemRenderer = element.cloneNode(true);
         this.__itemRenderer.removeAttribute('id');
     };
 
-    CompiledList.prototype.setItemTemplate = function(template) {
+    List.prototype.setItemTemplate = function(template) {
         this.__itemTemplate = template;
     };
 
-    CompiledList.prototype.addCompiledItem = function(compiledItem, key) {
+    List.prototype.addItem = function(compiledItem, key) {
         this.__itemsTable[key] = compiledItem;
     };
 
-    CompiledList.prototype.applyData = function(dataNode) {
+    List.prototype.applyData = function(dataNode) {
         var sampleNode = this.__pathEvaluator.evaluate(dataNode);
         if (sampleNode !== null) {
             var sample = sampleNode.getValue();
@@ -72,17 +72,17 @@
         }
     };
 
-    CompiledList.prototype.destroy = function() {
+    List.prototype.destroy = function() {
         this.__destroyItems(this.__itemsTable);
     };
 
-    CompiledList.prototype.__updateItem
+    List.prototype.__updateItem
         = function(itemNode, oldItemsTable, index) {
 
         var key = this.__keyPathEvaluator.apply(itemNode);
 
         if (oldItemsTable[key] === undefined) {
-            this.addCompiledItem(this.__makeNewItem(), key);
+            this.addItem(this.__makeNewItem(), key);
         } else {
             this.__itemsTable[key] = oldItemsTable[key];
             delete oldItemsTable[key];
@@ -91,7 +91,7 @@
         this.__itemsTable[key].applyData(itemNode);
     };
 
-    CompiledList.prototype.__destroyItems = function(itemsTable) {
+    List.prototype.__destroyItems = function(itemsTable) {
         for (var key in itemsTable) {
             itemsTable[key].destroy();
 
@@ -99,7 +99,7 @@
         }
     };
 
-    CompiledList.prototype.__makeNewItem = function() {
+    List.prototype.__makeNewItem = function() {
         var itemElement = this.__itemRenderer.cloneNode(true);
 
         var rootTemplate = this.getRootTemplate();
@@ -131,7 +131,7 @@
         this._container.appendChild(node);
     };
 
-    tuna.tmpl.__CompiledList = CompiledList;
+    tuna.tmpl.unit.List = List;
     tuna.tmpl.__IListItemRouter = IListItemRouter;
     tuna.tmpl.__ListContainerRouter = ListContainerRouter;
 })();

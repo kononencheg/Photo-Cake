@@ -1,5 +1,9 @@
 <div class="page-header">
     <h1>Шаг 3. Конструируем торт</h1>
+    
+    <a class="j-selection-next btn primary large">
+        Дальше &raquo;
+    </a>
 </div>
 
 <div class="row">
@@ -55,11 +59,11 @@
     <tuna:template id="third_step_template"></tuna:template>
 
     <tuna:template id="item_selection_template">
-        <tuna:attr tuna:class="t-selected-image" tuna:path="current/image_url" tuna:name="src"/>
-        <tuna:attr tuna:class="t-selected-id" tuna:path="current/_id/$id" tuna:name="value"/>
-        <tuna:attr tuna:class="t-popup-type" tuna:path="type" tuna:name="value"/>
+        <tuna:attr tuna:target="t-selected-image" tuna:path="current/image_url" tuna:name="src"/>
+        <tuna:attr tuna:target="t-selected-id" tuna:path="current/_id/$id" tuna:name="value"/>
+        <tuna:attr tuna:target="t-popup-type" tuna:path="type" tuna:name="value"/>
 
-        <tuna:list tuna:class="t-item-list" tuna:path="items"
+        <tuna:list tuna:target="t-item-list" tuna:path="items"
                    tuna:item-renderer-id="selection_item_renderer"
                    tuna:item-template-id="selection_item_template"
                    tuna:key-path="_id/$id" />
@@ -67,6 +71,6 @@
     </tuna:template>
 
     <tuna:template id="selection_item_template">
-        <tuna:attr tuna:class="t-item-image" tuna:path="image_url" tuna:name="src" />
+        <tuna:attr tuna:target="t-item-image" tuna:path="image_url" tuna:name="src" />
     </tuna:template>
 </div>

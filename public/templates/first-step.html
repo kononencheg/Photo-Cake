@@ -75,21 +75,21 @@
 
 <div class="hidden" xmlns:tuna="http://localhost/tuna">
     <tuna:template id="first_step_template">
-        <tuna:spot tuna:class="t-cake-mass"    tuna:path="cake/dimensions/mass" />
-        <tuna:spot tuna:class="t-cake-persons" tuna:path="cake/dimensions/persons_count" />
-        <tuna:spot tuna:class="t-cake-width"   tuna:path="cake/dimensions/width" />
-        <tuna:spot tuna:class="t-cake-height"  tuna:path="cake/dimensions/height" />
+        <tuna:spot tuna:target="t-cake-mass"    tuna:path="cake/dimensions/mass" />
+        <tuna:spot tuna:target="t-cake-persons" tuna:path="cake/dimensions/persons_count" />
+        <tuna:spot tuna:target="t-cake-width"   tuna:path="cake/dimensions/width" />
+        <tuna:spot tuna:target="t-cake-height"  tuna:path="cake/dimensions/height" />
 
-        <tuna:attr tuna:class="t-cake-width-slider" tuna:path="cake/current_mass"
+        <tuna:attr tuna:target="t-cake-width-slider" tuna:path="cake/current_mass"
                    tuna:name="data-value" tuna:event />
 
-        <tuna:attr tuna:class="t-cake-width-slider" tuna:path="cake/masses_count"
+        <tuna:attr tuna:target="t-cake-width-slider" tuna:path="cake/masses_count"
                    tuna:name="data-count" tuna:event />
 
-        <tuna:attr tuna:class="t-cake-height-slider" tuna:path="cake/current_mass"
+        <tuna:attr tuna:target="t-cake-height-slider" tuna:path="cake/current_mass"
                    tuna:name="data-value" tuna:event />
 
-        <tuna:attr tuna:class="t-cake-height-slider" tuna:path="cake/masses_count"
+        <tuna:attr tuna:target="t-cake-height-slider" tuna:path="cake/masses_count"
                    tuna:name="data-count" tuna:event />
 
     </tuna:template>

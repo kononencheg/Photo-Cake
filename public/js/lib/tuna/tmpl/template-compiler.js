@@ -13,7 +13,6 @@
     /**
      * @public
      * @class
-     * @implements {tuna.tmpl.ITemplateCompiler}
      *
      * @constructor
      */
@@ -21,12 +20,10 @@
         this.__doc = doc;
     };
 
-    tuna.implement(TemplateCompiler, tuna.tmpl.ITemplateCompiler);
-
     /**
      * Compiling template with target DOM element.
      *
-     * @param {tuna.tmpl.Template} template Template to compile.
+     * @param {tuna.tmpl.settings.Template} template Template to compile.
      * @param {Element} element Target DOM element.
      * @return {tuna.tmpl.TemplateTransformer} New template transformer.
      */
@@ -39,11 +36,12 @@
     };
 
     TemplateCompiler.prototype.compileTemplate = function(template, element, root) {
-        var compiledTemplate = new tuna.tmpl.__CompiledTemplate(root);
+        var compiledTemplate = new tuna.tmpl.unit.Template(root);
         compiledTemplate.setTarget(element);
 
         this.__compileSpots(compiledTemplate, template, element);
         this.__compileAttributes(compiledTemplate, template, element);
+        this.__compileConditions(compiledTemplate, template, element);
         this.__compileLists(compiledTemplate, template, element);
 
         return compiledTemplate;
@@ -71,12 +69,27 @@
         }
     };
 
+    TemplateCompiler.prototype.__compileConditions = function(template, source, element) {
+        var cond = null;
+
+        var i = source.getConditionsCount() - 1;
+        while (i >= 0) {
+            cond = new tuna.tmpl.unit.Condition(template.getRootTemplate());
+
+            this.__compileCondition(cond, source.getConditionAt(i), element);
+
+            template.addSpot(cond);
+
+            i--;
+        }
+    };
+
     TemplateCompiler.prototype.__compileSpots = function(template, source, element) {
         var spot = null;
 
         var i = source.getSpotsCount() - 1;
         while (i >= 0) {
-            spot = new tuna.tmpl.__CompiledSpot(template.getRootTemplate());
+            spot = new tuna.tmpl.unit.Spot(template.getRootTemplate());
 
             this.__compileSpot(spot, source.getSpotAt(i), element);
 
@@ -92,11 +105,11 @@
 
         var i = source.getAttributesCount() - 1;
         while (i >= 0) {
-            attr = new tuna.tmpl.__CompiledAttribute(template.getRootTemplate());
+            attr = new tuna.tmpl.unit.Attribute(template.getRootTemplate());
 
             this.__compileAttribute(attr, source.getAttributeAt(i), element);
 
-            template.addAttribute(attr);
+            template.addSpot(attr);
 
             i--;
         }
@@ -121,6 +134,13 @@
         attr.setEvent(source.hasEvent());
     };
 
+    TemplateCompiler.prototype.__compileCondition = function(cond, source, element) {
+        this.__compileSpot(cond, source, element);
+
+        cond.setAction(source.getAction());
+        cond.setOperator(source.getOperator());
+    };
+
     TemplateCompiler.prototype.__handleListNodes = function(template, source, nodes, element) {
         var node = null;
         var list = null;
@@ -132,7 +152,7 @@
             if (tuna.dom.getParentWithClass
                     (node, source.getTargetClass(), element) === null) {
 
-                list = new tuna.tmpl.__CompiledList(template.getRootTemplate());
+                list = new tuna.tmpl.unit.List(template.getRootTemplate());
 
                 this.__compileList(list, source, node);
 
@@ -176,7 +196,7 @@
         var key = this.__getItemKey(node.className, list.getTargetClass());
 
         if (key) {
-            compiledList.addCompiledItem
+            compiledList.addItem
                 (this.compileTemplate(list.getItemTemplate(), node), key);
         }
 

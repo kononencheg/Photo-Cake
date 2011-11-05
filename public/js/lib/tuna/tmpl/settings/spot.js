@@ -7,7 +7,7 @@
 
 (function() {
 
-    tuna.namespace("tuna.tmpl");
+    tuna.namespace("tuna.tmpl.settings");
 
     /**
      * Template spot data class.
@@ -77,5 +77,5 @@
         return this.__path;
     };
 
-    tuna.tmpl.Spot = Spot;
+    tuna.tmpl.settings.Spot = Spot;
 })();
