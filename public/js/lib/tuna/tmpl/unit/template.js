@@ -32,6 +32,7 @@
     };
 
     Template.prototype.addList = function(list) {
+        this.__spots.push(list);
         this.__lists.push(list);
     };
 
@@ -55,13 +56,6 @@
         var i = this.__spots.length - 1;
         while (i >= 0) {
             this.__spots[i].applyData(dataNode);
-
-            i--;
-        }
-
-        i = this.__lists.length - 1;
-        while (i >= 0) {
-            this.__lists[i].applyData(dataNode);
 
             i--;
         }

@@ -16,12 +16,6 @@
         this.__action = null
     };
 
-    Condition.IS_SET = 'isset';
-    Condition.EQUALS = 'eq';
-    Condition.NOT_EQUALS = 'ne';
-
-    Condition.CLASS = 'class';
-
     tuna.extend(Condition, tuna.tmpl.settings.Spot);
 
     Condition.prototype.setOperator = function(type, data) {
@@ -31,9 +25,9 @@
 
     Condition.prototype.__createOperator = function(type) {
         switch (type) {
-            case Condition.IS_SET: return new IsSetOperator();
-            case Condition.EQUALS: return new EqualsOperator();
-            case Condition.NOT_EQUALS: return new NotEqualsOperator();
+            case 'isset': return new IsSetOperator();
+            case 'eq': return new EqualsOperator();
+            case 'ne': return new NotEqualsOperator();
         }
 
         return null;
