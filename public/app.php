@@ -86,7 +86,13 @@ $session->app = $request->getSource();
         <script src="/js/lib/tuna/tmpl/unit/list.js"></script>
         <script src="/js/lib/tuna/tmpl/unit/template.js"></script>
 
-        <script src="/js/lib/tuna/tmpl/template-compiler.js"></script>
+        <script src="/js/lib/tuna/tmpl/compile/template-compiler.js"></script>
+        <script src="/js/lib/tuna/tmpl/compile/i-item-compiler.js"></script>
+        <script src="/js/lib/tuna/tmpl/compile/spot-compiler.js"></script>
+        <script src="/js/lib/tuna/tmpl/compile/attribute-compiler.js"></script>
+        <script src="/js/lib/tuna/tmpl/compile/condition-compiler.js"></script>
+        <script src="/js/lib/tuna/tmpl/compile/list-compiler.js"></script>
+
         <script src="/js/lib/tuna/tmpl/template-transformer.js"></script>
         <script src="/js/lib/tuna/tmpl/i-transform-handler.js"></script>
 

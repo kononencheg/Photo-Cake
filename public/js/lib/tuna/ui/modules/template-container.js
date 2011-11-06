@@ -4,7 +4,7 @@
         tuna.ui.modules.Module.call(this, 'template-container', '.j-template-container');
 
         this.__templateBuilder = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
-        this.__templateCompiler = new tuna.tmpl.TemplateCompiler(document);
+        this.__templateCompiler = new tuna.tmpl.compile.TemplateCompiler(document);
 
         this.__templatesTable = {};
     };

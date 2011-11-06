@@ -31,48 +31,32 @@
         this.__conditions.push(attr);
     };
 
-    Template.prototype.getConditionAt = function(i) {
-        return this.__conditions[i];
-    };
-
-    Template.prototype.getConditionsCount = function() {
-        return this.__conditions.length;
+    Template.prototype.getConditions = function() {
+        return this.__conditions;
     };
 
     Template.prototype.addAttribute = function(attr) {
         this.__attributes.push(attr);
     };
 
-    Template.prototype.getAttributeAt = function(i) {
-        return this.__attributes[i];
-    };
-
-    Template.prototype.getAttributesCount = function() {
-        return this.__attributes.length;
+    Template.prototype.getAttributes = function() {
+        return this.__attributes;
     };
 
     Template.prototype.addList = function(list) {
         this.__lists.push(list);
     };
 
-    Template.prototype.getListAt = function(i) {
-        return this.__lists[i];
-    };
-
-    Template.prototype.getListsCount = function() {
-        return this.__lists.length;
+    Template.prototype.getLists = function() {
+        return this.__lists;
     };
 
     Template.prototype.addSpot = function(spot) {
         this.__spots.push(spot);
     };
 
-    Template.prototype.getSpotAt = function(i) {
-        return this.__spots[i];
-    };
-
-    Template.prototype.getSpotsCount = function() {
-        return this.__spots.length;
+    Template.prototype.getSpots = function() {
+        return this.__spots;
     };
 
     tuna.tmpl.settings.Template = Template;

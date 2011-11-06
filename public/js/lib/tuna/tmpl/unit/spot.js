@@ -21,12 +21,12 @@
         this.__pathEvaluator.setPath(path);
     };
 
-    Spot.prototype.applyData = function(dataNode) {
-        this._applyValue(this.__pathEvaluator.apply(dataNode));
-    };
-
     Spot.prototype.addTargets = function(elements) {
         this._nodes = this._nodes.concat(elements);
+    };
+
+    Spot.prototype.applyData = function(dataNode) {
+        this._applyValue(this.__pathEvaluator.apply(dataNode));
     };
 
     Spot.prototype._applyValue = function(value) {

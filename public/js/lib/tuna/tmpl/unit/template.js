@@ -12,8 +12,7 @@
     var Template = function(rootTemplate) {
         tuna.tmpl.unit.CompiledUnit.call(this, rootTemplate || this);
 
-        this.__spots = [];
-        this.__lists = [];
+        this.__items = [];
 
         this.__createdChildren = [];
         this.__removedChildren = [];
@@ -27,15 +26,11 @@
         this.__target = element;
     };
 
-    Template.prototype.addSpot = function(spot) {
-        this.__spots.push(spot);
+    Template.prototype.addItems = function(items) {
+        this.__items = this.__items.concat(items);
     };
 
-    Template.prototype.addList = function(list) {
-        this.__spots.push(list);
-        this.__lists.push(list);
-    };
-
+    // TODO: rename to registerElementCreation
     Template.prototype.registerChildCreation = function(child) {
         this.__createdChildren.push(child);
     };
@@ -53,18 +48,18 @@
     };
 
     Template.prototype.applyData = function(dataNode) {
-        var i = this.__spots.length - 1;
+        var i = this.__items.length - 1;
         while (i >= 0) {
-            this.__spots[i].applyData(dataNode);
+            this.__items[i].applyData(dataNode);
 
             i--;
         }
     };
 
     Template.prototype.destroy = function() {
-        var i = this.__lists.length - 1;
+        var i = this.__items.length - 1;
         while (i >= 0) {
-            this.__lists[i].destroy();
+            this.__items[i].destroy();
 
             i--;
         }
