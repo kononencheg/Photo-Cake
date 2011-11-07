@@ -12,92 +12,43 @@
     var Condition = function() {
         tuna.tmpl.settings.Spot.call(this);
 
-        this.__operator = null;
-        this.__action = null
+        this.__actionType = null;
+        this.__actionData = null;
+
+        this.__operatorType = null;
+        this.__operatorData = null;
     };
 
     tuna.extend(Condition, tuna.tmpl.settings.Spot);
 
     Condition.prototype.setOperator = function(type, data) {
-        this.__operator = this.__createOperator(type);
-        this.__operator.setData(data);
+        this.__operatorType = type;
+        this.__operatorData = data;
     };
 
-    Condition.prototype.__createOperator = function(type) {
-        switch (type) {
-            case 'isset': return new IsSetOperator();
-            case 'eq': return new EqualsOperator();
-            case 'ne': return new NotEqualsOperator();
-        }
-
-        return null;
+    Condition.prototype.getOperatorType = function() {
+        return this.__operatorType;
     };
 
-    Condition.prototype.getOperator = function() {
-        return this.__operator;
+    Condition.prototype.getOperatorData = function() {
+        return this.__operatorData;
     };
 
-    Condition.prototype.setAction = function(name, data) {
-        this.__action = new ClassAction(data);
+    Condition.prototype.setAction = function(type, data) {
+        this.__actionType = type;
+        this.__actionData = data;
     };
 
-    Condition.prototype.getAction = function() {
-        return this.__action;
+    Condition.prototype.getActionType = function() {
+        return this.__actionType;
+    };
+
+    Condition.prototype.getActionData = function() {
+        return this.__actionData;
     };
 
     tuna.tmpl.settings.Condition = Condition;
 
-    // Operators
 
-    var ConditionOperator = function() { this._data = null; };
-    ConditionOperator.prototype.setData = function(data) { this._data = data };
-    ConditionOperator.prototype.test = function(value) {};
-
-    var IsSetOperator = function() { ConditionOperator.call(this); };
-    tuna.extend(IsSetOperator, ConditionOperator);
-    IsSetOperator.prototype.test = function(value) { return value !== undefined; };
-
-    var EqualsOperator = function() { ConditionOperator.call(this); };
-    tuna.extend(EqualsOperator, ConditionOperator);
-    EqualsOperator.prototype.test = function(value) { return value == this._data; };
-
-    var NotEqualsOperator = function() { ConditionOperator.call(this); };
-    tuna.extend(NotEqualsOperator, ConditionOperator);
-    NotEqualsOperator.prototype.test = function(value) { return !(value == this._data || String(value) == this._data); };
-
-    // Actions
-
-    var ConditionAction = function(data) { this._data = data; };
-    ConditionAction.prototype.apply = function(node, testResult, value) {};
-
-    var ClassAction = function(data) {
-        ConditionAction.call(this, data);
-
-        this.__lastClassName = null;
-    };
-
-    tuna.extend(ClassAction, ConditionAction);
-
-    ClassAction.prototype.apply = function(node, testResult, value) {
-        var className = this._data;
-
-        if (className !== '') {
-            if (testResult) {
-                tuna.dom.addClass(node, className);
-            } else {
-                tuna.dom.removeClass(node, className);
-            }
-            
-        } else if (this.__lastClassName !== value && testResult) {
-            if (this.__lastClassName !== null) {
-                tuna.dom.removeClass(node, this.__lastClassName);
-            }
-
-            tuna.dom.addClass(node, value);
-
-            this.__lastClassName = value;
-        }
-
-    };
 
 })();

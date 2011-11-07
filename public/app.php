@@ -79,6 +79,8 @@ $session->app = $request->getSource();
         <script src="/js/lib/tuna/tmpl/markup/condition-extractor.js"></script>
         <script src="/js/lib/tuna/tmpl/markup/markup-template-builder.js"></script>
 
+        <script src="/js/lib/tuna/tmpl/unit/i-list-item-router.js"></script>
+        <script src="/js/lib/tuna/tmpl/unit/list-container-router.js"></script>
         <script src="/js/lib/tuna/tmpl/unit/compiled-unit.js"></script>
         <script src="/js/lib/tuna/tmpl/unit/spot.js"></script>
         <script src="/js/lib/tuna/tmpl/unit/attribute.js"></script>
@@ -86,8 +88,8 @@ $session->app = $request->getSource();
         <script src="/js/lib/tuna/tmpl/unit/list.js"></script>
         <script src="/js/lib/tuna/tmpl/unit/template.js"></script>
 
-        <script src="/js/lib/tuna/tmpl/compile/template-compiler.js"></script>
         <script src="/js/lib/tuna/tmpl/compile/i-item-compiler.js"></script>
+        <script src="/js/lib/tuna/tmpl/compile/template-compiler.js"></script>
         <script src="/js/lib/tuna/tmpl/compile/spot-compiler.js"></script>
         <script src="/js/lib/tuna/tmpl/compile/attribute-compiler.js"></script>
         <script src="/js/lib/tuna/tmpl/compile/condition-compiler.js"></script>

@@ -113,25 +113,6 @@
         return template;
     };
 
-
-    ///////////////////////////////////////////////////////////////////////////////
-
-    var IListItemRouter = function() {};
-    IListItemRouter.prototype.append = function(node) {};
-
-    ///////////////////////////////////////////////////////////////////////////////
-
-    var ListContainerRouter = function(containerNode) {
-        this._container = containerNode;
-    };
-
-    tuna.implement(ListContainerRouter, IListItemRouter);
-
-    ListContainerRouter.prototype.append = function(node) {
-        this._container.appendChild(node);
-    };
-
     tuna.tmpl.unit.List = List;
-    tuna.tmpl.__IListItemRouter = IListItemRouter;
-    tuna.tmpl.__ListContainerRouter = ListContainerRouter;
+    
 })();

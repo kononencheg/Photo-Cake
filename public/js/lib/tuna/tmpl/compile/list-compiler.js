@@ -53,7 +53,7 @@
         list.setKeyPath(settings.getItemKeyDataPath());
         list.setPath(settings.getDataPath());
         
-        list.setListNodeRouter(new tuna.tmpl.__ListContainerRouter(element));
+        list.setListNodeRouter(new tuna.tmpl.unit.ListContainerRouter(element));
 
         return list;
     };
