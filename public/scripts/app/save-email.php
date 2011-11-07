@@ -1,6 +1,6 @@
 <?php
 
-require_once('../../lib/net/request.php');
+require_once('../../../lib/net/request.php');
 
 $request = new Request();
 

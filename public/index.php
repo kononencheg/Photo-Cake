@@ -95,7 +95,7 @@ $request = new Request();
                 </div>
 
                 <div class="logo">
-                    <img alt="Фотонаторте" src="/img/logo.png" />
+                    <img alt="Фотонаторте" src="/img/app/logo.png" />
                     <div class="logo-subtitle">Скоро открытие! А пока...</div>
                 </div>
             </div>
@@ -117,7 +117,7 @@ $request = new Request();
                         Готовится к открытию: скоро мы сможем изготавливать торты
                         по Вашему дизайну и привозить их к Вам в день праздника!
                     </p>
-                    <form id="email_form" target="frame_transport" action="/scripts/save-email.php" method="POST">
+                    <form id="email_form" target="frame_transport" action="/scripts/app/save-email.php" method="POST">
                         <p>
                             Сообщите мне, когда Вы откроетесь:
                         </p>
@@ -157,7 +157,7 @@ $request = new Request();
         </div>
 
         <form id="image_form" class="hidden" target="frame_transport"
-              action="/scripts/save-image.php" method="POST">
+              action="/scripts/app/save-image.php" method="POST">
             <input id="image_hidden" type="hidden" name="image_data" />
         </form>
 
@@ -177,7 +177,7 @@ $request = new Request();
 
                         <div>
                             <div id="uLogin"></div>
-                            <script src="http://ulogin.ru/js/widget.js?display=panel&fields=first_name,last_name,photo&providers=vkontakte,odnoklassniki,mailru,facebook&hidden=twitter,google,yandex,livejournal,openid&redirect_uri=http://<?php echo $_SERVER['HTTP_HOST'] ?>/scripts/auth-handler.php&callback=handleAuth"></script>
+                            <script src="http://ulogin.ru/js/widget.js?display=panel&fields=first_name,last_name,photo&providers=vkontakte,odnoklassniki,mailru,facebook&hidden=twitter,google,yandex,livejournal,openid&redirect_uri=http://<?php echo $_SERVER['HTTP_HOST'] ?>/scripts/app/auth-handler.php&callback=handleAuth"></script>
                         </div>
 
                     </div>
@@ -200,7 +200,7 @@ $request = new Request();
         </div>
 
         <?php if (isset($request->i)) { ?>
-            <?php require('scripts/user-cake.php'); ?>
+            <?php require('scripts/app/user-cake.php'); ?>
         <?php } ?>
 
 

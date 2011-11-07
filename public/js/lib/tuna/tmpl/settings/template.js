@@ -13,7 +13,7 @@
     /**
      * Template data class.
      *
-     * Save data that describe rules to transform data into appropriate view.
+     * Save data that describe rules to transform data into appropriate app.
      *
      * @public
      * @class

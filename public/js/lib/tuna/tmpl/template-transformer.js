@@ -39,7 +39,7 @@
         this.__transformHandler = null;
     };
 
-    //tuna.implement(TemplateTransformer, tuna.view.ITransformer);
+    //tuna.implement(TemplateTransformer, tuna.app.ITransformer);
 
     /**
      * Transform method.

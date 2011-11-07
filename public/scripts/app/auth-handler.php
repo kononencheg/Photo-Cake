@@ -1,7 +1,7 @@
 <?php
 
-require_once('../../lib/auth/session.php');
-require_once('../../lib/net/request.php');
+require_once('../../../lib/auth/session.php');
+require_once('../../../lib/net/request.php');
 
 $request = new Request();
 $session = new Session();

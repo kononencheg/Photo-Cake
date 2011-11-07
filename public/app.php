@@ -16,7 +16,7 @@ $session->app = $request->getSource();
         
         <title>Заказ торта</title>
 
-        <link rel="stylesheet/less" type="text/css" href="/css/style.less">
+        <link rel="stylesheet/less" type="text/css" href="/css/app/style.less">
         
         <script src="/js/lib/less.js" type="text/javascript"></script>
     </head>
@@ -26,30 +26,30 @@ $session->app = $request->getSource();
             <div id="title_step"
                  class="j-selection-item j-template-container step current"
                  data-template-id="title_template"
-                 data-template-url="/templates/title-step.html"
+                 data-template-url="/templates/app/title-step.html"
                  data-db-path=""></div>
 
             <div id="first_step"
                  class="j-selection-item j-template-container step"
                  data-template-id="first_step_template"
-                 data-template-url="/templates/first-step.html"
+                 data-template-url="/templates/app/first-step.html"
                  data-db-path="view"></div>
 
             <div id="second_step"
                  class="j-selection-item j-template-container step"
                  data-template-id="second_step_template"
-                 data-template-url="/templates/second-step.html"
+                 data-template-url="/templates/app/second-step.html"
                  data-db-path="view"
                  data-init-on="ui-select"></div>
 
             <div id="third_step"
                  class="j-selection-item j-template-container step"
-                 data-template-url="/templates/third-step.html"
+                 data-template-url="/templates/app/third-step.html"
                  data-init-on="ui-select"></div>
 
             <div id="result_step"
                  class="j-selection-item j-template-container step"
-                 data-template-url="/templates/share-step.html"
+                 data-template-url="/templates/app/share-step.html"
                  data-init-on="ui-select"></div>
         </div>
 
@@ -130,11 +130,11 @@ $session->app = $request->getSource();
         <script src="/js/src/ui/modules/slider.js"></script>
         <script src="/js/src/ui/modules/carousel.js"></script>
 
-        <script src="/js/src/view/title-controller.js"></script>
-        <script src="/js/src/view/first-step-controller.js"></script>
-        <script src="/js/src/view/second-step-controller.js"></script>
-        <script src="/js/src/view/third-step-controller.js"></script>
-        <script src="/js/src/view/selection-popup-controller.js"></script>
+        <script src="/js/src/app/title-controller.js"></script>
+        <script src="/js/src/app/first-step-controller.js"></script>
+        <script src="/js/src/app/second-step-controller.js"></script>
+        <script src="/js/src/app/third-step-controller.js"></script>
+        <script src="/js/src/app/selection-popup-controller.js"></script>
 
         <!-- Инициализация -->
         <script>
