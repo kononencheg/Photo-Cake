@@ -4,6 +4,6 @@ namespace api;
 
 class City extends APIService {
     function getList() {
-        return iterator_to_array($this->_mongo->cakes->cities->find());
+        return iterator_to_array($this->_db->cities->find());
     }
 }

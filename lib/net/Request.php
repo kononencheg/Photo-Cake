@@ -15,37 +15,33 @@ class Request {
     }
 
     private function initSource($type) {
-        $source = NULL;
-        
         switch ($type) {
             case self::GET: {
-                $source = $_GET;
+                $this->_source = $_GET;
                 break;
             }
 
             case self::POST: {
-                $source = $_POST;
+                $this->_source = $_POST;
                 break;
             }
 
             default: {
-                $source = array_merge($_GET, $_POST);
+                $this->_source = array_merge($_GET, $_POST);
             }
         }
-
-        $this->_source = \utils\ObjectUtils::arrayToObject($source);
     }
 
     public function __get($name) {
-        if (isset($this->_source->$name)) {
-            return $this->_source->$name;
+        if (isset($this->_source[$name])) {
+            return $this->_source[$name];
         }
         
         return NULL;
     }
 
     public function __isset($name) {
-        return isset($this->_source->$name);
+        return isset($this->_source[$name]);
     }
 
     public function getSource() {
@@ -56,11 +52,7 @@ class Request {
         $result = $this->$name;
         
         unset($this->$name);
-        
-        return $result;
-    }
 
-    public function validate($name, $filter, $options) {
-        return filter_var($this->_source->$name, $filter, $options);
+        return $result;
     }
 }
