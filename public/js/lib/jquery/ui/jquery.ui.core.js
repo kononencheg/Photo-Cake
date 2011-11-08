@@ -300,7 +300,7 @@ $.extend( $.ui, {
 		return has;
 	},
 	
-	// these are odd functions, fix the API or move into individual plugins
+	// these are odd functions, fix the api or move into individual plugins
 	isOverAxis: function( x, reference, size ) {
 		//Determines when x coordinate is over "b" element axis
 		return ( x > reference ) && ( x < ( reference + size ) );

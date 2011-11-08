@@ -1,5 +1,6 @@
 <?php
 
+namespace net;
 
 class Request {
 
@@ -14,36 +15,52 @@ class Request {
     }
 
     private function initSource($type) {
+        $source = NULL;
+        
         switch ($type) {
             case self::GET: {
-                $this->_source = $_GET;
+                $source = $_GET;
                 break;
             }
 
             case self::POST: {
-                $this->_source = $_POST;
+                $source = $_POST;
                 break;
             }
 
             default: {
-                $this->_source = array_merge($_GET, $_POST);
+                $source = array_merge($_GET, $_POST);
             }
         }
+
+        $this->_source = \utils\ObjectUtils::arrayToObject($source);
     }
 
     public function __get($name) {
-        return $this->_source[$name];
+        if (isset($this->_source->$name)) {
+            return $this->_source->$name;
+        }
+        
+        return NULL;
     }
 
     public function __isset($name) {
-        return isset($this->_source[$name]);
+        return isset($this->_source->$name);
     }
 
     public function getSource() {
         return $this->_source;
     }
 
+    public function fetch($name) {
+        $result = $this->$name;
+        
+        unset($this->$name);
+        
+        return $result;
+    }
+
     public function validate($name, $filter, $options) {
-        return filter_var($this->_source[$name], $filter, $options);
+        return filter_var($this->_source->$name, $filter, $options);
     }
 }

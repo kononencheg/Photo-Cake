@@ -1,0 +1,52 @@
+<form class="j-form" action="/" target="ajax_support">
+    <div class="overlay"></div>
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Панель управления</h2>
+        </div>
+        <div class="modal-body">
+            <fieldset>
+                <legend>Авторизация</legend>
+
+                <div class="j-input-email clearfix">
+                    <label for="email">Email:</label>
+                    <div class="input">
+                        <input id="email" name="email" size="30" type="text" />
+                        <span class="j-help help-inline">
+                            Ваш email адрес.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="j-input-password clearfix">
+                    <label for="password">Пароль:</label>
+                    <div class="input">
+                        <input id="password" name="password" size="30" type="password" />
+                        <span class="help-inline">
+                            <span class="j-help">Ваш пароль.</span>
+                            <a href="#">Забыли?</a>
+                        </span>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn primary" value="Войти" />
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    var a = {
+        type: 'success',
+        data: {}
+    };
+
+    a = {
+        type: 'failure',
+        errors: {
+            email: 'Неверный email адрес!'
+        }
+    };
+</script>

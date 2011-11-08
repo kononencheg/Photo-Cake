@@ -1,10 +1,9 @@
 <?php
 
-require_once('../lib/auth/session.php');
-require_once('../lib/net/request.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
 
-$session = new Session();
-$request = new Request();
+$session = new \auth\Session();
+$request = new \net\Request();
 
 ?>
 <!DOCTYPE HTML>

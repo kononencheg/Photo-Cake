@@ -1,11 +1,10 @@
 <?php
 
-require_once('../lib/net/request.php');
-require_once('../lib/auth/session.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
 
-$request = new Request(Request::GET);
+$request = new \net\Request();
+$session = new \auth\Session();
 
-$session = new Session();
 $session->app = $request->getSource();
 
 ?>

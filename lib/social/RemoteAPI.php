@@ -1,5 +1,7 @@
 <?php
 
+namespace social;
+
 class RemoteAPI {
 
     protected $_url;

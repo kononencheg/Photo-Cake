@@ -1,6 +1,6 @@
 <?php
 
-require_once('remote-api.php');
+namespace social;
 
 class OdnoklassnikiAPI extends RemoteAPI {
 

@@ -1,5 +1,7 @@
 <?php
 
+namespace auth;
+
 class Session {
 
     public function __construct() {

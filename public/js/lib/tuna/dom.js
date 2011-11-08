@@ -151,7 +151,7 @@
         return parent === context ? null : parent;
     };
 
-    // TODO: implement new classList API
+    // TODO: implement new classList api
 
     tuna.dom.hasClass = function(element, className) {
         return element.className.match

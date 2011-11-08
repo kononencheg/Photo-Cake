@@ -1,8 +1,8 @@
 <?php
 
-require_once('../../../lib/net/request.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
 
-$request = new Request();
+$request = new \net\Request();
 
 if (isset($request->email) &&
     filter_var($request->email, FILTER_VALIDATE_EMAIL)) {

@@ -620,7 +620,7 @@ var swfobject = function() {
 	}();
 	
 	return {
-		/* Public API
+		/* Public api
 			- Reference: http://code.google.com/p/swfobject/wiki/documentation
 		*/ 
 		registerObject: function(objectIdStr, swfVersionStr, xiSwfUrlStr, callbackFn) {

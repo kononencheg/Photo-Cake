@@ -1,10 +1,9 @@
 <?php
 
-require_once('../../../lib/auth/session.php');
-require_once('../../../lib/net/request.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
 
-$request = new Request();
-$session = new Session();
+$session = new \auth\Session();
+$request = new \net\Request();
 
 $user = file_get_contents(
     'http://ulogin.ru/token.php?token=' . $request->token .
@@ -14,7 +13,7 @@ $user = file_get_contents(
 $session->user = json_decode($user);
 
 ?>
-<script>
+<script type="text/javascript">
     parent.uLogin.hideAll();
 
     parent.<?php echo $request->callback ?>('<?php echo $request->token ?>');
