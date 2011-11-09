@@ -2,42 +2,98 @@
 
 namespace api;
 
-class APIService {
+abstract class APIService {
 
     /**
-     * @var array
+     * @var \MongoDB
      */
-    private $_filters;
+    protected  $_db;
 
     /**
-     * @var MongoDB
+     * @var \auth\Session
      */
-    protected $_db;
+    protected  $_session;
 
-    public function __construct() {
-        $mongo = new \Mongo();
-        $this->_db = $mongo->selectDB('cakes');
+    /**
+     * @var string
+     */
+    private $_method;
 
-        $this->_filters = array();
-        $this->registerFilters();
+    /**
+     * @param MongoDB $db
+     */
+    public function setDB($db) {
+        $this->_db = $db;
     }
 
-    protected function registerFilters() {}
-
-    protected function addFilter($method, $options, $messages) {
-        $this->_filters[$method] = array(
-            'options' => $options,
-            'messages' => $messages
-        );
+    /**
+     * @param \auth\Session $session
+     */
+    public function setSession($session) {
+        $this->_session = $session;
     }
 
-    public function getFilters($method) {
+    /**
+     * @param string $method
+     */
+    public function setMethod($method) {
+        $this->_method = $method;
+    }
+
+    abstract public function init();
+
+    public function apply($params) {
         $result = NULL;
 
-        if (isset($this->_filters[$method])) {
-            $result = $this->_filters[$method];
+        $methodSuffix = ucwords($this->_method);
+
+        $applyMethod = 'apply' . $methodSuffix;
+        $filterMethod = 'filter' . $methodSuffix;
+        $prepareMethod = 'prepare' . $methodSuffix;
+        //$finalizeMethod = 'finalize' . $methodSuffix;
+
+        if (method_exists($this, $applyMethod)) {
+            $errors = array();
+            $arguments = array();
+
+            if (method_exists($this, $filterMethod)) {
+                $arguments = call_user_func(array($this, $filterMethod), $params, &$errors);
+            }
+
+            if (method_exists($this, $prepareMethod)) {
+                array_push($arguments, &$errors);
+                call_user_func_array(array($this, $prepareMethod), $arguments);
+                array_pop($arguments);
+            }
+
+            if (empty($errors)) {
+                $result = call_user_func_array(array($this, $applyMethod), $arguments);
+            } else {
+                $result = array( 'errors' => $errors );
+            }
+        } else {
+            throw new \Exception('Unknown method name');
         }
 
         return $result;
     }
+
+    protected function filter($params, $filters, $messages, &$errors) {
+        $result = array();
+
+        $filteredParams = filter_var_array($params, $filters);
+
+        foreach($filteredParams as $name => $value) {
+            if (isset($messages[$name]) &&
+                isset($messages[$name][$value])) {
+
+                $errors[$name] = $messages[$name][$value];
+            }
+
+            array_push($result, $value);
+        }
+
+        return $result;
+    }
+
 }

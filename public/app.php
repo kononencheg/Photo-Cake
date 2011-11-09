@@ -141,7 +141,7 @@ $session->app = $request->getSource();
             var RECIPES_URL       = '/api/recipes.php';
             var PHOTO_GALLERY_URL = '/api/photo-gallery.php';
             var USER_INFO_URL     = '/api/user-info.php';
-            var CITIES_URL        = '/api/cities.php';
+            var CITIES_URL        = '/api/photo-gallery.php';
 
             // Хранилище
             var db = new tuna.control.DataDispatcher();

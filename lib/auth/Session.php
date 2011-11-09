@@ -12,7 +12,7 @@ class Session {
         $_SESSION[$name] = $value;
     }
 
-    public function __get($name) {
+    public function &__get($name) {
         return $_SESSION[$name];
     }
 

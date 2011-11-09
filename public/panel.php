@@ -1,19 +1,9 @@
 <?php
 
-set_include_path('../lib' . PATH_SEPARATOR . get_include_path());
+require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
 
-require_once('auth/access.php');
-require_once('auth/session.php');
-require_once('auth/user-role.php');
-
-require_once('net/request.php');
-
-require_once('view/page.php');
-
-require_once('utils/object-utils.php');
-
-$session = new Session();
-$page = new Page();
+$session = new \auth\Session();
+$page = new \view\Page();
 
 ?>
 <!DOCTYPE html>

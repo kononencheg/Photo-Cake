@@ -86,7 +86,7 @@
 
         var request = new tuna.net.Request(USER_INFO_URL);
         request.subscribe('complete', function(type, response) {
-            var users = JSON.parse(response);
+            var users = [];//JSON.parse(response);
 
             self._db.set('user', users[0]);
             self._db.set('user.location.city', 'Санкт-Петербург');
@@ -102,9 +102,14 @@
 
         var request = new tuna.net.Request(CITIES_URL);
         request.subscribe('complete', function(type, response) {
-            var cities = JSON.parse(response);
+            var cities = [];//JSON.parse(response);
 
-            self._db.set('cities', cities);
+            self._db.set('cities', [
+                {_id: "1", value: "11" },
+                {_id: "2", value: "22" },
+                {_id: "3", value: "33" },
+                {_id: "4", value: "44" }
+            ]);
 
             self.__testCurrentCity();
         });

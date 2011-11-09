@@ -1,7 +1,6 @@
 <?php
 
-require_once('../../lib/auth/session.php');
-require_once('../../lib/social/odnoklassnili-api.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
 
 $session = new Session();
 

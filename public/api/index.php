@@ -9,10 +9,19 @@ $response = new \view\Response();
 $response->init($request);
 
 try {
-    $service = new \api\APIRouter($request->fetch('method'));
-    $response->result = $service->apply($request->getSource());
-} catch (ErrorException $exception) {
-    $response->error = $exception->getTrace();
+    $mongo = new \Mongo();
+    $cakesDB = $mongo->selectDB('cakes');
+
+    $service = \api\APIServiceBuilder::createService($request->fetch('method'));
+    $service->setDB($cakesDB);
+    $service->setSession($session);
+    $service->init();
+
+    $response->response = $service->apply($request->getSource());
+} catch (Exception $exception) {
+    $response->error = $exception->getMessage();
+    $response->error_code = $exception->getCode();
+    $response->trace = $exception->getTrace();
 }
 
 $response->render();
