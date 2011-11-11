@@ -22,7 +22,7 @@ class APIServiceBuilder {
                 throw new \Exception('Unknown method alias');
             }
         } else {
-            throw new \Exception('Param \"method\" must be set');
+            throw new \Exception('Param "method" must be set');
         }
 
         return $service;

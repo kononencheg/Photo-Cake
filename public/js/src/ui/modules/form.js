@@ -1,12 +1,14 @@
 (function() {
     var Form = function() {
-        tuna.ui.modules.Module.call(this, 'form', '.j-form');
+        tuna.ui.modules.Module.call(this, 'form', 'form.j-form');
+
+
     };
 
     tuna.extend(Form, tuna.ui.modules.Module);
 
     Form.prototype._initItem = function(target) {
-        var form = null;
+        var form = new ui.Form(target);
         
         return form;
     };

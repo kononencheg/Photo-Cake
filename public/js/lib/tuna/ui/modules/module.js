@@ -17,6 +17,7 @@
 
     Module.prototype.init = function(context, container, options) {
         var targets = Sizzle(this._selector, context);
+        targets = targets.concat(Sizzle.filter(this._selector, [context]));
 
         var i = 0,
             l = targets.length;

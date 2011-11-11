@@ -26,7 +26,14 @@ class Response {
     }
 
     public function render() {
-        echo json_encode($this->_data);
+        $responseData = json_encode($this->_data);
+        if (isset($this->_callbackName)) {
+            echo '<script type="text/javascript">
+                      parent.' . $this->_callbackName . '(' . $responseData . ');
+                  </script>';
+        } else {
+            echo $responseData;
+        }
     }
 
     public function __set($name, $value) {

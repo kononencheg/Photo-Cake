@@ -1,4 +1,7 @@
-<form class="j-form" action="/" target="ajax_support">
+<form id="login_form" class="j-form j-template-container"
+      action="/api/" method="post"
+      enctype="application/x-www-form-urlencoded">
+
     <div class="overlay"></div>
     <div class="modal">
         <div class="modal-header">
@@ -34,19 +37,5 @@
             <input type="submit" class="btn primary" value="Войти" />
         </div>
     </div>
+
 </form>
-
-<script type="text/javascript">
-
-    var a = {
-        type: 'success',
-        data: {}
-    };
-
-    a = {
-        type: 'failure',
-        errors: {
-            email: 'Неверный email адрес!'
-        }
-    };
-</script>
