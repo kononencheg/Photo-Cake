@@ -1,5 +1,5 @@
 <form id="login_form" class="j-form j-template-container"
-      action="/api/" method="post"
+      action="/api/?method=users.login" method="post" target="transport_frame"
       enctype="application/x-www-form-urlencoded">
 
     <div class="overlay"></div>
@@ -8,30 +8,32 @@
             <h2>Панель управления</h2>
         </div>
         <div class="modal-body">
+            <div class="j-form-message alert-message hidden"></div>
             <fieldset>
                 <legend>Авторизация</legend>
 
-                <div class="j-input-email clearfix">
+                <div class="j-email-input clearfix">
                     <label for="email">Email:</label>
                     <div class="input">
                         <input id="email" name="email" size="30" type="text" />
-                        <span class="j-help help-inline">
+                        <span class="j-message help-inline">
                             Ваш email адрес.
                         </span>
                     </div>
                 </div>
 
-                <div class="j-input-password clearfix">
+                <div class="j-password-input clearfix">
                     <label for="password">Пароль:</label>
                     <div class="input">
                         <input id="password" name="password" size="30" type="password" />
                         <span class="help-inline">
-                            <span class="j-help">Ваш пароль.</span>
+                            <span class="j-message">Ваш пароль.</span>
                             <a href="#">Забыли?</a>
                         </span>
                     </div>
                 </div>
             </fieldset>
+
         </div>
         <div class="modal-footer">
             <input type="submit" class="btn primary" value="Войти" />

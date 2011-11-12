@@ -1,6 +1,5 @@
 <?php
-        var_dump($_POST);
-/*
+
 require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
 
 $request = new \net\Request();
@@ -25,4 +24,6 @@ try {
     $response->trace = $exception->getTrace();
 }
 
-$response->render();*/ ?>
+$response->render();
+
+?>

@@ -5,7 +5,7 @@
         this._target = target;
         this._parent = parent;
 
-        this.__modulesTable = {};
+        this.__moduleArgsTable = {};
     };
 
     Container.prototype.getTarget = function() {
@@ -37,21 +37,55 @@
     };
 
     Container.prototype.initModules = function(target) {
-        tuna.ui.modules.init(this, target, this.__modulesTable);
+        var result = {};
+
+        var module = null;
+        for (var name in this.__moduleArgsTable) {
+            module = tuna.ui.modules.getModule(name);
+            if (module === null) {
+                console.error('Unknown module "' + name + '"');
+
+                continue;
+            }
+
+            result[name] =
+                this.__initModule(module, target, this.__moduleArgsTable[name]);
+        }
+
+        return result;
+    };
+
+    Container.prototype.__initModule = function(module, target, moduleArgs) {
+        var result = [];
+
+        var commonArgs = [target || this._target, this];
+
+        var i = moduleArgs.length - 1;
+        while (i >= 0) {
+            if (moduleArgs[i] !== null) {
+                result = result.concat(
+                    module.init.apply(module, commonArgs.concat(moduleArgs[i]))
+                );
+            }
+
+            i--;
+        }
+
+        return result;
     };
 
     Container.prototype.__requireOneModule = function() {
         var args = tuna.toArray(arguments);
         var name = args.shift();
 
-        if (this.__modulesTable[name] === undefined) {
-            this.__modulesTable[name] = [null];
+        if (this.__moduleArgsTable[name] === undefined) {
+            this.__moduleArgsTable[name] = [null];
         }
 
         if (args.length > 0) {
-            this.__modulesTable[name].push(args);
+            this.__moduleArgsTable[name].push(args);
         } else {
-            this.__modulesTable[name][0] = [];
+            this.__moduleArgsTable[name][0] = [];
         }
     };
 

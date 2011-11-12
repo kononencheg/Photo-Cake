@@ -20,9 +20,9 @@
 
         this._requireModules();
 
-        this._initListeners();
+        this._initListeners(this._container.initModules());
+
         this._initData();
-        this._initModules();
     };
 
     ViewController.prototype.setContainer = function(container) {
@@ -34,12 +34,8 @@
     };
 
     ViewController.prototype._requireModules = function() {};
-    ViewController.prototype._initListeners = function() {};
+    ViewController.prototype._initListeners = function(modules) {};
     ViewController.prototype._initData = function() {};
-    
-    ViewController.prototype._initModules = function(target) {
-        this._container.initModules(target || this._target);
-    };
 
     // Static methods
 

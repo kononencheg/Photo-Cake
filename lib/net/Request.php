@@ -30,8 +30,6 @@ class Request {
                 $this->_source = array_merge($_GET, $_POST);
             }
         }
-
-        var_dump($_POST);
     }
 
     public function __get($name) {

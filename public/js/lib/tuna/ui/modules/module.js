@@ -1,21 +1,18 @@
 (function() {
     tuna.namespace('tuna.ui.module');
 
-    var Module = function(name, selector, isGlobal) {
+    var Module = function(name, selector) {
         this._name = name;
         this._selector = selector;
-        this._isGlobal = isGlobal;
     };
 
     Module.prototype.getName = function() {
         return this._name;
     };
 
-    Module.prototype.isGlobal = function() {
-        return this._isGlobal;
-    };
-
     Module.prototype.init = function(context, container, options) {
+        var result = [];
+
         var targets = Sizzle(this._selector, context);
         targets = targets.concat(Sizzle.filter(this._selector, [context]));
 
@@ -30,11 +27,13 @@
 
             tuna.dom.dispatchEvent(target, 'ui-' + this._name + '-init', instance);
 
+            result.push(instance);
+
             i++;
         }
-    };
 
-    Module.prototype.destroy = function(context, container) {};
+        return result;
+    };
 
     Module.prototype._initItem = function(target, container, options) {};
 

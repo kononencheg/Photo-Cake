@@ -167,7 +167,7 @@
     tuna.dom.removeClass = function(element, className) {
         if (tuna.dom.hasClass(element, className)) {
             var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
-            element.className = element.className.replace(reg, '');
+            element.className = element.className.replace(reg, ' ');
         }
     };
 
