@@ -2,26 +2,26 @@
 
 require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
 
-$request = new \net\Request();
-$session = new \auth\Session();
-
 $response = new \view\Response();
-$response->init($request);
 
 try {
-    $mongo = new \Mongo();
-    $cakesDB = $mongo->selectDB('cakes');
+    
+    $request = \net\Request::getInstance();
+    $method = \api\APIMethodFactory::create($request->fetch('method'));
 
-    $service = \api\APIServiceBuilder::createService($request->fetch('method'));
-    $service->setDB($cakesDB);
-    $service->setSession($session);
-    $service->init();
+    $response->response = $method->call($request->getSource());
+    if ($response->response === NULL) {
+        $response->response = array(
+            'errors' => $method->getErrors()
+        );
+    }
 
-    $response->response = $service->apply($request->getSource());
 } catch (Exception $exception) {
+
     $response->error = $exception->getMessage();
     $response->error_code = $exception->getCode();
     $response->trace = $exception->getTrace();
+    
 }
 
 $response->render();

@@ -10,7 +10,7 @@ class Request {
 
     private $_source;
 
-    public function __construct($type = -1) {
+    private function __construct($type = -1) {
         $this->initSource($type);
     }
 
@@ -32,7 +32,7 @@ class Request {
         }
     }
 
-    public function __get($name) {
+    public function &__get($name) {
         if (isset($this->_source[$name])) {
             return $this->_source[$name];
         }
@@ -54,5 +54,20 @@ class Request {
         unset($this->$name);
 
         return $result;
+    }
+
+
+    private static $instance = NULL;
+
+    /**
+     * @static
+     * @return \net\Request
+     */
+    public static function getInstance() {
+        if (self::$instance === NULL) {
+            self::$instance = new Request();
+        }
+
+        return self::$instance;
     }
 }

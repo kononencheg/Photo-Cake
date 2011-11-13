@@ -16,9 +16,8 @@ class Response {
     public function __construct() {
         $this->_type = self::XHR;
         $this->_data = new \stdClass();
-    }
 
-    public function init($request) {
+        $request = \net\Request::getInstance();
         if (isset($request->__callback)) {
             $this->_callbackName = $request->fetch('__callback');
             $this->_type = self::FRAME;

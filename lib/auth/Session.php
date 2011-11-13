@@ -4,7 +4,7 @@ namespace auth;
 
 class Session {
 
-    public function __construct() {
+    private function __construct() {
         session_start();
     }
 
@@ -26,6 +26,20 @@ class Session {
 
     public function destroy() {
         session_destroy();
+    }
+
+    private static $instance = NULL;
+
+    /**
+     * @static
+     * @return \auth\Session
+     */
+    public static function getInstance() {
+        if (self::$instance === NULL) {
+            self::$instance = new Session();
+        }
+
+        return self::$instance;
     }
 
 }
