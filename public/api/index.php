@@ -2,12 +2,16 @@
 
 require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
 
-$response = new \view\Response();
+$response = new \cakes\view\Response();
 
 try {
-    
-    $request = \net\Request::getInstance();
-    $method = \api\APIMethodFactory::create($request->fetch('method'));
+    $adapterFactory = \cakes\db\mongo\MongoAdapterFactory::getInstance();
+    $adapterFactory->setRecordFactory(new db\RecordFactory());
+
+    $request = \cakes\globals\Request::getInstance();
+
+    $methodFactory = new \api\MethodFactory();
+    $method = $methodFactory->create($request->fetch('method'));
 
     $response->response = $method->call($request->getSource());
     if ($response->response === NULL) {
