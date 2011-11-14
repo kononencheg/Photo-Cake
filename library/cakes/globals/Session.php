@@ -14,6 +14,10 @@ class Session {
      * @return void
      */
     public function __set($name, $value) {
+        if (is_object($value)) {
+            $value = get_object_vars($value);
+        }
+
         $_SESSION[$name] = $value;
     }
 

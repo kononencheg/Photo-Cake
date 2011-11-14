@@ -107,9 +107,9 @@ abstract class Method {
     }
 
     /**
-     * @return array|string
+     * @return array
      */
     public function getErrors() {
-        return $this->_errors;
+        return array( 'errors' => $this->_errors );
     }
 }

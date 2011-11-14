@@ -46,6 +46,8 @@ class Login extends \api\users\UserMethod {
      */
     protected function apply() {
         $this->_session->user = $this->_user;
+        $this->_session->role = $this->_user->role;
+
         return $this->_session->user;
     }
 }

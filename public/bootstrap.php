@@ -1,8 +1,9 @@
 <?php
 
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath($_SERVER["DOCUMENT_ROOT"] . '/../app'),
-    realpath($_SERVER["DOCUMENT_ROOT"] . '/../lib'),
+    realpath($_SERVER["DOCUMENT_ROOT"] . '/../application'),
+    realpath($_SERVER["DOCUMENT_ROOT"] . '/../library'),
+    realpath($_SERVER["DOCUMENT_ROOT"] . '/../templates'),
     get_include_path(),
 )));
 

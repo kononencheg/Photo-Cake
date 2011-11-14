@@ -11,9 +11,10 @@ class MethodFactory implements \cakes\api\IMethodFactory {
     function create($name) {
         switch ($name) {
             case 'users.login': return new \api\users\Login();
+            case 'users.register': return new \api\users\Register();
 
             default:
-                throw new \Exception('Unknown method "' . $name . '" calling.');
+                throw new \Exception('Unknown method ' . $name . ' calling.');
         }
     }
 }

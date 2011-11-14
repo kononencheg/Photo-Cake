@@ -7,15 +7,24 @@ class Response {
     const XHR = 0;
     const FRAME = 1;
 
+    /**
+     * @var int
+     */
     private $_type;
 
+    /**
+     * @var mixed
+     */
     private $_callbackName;
 
+    /**
+     * @var array
+     */
     private $_data;
 
     public function __construct() {
         $this->_type = self::XHR;
-        $this->_data = new \stdClass();
+        $this->_data = array();
 
         $request = \cakes\globals\Request::getInstance();
         if (isset($request->__callback)) {
@@ -26,6 +35,7 @@ class Response {
 
     public function render() {
         $responseData = json_encode($this->_data);
+
         if (isset($this->_callbackName)) {
             echo '<script type="text/javascript">
                       parent.' . $this->_callbackName . '(' . $responseData . ');
@@ -35,19 +45,11 @@ class Response {
         }
     }
 
-    public function __set($name, $value) {
-        $this->_data->$name = $value;
+    public function setData($value) {
+        $this->_data['response'] = $value;
     }
 
-    public function __get($name) {
-        return $this->_data->$name;
-    }
-
-    public function __isset($name) {
-        return isset($this->_data->$name);
-    }
-
-    public function __unset($name) {
-        unset($this->_data->$name);
+    public function setError($errors) {
+        $this->_data['error'] = $errors;
     }
 }

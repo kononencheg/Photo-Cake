@@ -38,7 +38,7 @@ class Request {
      * @param string $name
      * @return mixed
      */
-    public function &__get($name) {
+    public function __get($name) {
         if (isset($this->_source[$name])) {
             return $this->_source[$name];
         }
