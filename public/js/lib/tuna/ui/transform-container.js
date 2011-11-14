@@ -2,7 +2,7 @@
 
     tuna.namespace('tuna.ui');
 
-    var TemplateContainer = function(target, parent) {
+    var TransformContainer = function(target, parent) {
         tuna.ui.DataContainer.call(this, target, parent);
 
         this.__dbPath = null;
@@ -11,13 +11,13 @@
         this.__handleDataChange = tuna.bind(this.__handleDataChange, this);
     };
 
-    tuna.extend(TemplateContainer, tuna.ui.DataContainer);
+    tuna.extend(TransformContainer, tuna.ui.DataContainer);
 
-    TemplateContainer.prototype.setTransformer = function(transformer) {
+    TransformContainer.prototype.setTransformer = function(transformer) {
         this.__transformer = transformer;
     };
 
-    TemplateContainer.prototype.setDBPath = function(dataPath) {
+    TransformContainer.prototype.setDBPath = function(dataPath) {
         var db = this.getDB();
 
         if (db !== null) {
@@ -31,11 +31,11 @@
         }
     };
 
-    TemplateContainer.prototype.__handleDataChange = function() {
+    TransformContainer.prototype.__handleDataChange = function() {
         this.__applyTransform();
     };
 
-    TemplateContainer.prototype.__applyTransform = function() {
+    TransformContainer.prototype.__applyTransform = function() {
         var db = this.getDB();
         if (this.__transformer !== null &&
             this.__dbPath !== null &&
@@ -45,6 +45,6 @@
         }
     };
 
-    tuna.ui.TemplateContainer = TemplateContainer;
+    tuna.ui.TransformContainer = TransformContainer;
 
 })();

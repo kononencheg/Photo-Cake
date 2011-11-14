@@ -5,7 +5,7 @@
 
     tuna.extend(Popup, tuna.ui.modules.Module);
 
-    Popup.prototype._initItem = function(target) {
+    Popup.prototype._initInstance = function(target) {
         var popupElement = Sizzle(target.getAttribute('data-popup-selector'))[0];
         var popup = ui.Popup.create(popupElement);
 

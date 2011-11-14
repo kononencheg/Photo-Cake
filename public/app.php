@@ -99,16 +99,16 @@ $session->app = $request->getSource();
 
         <script src="/js/lib/tuna/ui/container.js"></script>
         <script src="/js/lib/tuna/ui/data-container.js"></script>
-        <script src="/js/lib/tuna/ui/template-container.js"></script>
+        <script src="/public/js/lib/tuna/ui/transform-container.js"></script>
         <script src="/js/lib/tuna/ui/item-selector.js"></script>
         
         <script src="/js/lib/tuna/ui/modules.js"></script>
         <script src="/js/lib/tuna/ui/modules/module.js"></script>
-        <script src="/js/lib/tuna/ui/modules/template-container.js"></script>
+        <script src="/public/js/lib/tuna/ui/modules/transform-container.js"></script>
         <script src="/js/lib/tuna/ui/modules/item-selector.js"></script>
 
         <script src="/js/lib/tuna/control/data-dispatcher.js"></script>
-        <script src="/js/lib/tuna/control/view-controller.js"></script>
+        <script src="/public/js/lib/tuna/view/view-controller.js"></script>
 
         <script src="/js/lib/jquery/jquery-1.6.4.js"></script>
 

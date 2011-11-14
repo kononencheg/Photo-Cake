@@ -6,7 +6,7 @@
 
     tuna.extend(Slider, tuna.ui.modules.Module);
 
-    Slider.prototype._initItem = function(target) {
+    Slider.prototype._initInstance = function(target) {
         var $this = $(target);
 
         $this.slider({

@@ -6,7 +6,7 @@
 
     tuna.extend(SWF, tuna.ui.modules.Module);
 
-    SWF.prototype._initItem = function(target) {
+    SWF.prototype._initInstance = function(target) {
         target.id = target.id || Math.random();
 
         swfobject.embedSWF(

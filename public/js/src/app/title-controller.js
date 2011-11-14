@@ -1,13 +1,13 @@
 (function() {
 
     var TitleController = function(id) {
-        tuna.control.ViewController.call(this, id);
+        tuna.view.ViewController.call(this, id);
 
         this.__$citySelect = null;
         this.__$cityWarning = null;
     };
 
-    tuna.extend(TitleController, tuna.control.ViewController);
+    tuna.extend(TitleController, tuna.view.ViewController);
 
     TitleController.prototype._requireModules = function() {
         this._container.requireModule('carousel');
@@ -117,6 +117,6 @@
         request.send();
     };
 
-    tuna.control.ViewController.registerController(new TitleController("title_step"));
+    tuna.view.ViewController.registerController(new TitleController("title_step"));
 
 })();

@@ -1,12 +1,12 @@
 (function() {
 
     var ThirdStepController = function(id) {
-        tuna.control.ViewController.call(this, id);
+        tuna.view.ViewController.call(this, id);
 
         this.__itemSelectionPopup = null;
     };
 
-    tuna.extend(ThirdStepController, tuna.control.ViewController);
+    tuna.extend(ThirdStepController, tuna.view.ViewController);
 
     ThirdStepController.prototype._requireModules = function() {
         this._container.requireModule('template-container');
@@ -115,5 +115,5 @@
     openImageGallery = tuna.bind(controller.openImageGallery, controller);
     openCakePresets = tuna.bind(controller.openCakePresets, controller);
 
-    tuna.control.ViewController.registerController(controller);
+    tuna.view.ViewController.registerController(controller);
 })();

@@ -1,10 +1,10 @@
 (function() {
 
     var SecondStepController = function(id) {
-        tuna.control.ViewController.call(this, id);
+        tuna.view.ViewController.call(this, id);
     };
 
-    tuna.extend(SecondStepController, tuna.control.ViewController);
+    tuna.extend(SecondStepController, tuna.view.ViewController);
 
     SecondStepController.prototype._requireModules = function() {
         // TODO: Разобраться с инициализацией спрятанных итем рентдереров
@@ -83,6 +83,6 @@
         }
     };
 
-    tuna.control.ViewController.registerController(new SecondStepController('second_step'));
+    tuna.view.ViewController.registerController(new SecondStepController('second_step'));
 
 })();

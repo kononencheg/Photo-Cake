@@ -10,6 +10,9 @@
     ITransformHandler.prototype.handleTransformComplete
         = function(target, created, removed) {};
 
+    ITransformHandler.prototype.handleDestroy
+        = function(target, created, removed) {};
+
     tuna.tmpl.ITransformHandler = ITransformHandler;
 
 })();

@@ -24,7 +24,7 @@
          * Compiled template.
          *
          * @private
-         * @type {tuna.tmpl.__CompiledTemplate}
+         * @type {tuna.tmpl.unit.Template}
          */
         this.__core = null;
 
@@ -36,10 +36,14 @@
          */
         this.__target = null
 
+        /**
+         * @private
+         * @type {tuna.tmpl.ITransformHandler}
+         */
         this.__transformHandler = null;
     };
 
-    //tuna.implement(TemplateTransformer, tuna.app.ITransformer);
+    tuna.implement(TemplateTransformer, tuna.tmpl.ITransformer);
 
     /**
      * Transform method.
@@ -75,6 +79,22 @@
 
     TemplateTransformer.prototype.setTransformHandler = function(handler) {
         this.__transformHandler = handler;
+    };
+
+    TemplateTransformer.prototype.destroy = function() {
+        this.__core.destroy();
+
+        if (this.__transformHandler !== null) {
+            this.__transformHandler.handleDestroy(
+                this.__target,
+                this.__core.fetchCreatedChildren(),
+                this.__core.fetchRemovedChildren()
+            );
+        }
+
+        this.__core = null;
+        this.__target = null;
+        this.__transformHandler = null;
     };
 
 

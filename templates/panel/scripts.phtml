@@ -1,5 +1,4 @@
 <script type="text/javascript" src="/js/lib/tuna.js"></script>
-
 <script type="text/javascript" src="/js/lib/tuna/utils/i-notifier.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/utils/notifier.js"></script>
 
@@ -40,21 +39,27 @@
 <script type="text/javascript" src="/js/lib/tuna/tmpl/compile/condition-compiler.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/tmpl/compile/list-compiler.js"></script>
 
-<script type="text/javascript" src="/js/lib/tuna/tmpl/template-transformer.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/tmpl/i-transform-handler.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/tmpl/i-transformer.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/tmpl/template-transformer.js"></script>
 
 <script type="text/javascript" src="/js/lib/tuna/ui/container.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/ui/data-container.js"></script>
-<script type="text/javascript" src="/js/lib/tuna/ui/template-container.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/ui/transform-container.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/ui/item-selector.js"></script>
 
 <script type="text/javascript" src="/js/lib/tuna/ui/modules.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/ui/modules/module.js"></script>
-<script type="text/javascript" src="/js/lib/tuna/ui/modules/template-container.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/ui/modules/transform-container.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/ui/modules/item-selector.js"></script>
 
 <script type="text/javascript" src="/js/lib/tuna/control/data-dispatcher.js"></script>
-<script type="text/javascript" src="/js/lib/tuna/control/view-controller.js"></script>
+
+<script type="text/javascript" src="/js/lib/tuna/view/i-content-request-builder.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/view/content-factory.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/view/i-view-state.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/view/view-controller.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/view/state-view-controller.js"></script>
 
 <script type="text/javascript" src="/js/lib/jquery/jquery-1.6.4.js"></script>
 
@@ -77,6 +82,8 @@
 <script type="text/javascript" src="/js/src/ui/modules/carousel.js"></script>
 <script type="text/javascript" src="/js/src/ui/modules/form.js"></script>
 
-<script type="text/javascript" src="/js/src/panel/login-controller.js"></script>
-    
-<script type="text/javascript" src="/js/src/panel/main.js"></script>
+<script type="text/javascript" src="/js/src/panel/main-controller.js"></script>
+
+<script type="text/javascript">
+    tuna.view.ViewController.initMainController();
+</script>

@@ -6,7 +6,7 @@
 
     tuna.extend(ItemSelector, tuna.ui.modules.Module);
 
-    ItemSelector.prototype._initItem = function(target) {
+    ItemSelector.prototype._initInstance = function(target) {
         var selector = new tuna.ui.ItemSelector(target, '.j-selection-item');
         selector.setNavigationButtonSelectors('.j-selection-next', '.j-selection-prev');
         selector.init();

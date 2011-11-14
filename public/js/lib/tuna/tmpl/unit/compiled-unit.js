@@ -16,5 +16,7 @@
         return this.__rootTemplate;
     };
 
+    CompiledUnit.prototype.destroy = function() {};
+
     tuna.tmpl.unit.CompiledUnit = CompiledUnit;
 })();

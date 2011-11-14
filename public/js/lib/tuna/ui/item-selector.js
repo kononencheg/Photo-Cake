@@ -1,13 +1,13 @@
 (function() {
     tuna.namespace('tuna.ui');
 
-    var ItemSelector = function(targetElement, itemSelector) {
+    var ItemSelector = function(target, itemSelector) {
         tuna.utils.Notifier.call(this);
 
         this.__currentIndex = -1;
 
         this.__itemSelector = itemSelector;
-        this._target = targetElement;
+        this._target = target;
 
         this.__items = [];
 

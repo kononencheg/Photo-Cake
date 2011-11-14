@@ -37,6 +37,8 @@
         /**
          * Данные запроса
          *
+         * TODO: Implement setData method!
+         *
          * @type Object
          */
         this.data = null;

@@ -1,6 +1,6 @@
 (function() {
     var SelectionListController = function(id) {
-        tuna.control.ViewController.call(this, id);
+        tuna.view.ViewController.call(this, id);
 
         this.__itemSelector = null;
 
@@ -8,7 +8,7 @@
         this.__$itemList = null;
     };
 
-    tuna.extend(SelectionListController, tuna.control.ViewController);
+    tuna.extend(SelectionListController, tuna.view.ViewController);
 
     SelectionListController.prototype._requireModules = function() {
         this._container.requireModule('item-selector');
@@ -52,6 +52,6 @@
         }
     };
 
-    tuna.control.ViewController.registerController(new SelectionListController('item_selection_popup'));
+    tuna.view.ViewController.registerController(new SelectionListController('item_selection_popup'));
 
 })();

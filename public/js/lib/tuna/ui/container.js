@@ -5,7 +5,8 @@
         this._target = target;
         this._parent = parent;
 
-        this.__moduleArgsTable = {};
+        this.__moduleArgs = {};
+        this.__moduleInstances = {};
     };
 
     Container.prototype.getTarget = function() {
@@ -37,22 +38,31 @@
     };
 
     Container.prototype.initModules = function(target) {
-        var result = {};
-
         var module = null;
-        for (var name in this.__moduleArgsTable) {
+        for (var name in this.__moduleArgs) {
             module = tuna.ui.modules.getModule(name);
+
             if (module === null) {
                 console.error('Unknown module "' + name + '"');
-
                 continue;
             }
 
-            result[name] =
-                this.__initModule(module, target, this.__moduleArgsTable[name]);
+            this.__moduleInstances[name] =
+                this.__initModule(module, target, this.__moduleArgs[name]);
         }
+    };
 
-        return result;
+    Container.prototype.getModules = function() {
+        return this.__moduleInstances;
+    };
+
+    Container.prototype.destroyModules = function() {
+        for (var name in this.__moduleInstances) {
+            tuna.ui.modules.getModule(name)
+                                .destroy(this.__moduleInstances[name]);
+
+            delete this.__moduleInstances[name];
+        }
     };
 
     Container.prototype.__initModule = function(module, target, moduleArgs) {
@@ -78,14 +88,14 @@
         var args = tuna.toArray(arguments);
         var name = args.shift();
 
-        if (this.__moduleArgsTable[name] === undefined) {
-            this.__moduleArgsTable[name] = [null];
+        if (this.__moduleArgs[name] === undefined) {
+            this.__moduleArgs[name] = [null];
         }
 
         if (args.length > 0) {
-            this.__moduleArgsTable[name].push(args);
+            this.__moduleArgs[name].push(args);
         } else {
-            this.__moduleArgsTable[name][0] = [];
+            this.__moduleArgs[name][0] = [];
         }
     };
 

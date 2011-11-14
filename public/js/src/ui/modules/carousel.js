@@ -5,7 +5,7 @@
 
     tuna.extend(Carousel, tuna.ui.modules.Module);
 
-    Carousel.prototype._initItem = function(target) {
+    Carousel.prototype._initInstance = function(target) {
         var carouselBody = Sizzle('.j-carousel-body', target )[0];
         
         var carousel = new ui.Carousel(carouselBody, target, '.j-carousel-item');

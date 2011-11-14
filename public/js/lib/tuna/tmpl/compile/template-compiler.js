@@ -36,7 +36,7 @@
      *
      * @param {tuna.tmpl.settings.Template} template Template to compile.
      * @param {Element} element Target DOM element.
-     * @return {tuna.tmpl.TemplateTransformer} New template transformer.
+     * @return {tuna.tmpl.ITransformer} New template transformer.
      */
     TemplateCompiler.prototype.makeTransformer
         = function(templateSettings, element) {

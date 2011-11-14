@@ -11,7 +11,7 @@
     };
 
     Module.prototype.init = function(context, container, options) {
-        var result = [];
+        var instances = [];
 
         var targets = Sizzle(this._selector, context);
         targets = targets.concat(Sizzle.filter(this._selector, [context]));
@@ -19,23 +19,28 @@
         var i = 0,
             l = targets.length;
 
-        var target = null;
-        var instance = null;
         while (i < l) {
-            target = targets[i];
-            instance = this._initItem(target, container, options);
-
-            tuna.dom.dispatchEvent(target, 'ui-' + this._name + '-init', instance);
-
-            result.push(instance);
+            instances.push(this._initInstance(targets[i], container, options));
 
             i++;
         }
 
-        return result;
+        return instances;
     };
 
-    Module.prototype._initItem = function(target, container, options) {};
+    Module.prototype.destroy = function(instances) {
+        var i = 0,
+            l = instances.length;
+
+        while (i < l) {
+            this._destroyInstance(instances[i]);
+
+            i++;
+        }
+    };
+
+    Module.prototype._initInstance = function(target, container, options) {};
+    Module.prototype._destroyInstance = function(instance) {};
 
     tuna.ui.modules.Module = Module;
     

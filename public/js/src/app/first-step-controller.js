@@ -1,10 +1,10 @@
 (function() {
 
     var FirstStepController = function(id) {
-        tuna.control.ViewController.call(this, id);
+        tuna.view.ViewController.call(this, id);
     };
 
-    tuna.extend(FirstStepController, tuna.control.ViewController);
+    tuna.extend(FirstStepController, tuna.view.ViewController);
 
     FirstStepController.prototype._requireModules = function() {
         this._container.requireModule('slider');
@@ -64,6 +64,6 @@
         this._db.notify('view');
     };
 
-    tuna.control.ViewController.registerController(new FirstStepController('first_step'));
+    tuna.view.ViewController.registerController(new FirstStepController('first_step'));
 
 })();
