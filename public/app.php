@@ -98,7 +98,7 @@ $session->app = $request->getSource();
         <script src="/js/lib/tuna/tmpl/i-transform-handler.js"></script>
 
         <script src="/js/lib/tuna/ui/container.js"></script>
-        <script src="/js/lib/tuna/ui/data-container.js"></script>
+        <script src="/public/js/lib/tuna/ui/controlled-container.js"></script>
         <script src="/public/js/lib/tuna/ui/transform-container.js"></script>
         <script src="/js/lib/tuna/ui/item-selector.js"></script>
         
@@ -107,7 +107,7 @@ $session->app = $request->getSource();
         <script src="/public/js/lib/tuna/ui/modules/transform-container.js"></script>
         <script src="/js/lib/tuna/ui/modules/item-selector.js"></script>
 
-        <script src="/js/lib/tuna/control/data-dispatcher.js"></script>
+        <script src="/public/js/lib/tuna/data/data-dispatcher.js"></script>
         <script src="/public/js/lib/tuna/view/view-controller.js"></script>
 
         <script src="/js/lib/jquery/jquery-1.6.4.js"></script>
@@ -144,10 +144,10 @@ $session->app = $request->getSource();
             var CITIES_URL        = '/api/photo-gallery.php';
 
             // Хранилище
-            var db = new tuna.control.DataDispatcher();
+            var db = new tuna.data.DataDispatcher();
 
             // Контейнер страницы
-            var body = new tuna.ui.DataContainer(document.body);
+            var body = new tuna.ui.ControlledContainer(document.body);
             body.setDB(db); // Глобальное хранилище
             body.requireModule('template-container'); // модули
             body.requireModule('item-selector');

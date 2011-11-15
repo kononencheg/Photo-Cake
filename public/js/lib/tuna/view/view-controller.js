@@ -17,11 +17,11 @@
         return this.__targetID;
     };
 
-    ViewController.prototype.bind = function(container) {
+    ViewController.prototype.bindContainer = function(container) {
         this._container = container;
 
         this._target = container.getTarget();
-        this._db = container.getDB();
+        this._db     = container.getDB();
 
         this._construct();
     };
@@ -33,46 +33,51 @@
 
         this._container.initModules();
 
-        this._initActions(this._container.getModules());
+        this._initActions();
     };
 
     ViewController.prototype._requireModules = function() {};
-    ViewController.prototype._initActions = function(modules) {};
+    ViewController.prototype._initActions = function() {};
 
-    // Static methods
+    ViewController.prototype.destroy = function() {
+        this._container.destroyModules();
 
-    ViewController.__idTable = {};
-
-    ViewController.__mainController = null;
-
-    ViewController.registerMainController = function(controller) {
-        ViewController.__mainController = controller;
+        this._destroyActions();
     };
 
-    ViewController.registerController = function(controller) {
-        ViewController.__idTable[controller.getTargetID()] = controller;
+    ViewController.prototype._destroyActions = function() {};
+
+    tuna.view.ViewController = ViewController;
+
+    var idTable = {};
+    
+    var mainController = null;
+
+    tuna.view.setMainController = function(controller) {
+        mainController = controller;
     };
 
-    ViewController.getController = function(target) {
-        var viewController = ViewController.__idTable[target.id];
+    tuna.view.registerController = function(controller) {
+        idTable[controller.getTargetID()] = controller;
+    };
 
-        if (viewController !== undefined) {
-            delete ViewController.__idTable[target.id];
+    tuna.view.getController = function(target) {
+        var viewController = null;
+
+        if (target === document.body) {
+            viewController = mainController;
+        } else if (idTable[target.id] !== undefined) {
+            viewController = idTable[target.id];
+            delete idTable[target.id];
         }
 
         return viewController;
     };
 
-    ViewController.initMainController = function() {
-        var controller = ViewController.__mainController;
-        if (controller !== null) {
-            var container = new tuna.ui.DataContainer(document.body);
-            container.setDB(new tuna.control.DataDispatcher());
-            
-            controller.bind(container);
-            controller.init();
-        }
+    tuna.view.initMainController = function() {
+        var container = new tuna.ui.TransformContainer(document.body);
+        container.setDB(new tuna.data.DataStorage());
+        container.initControl();
     };
 
-    tuna.view.ViewController = ViewController;
 })();

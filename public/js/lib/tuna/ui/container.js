@@ -14,9 +14,10 @@
     };
 
     Container.prototype.render = function(element) {
-        this.clear();
-
-        this._target.appendChild(element);
+        if (element !== undefined) {
+            this.clear();
+            this._target.appendChild(element);
+        }
     };
 
     Container.prototype.clear = function() {

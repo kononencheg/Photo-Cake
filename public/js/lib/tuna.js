@@ -159,3 +159,48 @@ tuna.bind = function(fn, context) {
         return fn.apply(context, args.concat(tuna.toArray(arguments)));
     };
 };
+
+tuna.clone = function(object, clones) {
+    var result = object;
+    if (clones === undefined) {
+        clones = [];
+    }
+
+    if (object instanceof Array) {
+        result = object.slice(0);
+    } else if (object instanceof Date) {
+        result = new Date(object.getTime());
+    } else if (object instanceof Object) {
+        clones.push(object);
+
+        result = {};
+        for (var key in object) {
+            if (tuna.indexOf(clones, object[key]) === -1) {
+                result[key] = tuna.clone(object[key]);
+            } else {
+                throw new TypeError('Cloning circular structure');
+            }
+        }
+    }
+
+    return result;
+};
+
+tuna.indexOf = function(array, element) {
+    if (array.indexOf !== undefined) {
+        return array.indexOf(element);
+    } else {
+        var i = 0,
+            l = array.length;
+
+        while (i < l) {
+            if (array[i] === element) {
+                return i;
+            }
+
+            i++;
+        }
+    }
+
+    return -1;
+};

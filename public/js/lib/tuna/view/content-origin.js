@@ -1,25 +1,26 @@
 (function() {
     tuna.namespace('tuna.view');
 
-    var ContentFactory = function() {
+    var ContentOrigin = function() {
         this.__doc = document;
         this.__requestBuilder = null;
     };
 
-    ContentFactory.prototype.__buildRequest = function(path) {
+    ContentOrigin.prototype.setRequestBuilder = function(builder) {
+        this.__requestBuilder = builder;
+    };
+
+    ContentOrigin.prototype.__buildRequest = function(path) {
         var result = null;
 
         if (this.__requestBuilder) {
             result = this.__requestBuilder.build(path);
-        } else {
-            result = new tuna.net.Request('/tmpl/');
-            result.data = { 'path': path };
         }
-
+        
         return result;
     };
 
-    ContentFactory.prototype.create = function(path, callback) {
+    ContentOrigin.prototype.fetch = function(path, callback) {
         var self = this;
 
         var request = this.__buildRequest(path);
@@ -32,5 +33,10 @@
         request.send();
     };
 
-    tuna.view.contentFactory = new ContentFactory();
+    tuna.view.contentOrigin = new ContentOrigin();
 })();
+
+/*
+result = new tuna.net.Request('/tmpl/');
+result.data = { 'path': path };
+*/

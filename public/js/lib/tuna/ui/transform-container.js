@@ -3,45 +3,63 @@
     tuna.namespace('tuna.ui');
 
     var TransformContainer = function(target, parent) {
-        tuna.ui.DataContainer.call(this, target, parent);
+        tuna.ui.Container.call(this, target, parent);
 
-        this.__dbPath = null;
+        this.__db = null;
+        this.__controller = null;
         this.__transformer = null;
-
-        this.__handleDataChange = tuna.bind(this.__handleDataChange, this);
     };
 
-    tuna.extend(TransformContainer, tuna.ui.DataContainer);
+    tuna.extend(TransformContainer, tuna.ui.Container);
+
+    TransformContainer.prototype.setDB = function(db) {
+        this.__db = db;
+    };
+
+    TransformContainer.prototype.getDB = function() {
+        if (this.__db === null) {
+            return this._parent.getDB();
+        } else {
+            return this.__db;
+        }
+    };
 
     TransformContainer.prototype.setTransformer = function(transformer) {
         this.__transformer = transformer;
     };
 
-    TransformContainer.prototype.setDBPath = function(dataPath) {
-        var db = this.getDB();
 
-        if (db !== null) {
-            db.unsubscribe(this.__dbPath, this.__handleDataChange);
-        }
+    TransformContainer.prototype.render = function(element) {
+        tuna.ui.Container.prototype.clear.render(this, element);
 
-        this.__dbPath = dataPath;
-
-        if (db !== null) {
-            db.subscribe(this.__dbPath, this.__handleDataChange);
+        if (this._controller !== null) {
+            this._controller.init();
         }
     };
 
-    TransformContainer.prototype.__handleDataChange = function() {
-        this.__applyTransform();
+    TransformContainer.prototype.clear = function() {
+        tuna.ui.Container.prototype.clear.call(this);
+
+        if (this._controller !== null) {
+            this._controller.destroy();
+        }
     };
 
-    TransformContainer.prototype.__applyTransform = function() {
-        var db = this.getDB();
-        if (this.__transformer !== null &&
-            this.__dbPath !== null &&
-            db !== null) {
-            
-            this.__transformer.applyTransform(db.get(this.__dbPath));
+    TransformContainer.prototype.initControl = function() {
+        this._controller = tuna.view.getController(this._target);
+        
+        if (this._controller !== null) {
+            if (this.__transformer !== null) {
+                this.__transformer.setTransformHandler(this._controller);
+            }
+
+            this._controller.bindContainer(this);
+        }
+    };
+
+    TransformContainer.prototype.applyData = function(data) {
+        if (this.__transformer !== null) {
+            this.__transformer.applyTransform(data);
         }
     };
 

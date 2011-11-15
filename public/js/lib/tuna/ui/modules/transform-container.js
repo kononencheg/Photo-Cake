@@ -1,10 +1,14 @@
 (function() {
 
     var TransformContainer = function() {
-        tuna.ui.modules.Module.call(this, 'transform-container', '.j-transform-container');
+        tuna.ui.modules.Module.call
+            (this, 'transform-container', '.j-transform-container');
 
-        this.__templateBuilder = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
-        this.__templateCompiler = new tuna.tmpl.compile.TemplateCompiler(document);
+        this.__templateBuilder
+            = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
+
+        this.__templateCompiler 
+            = new tuna.tmpl.compile.TemplateCompiler(document);
 
         this.__templatesTable = {};
     };
@@ -13,67 +17,57 @@
 
     TransformContainer.prototype.__getTemplate = function(id) {
         if (this.__templatesTable[id] === undefined) {
-            this.__templatesTable[id] = this.__templateBuilder.buildTemplate(id);
+            this.__templatesTable[id]
+                = this.__templateBuilder.buildTemplate(id);
         }
 
         return this.__templatesTable[id];
     };
 
-    TransformContainer.prototype.__initContainer = function(container, template) {
-        var transformer = null;
+    TransformContainer.prototype.__initContainer
+        = function(container, template) {
+
         if (template !== null) {
-            transformer = this.__templateCompiler.makeTransformer
-                                        (template, container.getTarget());
+            var target = container.getTarget();
+            var transformer
+                = this.__templateCompiler.makeTransformer(template, target);
 
             container.setTransformer(transformer);
         }
 
-        var controller = tuna.view.ViewController.getController
-                                                (container.getTarget());
-        if (controller !== undefined) {
-            if (transformer !== null) {
-                transformer.setTransformHandler(controller);
-            }
-
-            // TODO: set contoller to transform container (maybe create СontrolledContainer)
-            controller.bind(container);
-            controller.init();
-        }
+        container.initControl();
     };
 
-    TransformContainer.prototype._initInstance = function(target, parentContainer) {
+    TransformContainer.prototype._initInstance = function(target, parent) {
         var contentPath = target.getAttribute('data-content-path');
-        var templateID = target.getAttribute('data-template-id');
-        var initEvent  = target.getAttribute('data-init-on');
-        var dbPath     = target.getAttribute('data-db-path');
+        var templateID  = target.getAttribute('data-template-id');
+        var initEvent   = target.getAttribute('data-init-on');
 
-        var container = new tuna.ui.TransformContainer(target, parentContainer);
-        container.setDBPath(dbPath);
+        var container = new tuna.ui.TransformContainer(target, parent);
 
         var self = this;
         
-        if (contentPath !== null) {
-            var contentHandler = function(contentFragment) {
-                container.render(contentFragment);
-                self.__initContainer(container, self.__getTemplate(templateID));
-            };
+        var initContainer = function(content) {
+            self.__initContainer(container, self.__getTemplate(templateID));
+            container.render(content);
+        };
 
+        var fetchContent = function() {
+            tuna.view.contentOrigin.fetch(contentPath, initContainer);
+        };
+
+        if (contentPath !== null) {
             if (initEvent !== null) {
-                tuna.dom.addOneEventListener(target, initEvent, function() {
-                    tuna.view.contentFactory.create(contentPath, contentHandler);
-                });
+                tuna.dom.addOneEventListener(target, initEvent, fetchContent);
             } else {
-                tuna.view.contentFactory.create(contentPath, contentHandler);
+                fetchContent();
             }
         } else {
             if (initEvent !== null) {
-                tuna.dom.addOneEventListener(target, initEvent, function() {
-                    self.__initContainer(container, self.__getTemplate(templateID));
-                });
+                tuna.dom.addOneEventListener(target, initEvent, initContainer);
             } else {
-                this.__initContainer(container, this.__getTemplate(templateID));
+                initContainer();
             }
-
         }
 
         return container;

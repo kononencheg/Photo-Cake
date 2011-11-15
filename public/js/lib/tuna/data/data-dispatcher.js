@@ -1,5 +1,5 @@
 (function() {
-    tuna.namespace('tuna.control');
+    tuna.namespace('tuna.data');
 
     var DataDispatcher = function() {
         tuna.utils.Notifier.call(this);
@@ -105,5 +105,5 @@
         }
     };
 
-    tuna.control.DataDispatcher = DataDispatcher;
+    tuna.data.DataDispatcher = DataDispatcher;
 })();
