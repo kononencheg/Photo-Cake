@@ -10,20 +10,20 @@
         this.__requestBuilder = builder;
     };
 
-    ContentOrigin.prototype.__buildRequest = function(path) {
+    ContentOrigin.prototype.__buildRequest = function(name) {
         var result = null;
 
         if (this.__requestBuilder) {
-            result = this.__requestBuilder.build(path);
+            result = this.__requestBuilder.build(name);
         }
         
         return result;
     };
 
-    ContentOrigin.prototype.fetch = function(path, callback) {
+    ContentOrigin.prototype.load = function(name, callback) {
         var self = this;
 
-        var request = this.__buildRequest(path);
+        var request = this.__buildRequest(name);
         request.subscribe('complete', function(type, response) {
             if (callback) {
                 callback(tuna.dom.createFragment(response, self.__doc));
@@ -35,8 +35,3 @@
 
     tuna.view.contentOrigin = new ContentOrigin();
 })();
-
-/*
-result = new tuna.net.Request('/tmpl/');
-result.data = { 'path': path };
-*/

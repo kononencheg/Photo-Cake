@@ -82,7 +82,9 @@ class MongoAdapter extends \cakes\db\common\CollectionAdapter {
      * @param int $limit
      * @return Iterator
      */
-    public function fetchAll($condition, $sort, $offset, $limit) {
+    public function fetchAll($condition = array(),
+                             $sort = array(), $offset = NULL, $limit = NULL) {
+        
         $cursor = $this->_collection->find($condition)
                                     ->sort($sort)
                                     ->limit($limit)

@@ -44,7 +44,6 @@
 <script type="text/javascript" src="/js/lib/tuna/tmpl/template-transformer.js"></script>
 
 <script type="text/javascript" src="/js/lib/tuna/ui/container.js"></script>
-<script type="text/javascript" src="/public/js/lib/tuna/ui/controlled-container.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/ui/transform-container.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/ui/item-selector.js"></script>
 
@@ -53,10 +52,11 @@
 <script type="text/javascript" src="/js/lib/tuna/ui/modules/transform-container.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/ui/modules/item-selector.js"></script>
 
-<script type="text/javascript" src="/public/js/lib/tuna/data/data-dispatcher.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/data/origin.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/data/data-storage.js"></script>
 
-<script type="text/javascript" src="/public/js/lib/tuna/net/i-request-builder.js"></script>
-<script type="text/javascript" src="/public/js/lib/tuna/view/origin.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/net/i-request-builder.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/view/origin.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/view/i-view-state.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/view/view-controller.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/view/state-view-controller.js"></script>
@@ -82,8 +82,11 @@
 <script type="text/javascript" src="/js/src/ui/modules/carousel.js"></script>
 <script type="text/javascript" src="/js/src/ui/modules/form.js"></script>
 
-<script type="text/javascript" src="/js/src/panel/main-controller.js"></script>
+<script type="text/javascript" src="/js/src/app/data/request-builder.js"></script>
+
+<script type="text/javascript" src="/js/src/app/view/main-controller.js"></script>
+<script type="text/javascript" src="/js/src/app/view/title-controller.js"></script>
 
 <script type="text/javascript">
-    tuna.view.ViewController.initMainController();
+    tuna.view.initMainController();
 </script>

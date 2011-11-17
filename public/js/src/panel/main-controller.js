@@ -25,7 +25,7 @@
     };
 
     LoginState.prototype.initActions = function(modules) {
-        debugger;
+        var modules = this._container.getModules();
 
         var form = modules['form'][0];
         if (form !== undefined) {

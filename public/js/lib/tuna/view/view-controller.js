@@ -23,10 +23,10 @@
         this._target = container.getTarget();
         this._db     = container.getDB();
 
-        this._construct();
+        this._bootstrap(); // Then _terminate
     };
 
-    ViewController.prototype._construct = function() {};
+    ViewController.prototype._bootstrap = function() {};
 
     ViewController.prototype.init = function() {
         this._requireModules();
@@ -77,7 +77,7 @@
     tuna.view.initMainController = function() {
         var container = new tuna.ui.TransformContainer(document.body);
         container.setDB(new tuna.data.DataStorage());
-        container.initControl();
+        container.init();
     };
 
 })();

@@ -39,35 +39,29 @@
     };
 
     TransformContainer.prototype._initInstance = function(target, parent) {
-        var contentPath = target.getAttribute('data-content-path');
+        var self = this;
+
         var templateID  = target.getAttribute('data-template-id');
-        var initEvent   = target.getAttribute('data-init-on');
+        var initEvent   = target.getAttribute('data-init-event');
 
         var container = new tuna.ui.TransformContainer(target, parent);
 
-        var self = this;
-        
-        var initContainer = function(content) {
-            self.__initContainer(container, self.__getTemplate(templateID));
-            container.render(content);
-        };
+        var initContainer = function() {
+            var template = self.__getTemplate(templateID);
+            if (template !== null) {
+                var transformer
+                    = self.__templateCompiler.makeTransformer(template, target);
 
-        var fetchContent = function() {
-            tuna.view.contentOrigin.fetch(contentPath, initContainer);
-        };
-
-        if (contentPath !== null) {
-            if (initEvent !== null) {
-                tuna.dom.addOneEventListener(target, initEvent, fetchContent);
-            } else {
-                fetchContent();
+                container.setTransformer(transformer);
             }
+
+            container.init();
+        };
+
+        if (initEvent !== null) {
+            tuna.dom.addOneEventListener(target, initEvent, initContainer);
         } else {
-            if (initEvent !== null) {
-                tuna.dom.addOneEventListener(target, initEvent, initContainer);
-            } else {
-                initContainer();
-            }
+            initContainer();
         }
 
         return container;

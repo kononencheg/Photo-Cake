@@ -14,21 +14,21 @@
         this.__requestBuilder = builder;
     };
 
-    DataOrigin.prototype.__buildRequest = function(path) {
-        var result = null;
-
-        if (this.__requestBuilder) {
-            result = this.__requestBuilder.build(path);
+    DataOrigin.prototype.__buildRequest = function(path, query) {
+        if (this.__requestBuilder !== null) {
+            return this.__requestBuilder.build(path, query);
         }
 
-        return result;
+        return null;
     };
 
-    DataOrigin.prototype.fetch = function(name, callback) {
+    DataOrigin.prototype.load = function(name, query, callback) {
         var self = this;
 
-        var request = this.__buildRequest(name);
+        var request = this.__buildRequest(name, query);
         request.subscribe('complete', function(type, response) {
+            
+
             self.__dataStorage.set(name, response);
 
             if (callback) {
@@ -39,5 +39,5 @@
         request.send();
     };
 
-    tuna.data.dataOrigin = new DataOrigin();
+    tuna.data.origin = new DataOrigin();
 })();

@@ -9,7 +9,7 @@
          *
          * @type String
          */
-        this.url = url;
+        this.__url = url;
 
         /**
          * Флаг о синхронности запроса
@@ -41,7 +41,7 @@
          *
          * @type Object
          */
-        this.data = null;
+        this.__data = null;
 
         /**
          * Строка результата запроса
@@ -54,8 +54,15 @@
     };
 
     tuna.implement(Request, tuna.net.IRequest);
-    
     tuna.extend(Request, tuna.utils.Notifier);
+
+    Request.prototype.setData = function(data) {
+        this.__data = data;
+    };
+
+    Request.prototype.setURL = function(url) {
+        this.__url = url;
+    };
 
     /**
      * Обработка состояния запроса.
@@ -74,17 +81,10 @@
 
     /**
      * Функци отправки запроса.
-     *
-     * @param {String} url URL адрес отправки.
      */
-    Request.prototype.send = function(url) {
+    Request.prototype.send = function() {
         try {
-
-            if (url !== undefined) {
-                this.url = url;
-            }
-
-            var requestURL = this.url;
+            var requestURL = this.__url;
 
             if (this.__request !== null) {
                 this.__request.abort();
@@ -103,7 +103,7 @@
                 }
             }
 
-            var dataString = Request.encode(this.data);
+            var dataString = Request.encode(this.__data);
 
             if (this.method === 'GET' && dataString !== '') {
                 requestURL += (requestURL.indexOf('?') === -1 ? '?' : '&') + dataString;

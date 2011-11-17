@@ -4,7 +4,7 @@
 
     var IRequestBuilder = function() {};
 
-    IRequestBuilder.prototype.build = function(key) {};
+    IRequestBuilder.prototype.build = function(key, data) {};
 
     tuna.net.IRequestBuilder = IRequestBuilder;
 

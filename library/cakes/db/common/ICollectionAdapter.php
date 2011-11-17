@@ -48,7 +48,7 @@ interface ICollectionAdapter {
      * @param int $limit
      * @return Iterator
      */
-    function fetchAll($condition, $sort, $offset, $limit);
+    function fetchAll($condition = NULL, $sort = NULL, $offset = NULL, $limit = NULL);
 
     /**
      * @abstract

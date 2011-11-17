@@ -20,7 +20,7 @@ abstract class MongoRecord implements \cakes\db\common\IRecord {
      */
     public function populate($data) {
         $params = get_object_vars($this);
-        
+
         foreach ($params as $name => $value) {
             if (isset($data[$name])) {
                 $this->{$name} = $data[$name];

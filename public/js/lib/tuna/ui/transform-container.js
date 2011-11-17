@@ -28,9 +28,8 @@
         this.__transformer = transformer;
     };
 
-
     TransformContainer.prototype.render = function(element) {
-        tuna.ui.Container.prototype.clear.render(this, element);
+        tuna.ui.Container.prototype.render.call(this, element);
 
         if (this._controller !== null) {
             this._controller.init();
@@ -45,7 +44,7 @@
         }
     };
 
-    TransformContainer.prototype.initControl = function() {
+    TransformContainer.prototype.init = function() {
         this._controller = tuna.view.getController(this._target);
         
         if (this._controller !== null) {

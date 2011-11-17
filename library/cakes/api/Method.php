@@ -18,13 +18,13 @@ abstract class Method {
      * @abstract
      * @return void
      */
-    abstract protected function filter();
+    protected function filter() {}
 
     /**
      * @abstract
      * @return void
      */
-    abstract protected function test();
+    protected function test() {}
 
     /**
      * @abstract

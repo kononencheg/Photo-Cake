@@ -20,7 +20,7 @@ class MongoCursorCollection implements \Iterator {
     private $_cursor;
 
     /**
-     * @var \db\mongo\MongoAdapter
+     * @var \cakes\db\mongo\MongoAdapter
      */
     private $_adapter;
 
@@ -44,7 +44,10 @@ class MongoCursorCollection implements \Iterator {
         if (!isset($this->_data[$this->_key])) {
             $data = $this->_cursor->current();
             if ($data !== NULL) {
-                $this->_data[$this->_key] = $this->_adapter->createRecord($data);
+                $record = $this->_adapter->createRecord();
+                $record->populate($data);
+
+                $this->_data[$this->_key] = $record;
             }
         }
 

@@ -16,6 +16,7 @@
     Container.prototype.render = function(element) {
         if (element !== undefined) {
             this.clear();
+            
             this._target.appendChild(element);
         }
     };

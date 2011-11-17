@@ -11,6 +11,7 @@ class RecordFactory implements \cakes\db\common\IRecordFactory {
     public function create($name) {
         switch($name) {
             case 'users': return new \db\User();
+            case 'cities': return new \db\City();
         }
 
         return NULL;
