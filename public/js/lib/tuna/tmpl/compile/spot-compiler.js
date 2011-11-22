@@ -1,6 +1,6 @@
 (function() {
 
-    tuna.namespace("tuna.tmpl.compile");
+    tuna.namespace('tuna.tmpl.compile');
 
     var SpotCompiler = function() {};
 

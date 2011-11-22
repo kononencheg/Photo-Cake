@@ -1,5 +1,5 @@
 (function() {
-    tuna.namespace("tuna.net");
+    tuna.namespace('tuna.net');
 
     var Request = function(url) {
         tuna.utils.Notifier.call(this);
@@ -83,60 +83,57 @@
      * Функци отправки запроса.
      */
     Request.prototype.send = function() {
-        try {
-            var requestURL = this.__url;
+        var requestURL = this.__url;
 
-            if (this.__request !== null) {
-                this.__request.abort();
-            }
-
-            //Инициализируем запрос.
-            var request = !tuna.IS_IE ?
-                            new XMLHttpRequest() :
-                            new ActiveXObject('Microsoft.XMLHTTP');
-
-            if (!this.isSync) {
-                var self = this;
-
-                request.onreadystatechange = function() {
-                    self.__requestStateHandler(request);
-                }
-            }
-
-            var dataString = Request.encode(this.__data);
-
-            if (this.method === 'GET' && dataString !== '') {
-                requestURL += (requestURL.indexOf('?') === -1 ? '?' : '&') + dataString;
-            }
-
-            request.open(this.method, encodeURI(requestURL), !this.isSync);
-
-            var i = this.headers.length - 1;
-            while (i >= 0) {
-                request.setRequestHeader(this.headers[i].name, this.headers[i].value);
-
-                i--;
-            }
-
-            var sendData = null;
-            if (this.method === 'POST') {
-                request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                sendData = dataString;
-            }
-
-            request.send(sendData);
-
-            if (this.isSync) {
-                this.__response = request.responseText;
-
-                this.notify('complete', this.__response);
-            }
-
-            this.__request = request;
-
-        } catch (error) {
-            console.error(error);
+        if (this.__request !== null) {
+            this.__request.abort();
         }
+
+        //Инициализируем запрос.
+        var request = !tuna.IS_IE ?
+                        new XMLHttpRequest() :
+                        new ActiveXObject('Microsoft.XMLHTTP');
+
+        if (!this.isSync) {
+            var self = this;
+
+            request.onreadystatechange = function() {
+                self.__requestStateHandler(request);
+            }
+        }
+
+        var dataString = Request.encode(this.__data);
+
+        if (this.method === 'GET' && dataString !== '') {
+            requestURL += (requestURL.indexOf('?') === -1 ? '?' : '&') + dataString;
+        }
+
+        request.open(this.method, encodeURI(requestURL), !this.isSync);
+
+        var i = this.headers.length - 1;
+        while (i >= 0) {
+            request.setRequestHeader(this.headers[i].name, this.headers[i].value);
+
+            i--;
+        }
+
+        var sendData = null;
+        if (this.method === 'POST') {
+            request.setRequestHeader
+                ('Content-Type', 'application/x-www-form-urlencoded');
+
+            sendData = dataString;
+        }
+
+        request.send(sendData);
+
+        if (this.isSync) {
+            this.__response = request.responseText;
+
+            this.notify('complete', this.__response);
+        }
+
+        this.__request = request;
     };
 
     /**

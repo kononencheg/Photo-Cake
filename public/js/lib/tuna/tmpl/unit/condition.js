@@ -6,7 +6,7 @@
  */
 (function() {
 
-    tuna.namespace("tuna.tmpl.unit");
+    tuna.namespace('tuna.tmpl.unit');
 
     var Condition = function(rootTemplate) {
         tuna.tmpl.unit.Spot.call(this, rootTemplate);

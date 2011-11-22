@@ -46,10 +46,6 @@ class Response {
     }
 
     public function setData($value) {
-        $this->_data['response'] = $value;
-    }
-
-    public function setError($errors) {
-        $this->_data['error'] = $errors;
+        $this->_data = $value;
     }
 }

@@ -1,6 +1,6 @@
 (function() {
 
-    tuna.namespace("tuna.tmpl.markup");
+    tuna.namespace('tuna.tmpl.markup');
 
     var ConditionExtractor = function() {
         tuna.tmpl.markup.SpotExtractor.call(this);

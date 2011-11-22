@@ -6,7 +6,7 @@
  */
 (function() {
 
-    tuna.namespace("tuna.tmpl.markup");
+    tuna.namespace('tuna.tmpl.markup');
 
     /**
      * Template transformer compiler from markup source.

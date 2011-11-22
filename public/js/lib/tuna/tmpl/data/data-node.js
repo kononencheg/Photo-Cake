@@ -6,7 +6,7 @@
  */
 (function() {
 
-    tuna.namespace("tuna.tmpl.data");
+    tuna.namespace('tuna.tmpl.data');
 
     var DataNode = function(value, parent, key) {
         this.__value = value;

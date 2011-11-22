@@ -7,7 +7,7 @@
 
 (function() {
 
-    tuna.namespace("tuna.tmpl");
+    tuna.namespace('tuna.tmpl');
 
     /**
      * Template transformer binded to concrete HTML element.

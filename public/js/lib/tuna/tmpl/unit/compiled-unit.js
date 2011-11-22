@@ -6,7 +6,7 @@
  */
 (function() {
 
-    tuna.namespace("tuna.tmpl.unit");
+    tuna.namespace('tuna.tmpl.unit');
 
     var CompiledUnit = function(rootTemplate) {
         this.__rootTemplate = rootTemplate;

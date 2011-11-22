@@ -1,6 +1,6 @@
 (function() {
 
-    tuna.namespace("tuna.tmpl.unit");
+    tuna.namespace('tuna.tmpl.unit');
 
     var Attribute = function(rootTemplate) {
         tuna.tmpl.unit.Spot.call(this, rootTemplate);

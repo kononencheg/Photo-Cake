@@ -1,6 +1,6 @@
 (function() {
 
-    tuna.namespace("tuna.tmpl.compile");
+    tuna.namespace('tuna.tmpl.compile');
 
     var AttributeCompiler = function() {
         tuna.tmpl.compile.SpotCompiler.call(this);

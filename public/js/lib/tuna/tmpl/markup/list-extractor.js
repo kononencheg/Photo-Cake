@@ -1,6 +1,6 @@
 (function() {
 
-    tuna.namespace("tuna.tmpl.markup");
+    tuna.namespace('tuna.tmpl.markup');
 
     var ListExtractor = function(templateBuilder) {
         tuna.tmpl.markup.SpotExtractor.call(this);

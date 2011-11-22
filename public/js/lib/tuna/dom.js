@@ -6,7 +6,7 @@
  */
 (function() {
 
-    tuna.namespace("tuna.dom");
+    tuna.namespace('tuna.dom');
 
     tuna.dom.createFragment = function(html, doc) {
         var fragment = doc.createDocumentFragment();
@@ -151,21 +151,28 @@
         return parent === context ? null : parent;
     };
 
-    // TODO: implement new classList api
-
     tuna.dom.hasClass = function(element, className) {
-        return element.className.match
-            (new RegExp('(\\s|^)' + className + '(\\s|$)'));
-    };
-
-    tuna.dom.addClass = function(element, className) {
-        if (!tuna.dom.hasClass(element, className)) {
-            element.className += " " + className;
+        if (element.classList !== undefined) {
+            return element.classList.contains(className);
+        } else {
+            return element.className.match
+                (new RegExp('(\\s|^)' + className + '(\\s|$)'));
         }
     };
 
+    tuna.dom.addClass = function(element, className) {
+        if (element.classList !== undefined) {
+            element.classList.add(className);
+        } else if (!tuna.dom.hasClass(element, className)) {
+            element.className += " " + className;
+        }
+
+    };
+
     tuna.dom.removeClass = function(element, className) {
-        if (tuna.dom.hasClass(element, className)) {
+        if (element.classList !== undefined) {
+            element.classList.remove(className);
+        } else if (tuna.dom.hasClass(element, className)) {
             var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
             element.className = element.className.replace(reg, ' ');
         }

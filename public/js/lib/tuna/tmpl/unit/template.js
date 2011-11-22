@@ -7,7 +7,7 @@
 
 (function() {
 
-    tuna.namespace("tuna.tmpl.unit");
+    tuna.namespace('tuna.tmpl.unit');
 
     var Template = function(rootTemplate) {
         tuna.tmpl.unit.CompiledUnit.call(this, rootTemplate || this);

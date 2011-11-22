@@ -1,6 +1,6 @@
 (function() {
 
-    tuna.namespace("tuna.tmpl.markup");
+    tuna.namespace('tuna.tmpl.markup');
 
     var AttributeExtractor = function() {
         tuna.tmpl.markup.SpotExtractor.call(this);

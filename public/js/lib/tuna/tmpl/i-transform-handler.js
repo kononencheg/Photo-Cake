@@ -1,6 +1,6 @@
 (function() {
 
-    tuna.namespace("tuna.tmpl");
+    tuna.namespace('tuna.tmpl');
 
     var ITransformHandler = function() {};
 

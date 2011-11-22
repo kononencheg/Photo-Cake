@@ -1,6 +1,6 @@
 (function() {
 
-    tuna.namespace("tuna.view");
+    tuna.namespace('tuna.view');
 
     var IViewState = function() {};
 

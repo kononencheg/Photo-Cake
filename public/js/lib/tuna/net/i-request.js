@@ -1,6 +1,6 @@
 (function() {
 
-    tuna.namespace("tuna.net");
+    tuna.namespace('tuna.net');
 
     var IRequest = function() {};
 

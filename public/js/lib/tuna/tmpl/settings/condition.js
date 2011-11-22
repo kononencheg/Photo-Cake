@@ -7,7 +7,7 @@
 
 (function() {
 
-    tuna.namespace("tuna.tmpl.settings");
+    tuna.namespace('tuna.tmpl.settings');
 
     var Condition = function() {
         tuna.tmpl.settings.Spot.call(this);

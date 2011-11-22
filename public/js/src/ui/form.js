@@ -12,6 +12,8 @@
         this.__callbackInput = null;
         this.__callbackName = null;
 
+        this.__resultParser = null;
+
         this.__initFormMessage();
         this.__initCallbackInput();
         this.__initListeners();
@@ -20,6 +22,10 @@
     Form.CALLBACK_PREFIX = 'form_callback';
 
     tuna.extend(Form, tuna.utils.Notifier);
+
+    Form.prototype.setResultParser = function(parser) {
+        this.__resultParser = parser;
+    };
 
     Form.prototype.__initFormMessage = function() {
         var messages = Sizzle('.j-form-message', this.__target);
@@ -50,21 +56,26 @@
 
     Form.prototype.__registerCallback = function() {
         var self = this;
-        window[this.__callbackName] = function(data) {
-            if (data && data.response !== undefined) {
-                self.__handleResponse(data.response);
-            } else {
-                alert('Error: ' + data.error);
-            }
+        window[this.__callbackName] = function(response) {
+            self.__handleResponse(response);
         };
     };
 
     Form.prototype.__handleResponse = function(response) {
-        if (response.errors === undefined) {
-            this.notify('form-success', response);
+        if (this.__resultParser !== null) {
+
+            var result = this.__resultParser.parse(response);
+            if (result === null) {
+                var error = this.__resultParser.getLastError();
+                this.__showErrors(error);
+
+                this.notify('error', error);
+            } else {
+                this.notify('result', result);
+            }
+
         } else {
-            this.__showErrors(response.errors);
-            this.notify('form-error');
+            this.notify('result', response);
         }
     };
 
