@@ -10,7 +10,7 @@ abstract class UserMethod extends \cakes\api\Method {
     protected $_users;
 
     /**
-     * @var \auth\Session
+     * @var \cakes\globals\Session
      */
     protected $_session;
 

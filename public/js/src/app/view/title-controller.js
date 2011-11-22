@@ -15,9 +15,9 @@
     };
 
     TitleController.prototype._initActions = function() {
-        tuna.data.origin.load('cities', null, function(cities) {
+        /*tuna.data.origin.load('cities', null, function(cities) {
            debugger;
-        });
+        });*/
     };
 
     tuna.view.registerController(new TitleController('title_step'));

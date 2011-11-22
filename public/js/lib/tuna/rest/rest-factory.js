@@ -4,6 +4,7 @@
 
     var RESTFactory = function() {
         this.__parsersTable = {};
+        this._defaultParser = null;
     };
 
     tuna.implement(RESTFactory, tuna.rest.IRESTFactory);
@@ -39,7 +40,10 @@
     };
 
     RESTFactory.prototype._buildMethod = function(name) {};
-    RESTFactory.prototype._getMethodParser = function(name) {};
+
+    RESTFactory.prototype._getMethodParser = function(name) {
+        return this._defaultParser;
+    };
 
     tuna.rest.RESTFactory = RESTFactory;
 

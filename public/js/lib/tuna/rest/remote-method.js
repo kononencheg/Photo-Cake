@@ -3,6 +3,8 @@
     tuna.namespace('tuna.rest');
 
     var RemoteMethod = function(request) {
+        tuna.utils.Notifier.call(this);
+
         this.__request = null;
         this.__resultParser = null;
 
@@ -15,26 +17,35 @@
         }
     };
 
+    tuna.extend(RemoteMethod, tuna.utils.Notifier);
+
     RemoteMethod.prototype.setResultParser = function(parser) {
         this.__resultParser = parser;
     };
 
     RemoteMethod.prototype.call = function(args) {
-        this.__request.setData(args);
+        this.__request.setData(this._filterArgs(args));
         this.__request.send();
     };
 
+    RemoteMethod.prototype._filterArgs = function(args) {
+        return args;
+    };
+
     RemoteMethod.prototype.__handleResponse = function(event, response) {
+        debugger;
         if (this.__resultParser !== null) {
             var result = this.__resultParser.parse(response);
             if (result !== null) {
-                this.notify('result', result);
+                this.notify('result', this._mapResult(result));
             } else {
                 this.notify('error', this.__resultParser.getLastError());
             }
-        } else {
-            this.notify('result', response);
         }
+    };
+
+    RemoteMethod.prototype._mapResult = function(result) {
+        return result;
     };
 
     tuna.rest.RemoteMethod = RemoteMethod;

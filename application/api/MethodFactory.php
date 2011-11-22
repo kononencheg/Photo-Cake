@@ -13,6 +13,8 @@ class MethodFactory implements \cakes\api\IMethodFactory {
             case 'users.login': return new \api\users\Login();
             case 'users.register': return new \api\users\Register();
 
+            case 'social.getCurrentUser': return new \api\social\GetCurrentUser();
+
             case 'cities.getList': return new \api\cities\GetList();
 
             default:

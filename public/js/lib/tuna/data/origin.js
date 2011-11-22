@@ -39,5 +39,5 @@
         request.send();
     };
 
-    tuna.data.origin = new DataOrigin();
+    //tuna.data.origin = new DataOrigin();
 })();

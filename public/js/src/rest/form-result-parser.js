@@ -2,24 +2,24 @@
 
     tuna.namespace('rest');
 
-    var CakesFormResultParser = function() {
+    var FormResultParser = function() {
         this.__lastError = null;
     };
 
-    CakesFormResultParser.prototype.parse = function(response) {
-        try {
+    FormResultParser.prototype.parse = function(response) {
+        /*try {
             return JSON.parse(response);
         } catch (error) {
             this.__lastError = error;
-        }
+        }*/
 
         return null;
     };
 
-    CakesFormResultParser.prototype.getLastError = function() {
+    FormResultParser.prototype.getLastError = function() {
         return this.__lastError;
     };
 
-    rest.cakes.CakesFormResultParser = CakesFormResultParser;
+    rest.FormResultParser = FormResultParser;
 
 })();

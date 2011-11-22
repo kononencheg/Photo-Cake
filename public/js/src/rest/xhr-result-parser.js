@@ -2,11 +2,11 @@
 
     tuna.namespace('rest.cakes');
 
-    var CakesXHRResultParser = function() {
+    var XHRResultParser = function() {
         this.__lastError = null;
     };
 
-    CakesXHRResultParser.prototype.parse = function(response) {
+    XHRResultParser.prototype.parse = function(response) {
         try {
             return JSON.parse(response);
         } catch (error) {
@@ -16,10 +16,10 @@
         return null;
     };
 
-    CakesXHRResultParser.prototype.getLastError = function() {
+    XHRResultParser.prototype.getLastError = function() {
         return this.__lastError;
     };
 
-    rest.cakes.CakesXHRResultParser = CakesXHRResultParser;
+    rest.XHRResultParser = XHRResultParser;
 
 })();

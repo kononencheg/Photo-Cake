@@ -4,26 +4,32 @@
 
     var CommonRESTFactory = function() {
         tuna.rest.RESTFactory.call(this);
+        
+        this._defaultParser = 'xhr';
     };
 
     tuna.implement(CommonRESTFactory, tuna.rest.RESTFactory);
 
+
     CommonRESTFactory.prototype._buildParser = function(name) {
         switch(name) {
-            case 'cakes-xhr': return new rest.cakes.CakesXHRResultParser();
-            case 'cakes-form': return new rest.cakes.CakesFormResultParser();
-            case 'ok-xhr': return new rest.ok.OKXHRResultParser();
+            case 'xhr': return new rest.XHRResultParser();
+            case 'form': return new rest.FormResultParser();
         }
     };
 
     CommonRESTFactory.prototype._buildMethod = function(name) {
+        var request = new tuna.net.Request();
+        request.setURL(this.__getURL(name));
 
+        return new tuna.rest.RemoteMethod(request);
     };
 
-    CommonRESTFactory.prototype._getMethodParser = function(name) {
-
+    // TODO: create tuna.config('api.path')
+    CommonRESTFactory.prototype.__getURL = function(name) {
+        return '/api/?method=' + name;
     };
 
-    tuna.rest.setFactory(new CommonRESTFactory());
+    tuna.rest.factory.setCore(new CommonRESTFactory());
 
 })();
