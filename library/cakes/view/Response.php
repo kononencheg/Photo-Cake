@@ -33,8 +33,8 @@ class Response {
         }
     }
 
-    public function render($isFlat = false) {
-        $responseData = $isFlat ? $this->_data : json_encode($this->_data);
+    public function render() {
+        $responseData = json_encode($this->_data);
 
         if (isset($this->_callbackName)) {
             echo '<script type="text/javascript">

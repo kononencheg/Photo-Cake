@@ -15,8 +15,6 @@ abstract class SocialMethod extends \cakes\api\Method {
     protected $_session;
 
     public function __construct() {
-        $this->_isResultFlat = true;
-
         $this->_session = \cakes\globals\Session::getInstance();
         $this->_api = new \cakes\social\OdnoklassnikiAPI(
             $this->_session->app['application_key'],

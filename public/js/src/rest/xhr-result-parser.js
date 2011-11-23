@@ -10,6 +10,7 @@
         try {
             return JSON.parse(response);
         } catch (error) {
+            alert(response);
             this.__lastError = error;
         }
 

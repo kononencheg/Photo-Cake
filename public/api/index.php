@@ -21,6 +21,6 @@ if ($result === NULL) {
 }
 
 
-$response->render($method->isResultFlat());
+$response->render();
 
 ?>

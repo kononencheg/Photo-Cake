@@ -7,8 +7,6 @@
     tuna.extend(MainController, tuna.view.ViewController);
 
     MainController.prototype._bootstrap = function() {
-        //tuna.data.origin.setDataStorage(this._db);
-        
         this.init();
     };
 
@@ -21,7 +19,9 @@
         var getCurrentUser
             = tuna.rest.factory.createMethod('social.getCurrentUser');
 
-        debugger;
+        getCurrentUser.subscribe('result', function(event, result) {
+            debugger;
+        }, this);
 
         getCurrentUser.call();
     };

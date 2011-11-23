@@ -33,7 +33,6 @@
     };
 
     RemoteMethod.prototype.__handleResponse = function(event, response) {
-        debugger;
         if (this.__resultParser !== null) {
             var result = this.__resultParser.parse(response);
             if (result !== null) {

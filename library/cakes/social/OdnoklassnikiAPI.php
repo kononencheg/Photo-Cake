@@ -19,6 +19,7 @@ class OdnoklassnikiAPI extends RemoteAPI {
     protected function buildQuery($arguments, $method) {
         $arguments['application_key'] = $this->_applicationKey;
         $arguments['session_key'] = $this->_sessionKey;
+        $arguments['format'] = 'JSON';
 
         $sigParams = $arguments;
         $sigParams['method'] = $method;

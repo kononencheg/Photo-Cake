@@ -24,6 +24,7 @@ class MongoAdapterFactory implements \cakes\db\common\ICollectionAdapterFactory 
      */
     private function __construct() {
         // TODO: Set options externally
+        // TODO: Create connection lazy
         $this->_mongo = new \Mongo();
         $this->_adaptersTable = array();
     }

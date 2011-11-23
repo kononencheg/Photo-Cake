@@ -3,12 +3,6 @@
 namespace cakes\api;
 
 abstract class Method {
-
-    /**
-     * @var
-     */
-    protected $_isResultFlat = false;
-
     /**
      * @var array
      */
@@ -116,9 +110,5 @@ abstract class Method {
      */
     public function getErrors() {
         return array( 'errors' => $this->_errors );
-    }
-
-    public function isResultFlat() {
-        return $this->_isResultFlat;
     }
 }
