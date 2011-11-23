@@ -1,3 +1,16 @@
+hr {
+    border: 0;
+}
+
+.container {
+    width: 820px;
+}
+
+.inline-align (@height) {
+    line-height: @height;
+    text-align: center;
+}
+
 .hidden {
     display: none;
 }
@@ -17,12 +30,10 @@
     }
 }
 
-.step {
-    display: none;
-
-    &.current {
-        display: block;
-    }
+.ico-super {
+    color: @header-color;
+    font-style: italic;
+    vertical-align: super;
 }
 
 .popup {

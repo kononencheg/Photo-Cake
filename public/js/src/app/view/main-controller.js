@@ -20,7 +20,7 @@
             = tuna.rest.factory.createMethod('social.getCurrentUser');
 
         getCurrentUser.subscribe('result', function(event, result) {
-            debugger;
+
         }, this);
 
         getCurrentUser.call();

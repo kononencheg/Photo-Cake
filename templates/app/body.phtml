@@ -1,24 +1,52 @@
-<div class="j-item-selector container">
-    <div id="title_step" data-template-id="title_template"
+<div class="j-item-selector fluid-container">
+    <div class="page-header">
+        <h1 class="main-title">
+            <img class="main-logo" src="/img/app/logo.png" alt="Фото на торте!" />
+
+            <small>
+                <q class="main-subtitle">Торты на заказ:</q>
+                <q class="main-subtitle">Ваш дизайн - наше исполнение!</q>
+            </small>
+        </h1>
+    </div>
+
+    <div id="designer_step"
          class="j-selection-item j-transform-container step current">
 
-        <?php $this->render('steps/title') ?>
+        <object id="cake_designer" class="cake-designer-swf"
+                classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+
+            <param name="movie" value="/swf/cake-designer.swf">
+
+            <!--[if !IE]>-->
+            <object name="cake_designer" class="cake-designer-swf"
+                    type="application/x-shockwave-flash"
+                    data="/swf/cake-designer.swf" >
+            <!--<![endif]-->
+
+                <param name="menu" value="false" />
+                <param name="wmode" value="direct" />
+                <param name="flashvars" value="variable1=a&variable2=b" />
+                <param name="allowfullscreen" value="false" />
+                <param name="allowscriptaccess" value="sameDomain" />
+
+                <p>
+                    Для конструирования тортика вам необходимо скачать Adobe
+                    Flash Player.
+                </p>
+
+            <!--[if !IE]>-->
+            </object>
+            <!--<![endif]-->
+        </object>
 
     </div>
 
-    <div id="first_step" data-template-id="first_step_template"
-         class="j-selection-item j-transform-container step"
-         data-init-event="ui-select"></div>
+    <div id="share_step" data-init-event="ui-select"
+         class="j-selection-item j-transform-container step">
 
-    <div id="second_step" data-template-id="second_step_template"
-         class="j-selection-item j-transform-container step"
-         data-init-event="ui-select"></div>
+        
 
-    <div id="third_step"
-         class="j-selection-item j-transform-container step"
-         data-init-event="ui-select"></div>
+    </div>
 
-    <div id="result_step"
-         class="j-selection-item j-transform-container step"
-         data-init-event="ui-select"></div>
 </div>
