@@ -16,14 +16,14 @@
     };
 
     MainController.prototype._initActions = function() {
-        var getCurrentUser
+        /*var getCurrentUser
             = tuna.rest.factory.createMethod('social.getCurrentUser');
 
         getCurrentUser.subscribe('result', function(event, result) {
 
         }, this);
 
-        getCurrentUser.call();
+        getCurrentUser.call();*/
     };
 
     MainController.prototype._destroyActions = function() {

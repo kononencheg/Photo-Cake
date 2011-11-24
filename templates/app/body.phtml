@@ -13,32 +13,13 @@
     <div id="designer_step"
          class="j-selection-item j-transform-container step current">
 
-        <object id="cake_designer" class="cake-designer-swf"
-                classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
-
-            <param name="movie" value="/swf/cake-designer.swf">
-
-            <!--[if !IE]>-->
-            <object name="cake_designer" class="cake-designer-swf"
-                    type="application/x-shockwave-flash"
-                    data="/swf/cake-designer.swf" >
-            <!--<![endif]-->
-
-                <param name="menu" value="false" />
-                <param name="wmode" value="direct" />
-                <param name="flashvars" value="variable1=a&variable2=b" />
-                <param name="allowfullscreen" value="false" />
-                <param name="allowscriptaccess" value="sameDomain" />
-
-                <p>
-                    Для конструирования тортика вам необходимо скачать Adobe
-                    Flash Player.
-                </p>
-
-            <!--[if !IE]>-->
-            </object>
-            <!--<![endif]-->
-        </object>
+        <div id="cake_designer" class="j-swf"
+             data-movie-url="/swf/cake-designer.swf">
+            <p>
+                Для конструирования тортика вам необходимо скачать Adobe
+                Flash Player.
+            </p>
+        </div>
 
     </div>
 

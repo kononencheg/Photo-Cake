@@ -1,7 +1,19 @@
 
 <script type="text/javascript" src="/js/src/app/view/main-controller.js"></script>
-<script type="text/javascript" src="/js/src/app/view/title-controller.js"></script>
+<script type="text/javascript" src="/js/src/app/view/designer-controller.js"></script>
+
+<script src="<?php echo $this->_session->app['api_server'] ?>js/fapi.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+    FAPI.init(
+        '<?php echo $this->_session->app['api_server'] ?>',
+        '<?php echo $this->_session->app['apiconnection'] ?>',
+        function() {
+            FAPI.UI.setWindowSize(700, 780);
+        }, function(error){
+            alert(error);
+        }
+    );
+
     tuna.view.initMainController();
 </script>
