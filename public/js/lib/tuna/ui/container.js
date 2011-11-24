@@ -54,8 +54,21 @@
         }
     };
 
-    Container.prototype.getModules = function() {
-        return this.__moduleInstances;
+    Container.prototype.getModuleInstances = function(name) {
+        if (this.__moduleInstances[name] !== undefined) {
+            return this.__moduleInstances[name];
+        }
+
+        return null;
+    };
+
+    Container.prototype.getOneModuleInstance = function(name) {
+        if (this.__moduleInstances[name] !== undefined &&
+            this.__moduleInstances[name][0] !== undefined) {
+            return this.__moduleInstances[name][0];
+        }
+        
+        return null;
     };
 
     Container.prototype.destroyModules = function() {

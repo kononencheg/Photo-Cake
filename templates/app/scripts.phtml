@@ -1,7 +1,40 @@
 
 <script type="text/javascript" src="/js/src/app/view/main-controller.js"></script>
-<script type="text/javascript" src="/js/src/app/view/title-controller.js"></script>
+<script type="text/javascript" src="/js/src/app/view/designer-controller.js"></script>
+
+<script src="<?php echo $this->_session->app['api_server'] ?>js/fapi.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+    <?php if (isset($this->_session->app)) { ?>
+        FAPI.init(
+            '<?php echo $this->_session->app['api_server'] ?>',
+            '<?php echo $this->_session->app['apiconnection'] ?>',
+            function() {
+                FAPI.UI.setWindowSize(700, 780);
+                FAPI.Client.initialize();
+            }, function(error){
+                alert("Извините, произошел программный сбой!");
+            }
+        );
+
+    //spMethodParams = {"method":"stream.publish", "message":"Sample post!" };
+    //var sig =  FAPI.Util.calcSignature(spMethodParams, FAPI.Client.sessionSecretKey);
+    //FAPI.UI.showConfirmation('stream.publish','Application will submit news feed', sig);
+    /*function API_callback(method, status, resig){
+        debugger;
+        spMethodParams['sig'] = resig;
+        FAPI.Client.call( spMethodParams, function(status, data, error){
+            debugger;
+            if (status=="ok"){
+                alert("Published successfully");
+              } else{
+                alert("ERROR : " +error.error_msg+"("+error.error_code+")");
+
+              }
+        });
+    }*/
+    <?php } ?>
+
     tuna.view.initMainController();
+
 </script>

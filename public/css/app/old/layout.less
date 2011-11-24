@@ -1,3 +1,16 @@
+hr {
+    border: 0;
+}
+
+.container {
+    width: 820px;
+}
+
+.inline-align (@height) {
+    line-height: @height;
+    text-align: center;
+}
+
 .hidden {
     display: none;
 }
@@ -6,23 +19,12 @@
     text-align: center;
 }
 
-.btn {
-    &.primary {
-        .gradientBar(@red, #750000);
 
-        &.large {
-            padding: 3px 12px 3px;
-            font-size: 24px;
-        }
-    }
-}
 
-.step {
-    display: none;
-
-    &.current {
-        display: block;
-    }
+.ico-super {
+    color: @header-color;
+    font-style: italic;
+    vertical-align: super;
 }
 
 .popup {

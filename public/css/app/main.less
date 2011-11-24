@@ -1,0 +1,80 @@
+/**
+ * Header
+ */
+
+.page-header {
+    background: #eeeeee;
+    height: 120px;
+    border: 0;
+}
+
+.main-title {
+    padding: 20px 0 0 30px;
+    float: left;
+}
+
+.main-logo {
+    display: block;
+}
+
+.main-subtitle {
+    display: block;
+    margin: 0 0 0 20px;
+
+    font: inherit;
+}
+
+.head-button {
+    margin: 40px 50px 0 0;
+}
+
+/**
+ * Wizard
+ */
+
+.step {
+    position: absolute;
+
+    float:left;
+    overflow: hidden;
+    left: -1px;
+
+    height: 600px;
+    width: 1px;
+
+    &.current {
+        width: 100%;
+        left: 0px;
+        
+        display: inherit;
+    }
+}
+
+/**
+ * Cake designer
+ */
+
+.cake-designer-swf {
+    width: 660px;
+    height: 600px;
+}
+
+.share-menu li {
+    text-align: center;
+    padding: 5px;
+}
+
+/**
+ * Misc
+ */
+
+.btn {
+    &.primary {
+        .gradientBar(@red, #750000);
+
+        &.large {
+            padding: 4px 12px 4px;
+            font-size: 24px;
+        }
+    }
+}

@@ -1,24 +1,49 @@
-<div class="j-item-selector container">
-    <div id="title_step" data-template-id="title_template"
-         class="j-selection-item j-transform-container step current">
+<div class="j-item-selector fluid-container">
+    <div class="page-header">
+        <h1 class="main-title">
+            <img class="main-logo" src="/img/app/logo.png" alt="Фото на торте!" />
 
-        <?php $this->render('steps/title') ?>
+            <small>
+                <q class="main-subtitle">Торты на заказ:</q>
+                <q class="main-subtitle">Ваш дизайн - наше исполнение!</q>
+            </small>
+        </h1>
 
+        <a class="j-selection-next head-button btn primary large pull-right">Дальше &raquo;</a>
     </div>
 
-    <div id="first_step" data-template-id="first_step_template"
-         class="j-selection-item j-transform-container step"
-         data-init-event="ui-select"></div>
+    <div class="content">
+        <div id="designer_step"
+             class="j-selection-item j-transform-container step current">
 
-    <div id="second_step" data-template-id="second_step_template"
-         class="j-selection-item j-transform-container step"
-         data-init-event="ui-select"></div>
+            <div id="cake_designer" class="j-swf"
+                 data-movie-url="/swf/cake-designer.swf">
+                <p>
+                    Для конструирования тортика вам необходимо скачать Adobe
+                    Flash Player.
+                </p>
+            </div>
 
-    <div id="third_step"
-         class="j-selection-item j-transform-container step"
-         data-init-event="ui-select"></div>
+        </div>
 
-    <div id="result_step"
-         class="j-selection-item j-transform-container step"
-         data-init-event="ui-select"></div>
+        <div id="share_step" data-init-event="ui-select"
+             class="j-selection-item j-transform-container step">
+
+            <ul class="unstyled share-menu">
+                <li>
+                   <img src="" alt="Ваш тортик!" width="320" height="320" />
+                </li>                <li>
+                   <a class="btn primary large">Опубликовать на стену</a>
+                </li>
+                <li>
+                    <a class="btn primary large">Послать другу</a>
+                </li>
+                <li>
+                    <a class="btn primary large">Сохранить</a>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
 </div>
