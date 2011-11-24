@@ -5,7 +5,10 @@
 <script src="<?php echo $this->_session->app['api_server'] ?>js/fapi.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-    <?php if (isset($this->_session->app)) { ?>
+    <?php if (isset($this->_session->app) &&
+              isset($this->_session->app['api_server']) &&
+              isset($this->_session->app['apiconnection'])) { ?>
+            
         FAPI.init(
             '<?php echo $this->_session->app['api_server'] ?>',
             '<?php echo $this->_session->app['apiconnection'] ?>',
