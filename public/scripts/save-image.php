@@ -1,25 +1,23 @@
 <?php
+session_start();
 
-require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
-
-$session = new \auth\Session();
-$request = new \net\Request();
-
-if (isset($request->image_data) && isset($session->user)) {
+if (isset($_POST['image_data']) && isset($_SESSION['user'])) {
     $imageID = uniqid('cake_image_');
     
     file_put_contents
-        ('../../files/' . $imageID . '.jpg', base64_decode($request->image_data));
+        ('../files/' . $imageID . '.jpg', base64_decode($_POST['image_data']));
 
     $mongo = new Mongo();
     $db = $mongo->cakes;
 
     $image = array(
-        'user' => $session->user,
+        'user' => $_SESSION['user'],
         'cake' => '/files/' . $imageID . '.jpg'
     );
 
     $db->dummy_cakes->save($image);
+
+    $image['cake'] = 'http://' . $_SERVER['HTTP_HOST'] . $image['cake'];
 }
 ?>
 

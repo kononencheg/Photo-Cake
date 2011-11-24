@@ -1,21 +1,32 @@
 <?php
 
-require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
+session_start();
 
-$session = new \auth\Session();
-$request = new \net\Request();
+if (isset($_GET['i'])){
+    $cakeID = new MongoId($_GET['i']);
+
+    $mongo = new Mongo();
+    $db = $mongo->cakes;
+
+    $cake = $db->dummy_cakes->findOne(array('_id' => $cakeID));
+}
 
 ?>
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Фотонаторте</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
-        <meta charset="utf-8" />
+	    <?php if (isset($cake)) { ?>
+		    <link rel="image_src" href="http://<?php echo $_SERVER['HTTP_HOST'] . $cake['cake'] ?>" />
+        <?php } ?>
 
-        <link href="/css/dummy.css"  media="screen" rel="stylesheet" type="text/css" />
+	    <title>Фотонаторте</title>
 
-        <script src="/js/lib/swfobject.js" charset="utf-8"></script>
+	    <link href="/css/dummy.css"  media="screen" rel="stylesheet" type="text/css" />
+
+        <script type="text/javascript" src="/js/lib/swfobject.js"></script>
+        <script type="text/javascript" src="http://yandex.st/share/share.js"></script>
 
         <script>
             function $(id) { return document.getElementById(id); }
@@ -78,7 +89,7 @@ $request = new \net\Request();
             swfobject.registerObject('cake_designer', '9.0.0');
 
             var cakeDesigner = null;
-            var authToken = '<?php if (isset($session->user)) echo $session->user->access_token; ?>';
+            var authToken = '<?php if (isset($_SESSION['user'])) echo $_SESSION['user']['access_token']; ?>';
 
         </script>
     </head>
@@ -94,7 +105,7 @@ $request = new \net\Request();
                 </div>
 
                 <div class="logo">
-                    <img alt="Фотонаторте" src="/img/app/logo.png" />
+                    <img alt="Фотонаторте" src="/img/logo.png" />
                     <div class="logo-subtitle">Скоро открытие! А пока...</div>
                 </div>
             </div>
@@ -116,7 +127,7 @@ $request = new \net\Request();
                         Готовится к открытию: скоро мы сможем изготавливать торты
                         по Вашему дизайну и привозить их к Вам в день праздника!
                     </p>
-                    <form id="email_form" target="frame_transport" action="/scripts/app/save-email.php" method="POST">
+                    <form id="email_form" target="frame_transport" action="/scripts/save-email.php" method="POST">
                         <p>
                             Сообщите мне, когда Вы откроетесь:
                         </p>
@@ -156,7 +167,7 @@ $request = new \net\Request();
         </div>
 
         <form id="image_form" class="hidden" target="frame_transport"
-              action="/scripts/app/save-image.php" method="POST">
+              action="/scripts/save-image.php" method="POST">
             <input id="image_hidden" type="hidden" name="image_data" />
         </form>
 
@@ -168,20 +179,7 @@ $request = new \net\Request();
             <div class="popup" onclick=" if((event.target || event.srcElement) === this) hide('popup');">
                 <div class="popup-content">
 
-                    <div id="login_dialog" class="login-dialog">
-                        <div>
-                            Для того чтобы сохранить ваш тортик вам необходимо
-                            авторизоваться на сайте, используя:
-                        </div>
-
-                        <div>
-                            <div id="uLogin"></div>
-                            <script src="http://ulogin.ru/js/widget.js?display=panel&fields=first_name,last_name,photo&providers=vkontakte,odnoklassniki,mailru,facebook&hidden=twitter,google,yandex,livejournal,openid&redirect_uri=http://<?php echo $_SERVER['HTTP_HOST'] ?>/scripts/app/auth-handler.php&callback=handleAuth"></script>
-                        </div>
-
-                    </div>
-
-                    <div id="cake_dialog" class="cake-dialog hidden">
+                   <div id="cake_dialog" class="cake-dialog hidden">
                         <h2>Ваш тортик!</h2>
 
                         <img id="cake_image" alt="Ваш тортик" src="" />
@@ -193,16 +191,46 @@ $request = new \net\Request();
 
                     </div>
 
+                    <div id="login_dialog" class="login-dialog">
+                        <div>
+                            Для того чтобы сохранить ваш тортик вам необходимо
+                            авторизоваться на сайте, используя:
+                        </div>
+
+                        <div>
+                            <div id="uLogin"></div>
+                            <script src="http://ulogin.ru/js/widget.js?display=panel&fields=first_name,last_name,photo&providers=vkontakte,odnoklassniki,mailru,facebook&hidden=twitter,google,yandex,livejournal,openid&redirect_uri=http://<?php echo $_SERVER['HTTP_HOST'] ?>/scripts/auth-handler.php&callback=handleAuth"></script>
+                        </div>
+
+                    </div>
+
                 </div>
                 <div class="align-helper"></div>
             </div>
         </div>
 
-        <?php if (isset($request->i)) { ?>
-            <?php require('scripts/app/user-cake.php'); ?>
+        <?php if (isset($cake)) { ?>
+            <div class="popup-overlay"></div>
+            <div class="popup">
+                <div class="popup-content">
+
+                    <div class="cake-dialog">
+                        <h2>Мой торт!</h2>
+
+                        Автор: <a href="<?php echo $cake['user']['identity'] ?>">
+                            <?php echo $cake['user']['first_name'] . ' ' . $cake['user']['last_name'] ?>
+                        </a>
+
+                        <img alt="Мой тортик" src="http://<?php echo $_SERVER['HTTP_HOST'] . $cake['cake'] ?>" />
+
+                        <a href="http://<?php echo $_SERVER['HTTP_HOST'] ?>">
+                           Сделать свой!
+                        </a>
+                    </div>
+
+                </div>
+                <div class="align-helper"></div>
+            </div>
         <?php } ?>
-
-
-        <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
     </body>
 </html>

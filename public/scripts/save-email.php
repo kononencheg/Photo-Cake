@@ -1,16 +1,15 @@
 <?php
+session_start();
 
-require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
+$request = array_merge($_GET, $_POST);
 
-$request = new \net\Request();
-
-if (isset($request->email) &&
-    filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+if (isset($request['email']) &&
+    filter_var($request['email'], FILTER_VALIDATE_EMAIL)) {
 
     $mongo = new Mongo();
     $db = $mongo->cakes;
     $db->emails->save(array(
-        'email' => $request->email
+        'email' => $request['email']
     ));
 
     echo '<script>parent.handleEmail();</script>';
