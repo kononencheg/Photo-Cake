@@ -4,6 +4,7 @@
         tuna.view.ViewController.call(this, id);
 
         this.__movieID = null;
+        this.__movie = null;
     };
 
     tuna.extend(DesignerController, tuna.view.ViewController);
@@ -13,7 +14,16 @@
     };
 
     DesignerController.prototype._requireModules = function() {
-        this._container.requireModule('swf');
+        this._container.requireModule('swf', {
+            params: {
+                'wmode': 'direct',
+                'allowfullscreen': false,
+                'allowscriptaccess': 'sameDomain',
+                'menu': false//,
+                //'scale': 'noscale',
+                //'align': 't'
+            }
+        });
     };
 
     DesignerController.prototype._initActions = function() {
@@ -21,10 +31,18 @@
 
     };
 
+    DesignerController.prototype.__getMovie = function() {
+        if (this.__movie === null) {
+            this.__movie = swfobject.getObjectById(this.__movieID);
+        }
+
+        return this.__movie;
+    };
+
     DesignerController.prototype.onFlashReady = function() {
-        var cakeDesigner = swfobject.getObjectById(this.__movieID);
+        var self = this;
         setTimeout(function() {
-            cakeDesigner.initialize('round', 0.9);
+            self.__getMovie().initialize('round', 0.9);
         }, 0);
     };
 
@@ -33,11 +51,4 @@
     onFlashReady = tuna.bind(controller.onFlashReady, controller);
 
     tuna.view.registerController(controller);
-    /*
-                <param name="menu" value="false" />
-                <param name="wmode" value="direct" />
-                <param name="flashvars" value="variable1=a&variable2=b" />
-                <param name="allowfullscreen" value="false" />
-                <param name="allowscriptaccess" value="sameDomain" />
-     */
 })();
