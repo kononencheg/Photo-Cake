@@ -89,7 +89,7 @@ if (isset($_GET['i'])){
             swfobject.registerObject('cake_designer', '9.0.0');
 
             var cakeDesigner = null;
-            var authToken = '<?php if (isset($_SESSION['user'])) echo $_SESSION['user']['access_token']; ?>';
+            var authToken = '<?php if (isset($_SESSION['user'])) echo $_SESSION['user']->access_token; ?>';
 
         </script>
     </head>
