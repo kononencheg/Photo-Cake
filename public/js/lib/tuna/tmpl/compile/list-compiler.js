@@ -28,7 +28,7 @@
         if (tuna.dom.hasClass(element, className)) {
             lists.push(this.__createList(element, settings, root));
         } else {
-            var elements = Sizzle('.' + className, element);
+            var elements = tuna.dom.select('.' + className, element);
 
             var i = elements.length - 1;
             while (i >= 0) {

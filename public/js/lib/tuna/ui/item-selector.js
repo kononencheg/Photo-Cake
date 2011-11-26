@@ -26,7 +26,7 @@
     };
 
     ItemSelector.prototype.update = function() {
-        this.__items = Sizzle(this.__itemSelector, this._target);
+        this.__items = tuna.dom.select(this.__itemSelector, this._target);
 
         this.__syncCurrentIndex();
 
@@ -70,28 +70,37 @@
                 index = 0;
             }
 
-            if (this.__currentIndex !== -1) {
-                this._deselectAt(this.__currentIndex);
+            result = this.notify('select', index);
+
+            if (result) {
+                if (this.__currentIndex !== -1) {
+                    this._deselectAt(this.__currentIndex);
+                }
+
+                this.__currentIndex = index;
+
+                this._selectAt(this.__currentIndex);
             }
 
-            this.__currentIndex = index;
-
-            this._selectAt(this.__currentIndex);
-
-            this.notify('select');
-
-            result = true;
         }
 
         return result;
     };
 
     ItemSelector.prototype.getCurrentItem = function() {
-        return this.__items[this.__currentIndex];
+        return this.getItemAt(this.__currentIndex);
     };
 
     ItemSelector.prototype.getCurrentIndex = function() {
         return this.__currentIndex;
+    };
+
+    ItemSelector.prototype.getItemAt = function(index) {
+        if (this.__items[index] !== undefined) {
+            return this.__items[index];
+        }
+
+        return null;
     };
 
     ItemSelector.prototype._selectAt = function(i) {
@@ -112,8 +121,6 @@
             if (tuna.dom.hasClass(this.__items[i], 'current')) {
                 if (this.__currentIndex === -1) {
                     this.__currentIndex = i;
-
-                    this.notify('select');
                 }
             }
 
@@ -158,10 +165,6 @@
                 }
             );
         }
-
-        this.subscribe('select', function() {
-            tuna.dom.dispatchEvent(self.getCurrentItem(), 'ui-select', self);
-        });
     };
 
     tuna.ui.ItemSelector = ItemSelector;

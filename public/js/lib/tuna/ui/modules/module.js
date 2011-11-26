@@ -13,8 +13,8 @@
     Module.prototype.init = function(context, container, options) {
         var instances = [];
 
-        var targets = Sizzle(this._selector, context);
-        targets = targets.concat(Sizzle.filter(this._selector, [context]));
+        var targets = tuna.dom.select(this._selector, context);
+        targets = targets.concat(tuna.dom.filter(this._selector, [context]));
 
         var i = 0,
             l = targets.length;

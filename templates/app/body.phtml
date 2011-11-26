@@ -9,7 +9,15 @@
             </small>
         </h1>
 
-        <a class="j-selection-next head-button btn primary large pull-right">Дальше &raquo;</a>
+        <a id="next_step_button"
+           class="j-selection-next head-button btn primary large pull-right">
+            Дальше &raquo;
+        </a>
+
+        <a id="prev_step_button"
+           class="j-selection-prev head-button btn primary large pull-right">
+            &laquo; Назад
+        </a>
     </div>
 
     <div class="content">
@@ -32,16 +40,37 @@
             <ul class="unstyled share-menu">
                 <li>
                    <img src="" alt="Ваш тортик!" width="320" height="320" />
-                </li>                <li>
+                </li>
+                <li>
                    <a class="btn primary large">Опубликовать на стену</a>
                 </li>
                 <li>
-                    <a class="btn primary large">Послать другу</a>
+                    <a class="j-popup btn primary large"
+                       data-popup-selector="#friend_list_popup">
+                        Послать другу
+                    </a>
                 </li>
                 <li>
                     <a class="btn primary large">Сохранить</a>
                 </li>
             </ul>
+
+            <div id="friend_list_popup" class="popup">
+                <div class="overlay"></div>
+                <div class="modal">
+                    <div class="modal-header">
+                        <a href="#" class="j-popup-close close">×</a>
+                        <h3>Выберите друга!</h3>
+                    </div>
+                    <div class="modal-body">
+                        из списка
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="j-popup-close btn">Закрыть</a>
+                        <a href="#" class="j-popup-apply btn primary">Выбрать</a>
+                    </div>
+                </div>
+            </div>
 
 
         </div>

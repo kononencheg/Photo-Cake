@@ -28,7 +28,7 @@
     };
 
     Form.prototype.__initFormMessage = function() {
-        var messages = Sizzle('.j-form-message', this.__target);
+        var messages = tuna.dom.select('.j-form-message', this.__target);
         if (messages.length > 0) {
             this.__formMessage = messages[0];
         }
@@ -98,7 +98,7 @@
         var result = null;
 
         if (this._inputTable[name] === undefined) {
-            var inputWrappers = Sizzle('.j-' + name + '-input', this.__target);
+            var inputWrappers = tuna.dom.select('.j-' + name + '-input', this.__target);
             if (inputWrappers.length > 0) {
                 this._inputTable[name] = new FormInput(inputWrappers[0]);
             }
@@ -147,7 +147,7 @@
     };
 
     FormInput.prototype.__init = function() {
-        var messages = Sizzle('.j-message', this.__target);
+        var messages = tuna.dom.select('.j-message', this.__target);
         if (messages.length > 0) {
             this.__message = messages[0];
             this.__defaultMessage = this.__message.innerHTML;

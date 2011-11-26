@@ -8,6 +8,40 @@
 
     tuna.namespace('tuna.dom');
 
+    var selectorEngine = null;
+
+    tuna.dom.setSelectorEngine = function(engine) {
+        selectorEngine = engine;
+    };
+
+    tuna.dom.select = function(selector, context) {
+        if (selectorEngine !== null) {
+            return selectorEngine(selector, context);
+        }
+
+        return null;
+    };
+
+    tuna.dom.filter = function(selector, elements) {
+        if (selectorEngine !== null &&
+            selectorEngine.filter !== undefined) {
+            return selectorEngine.filter(selector, elements);
+        }
+
+        return null;
+    };
+
+    tuna.dom.selectOne = function(selector, context) {
+        if (selectorEngine !== null) {
+            var result = selectorEngine(selector, context);
+            if (result.length > 0) {
+                return result[0];
+            }
+        }
+
+        return null;
+    };
+
     tuna.dom.createFragment = function(html, doc) {
         var fragment = doc.createDocumentFragment();
 
@@ -30,7 +64,7 @@
     // TODO: Make remove listener
     tuna.dom.addChildEventListener = function(element, childSelector, type, handler) {
         tuna.dom.addEventListener(element, type, function(event) {
-            var target = Sizzle.matches(childSelector, [event.target])[0];
+            var target = selectorEngine.matches(childSelector, [event.target])[0];
 
             if (target === undefined) {
                 target = tuna.dom.getParentMatches(event.target, childSelector, this);
@@ -72,10 +106,10 @@
         var doc = element.ownerDocument;
 
         if (doc.createEventObject !== undefined){
-            var event = doc.createEventObject();
-            event.data = data;
+            var evt = doc.createEventObject();
+            evt.data = data;
 
-            result = element.fireEvent('on' + type, event);
+            result = element.fireEvent('on' + type, evt);
         } else {
             var event = document.createEvent('UIEvents');
             event.initEvent(type, true, true);
@@ -130,7 +164,7 @@
 
         while (parent !== null &&
                parent !== context &&
-               Sizzle.matches(selector, [parent]).length === 0) {
+               selectorEngine.matches(selector, [parent]).length === 0) {
             
             parent = parent.parentNode;
         }
@@ -175,6 +209,14 @@
         } else if (tuna.dom.hasClass(element, className)) {
             var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
             element.className = element.className.replace(reg, ' ');
+        }
+    };
+
+    tuna.dom.setClassExist = function(element, className, isExist) {
+        if (!isExist && tuna.dom.hasClass(element, className)) {
+            tuna.dom.removeClass(element, className)
+        } else if (isExist && !tuna.dom.hasClass(element, className)) {
+            tuna.dom.addClass(element, className)
         }
     };
 

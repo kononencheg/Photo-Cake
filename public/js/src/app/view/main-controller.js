@@ -1,35 +1,33 @@
 (function() {
 
     var MainController = function() {
-        tuna.view.ViewController.call(this, null);
+        tuna.view.WizardViewController.call(this, null);
     };
 
-    tuna.extend(MainController, tuna.view.ViewController);
+    tuna.extend(MainController, tuna.view.WizardViewController);
 
     MainController.prototype._bootstrap = function() {
         this.init();
     };
 
-    MainController.prototype._requireModules = function() {
-        this._container.requireModule('item-selector');
-        this._container.requireModule('transform-container');
-    };
-
     MainController.prototype._initActions = function() {
-        /*var getCurrentUser
-            = tuna.rest.factory.createMethod('social.getCurrentUser');
+        this._nextButton = tuna.dom.selectOne('#next_step_button');
+        this._prevButton = tuna.dom.selectOne('#prev_step_button');
 
-        getCurrentUser.subscribe('result', function(event, result) {
-
-        }, this);
-
-        getCurrentUser.call();*/
+        tuna.view.WizardViewController.prototype._initActions.call(this);
     };
 
-    MainController.prototype._destroyActions = function() {
-
+    MainController.prototype._handlePageClose = function(page, newPage) {
+        if (page.id === 'designer_step') {
+            var designerController = this._currentController;
+            var cakeData = designerController.getCakeData();
+            
+            this._db.set('cake_data', cakeData);
+        }
     };
 
+
+    
     tuna.view.setMainController(new MainController());
 
 })();

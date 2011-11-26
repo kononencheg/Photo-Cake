@@ -1,13 +1,13 @@
 (function() {
 
     var DesignerController = function(id) {
-        tuna.view.ViewController.call(this, id);
+        tuna.view.StepViewController.call(this, id);
 
         this.__movieID = null;
         this.__movie = null;
     };
 
-    tuna.extend(DesignerController, tuna.view.ViewController);
+    tuna.extend(DesignerController, tuna.view.StepViewController);
 
     DesignerController.prototype._bootstrap = function() {
         this.init();
@@ -19,16 +19,13 @@
                 'wmode': 'direct',
                 'allowfullscreen': false,
                 'allowscriptaccess': 'sameDomain',
-                'menu': false//,
-                //'scale': 'noscale',
-                //'align': 't'
+                'menu': false
             }
         });
     };
 
     DesignerController.prototype._initActions = function() {
         this.__movieID = this._container.getOneModuleInstance('swf');
-
     };
 
     DesignerController.prototype.__getMovie = function() {
@@ -39,12 +36,23 @@
         return this.__movie;
     };
 
+    DesignerController.prototype.canGoPrev = function() {
+        return false;
+    };
+
+    DesignerController.prototype.getCakeData = function() {
+        return {};
+    };
+
     DesignerController.prototype.onFlashReady = function() {
-        var self = this;
+        var designer = this.__getMovie();
+
         setTimeout(function() {
-            self.__getMovie().initialize('round', 0.9);
+            designer.initialize('round', 0.9);
         }, 0);
     };
+
+
 
     var controller = new DesignerController('designer_step');
 

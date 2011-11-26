@@ -78,3 +78,24 @@
         }
     }
 }
+
+.hidden {
+    display: none;
+}
+
+.popup {
+    display: none;
+
+    .overlay {
+        position: fixed;
+
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+
+        background: @black;
+
+        .opacity(50);
+    }
+}

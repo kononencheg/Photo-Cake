@@ -8,17 +8,27 @@
     tuna.implement(Notifier, tuna.utils.INotifier);
 
     Notifier.prototype.notify = function(type, notification) {
+        var result = true;
+
         if (this._listeners[type]) {
             
             var i = this._listeners[type].length - 1;
             var listenData;
+            var listenerResult;
             while (i >= 0) {
                 listenData = this._listeners[type][i];
-                listenData[0].call(listenData[1], type, notification);
+                listenerResult
+                    = listenData[0].call(listenData[1], type, notification);
+
+                if (listenerResult !== undefined) {
+                    result = listenerResult;
+                }
 
                 i--;
             }
         }
+
+        return result;
     };
 
     Notifier.prototype.subscribe = function(type, handler, scope) {

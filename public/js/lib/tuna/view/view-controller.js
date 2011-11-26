@@ -62,16 +62,13 @@
     };
 
     tuna.view.getController = function(target) {
-        var viewController = null;
-
         if (target === document.body) {
-            viewController = mainController;
+            return mainController;
         } else if (idTable[target.id] !== undefined) {
-            viewController = idTable[target.id];
-            delete idTable[target.id];
+            return idTable[target.id];
         }
 
-        return viewController;
+        return null;
     };
 
     tuna.view.initMainController = function() {

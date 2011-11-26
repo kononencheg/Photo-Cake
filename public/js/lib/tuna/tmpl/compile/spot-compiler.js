@@ -39,7 +39,7 @@
         if (tuna.dom.hasClass(element, className)) { // Например если шаблоном является элемент списка
             item.addTargets(element);
         } else {
-            item.addTargets(Sizzle('.' + className, element));
+            item.addTargets(tuna.dom.select('.' + className, element));
         }
     };
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace api\social;
+namespace api\social\user;
 
 class GetCurrentUser extends \api\social\SocialMethod {
 

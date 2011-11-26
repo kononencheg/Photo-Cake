@@ -31,28 +31,28 @@
     TransformContainer.prototype.render = function(element) {
         tuna.ui.Container.prototype.render.call(this, element);
 
-        if (this._controller !== null) {
-            this._controller.init();
+        if (this.__controller !== null) {
+            this.__controller.init();
         }
     };
 
     TransformContainer.prototype.clear = function() {
         tuna.ui.Container.prototype.clear.call(this);
 
-        if (this._controller !== null) {
-            this._controller.destroy();
+        if (this.__controller !== null) {
+            this.__controller.destroy();
         }
     };
 
     TransformContainer.prototype.init = function() {
-        this._controller = tuna.view.getController(this._target);
+        this.__controller = tuna.view.getController(this._target);
         
-        if (this._controller !== null) {
+        if (this.__controller !== null) {
             if (this.__transformer !== null) {
-                this.__transformer.setTransformHandler(this._controller);
+                this.__transformer.setTransformHandler(this.__controller);
             }
 
-            this._controller.bindContainer(this);
+            this.__controller.bindContainer(this);
         }
     };
 
