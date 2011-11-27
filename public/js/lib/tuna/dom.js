@@ -8,6 +8,49 @@
 
     tuna.namespace('tuna.dom');
 
+    function addCustomIEListener(element, type, handler) {
+        if (element.__customListener == undefined) {
+            element.__customListener = function(event) {
+                if (event.__type !== undefined) {
+                    var type = event.__type;
+                    delete event.__type;
+
+                    var handlers = element['__' + type];
+                    for (var i in handlers) {
+                        handlers[i].call(element, event);
+                    }
+                }
+            };
+
+            element.attachEvent('onhelp', element.__customListener);
+        }
+
+        if (element['__' + type] === undefined) {
+            element['__' + type] = [];
+        }
+
+        element['__' + type].push(handler);
+    }
+
+    function removeCustomIEListener(element, type, handler) {
+        var handlers = element['__' + type]
+        if (handlers !== undefined) {
+            var i = handlers.length - 1;
+            while (i >= 0) {
+                if (handlers[i] === handler) {
+                    handlers.splice(i, 1);
+                }
+
+                i--;
+            }
+        }
+    }
+
+    function dispatchCustomIEEvent(element, type) {
+        event.__type = type;
+        return element.fireEvent('onhelp', event);
+    }
+
     var selectorEngine = null;
 
     tuna.dom.setSelectorEngine = function(engine) {
@@ -61,7 +104,7 @@
         return fragment;
     };
 
-    // TODO: Make remove listener
+    // TODO: Make remove child listener
     tuna.dom.addChildEventListener = function(element, childSelector, type, handler) {
         tuna.dom.addEventListener(element, type, function(event) {
             var eventTarget = event.target || event.srcElement;
@@ -82,7 +125,12 @@
         if (element.addEventListener !== undefined) {
             element.addEventListener(type, handler);
         } else if (element.attachEvent !== undefined) {
-            element.attachEvent("on" + type, handler);
+            var eventName = 'on' + type;
+            if (element[eventName] === undefined) {
+                addCustomIEListener(element, type, handler);
+            } else {
+                element.attachEvent(eventName, handler);
+            }
         }
     };
 
@@ -99,7 +147,13 @@
         if (element.removeEventListener !== undefined) {
             element.removeEventListener(type, handler);
         } else if (element.detachEvent !== undefined) {
-            element.detachEvent("on" + type, handler);
+            var eventName = 'on' + type;
+            if (element[eventName] === undefined) {
+                removeCustomIEListener(element, type, handler);
+            } else {
+                element.detachEvent("on" + type, handler);
+            }
+
         }
     };
 
@@ -108,10 +162,15 @@
         var doc = element.ownerDocument;
 
         if (doc.createEventObject !== undefined){
-            var evt = doc.createEventObject();
-            evt.data = data;
+            var event = doc.createEventObject();
+            event.data = data;
 
-            result = element.fireEvent('on' + type, evt);
+            var eventName = 'on' + type;
+            if (element[eventName] === undefined) {
+                dispatchCustomIEEvent(element, type);
+            } else {
+                result = element.fireEvent(eventName, event);
+            }
         } else {
             var event = document.createEvent('UIEvents');
             event.initEvent(type, true, true);
