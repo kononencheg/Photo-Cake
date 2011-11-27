@@ -64,10 +64,12 @@
     // TODO: Make remove listener
     tuna.dom.addChildEventListener = function(element, childSelector, type, handler) {
         tuna.dom.addEventListener(element, type, function(event) {
-            var target = selectorEngine.matches(childSelector, [event.target])[0];
+            var eventTarget = event.target || event.srcElement;
+            
+            var target = selectorEngine.matches(childSelector, [eventTarget])[0];
 
             if (target === undefined) {
-                target = tuna.dom.getParentMatches(event.target, childSelector, this);
+                target = tuna.dom.getParentMatches(eventTarget, childSelector, this);
             }
 
             if (target !== null) {
