@@ -9,8 +9,11 @@
     tuna.namespace('tuna.dom');
 
     function addCustomIEListener(element, type, handler) {
+
+        debugger;
         if (element.__customListener == undefined) {
             element.__customListener = function(event) {
+                debugger;
                 if (event.__type !== undefined) {
                     var type = event.__type;
                     delete event.__type;
@@ -46,7 +49,7 @@
         }
     }
 
-    function dispatchCustomIEEvent(element, type) {
+    function dispatchCustomIEEvent(element, event, type) {
         event.__type = type;
         return element.fireEvent('onhelp', event);
     }
@@ -112,7 +115,7 @@
             var target = selectorEngine.matches(childSelector, [eventTarget])[0];
 
             if (target === undefined) {
-                target = tuna.dom.getParentMatches(eventTarget, childSelector, this);
+                target = tuna.dom.getParentMatches(eventTarget, childSelector, element);
             }
 
             if (target !== null) {
@@ -167,7 +170,7 @@
 
             var eventName = 'on' + type;
             if (element[eventName] === undefined) {
-                dispatchCustomIEEvent(element, type);
+                dispatchCustomIEEvent(element, event, type);
             } else {
                 result = element.fireEvent(eventName, event);
             }
