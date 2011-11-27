@@ -29,8 +29,13 @@
         this.__items = tuna.dom.select(this.__itemSelector, this._target);
 
         this.__syncCurrentIndex();
+    };
 
-        this.notify('update');
+    ItemSelector.prototype.clear = function() {
+        if (this.__currentIndex !== -1) {
+            this._deselectAt(this.__currentIndex);
+            this.__currentIndex = -1;
+        }
     };
 
     ItemSelector.prototype.setNavigationButtonSelectors = function(nextSelector, prevSelector) {
@@ -105,10 +110,12 @@
 
     ItemSelector.prototype._selectAt = function(i) {
         tuna.dom.addClass(this.__items[i], 'current');
+        this.notify('selected', i);
     };
 
     ItemSelector.prototype._deselectAt = function(i) {
         tuna.dom.removeClass(this.__items[i], 'current');
+        this.notify('deselected', i);
     };
 
     ItemSelector.prototype.__syncCurrentIndex = function() {

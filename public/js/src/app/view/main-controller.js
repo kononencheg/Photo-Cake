@@ -19,10 +19,7 @@
 
     MainController.prototype._handlePageClose = function(page, newPage) {
         if (page.id === 'designer_step') {
-            var designerController = this._currentController;
-            var cakeData = designerController.getCakeData();
-            
-            this._db.set('cake_data', cakeData);
+            this._currentController.saveCakeData();
         }
     };
 

@@ -1,8 +1,12 @@
 (function() {
 
     var TransformContainer = function() {
-        tuna.ui.modules.Module.call
-            (this, 'transform-container', '.j-transform-container');
+        tuna.ui.modules.Module.call(
+            this, 'transform-container',
+            '.' + tuna.ui.modules.Module.CONTAINER_CLASS
+        );
+
+        this._useContext = false;
 
         this.__templateBuilder
             = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
@@ -67,5 +71,6 @@
         return container;
     };
 
+    //TODO: сделать главный модуль-контейнер, из котрого потом брать класс
     tuna.ui.modules.register(new TransformContainer());
 })();

@@ -27,6 +27,7 @@
             }
         );
 
+        //TODO: move to module
         this.subscribe('popup-open', function() {
             tuna.dom.dispatchEvent(self.__target, 'ui-popup-open');
         });

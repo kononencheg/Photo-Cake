@@ -9,9 +9,21 @@
     tuna.namespace('tuna.tmpl.data');
 
     var DataNode = function(value, parent, key) {
-        this.__value = value;
-        this.__parent = parent;
-        this.__key = key;
+        this.__value = null;
+        this.__parent = null;
+        this.__key = null;
+
+        if (value !== undefined) {
+            this.__value = value;
+        }
+        
+        if (parent !== undefined) {
+            this.__parent = parent;
+        }
+
+        if (key !== undefined) {
+            this.__key = key;
+        }
 
         this.__children = {};
     };

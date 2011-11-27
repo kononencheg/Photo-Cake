@@ -20,6 +20,7 @@
 
     CommonRESTFactory.prototype._buildMethod = function(name) {
         var request = new tuna.net.Request();
+        request.method = 'POST';
         request.setURL(this.__getURL(name));
 
         return new tuna.rest.RemoteMethod(request);

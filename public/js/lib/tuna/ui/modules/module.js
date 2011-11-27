@@ -4,7 +4,10 @@
     var Module = function(name, selector) {
         this._name = name;
         this._selector = selector;
+        this._useContext = true;
     };
+
+    Module.CONTAINER_CLASS = 'j-transform-container';
 
     Module.prototype.getName = function() {
         return this._name;
@@ -14,13 +17,23 @@
         var instances = [];
 
         var targets = tuna.dom.select(this._selector, context);
-        targets = targets.concat(tuna.dom.filter(this._selector, [context]));
+
+        if (this._useContext) {
+            targets = targets.concat
+                (tuna.dom.filter(this._selector, [context]));
+        }
 
         var i = 0,
             l = targets.length;
 
+        var target = null;
         while (i < l) {
-            instances.push(this._initInstance(targets[i], container, options));
+            target = targets[i];
+            if (tuna.dom.getParentWithClass
+                    (target, Module.CONTAINER_CLASS , context) === null) {
+
+                instances.push(this._initInstance(target, container, options));
+            }
 
             i++;
         }

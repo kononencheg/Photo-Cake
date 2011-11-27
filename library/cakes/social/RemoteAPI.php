@@ -6,7 +6,7 @@ class RemoteAPI {
 
     protected $_url;
 
-    public function call($method, $arguments) {
+    public function call($method, $arguments = array()) {
         $query = $this->buildQuery($arguments, $method);
         $url = $this->buildURL($method);
 

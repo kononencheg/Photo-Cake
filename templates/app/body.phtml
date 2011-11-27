@@ -1,7 +1,8 @@
 <div class="j-item-selector fluid-container">
     <div class="page-header">
         <h1 class="main-title">
-            <img class="main-logo" src="/img/app/logo.png" alt="Фото на торте!" />
+            <img class="main-logo" src="/img/app/logo.png"
+                 alt="Фото на торте!" />
 
             <small>
                 <q class="main-subtitle">Торты на заказ:</q>
@@ -39,7 +40,8 @@
 
             <ul class="unstyled share-menu">
                 <li>
-                   <img src="" alt="Ваш тортик!" width="320" height="320" />
+                   <img id="share_cake_image" src="about: blank"
+                        alt="Ваш тортик!" width="320" height="320" />
                 </li>
                 <li>
                    <a class="btn primary large">Опубликовать на стену</a>
@@ -51,23 +53,29 @@
                     </a>
                 </li>
                 <li>
-                    <a class="btn primary large">Сохранить</a>
+                    <a id="download_link" class="btn primary large"
+                       target="_blank" href="#">Сохранить</a>
                 </li>
             </ul>
 
-            <div id="friend_list_popup" class="popup">
+            <div id="friend_list_popup"
+                 class="j-item-selector j-transform-container popup"
+                 data-template-id="friends_popup_template">
+
                 <div class="overlay"></div>
                 <div class="modal">
                     <div class="modal-header">
-                        <a href="#" class="j-popup-close close">×</a>
+                        <a href="#" class="j-popup-close close">&times;</a>
                         <h3>Выберите друга!</h3>
                     </div>
                     <div class="modal-body">
-                        из списка
+                        <ul class="t-friend-list friend-list unstyled"></ul>
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="j-popup-close btn">Закрыть</a>
-                        <a href="#" class="j-popup-apply btn primary">Выбрать</a>
+                        <a href="#" class="j-popup-apply btn primary">
+                            Выбрать
+                        </a>
                     </div>
                 </div>
             </div>
@@ -75,4 +83,27 @@
 
         </div>
     </div>
+</div>
+
+<div class="hidden" xmlns:tuna="http://localhost/tuna">
+    <ul>
+        <li id="friend_item_renderer" class="j-selection-item">
+            <img class="t-userpic" src="about: blank" alt="Фото друга"/>
+            <span class="t-user-name"></span>
+        </li>
+    </ul>
+
+    <tuna:template id="friends_popup_template">
+        <tuna:list tuna:target="t-friend-list" tuna:path=""
+                   tuna:item-renderer-id="friend_item_renderer"
+                   tuna:item-template-id="selection_item_template"
+                   tuna:key-path="id" />
+
+    </tuna:template>
+
+    <tuna:template id="selection_item_template">
+        <tuna:spot tuna:target="t-user-name" tuna:path="name" />
+        <tuna:attr tuna:target="t-userpic" tuna:name="src"
+                   tuna:path="userpic" />
+    </tuna:template>
 </div>
