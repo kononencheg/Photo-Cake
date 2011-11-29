@@ -28,10 +28,10 @@ class OdnoklassnikiAPI extends RemoteAPI {
 
         $arguments['sig'] = md5(urldecode(http_build_query($sigParams, null ,'')) . $this->_sig);
 
-        return http_build_query($arguments);
+        return $arguments;
     }
 
     protected function buildURL($method) {
-        return $this->_url . 'fb.do?method=' . $method . '&';
+        return $this->_url . 'fb.do?method=' . $method;
     }
 }

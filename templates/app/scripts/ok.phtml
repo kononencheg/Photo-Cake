@@ -1,0 +1,11 @@
+<script src="<?php echo $this->_session->app['api_server'] ?>js/fapi.js" type="text/javascript"></script>
+<script type="text/javascript">
+    FAPI.init(
+        '<?php echo $this->_session->app['api_server'] ?>',
+        '<?php echo $this->_session->app['apiconnection'] ?>',
+        function() {
+            FAPI.Client.initialize();
+            main();
+        }
+    );
+</script>

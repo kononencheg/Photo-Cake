@@ -1,15 +1,13 @@
 <?php
 
-namespace api\social\wall;
+namespace api\social\ok\friends;
 
-class Post extends \api\social\SocialMethod {
+class Post extends \api\social\ok\OKMethod {
 
     /**
      * @return mixed
      */
     protected function apply() {
-
-
         return NULL;
     }
 }

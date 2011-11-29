@@ -1,12 +1,25 @@
 
+<script type="text/javascript" src="/js/src/rest/common-method.js"></script>
+<script type="text/javascript" src="/js/src/rest/method-factory.js"></script>
+
 <script type="text/javascript" src="/js/src/app/view/main-controller.js"></script>
 
 <script type="text/javascript" src="/js/src/app/view/steps/designer-controller.js"></script>
 <script type="text/javascript" src="/js/src/app/view/steps/share-controller.js"></script>
 
-<script src="<?php echo $this->_session->app['api_server'] ?>js/fapi.js" type="text/javascript"></script>
-
 <script type="text/javascript">
-    tuna.dom.setSelectorEngine(jQuery.find);
-    tuna.view.initMainController();
+    var APP_NETWORK = '<?php echo $this->_session->network ?>';
+
+    function main() {
+        tuna.dom.setSelectorEngine(jQuery.find);
+
+        tuna.view.initMainController();
+    }
 </script>
+
+<?php switch ($this->_session->network) {
+    // TODO: implement tuna.config
+    case 'vk': { $this->render('scripts/vk'); break; }
+    case 'ok': { $this->render('scripts/ok'); break; }
+} ?>
+

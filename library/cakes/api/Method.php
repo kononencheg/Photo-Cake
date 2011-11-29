@@ -35,7 +35,7 @@ abstract class Method {
      * @param mixed $params
      * @return mixed
      */
-    public function call($params) {
+    final public function call($params) {
         $this->_params = $params;
 
         $this->filter();

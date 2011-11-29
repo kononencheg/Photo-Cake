@@ -6,18 +6,10 @@
         this.__factory = null;
     };
 
-    tuna.implement(FactoryWrapper, tuna.rest.IRESTFactory);
+    tuna.implement(FactoryWrapper, tuna.rest.IMethodFactory);
 
     FactoryWrapper.prototype.setCore = function(core) {
         this.__factory = core;
-    };
-
-    FactoryWrapper.prototype.getParser = function(name) {
-        if (this.__factory !== null) {
-            return this.__factory.getParser(name);
-        }
-
-        return null;
     };
 
     FactoryWrapper.prototype.createMethod = function(name) {

@@ -9,6 +9,7 @@
 
         this.__cakeImage = null;
         this.__downloadLink = null;
+        this.__wallPostLink = null;
 
         this.__selectedFriend = null;
     };
@@ -31,6 +32,28 @@
         this.__loadFriendsData();
         this.__initFriendsList();
         this.__initFriendsPopup();
+
+        this.__initWallPostLink();
+    };
+
+    ShareController.prototype.__initWallPostLink = function() {
+        this.__wallPostLink = tuna.dom.selectOne('#wall_post_link');
+
+        var wallPost
+            = tuna.rest.factory.createMethod('social.wall.post');
+
+        wallPost.subscribe('result', function(event, result) {
+            debugger;
+        }, this);
+
+        var self = this;
+        tuna.dom.addEventListener(this.__wallPostLink, 'click', function(event) {
+            tuna.dom.preventDefault(event);
+
+            wallPost.call({
+                'image_url': self._db.get('cake_data').image_url
+            });
+        });
     };
 
     ShareController.prototype.__initCakeImage = function() {
@@ -39,6 +62,7 @@
 
         this._db.subscribe('cake_data', function(event, data) {
             this.__cakeImage.src = data.image_url;
+
             this.__downloadLink.href
                 = '/api/?method=utils.downloadImage&url=' + data.image_url;
         }, this);
@@ -73,7 +97,7 @@
             = this._container.getOneModuleInstance('transform-container');
 
         var getFriends
-            = tuna.rest.factory.createMethod('social.friends.getList');
+            = tuna.rest.factory.createMethod('social.friends.get');
 
         getFriends.subscribe('result', function(event, result) {
             this._db.set('friends_list', result);
