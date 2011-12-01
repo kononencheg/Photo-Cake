@@ -26,6 +26,8 @@ class Post extends \api\social\vk\VKMethod {
         $data = json_decode($this->_api->call('photos.getWallUploadServer', array(
             'uid' => $this->user_id
         )));
+
+        var_dump($data);
         
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HEADER, 0);
