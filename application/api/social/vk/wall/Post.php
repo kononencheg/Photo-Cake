@@ -21,7 +21,11 @@ class Post extends \api\social\vk\VKMethod {
      * @return mixed
      */
     protected function apply() {
-        $data = json_decode($this->_api->call('photos.getWallUploadServer'));
+
+
+        $data = json_decode($this->_api->call('photos.getWallUploadServer', array(
+            'uid' => $this->user_id
+        )));
         
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -34,6 +38,8 @@ class Post extends \api\social\vk\VKMethod {
         ));
 
         $options = json_decode(curl_exec($ch));
+        $options->uid = $this->user_id;
+        
         $data = json_decode($this->_api->call('photos.saveWallPhoto', $options));
 
         return $data->response[0];

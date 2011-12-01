@@ -9,11 +9,8 @@
     tuna.namespace('tuna.dom');
 
     function addCustomIEListener(element, type, handler) {
-
-        debugger;
         if (element.__customListener == undefined) {
             element.__customListener = function(event) {
-                debugger;
                 if (event.__type !== undefined) {
                     var type = event.__type;
                     delete event.__type;

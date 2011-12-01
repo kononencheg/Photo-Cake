@@ -11,6 +11,8 @@
         this.__downloadLink = null;
         this.__wallPostLink = null;
 
+        this.__wallPostMethod = null;
+
         this.__selectedFriend = null;
     };
 
@@ -39,18 +41,18 @@
     ShareController.prototype.__initWallPostLink = function() {
         this.__wallPostLink = tuna.dom.selectOne('#wall_post_link');
 
-        var wallPost
+        this.__wallPostMethod
             = tuna.rest.factory.createMethod('social.wall.post');
 
-        wallPost.subscribe('result', function(event, result) {
-            debugger;
+        this.__wallPostMethod.subscribe('result', function(event, result) {
+            alert('Торт успешно опубликован!')
         }, this);
 
         var self = this;
         tuna.dom.addEventListener(this.__wallPostLink, 'click', function(event) {
             tuna.dom.preventDefault(event);
 
-            wallPost.call({
+            self.__wallPostMethod.call({
                 'image_url': self._db.get('cake_data').image_url
             });
         });
@@ -75,6 +77,11 @@
         }, this);
 
         this.__friendsPopup.subscribe('popup-apply', function() {
+            this.__wallPostMethod.call({
+                'image_url': this._db.get('cake_data').image_url,
+                'user_id': this.__selectedFriend.id
+            });
+
             this.__friendsList.clear();
         }, this);
     };
