@@ -15,7 +15,19 @@
             this.__userID = args.user_id;
         }
 
-        rest.CommonMethod.prototype.call.call(this, args);
+        var params = {};
+        if (this.__userID  !== null) {
+            params.uid = this.__userID;
+        }
+
+        var self = this;
+        VK.api('photos.getWallUploadServer', params, function(data) {
+            var uploadParams = data.response;
+            uploadParams.image_url = args.image_url;
+            rest.CommonMethod.prototype.call.call(self, uploadParams);
+        });
+
+
     };
 
     Post.prototype._handleResponse = function(data) {
@@ -24,6 +36,8 @@
         try {
             result = JSON.parse(data);
         } catch (error) { alert(data); }
+
+        debugger;
 
         if (result !== null) {
             var self = this;
@@ -39,7 +53,7 @@
                 }
             });
         } else {
-            self.notify('error', data);
+            this.notify('error', data);
         }
     };
 
