@@ -40,6 +40,7 @@
     MethodFactory.prototype.__createSocialFactory = function() {
         switch (APP_NETWORK) {
             case 'vk': return new rest.vk.VKMethodFactory();
+            case 'ok': return new rest.ok.OKMethodFactory();
         }
 
         return null;

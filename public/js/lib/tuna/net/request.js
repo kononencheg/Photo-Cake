@@ -189,7 +189,7 @@
                     result = result.concat(Request.__splitData(object[key], newPath));
                 }
             } else {
-                result = [path.shift() + (path.length > 0 ? '[' + path.join('][') + ']=' : '=') + object];
+                result = [path.shift() + (path.length > 0 ? '[' + path.join('][') + ']=' : '=') + encodeURIComponent(object)];
             }
         }
 
