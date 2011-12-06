@@ -21,7 +21,7 @@
     };
 
     GetList.prototype.__handleFriendsList = function(status, data, error) {
-        if (error !== null) {
+        if (status === 'ok') {
             FAPI.Client.call({
                 'method': 'users.getInfo',
                 'uids': data.join(','),
@@ -33,7 +33,7 @@
     };
 
     GetList.prototype.__handleFriendsData = function(status, data, error) {
-        if (error !== null) {
+        if (status === 'ok') {
             var result = [];
 
             var value = null;
