@@ -30,7 +30,7 @@ tuna.VERSION = '3.2.70';
  * @const
  * @type boolean
  */
-tuna.IS_IE = !'\v1';
+tuna.IS_IE = '\v' == 'v';
 
 /**
  * Convert array-like object to array.
