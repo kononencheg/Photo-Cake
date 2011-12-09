@@ -25,82 +25,14 @@
         <div id="designer_step"
              class="j-selection-item j-transform-container step current">
 
-            <div id="cake_designer" class="j-swf"
-                 data-movie-url="/swf/cake-designer.swf">
-                <p>Загрузка...</p>
-            </div>
-
+             <?php $this->render('steps/designer') ?>
         </div>
 
         <div id="share_step" data-init-event="ui-select"
              class="j-selection-item j-transform-container step">
 
-            <ul class="unstyled share-menu">
-                <li>
-                   <img id="share_cake_image" src="about: blank"
-                        alt="Ваш тортик!" width="320" height="320" />
-                </li>
-                <li>
-                   <a id="wall_post_link" class="btn primary large">Опубликовать на стену</a>
-                </li>
-                <li>
-                    <a class="j-popup btn primary large"
-                       data-popup-selector="#friend_list_popup">
-                        Послать другу
-                    </a>
-                </li>
-                <li>
-                    <a id="download_link" class="btn primary large"
-                       target="_blank" href="#">Сохранить</a>
-                </li>
-            </ul>
-
-            <div id="friend_list_popup"
-                 class="j-item-selector j-transform-container popup"
-                 data-template-id="friends_popup_template">
-
-                <div class="overlay"></div>
-                <div class="modal">
-                    <div class="modal-header">
-                        <a href="#" class="j-popup-close close">&times;</a>
-                        <h3>Выберите друга!</h3>
-                    </div>
-                    <div class="modal-body friend-list-overlay">
-                        <ul class="t-friend-list friend-list unstyled"></ul>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" class="j-popup-close btn">Закрыть</a>
-                        <a href="#" class="j-popup-apply btn primary">
-                            Выбрать
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-
+            <?php $this->render('steps/share') ?>
         </div>
     </div>
 </div>
 
-<div class="hidden">
-    <ul>
-        <li id="friend_item_renderer" class="j-selection-item">
-            <img class="t-userpic userpic" src="about: blank" alt="Фото друга"/>
-            <span class="t-user-name"></span>
-        </li>
-    </ul>
-
-    <tuna:template id="friends_popup_template">
-        <tuna:list tuna:target="t-friend-list" tuna:path=""
-                   tuna:item-renderer-id="friend_item_renderer"
-                   tuna:item-template-id="selection_item_template"
-                   tuna:key-path="id" />
-
-    </tuna:template>
-
-    <tuna:template id="selection_item_template">
-        <tuna:spot tuna:target="t-user-name" tuna:path="name" />
-        <tuna:attr tuna:target="t-userpic" tuna:name="src"
-                   tuna:path="userpic" />
-    </tuna:template>
-</div>

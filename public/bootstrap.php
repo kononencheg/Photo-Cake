@@ -25,3 +25,7 @@ function loadClass($className) {
 }
 
 spl_autoload_register('loadClass');
+
+// For ie iframe
+header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
+
