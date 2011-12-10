@@ -47,13 +47,7 @@
     DesignerController.prototype.saveCakeData = function() {
         var cakeData = this.__movie.getCakeData();
 
-        var saveCake = tuna.rest.factory.createMethod('game.saveCake');
-        saveCake.subscribe('result', function(event, result) {
-            this._db.set('cake_data', result);
-        }, this);
-
-
-        saveCake.call({ 'image_data': cakeData[1] });
+        this._db.set('cake_image_data', cakeData[1]);
     };
 
     DesignerController.prototype.onFlashReady = function() {

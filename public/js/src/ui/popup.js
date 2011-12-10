@@ -70,7 +70,7 @@
 
     Popup.prototype.__show = function() {
         this.__isOpen = true;
-        $(this.__target).show();;
+        $(this.__target).show();
     };
 
     Popup.prototype.__collectData = function() {

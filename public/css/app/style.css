@@ -339,6 +339,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;
 .step{position:absolute;float:left;overflow:hidden;left:-1px;height:665px;width:1px;}.step.current{width:100%;left:0px;display:inherit;}
 .cake-designer-swf{width:660px;}
 .share-menu li{text-align:center;padding:5px;}
+.share-menu .download-button{font-family:"Times New Roman";width:auto;}
 .friend-list-overlay{height:205px;overflow:auto;}
 .friend-list li{color:#000000;}.friend-list li img{padding:5px;}
 .friend-list li.current{background:#750000;}

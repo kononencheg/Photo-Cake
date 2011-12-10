@@ -6,7 +6,7 @@
         rest.CommonMethod.call(this, 'social.wall.post');
 
         this.__userID = null;
-        this.__imageURL = null;
+        this.__imageData = null;
 
         this.__handleSavePhoto = tuna.bind(this.__handleSavePhoto, this);
         this.__handleWallPost  = tuna.bind(this.__handleWallPost, this);
@@ -18,7 +18,7 @@
     Post.prototype.call = function(args) {
         if (args !== undefined) {
             this.__userID = args.user_id || null;
-            this.__imageURL = args.image_url || null;
+            this.__imageData = args.image_data || null;
         }
 
         var params = {};
@@ -31,7 +31,7 @@
 
     Post.prototype.__handleUploadURL = function(result) {
         if (result.response !== undefined) {
-            result.response.image_url = this.__imageURL;
+            result.response.image_data = this.__imageData;
             rest.CommonMethod.prototype.call.call(this, result.response);
         } else {
             this.notify('error', result);

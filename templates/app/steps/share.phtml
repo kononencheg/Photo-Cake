@@ -1,10 +1,12 @@
 <ul class="unstyled share-menu">
     <li>
-       <img id="share_cake_image" src="about: blank"
-            alt="Ваш тортик!" width="320" height="320" />
+       <img id="share_cake_image" class="j-data-image"
+            alt="Загрузка тортика..." width="317" height="317" />
     </li>
     <li>
-       <a id="wall_post_link" class="btn primary large">Опубликовать на стену</a>
+       <a id="wall_post_link" class="btn primary large">
+           Запостить на стену
+       </a>
     </li>
     <li>
         <a class="j-popup btn primary large"
@@ -13,8 +15,17 @@
         </a>
     </li>
     <li>
-        <a id="download_link" class="btn primary large"
-           target="_blank" href="#">Сохранить</a>
+        <form action="api/?method=utils.echoImage"
+              target="_blank" method="POST">
+            
+            <input type="hidden" name="type" value="image/jpeg" />
+            <input type="hidden" name="is_downloading" value="true" />
+            <input id="download_data_input" type="hidden" name="data" />
+
+            <input type="submit" class="download-button btn primary large"
+                   value="Сохранить" />
+        </form>
+        
     </li>
 </ul>
 

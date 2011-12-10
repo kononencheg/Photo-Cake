@@ -22,6 +22,7 @@ class MethodFactory implements \cakes\api\IMethodFactory {
             case 'game.saveCake': return new \api\game\SaveCake();
 
             case 'utils.downloadImage': return new \api\utils\DownloadImage();
+            case 'utils.echoImage': return new \api\utils\EchoImage();
 
             default: {
                 if (strpos($name, 'social.') === 0) {

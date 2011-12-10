@@ -2,6 +2,7 @@
 
 define('FILE_URL', '/files/');
 define('FILE_FOLDER', $_SERVER["DOCUMENT_ROOT"] . '/files/');
+define('TEMP_FILE_FOLDER', $_SERVER["DOCUMENT_ROOT"] . '/files/tmp/');
 
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath($_SERVER["DOCUMENT_ROOT"] . '/../application'),
