@@ -35,7 +35,7 @@ class EchoImage extends \cakes\api\Method {
      * @return mixed
      */
     protected function apply() {
-        if ($this->is_downloading !== NULL) {
+        if ($this->is_downloading) {
             header('Content-Description: File Transfer');
             header('Content-Disposition: attachment; filename=cake.jpg');
             header('Content-Transfer-Encoding: binary');

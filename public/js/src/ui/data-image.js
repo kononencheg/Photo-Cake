@@ -14,16 +14,6 @@
             this.__targetImage.src = 'data:' + type + ';base64,' + data;
         } else {
             var self = this;
-            var frame = tuna.dom.selectOne('#support_frame');
-            tuna.dom.addOneEventListener(frame, 'load', function() {
-                var image = tuna.dom.selectOne
-                    ('img', frame.contentWindow.document.body);
-
-                if (image !== null) {
-                    self.__replaceTarget(image);
-                }
-            });
-
             var form = document.createElement('form');
             form.method = 'POST';
             form.target = 'support_frame';
@@ -35,6 +25,21 @@
             dataInput.value = data;
 
             form.appendChild(dataInput);
+            
+            document.body.appendChild(form);
+
+            var frame = tuna.dom.selectOne('#support_frame');
+            tuna.dom.addOneEventListener(frame, 'load', function() {
+                var image = tuna.dom.selectOne
+                    ('img', frame.contentWindow.document.body);
+
+                if (image !== null) {
+                    self.__replaceTarget(image);
+                }
+
+                document.body.removeChild(form);
+            });
+
             form.submit();
         }
     };
