@@ -46,8 +46,12 @@
 
     DesignerController.prototype.saveCakeData = function() {
         var cakeData = this.__movie.getCakeData();
+        
+        var cakeParams = JSON.parse(cakeData.shift());
+        var cakeImage = cakeData.shift();
 
-        this._db.set('cake_image_data', cakeData[1]);
+        this._db.set('cake_image', cakeImage);
+        this._db.set('cake_params', cakeParams);
     };
 
     DesignerController.prototype.onFlashReady = function() {

@@ -33,6 +33,71 @@
 
             <?php $this->render('steps/share') ?>
         </div>
+
+        <div id="recipe_step" data-init-event="ui-select"
+             data-template-id="recipe_template"
+             class="j-selection-item j-transform-container step">
+
+            <?php $this->render('steps/recipe') ?>
+        </div>
+
     </div>
+</div>
+
+
+<div xmlns:tuna class="hidden">
+    <ul>
+        <li id="friend_item_renderer" class="j-selection-item">
+            <img class="t-userpic userpic" alt="Фото друга"/>
+            <span class="t-user-name"></span>
+        </li>
+        <li id="recipe_renderer">
+            <a class="recipe-tile">
+                <img class="t-recipe-img t-recipe-id j-popup"
+                     alt="Рецепт" width="90" height="90"
+                     data-popup-selector="#description_popup"/>
+
+                <label class="recipe-label">
+                    <input class="t-recipe-id" type="radio" name="recipe_id" />
+                    <span class="t-recipe-name"></span>
+                </label>
+            </a>
+        </li>
+    </ul>
+
+    <tuna:template id="friends_popup_template">
+        <tuna:list tuna:target="t-friend-list" tuna:path=""
+                   tuna:item-renderer-id="friend_item_renderer"
+                   tuna:item-template-id="selection_item_template"
+                   tuna:key-path="$key" />
+
+    </tuna:template>
+
+    <tuna:template id="selection_item_template">
+        <tuna:spot tuna:target="t-user-name" tuna:path="name" />
+        <tuna:attr tuna:target="t-userpic" tuna:name="src"
+                   tuna:path="userpic" />
+    </tuna:template>
+
+    <tuna:template id="recipe_template">
+        <tuna:spot tuna:target="t-cake-weight"  tuna:path="cake/mass" />
+        <tuna:spot tuna:target="t-cake-price" tuna:path="cake/price" />
+
+        <tuna:spot tuna:target="t-popup-recipe-name" tuna:path="popup/name" />
+        <tuna:spot tuna:target="t-popup-recipe-desc" tuna:path="popup/description" />
+
+        <tuna:list tuna:target="t-recipes-list" tuna:path="recipes"
+                   tuna:item-renderer-id="recipe_renderer"
+                   tuna:item-template-id="recipe_template"
+                   tuna:key-path="$key" />
+    </tuna:template>
+
+    <tuna:template id="recipe_template">
+        <tuna:attr tuna:target="t-recipe-img" tuna:path="image_url" tuna:name="src"/>
+        <tuna:attr tuna:target="t-recipe-img" tuna:path="name" tuna:name="alt"/>
+        <tuna:attr tuna:target="t-recipe-id" tuna:path="id" tuna:name="data-value" />
+
+        <tuna:spot tuna:target="t-recipe-name" tuna:path="name" />
+    </tuna:template>
 </div>
 

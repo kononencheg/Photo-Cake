@@ -14,7 +14,7 @@
         var result = tuna.view.NavigationViewController.prototype.
                         _canSwitchTo.call(this, index);
         
-        if (result) {
+        if (result && this._currentController !== null) {
             // TODO: with circle rewind has no sense
             if (index > this._pageNavigator.getCurrentIndex()) {
                 result = this._currentController.canGoNext();

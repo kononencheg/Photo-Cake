@@ -14,7 +14,7 @@
     tuna.extend(ShareController, tuna.view.StepViewController);
 
     ShareController.prototype.canGoNext = function() {
-        return false;
+        return true;
     };
 
     ShareController.prototype._bootstrap = function() {
@@ -55,7 +55,7 @@
             tuna.dom.preventDefault(event);
 
             self.__wallPostMethod.call({
-                'image_data': self._db.get('cake_image_data')
+                'image_data': self._db.get('cake_image')
             });
         });
     };
@@ -64,7 +64,7 @@
         var cakeDataImage = this._container.getOneModuleInstance('data-image');
         var downloadDataInput = tuna.dom.selectOne('#download_data_input');
 
-        this._db.subscribe('cake_image_data', function(event, data) {
+        this._db.subscribe('cake_image', function(event, data) {
             cakeDataImage.setData(data);
             downloadDataInput.value = data;
         });
@@ -79,7 +79,7 @@
 
         popup.subscribe('popup-apply', function() {
             this.__wallPostMethod.call({
-                'image_data': this._db.get('cake_image_data'),
+                'image_data': this._db.get('cake_image'),
                 'user_id': this.__selectedFriend.id
             });
 

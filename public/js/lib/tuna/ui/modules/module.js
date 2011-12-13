@@ -4,41 +4,63 @@
     var Module = function(name, selector) {
         this._name = name;
         this._selector = selector;
-        this._useContext = true;
     };
-
-    Module.CONTAINER_CLASS = 'j-transform-container';
 
     Module.prototype.getName = function() {
         return this._name;
     };
 
+    Module.prototype.getSelector = function() {
+        return this._selector;
+    };
+
     Module.prototype.init = function(context, container, options) {
         var instances = [];
 
-        var targets = tuna.dom.select(this._selector, context);
-
-        if (this._useContext) {
-            targets = targets.concat
-                (tuna.dom.filter(this._selector, [context]));
-        }
+        var targets = this._findTargets(context);
 
         var i = 0,
             l = targets.length;
 
-        var target = null;
         while (i < l) {
-            target = targets[i];
-            if (tuna.dom.getParentWithClass
-                    (target, Module.CONTAINER_CLASS , context) === null) {
-
-                instances.push(this._initInstance(target, container, options));
+            if (this.__isInContext(targets[i], context)) {
+                instances.push
+                    (this._initInstance(targets[i], container, options));
             }
 
             i++;
         }
 
         return instances;
+    };
+
+    Module.prototype._findTargets = function(context) {
+        var targets = tuna.dom.select(this._selector, context);
+        targets = targets.concat(tuna.dom.filter(this._selector, [context]));
+
+        return targets;
+    };
+
+    Module.prototype.__isInContext = function(target, context) {
+        var result = true;
+
+        var isolators = tuna.ui.modules.getIsolators();
+
+        var i = 0,
+            l = isolators.length;
+        while (i < l) {
+            result = result && tuna.dom.getParentWithClass
+                                (target, isolators[i], context) === null;
+
+            if (!result) {
+                break;
+            }
+
+            i++;
+        }
+
+
+        return result;
     };
 
     Module.prototype.destroy = function(instances) {
@@ -56,5 +78,5 @@
     Module.prototype._destroyInstance = function(instance) {};
 
     tuna.ui.modules.Module = Module;
-    
+
 })();

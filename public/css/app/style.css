@@ -348,9 +348,20 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;
 .friends-popup-title{float:left;}
 .friends-search{padding-left:150px;}
 .userpic{vertical-align:middle;}
+.cake-info{margin-left:10px;}
+.cake-image{text-align:center;}
+.cake-weight{line-height:32px;}
+.recipe-tile{width:100px;}.recipe-tile img{margin-top:5px;margin-left:5px;margin-right:5px;}
+.recipe-tile label{margin-left:5px;margin-right:5px;width:auto;color:inherit;text-align:left;}
 .btn.primary{background-color:#750000;background-repeat:repeat-x;background-image:-khtml-gradient(linear, left top, left bottom, from(#9d261d), to(#750000));background-image:-moz-linear-gradient(top, #9d261d, #750000);background-image:-ms-linear-gradient(top, #9d261d, #750000);background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #9d261d), color-stop(100%, #750000));background-image:-webkit-linear-gradient(top, #9d261d, #750000);background-image:-o-linear-gradient(top, #9d261d, #750000);background-image:linear-gradient(top, #9d261d, #750000);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9d261d', endColorstr='#750000', GradientType=0);text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);border-color:#750000 #750000 #290000;border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);}.btn.primary.large{padding:4px 12px 4px;font-size:24px;}
 .hidden{display:none;}
 .popup{display:none;}.popup .overlay{position:fixed;left:0;top:0;right:0;bottom:0;background:#000000;filter:alpha(opacity=50);-khtml-opacity:0.5;-moz-opacity:0.5;opacity:0.5;}
+i{display:inline-block;*zoom:1;*display:inline;font-size:0;}
+.ico{position:relative;vertical-align:text-bottom;background-repeat:no-repeat;}
+.ico-persons{width:15px;height:15px;background:no-repeat url(/img/app/persons.png);}
+.ico-super{color:#750000;font-style:italic;vertical-align:super;}
 body{font-family:"Times New Roman";}
 p{font-size:14px;}
 h1{color:#750000;font-style:italic;font-weight:normal;}h1 small{color:#750000;font-weight:normal;font-style:italic;font-size:16px;}
+h2{color:#750000;font-style:italic;font-weight:normal;}
+h3{display:inline;font-size:20px;}h3 small{color:#0066cc;}

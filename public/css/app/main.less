@@ -101,6 +101,42 @@
     vertical-align: middle;
 }
 
+/**
+ * Recipe list
+ */
+
+.cake-info {
+    margin-left: 10px;
+}
+
+.cake-image {
+    text-align: center;
+}
+
+.cake-weight {
+    line-height: 32px;
+}
+
+.recipe-tile {
+    width: 100px;
+
+    img {
+        margin-top: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    label {
+        margin-left: 5px;
+        margin-right: 5px;
+
+        width: auto;
+
+        color: inherit;
+        text-align: left;
+    }
+}
+
 
 /**
  * Misc
@@ -136,4 +172,33 @@
 
         .opacity(50);
     }
+}
+
+/**
+ * Icons
+ */
+
+i {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    font-size: 0;
+}
+
+.ico {
+    position: relative;
+    vertical-align: text-bottom;
+    background-repeat: no-repeat;
+}
+
+.ico-persons {
+    width: 15px;
+    height: 15px;
+    background: no-repeat url(/img/app/persons.png);
+}
+
+.ico-super {
+    color: @header-color;
+    font-style: italic;
+    vertical-align: super;
 }

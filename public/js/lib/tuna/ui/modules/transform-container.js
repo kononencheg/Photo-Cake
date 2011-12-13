@@ -1,10 +1,8 @@
 (function() {
 
     var TransformContainer = function() {
-        tuna.ui.modules.Module.call(
-            this, 'transform-container',
-            '.' + tuna.ui.modules.Module.CONTAINER_CLASS
-        );
+        tuna.ui.modules.Module.call
+            (this, 'transform-container', '.j-transform-container');
 
         this._useContext = false;
 
@@ -18,6 +16,10 @@
     };
 
     tuna.extend(TransformContainer, tuna.ui.modules.Module);
+
+    TransformContainer.prototype._findTargets = function(context) {
+        return tuna.dom.select(this._selector, context);
+    };
 
     TransformContainer.prototype.__getTemplate = function(id) {
         if (this.__templatesTable[id] === undefined) {
@@ -71,6 +73,7 @@
         return container;
     };
 
-    //TODO: сделать главный модуль-контейнер, из котрого потом брать класс
     tuna.ui.modules.register(new TransformContainer());
+    tuna.ui.modules.addIsolator('j-transform-container');
+    
 })();
