@@ -2,8 +2,12 @@
     tuna.namespace('ui');
 
     var DataImage = function(target) {
+        tuna.utils.Notifier.call(this);
+        
         this.__targetImage = target;
     };
+
+    tuna.extend(DataImage, tuna.utils.Notifier);
 
     DataImage.prototype.setData = function(data, type) {
         if (type === undefined) {
@@ -12,6 +16,7 @@
 
         if (!tuna.IS_IE) {
             this.__targetImage.src = 'data:' + type + ';base64,' + data;
+            this.notify('loaded', this.__targetImage);
         } else {
             var self = this;
             var form = document.createElement('form');
@@ -35,6 +40,8 @@
 
                 if (image !== null) {
                     self.__replaceTarget(image);
+                } else {
+                    self.notify('error');
                 }
 
                 document.body.removeChild(form);
@@ -47,10 +54,13 @@
     DataImage.prototype.__replaceTarget = function(image) {
         var parent = this.__targetImage.parentNode;
         if (parent !== null) {
-            parent.insertBefore(image, this.__targetImage);
-            parent.removeChild(this.__targetImage);
+            parent.replaceChild(image, this.__targetImage);
 
             this.__targetImage = image;
+
+            this.notify('loaded', this.__targetImage);
+        } else {
+            this.notify('error');
         }
     };
 

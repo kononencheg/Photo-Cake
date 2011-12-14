@@ -349,7 +349,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;
 .friends-search{padding-left:150px;}
 .userpic{vertical-align:middle;}
 .cake-info{margin-left:10px;}
-.cake-image{text-align:center;}
+.cake-image{text-align:center;}.cake-image img{width:240px;height:240px;}
 .cake-weight{line-height:32px;}
 .recipe-tile{width:100px;}.recipe-tile img{margin-top:5px;margin-left:5px;margin-right:5px;}
 .recipe-tile label{margin-left:5px;margin-right:5px;width:auto;color:inherit;text-align:left;}

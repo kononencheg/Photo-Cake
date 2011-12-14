@@ -68,6 +68,10 @@
             cakeDataImage.setData(data);
             downloadDataInput.value = data;
         });
+
+        cakeDataImage.subscribe('loaded', function(event, image) {
+            this._db.set('cake_image_element', image);
+        }, this);
     };
 
     ShareController.prototype.__initFriendsPopup = function() {

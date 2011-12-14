@@ -55,3 +55,21 @@
         </div>
     </div>
 </div>
+
+
+<div class="hidden">
+    <tuna:template id="friends_popup_template">
+        <tuna:list tuna:target="t-friend-list" tuna:path=""
+                   tuna:item-renderer-id="friend_item_renderer"
+                   tuna:item-template-id="selection_item_template"
+                   tuna:key-path="$key" />
+
+    </tuna:template>
+
+    <tuna:template id="selection_item_template">
+        <tuna:spot tuna:target="t-user-name" tuna:path="name" />
+        <tuna:attr tuna:target="t-userpic" tuna:name="src"
+                   tuna:path="userpic" />
+    </tuna:template>
+</div>
+

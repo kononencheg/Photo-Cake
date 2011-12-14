@@ -12,7 +12,7 @@
             </div>
 
             <div class="cake-image">
-                <img width="240" height="240" />
+                <img id="recipe_cake_image" alt="Загрузка тортика..." />
             </div>
 
             <div class="recipe-description">
@@ -20,11 +20,53 @@
             </div>
 
             <div class="cake-price">
-                <h3>Цена торта: <small class="t-cake-price">100 рублей</small></h3>
+                <h3>
+                    Цена торта: <small class="t-cake-price">100 рублей</small>
+                </h3>
             </div>
         </div>
     </div>
     <div class="span7">
         <ul class="t-recipes-list media-grid"></ul>
     </div>
+</div>
+
+<div id="description_popup" class="popup">
+    <div class="overlay"></div>
+    <div class="modal">
+        <div class="modal-header">
+            <a href="#" class="j-popup-close close">×</a>
+            <h3 class="t-popup-recipe-name"></h3>
+        </div>
+        <div class="modal-body">
+            <p class="t-popup-recipe-desc"></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="j-popup-close btn primary">Закрыть</a>
+        </div>
+    </div>
+</div>
+
+<div class="hidden">
+    <tuna:template id="recipe_template">
+        <tuna:spot tuna:target="t-cake-weight"  tuna:path="cake/weight" />
+        <tuna:spot tuna:target="t-cake-persons"  tuna:path="cake/persons_count" />
+        <tuna:spot tuna:target="t-cake-price" tuna:path="cake/price" />
+
+        <tuna:spot tuna:target="t-popup-recipe-name" tuna:path="popup/name" />
+        <tuna:spot tuna:target="t-popup-recipe-desc" tuna:path="popup/description" />
+
+        <tuna:list tuna:target="t-recipes-list" tuna:path="recipes"
+                   tuna:item-renderer-id="recipe_renderer"
+                   tuna:item-template-id="recipe_item_template"
+                   tuna:key-path="$key" />
+    </tuna:template>
+
+    <tuna:template id="recipe_item_template">
+        <tuna:attr tuna:target="t-recipe-img" tuna:path="image_url" tuna:name="src"/>
+        <tuna:attr tuna:target="t-recipe-img" tuna:path="name" tuna:name="alt"/>
+        <tuna:attr tuna:target="t-recipe-id" tuna:path="id" tuna:name="data-value" />
+
+        <tuna:spot tuna:target="t-recipe-name" tuna:path="name" />
+    </tuna:template>
 </div>

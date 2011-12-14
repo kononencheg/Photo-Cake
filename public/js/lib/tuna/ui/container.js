@@ -49,8 +49,12 @@
                 continue;
             }
 
-            this.__moduleInstances[name] =
-                this.__initModule(module, target, this.__moduleArgs[name]);
+            if (this.__moduleInstances[name] == undefined) {
+                this.__moduleInstances[name] = [];
+            }
+
+            this.__moduleInstances[name] = this.__moduleInstances[name].concat
+                (this.__initModule(module, target, this.__moduleArgs[name]));
         }
     };
 
@@ -76,7 +80,7 @@
             tuna.ui.modules.getModule(name)
                                 .destroy(this.__moduleInstances[name]);
 
-            delete this.__moduleInstances[name];
+            this.__moduleInstances[name].length = 0;
         }
     };
 

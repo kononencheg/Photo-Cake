@@ -170,6 +170,8 @@ tuna.clone = function(object, clones) {
         result = object.slice(0);
     } else if (object instanceof Date) {
         result = new Date(object.getTime());
+    } else if (object instanceof Node) {
+        result = object.cloneNode(true);
     } else if (object instanceof Object) {
         clones.push(object);
 

@@ -101,19 +101,20 @@
         return result;
     };
 
+    var idTable = {}
+
     Popup.create = function(target) {
         if (target.id) {
-            if (Popup.__idTable[target.id] === undefined) {
-                Popup.__idTable[target.id] = new Popup(target);
+            if (idTable[target.id] === undefined) {
+                idTable[target.id] = new Popup(target);
             }
 
-            return Popup.__idTable[target.id];
+            return idTable[target.id];
         }
 
         return new Popup(target);
     };
 
-    Popup.__idTable = {};
 
     ui.Popup = Popup;
 })();
