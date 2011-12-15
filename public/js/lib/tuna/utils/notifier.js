@@ -10,7 +10,7 @@
     Notifier.prototype.notify = function(type, notification) {
         var result = true;
 
-        if (this._listeners[type]) {
+        if (this._listeners[type] !== undefined) {
             
             var i = this._listeners[type].length - 1;
             var listenData;
@@ -71,8 +71,7 @@
     Notifier.prototype.hasSubscription = function(type, handler) {
         var result = false;
 
-        if (this._listeners[type] !== undefined) {
-
+        if (this._listeners[type] !== undefined) {            
             var i = this._listeners[type].length - 1;
             while (i >= 0) {
                 if (this._listeners[type][i][0] === handler) {
