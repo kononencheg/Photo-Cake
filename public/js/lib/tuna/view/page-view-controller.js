@@ -7,7 +7,7 @@
 
     tuna.extend(PageViewController, tuna.view.ViewController);
 
-    PageViewController.prototype.canClose = function() {
+    PageViewController.prototype.canClose = function(nextPage) {
         return true;
     };
 

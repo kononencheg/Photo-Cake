@@ -3,16 +3,25 @@
     var RecipeController = function(id) {
         tuna.view.StepViewController.call(this, id);
 
-        this.__cakeImage = null;
         this.__descriptionPopup = null;
 
         this.__popupRecipe = null;
+        this.__selectedRecipe = null;
     };
 
     tuna.extend(RecipeController, tuna.view.StepViewController);
 
     RecipeController.prototype.canGoNext = function() {
-        return false;
+        return true;
+    };
+
+    RecipeController.prototype.canClose = function(nextPage) {
+        if (nextPage.id !== 'share_step' && this.__selectedRecipe === null) {
+            alert('Для продолжения необходимо выбрать рецепт!');
+            return false;
+        }
+
+        return true;
     };
 
     RecipeController.prototype.handleTransformComplete
@@ -28,7 +37,8 @@
     };
 
     RecipeController.prototype._requireModules = function() {
-       this._container.requireModule('popup');
+        this._container.requireModule('data-image-copy');
+        this._container.requireModule('popup');
     };
 
     RecipeController.prototype._initActions = function() {
@@ -36,11 +46,7 @@
         this.__initRecipeSelection();
         this.__initDescriptionPopup();
 
-        this.__cakeImage = tuna.dom.selectOne('#recipe_cake_image');
-
         this._db.subscribe('cake_params', this.__updateView, this);
-        this._db.subscribe('cake_image_element', this.__updateView, this);
-
         this.__updateView();
     };
 
@@ -84,7 +90,8 @@
         tuna.dom.addChildEventListener(
             this._target, 'input.j-recipe-radio', 'change',
             function(event) {
-                alert(this.value);
+                var recipes  = self._db.get('recipes');
+                self.__selectedRecipe = recipes[this.value];
             }
         );
     };
@@ -103,12 +110,6 @@
                 'recipes': this._db.get('recipes'),
                 'popup_recipe': this.__popupRecipe
             });
-        }
-
-        var image = this._db.get('cake_image_element');
-        if (image !== null) {
-            this.__cakeImage.parentNode.replaceChild(image, this.__cakeImage);
-            this.__cakeImage = image;
         }
     };
 

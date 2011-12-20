@@ -7,6 +7,10 @@
         this.__currentIndex = -1;
 
         this.__itemSelector = itemSelector;
+
+        // TODO: То же что и итем, тока если не нужно чтобы итем выделял
+        this.__triggerSelector = null;
+
         this._target = target;
 
         this.__items = [];

@@ -1,0 +1,113 @@
+<h2>Оформление заказа!</h2>
+
+<div class="row">
+    <div class="span7">
+        <form action="">
+            <fieldset>
+                <legend>Личная информация</legend>
+
+                <div class="clearfix">
+                    <label>Имя</label>
+                    <div class="input">
+                        <input name="name" type="text" class="t-user-name" />
+                    </div>
+                </div>
+
+                <div class="clearfix">
+                    <label>Телефон</label>
+                    <div class="input">
+                        <input name="phone" type="text" />
+                        <span class="help-block">Чтобы мы могли с вами связаться</span>
+                    </div>
+                </div>
+
+                <div class="clearfix">
+                    <label>Email</label>
+                    <div class="input">
+                        <input name="email" type="text" />
+                        <span class="help-block">Для подтверждения заказа</span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Информация о доставке</legend>
+
+                <div class="clearfix">
+                    <label>Адрес</label>
+                    <div class="input">
+                        <textarea name="address" rows="3"></textarea>
+                        <span class="help-block">
+                            Адрес, куда доставлять торт. Пока, только Санкт-Петербург.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="clearfix">
+                    <label>Дата</label>
+                    <div class="input">
+                        <select name="day" class="t-month-day micro"></select> \
+                        <select name="month" class="small">
+                            <option value="0">Январь</option>
+                            <option value="1">Февраль</option>
+                            <option value="2">Март</option>
+                            <option value="3">Апрель</option>
+                            <option value="4">Май</option>
+                            <option value="5">Июнь</option>
+                            <option value="6">Июль</option>
+                            <option value="7">Август</option>
+                            <option value="8">Сентябрь</option>
+                            <option value="9">Октябрь</option>
+                            <option value="10">Ноябрь</option>
+                            <option value="11">Декабрь</option>
+                        </select> \
+                        <select name="year" class="mini">
+                            <option value="2011">2011</option>
+                            <option value="2012">2012</option>
+                        </select>
+                        <span class="help-block">
+                            День, в который курьер привезет торт.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="clearfix">
+                    <label>Комментарий</label>
+                    <div class="input">
+                        <textarea name="comment" rows="3"></textarea>
+                        <span class="help-block">
+                            Дополнительная информация. Например, комментарий курьеру.
+                        </span>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="span5">
+        <div class="cake-price">
+            <h3>
+                Цена торта: <small class="t-cake-price">1000 рублей</small>
+            </h3>
+        </div>
+        <div class="cake-image">
+            <img class="j-data-image-copy" alt="Загрузка тортика..."
+                 data-image-selector="#share_cake_image" />
+        </div>
+    </div>
+ </div>
+
+<div class="hidden">
+    <tuna:template id="order_template">
+        <tuna:spot tuna:target="t-cake-weight"  tuna:path="cake/weight" />
+        <tuna:spot tuna:target="t-cake-persons"  tuna:path="cake/persons_count" />
+        <tuna:spot tuna:target="t-cake-price" tuna:path="cake/price" />
+
+        <tuna:spot tuna:target="t-popup-recipe-name" tuna:path="popup_recipe/name" />
+        <tuna:spot tuna:target="t-popup-recipe-desc" tuna:path="popup_recipe/id" />
+
+        <tuna:list tuna:target="t-recipes-list" tuna:path="recipes"
+                   tuna:item-renderer-id="recipe_renderer"
+                   tuna:item-template-id="recipe_item_template"
+                   tuna:key-path="$key" />
+    </tuna:template>
+</div>

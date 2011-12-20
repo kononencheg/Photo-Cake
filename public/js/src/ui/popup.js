@@ -101,10 +101,10 @@
         return result;
     };
 
-    var idTable = {}
+    var idTable = {};
 
     Popup.create = function(target) {
-        if (target.id) {
+        if (target.id !== null) {
             if (idTable[target.id] === undefined) {
                 idTable[target.id] = new Popup(target);
             }

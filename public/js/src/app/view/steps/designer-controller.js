@@ -5,8 +5,6 @@
 
         this.__movieID = null;
         this.__movie = null;
-
-        this.__cakeImageURL = null;
     };
 
     tuna.extend(DesignerController, tuna.view.StepViewController);
@@ -32,10 +30,6 @@
         this.__movieID = this._container.getOneModuleInstance('swf');
     };
 
-    DesignerController.prototype.open = function() {
-        this.__cakeImageURL = null;
-    };
-
     DesignerController.prototype.canGoPrev = function() {
         return false;
     };
@@ -46,12 +40,10 @@
 
     DesignerController.prototype.saveCakeData = function() {
         var cakeData = this.__movie.getCakeData();
-        
-        var cakeParams = JSON.parse(cakeData.shift());
-        var cakeImage = cakeData.shift();
-
-        this._db.set('cake_image', cakeImage);
-        this._db.set('cake_params', cakeParams);
+        if (cakeData !== null) {
+            this._db.set('cake_params', JSON.parse(cakeData.shift()));
+            this._db.set('cake_image', cakeData.shift());
+        }
     };
 
     DesignerController.prototype.onFlashReady = function() {

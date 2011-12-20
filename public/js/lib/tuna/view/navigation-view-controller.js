@@ -43,7 +43,8 @@
 
     NavigationViewController.prototype._canSwitchTo = function(index) {
         if (this._currentController !== null) {
-            return this._currentController.canClose();
+            var nextPage = this._pageNavigator.getItemAt(index);
+            return this._currentController.canClose(nextPage);
         }
 
         return true;

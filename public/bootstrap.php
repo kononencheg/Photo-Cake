@@ -11,7 +11,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(),
 )));
 
-function loadClass($className) {
+function load_class($className) {
     $classPath = str_replace('\\', \DIRECTORY_SEPARATOR, $className) . '.php';
 
     $includePaths = explode(PATH_SEPARATOR, get_include_path());
@@ -25,8 +25,8 @@ function loadClass($className) {
     return class_exists($className, false);
 }
 
-spl_autoload_register('loadClass');
+spl_autoload_register('load_class');
 
-// For ie iframe
+// For IE iframe
 header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 

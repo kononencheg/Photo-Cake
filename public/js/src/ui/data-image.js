@@ -9,6 +9,10 @@
 
     tuna.extend(DataImage, tuna.utils.Notifier);
 
+    DataImage.prototype.getTarget = function() {
+        return this.__targetImage;
+    };
+
     DataImage.prototype.setData = function(data, type) {
         if (type === undefined) {
             type = 'image/jpeg';
@@ -56,12 +60,30 @@
         if (parent !== null) {
             parent.replaceChild(image, this.__targetImage);
 
+            if (this.__targetImage.id !== null) {
+                image.id = this.__targetImage.id;
+            }
+
             this.__targetImage = image;
 
             this.notify('loaded', this.__targetImage);
         } else {
             this.notify('error');
         }
+    };
+
+    var idTable = {};
+
+    DataImage.create = function(target) {
+        if (target.id !== null) {
+            if (idTable[target.id] === undefined) {
+                idTable[target.id] = new DataImage(target);
+            }
+
+            return idTable[target.id];
+        }
+
+        return new DataImage(target);
     };
 
     ui.DataImage = DataImage;

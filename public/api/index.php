@@ -1,26 +1,31 @@
 <?php
 
-require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
+    require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
 
-$response = new \cakes\view\Response();
+    use Api\MethodFactory;
 
-$adapterFactory = \cakes\db\mongo\MongoAdapterFactory::getInstance();
-$adapterFactory->setRecordFactory(new db\RecordFactory());
+    use PhotoCake\Http\Request;
+    use PhotoCake\Http\Response\Response;
+    use PhotoCake\Http\Response\Format\FormatFactory;
 
-$request = \cakes\globals\Request::getInstance();
+    $request = Request::getInstance();
 
-$methodFactory = new \api\MethodFactory();
-$method = $methodFactory->create($request->fetch('method'));
+    $methodFactory = new MethodFactory();
+    $formatFactory = new FormatFactory();
 
-$result = $method->call($request->getSource());
+    $format = $formatFactory->create($request->fetch('format'));
+    $method = $methodFactory->create($request->fetch('method'));
 
-if ($result === NULL) {
-    $response->setData($method->getErrors());
-} else {
-    $response->setData($result);
-}
+    $response = new Response();
+    $response->setFormat($format);
 
+    if ($method !== NULL) {
+        $method->setResponse($response);
+        $method->call($request->get());
+    } else {
+        $response->addError('Unknown method calling', 404);
+    }
 
-$response->render();
+    $response->render();
 
 ?>
