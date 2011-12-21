@@ -2,7 +2,8 @@
 
 namespace Api\Order;
 
-class SetStatus extends \PhotoCake\Api\Method {
+class SetStatus extends \PhotoCake\Api\Method\Method
+{
 
     /**
      * @return void

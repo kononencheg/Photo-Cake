@@ -4,13 +4,13 @@ namespace Api\Social\Vk;
 
 use PhotoCake\Http\Session;
 
-class MethodFactory implements \PhotoCake\Api\MethodFactoryInterface
+class MethodFactory implements \PhotoCake\Api\Method\MethodFactoryInterface
 {
     /**
      * @param string $name
-     * @return \PhotoCake\Api\Method
+     * @return \PhotoCake\Api\Method\Method
      */
-    public function create(\string $name)
+    public function create($name)
     {
         switch ($name) {
             case 'social.wall.post':
@@ -18,7 +18,7 @@ class MethodFactory implements \PhotoCake\Api\MethodFactoryInterface
 
              default:
                 throw new \Exception
-                     ('Unknown VK method ' . $name . ' calling.');
+                    ('Unknown VK method ' . $name . ' calling.');
         }
     }
 }

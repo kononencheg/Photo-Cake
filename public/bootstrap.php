@@ -12,7 +12,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 
 function load_class($className) {
-    $classPath = str_replace('\\', \DIRECTORY_SEPARATOR, $className) . '.php';
+    $classPath = str_replace(array('\\', '_'), \DIRECTORY_SEPARATOR, $className) . '.php';
 
     $includePaths = explode(PATH_SEPARATOR, get_include_path());
     foreach($includePaths as $path) {

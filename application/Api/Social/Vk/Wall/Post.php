@@ -2,20 +2,21 @@
 
 namespace Api\Social\Vk\Wall;
 
-class Post extends \cakes\api\Method
+class Post extends \PhotoCake\Api\Method\Method
 {
 
-    private $_imageFileData;
+    private $imageFileData;
 
     /**
      * @return void
      */
     protected function test()
     {
-        $this->_imageFileData = base64_decode($this->image_data, true);
+        $this->imageFileData = base64_decode($this->getParam('image_data'), true);
 
-        if ($this->_imageFileData === false) {
-            $this->addError('image_data', 'Данные изображения не корректны');
+        if ($this->imageFileData === false) {
+            $this->response->addParamError
+                ('image_data', 'Данные изображения не корректны');
         }
     }
 
@@ -25,10 +26,10 @@ class Post extends \cakes\api\Method
     protected function apply()
     {
         $fileName = FILE_FOLDER . uniqid('temp_cake_image_') . '.jpg';
-        file_put_contents($fileName, $this->_imageFileData, FILE_BINARY);
+        file_put_contents($fileName, $this->imageFileData, FILE_BINARY);
 
         $request = curl_init();
-        curl_setopt($request, CURLOPT_URL, $this->upload_url);
+        curl_setopt($request, CURLOPT_URL, $this->getParam('upload_url'));
         curl_setopt($request, CURLOPT_POST, true);
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($request, CURLOPT_POSTFIELDS, array(

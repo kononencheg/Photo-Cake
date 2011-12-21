@@ -4,9 +4,9 @@ namespace Api\Util;
 
 use \PhotoCake\Http\Response\Format\RawFormat;
 
-class Base64Echo extends \PhotoCake\Api\Method {
+class Base64Echo extends \PhotoCake\Api\Method\Method {
 
-    private $_echoData;
+    private $echoData;
 
     /**
      * @return void
@@ -27,9 +27,9 @@ class Base64Echo extends \PhotoCake\Api\Method {
      */
     protected function test()
     {
-        $this->_echoData = base64_decode($this->getParam('data'), true);
+        $this->echoData = base64_decode($this->getParam('data'), true);
 
-        if ($this->_echoData === false) {
+        if ($this->echoData === false) {
             $this->response->addParamError('data', 'Данные не корректны');
         }
     }
@@ -56,7 +56,7 @@ class Base64Echo extends \PhotoCake\Api\Method {
             );
         }
 
-        return $this->_echoData;
+        return $this->echoData;
     }
 }
 

@@ -5,23 +5,23 @@ namespace Api;
 use PhotoCake\Http\Session;
 use PhotoCake\Social\Network;
 
-class MethodFactory implements \PhotoCake\Api\MethodFactoryInterface
+class MethodFactory implements \PhotoCake\Api\Method\MethodFactoryInterface
 {
     /**
-     * @var \PhotoCake\Api\MethodFactoryInterface
+     * @var \PhotoCake\Api\Method\MethodFactoryInterface
      */
-    private $_sessionFactory = NULL;
+    private $sessionFactory = NULL;
 
     public function __construct()
     {
         $session = Session::getInstance();
 
-        $this->_sessionFactory = $this->createSessionFactory($session->network);
+        $this->sessionFactory = $this->createSessionFactory($session->network);
     }
 
     /**
      * @param string $name
-     * @return \PhotoCake\Api\Method
+     * @return \PhotoCake\Api\Method\Method
      * @throws \Exception
      */
     public function create($name)
@@ -29,7 +29,7 @@ class MethodFactory implements \PhotoCake\Api\MethodFactoryInterface
         $parsedName = explode('.', $name);
         switch ($parsedName[0]) {
             case 'social':
-                return $this->_sessionFactory->create($name);
+                return $this->sessionFactory->create($name);
 
             default:
                 return $this->createOtherMethod($name);

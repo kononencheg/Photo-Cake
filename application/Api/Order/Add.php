@@ -2,7 +2,8 @@
 
 namespace Api\Order;
 
-class Add extends \PhotoCake\Api\Method {
+class Add extends \PhotoCake\Api\Method\Method
+{
 
     /**
      * @return void
