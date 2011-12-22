@@ -6,22 +6,24 @@ interface RecordInterface
 {
     /**
      * @abstract
-     * @param mixed $data
+     * @param array $data
      * @return void
      */
-    public function populate($data);
+    public function populate(array $data);
 
     /**
      * Specify data which should be stored in data base.
      *
      * @abstract
-     * @return mixed
+     * @return array
      */
-    public function serialize();
+    public function dbSerialize();
 
     /**
+     * Specify data which should be encoded to JSON.
+     *
      * @abstract
      * @return mixed
      */
-    public function getId();
+    public function jsonSerialize();
 }

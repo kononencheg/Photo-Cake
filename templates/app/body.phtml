@@ -22,8 +22,14 @@
     </div>
 
     <div class="content">
-        <div id="designer_step"
+        <div id="title_step"
              class="j-selection-item j-transform-container step current">
+
+             <?php $this->render('steps/title') ?>
+        </div>
+
+        <div id="designer_step"
+             class="j-selection-item j-transform-container step">
 
              <?php $this->render('steps/designer') ?>
         </div>
@@ -55,6 +61,22 @@
 
     </div>
 </div>
+
+<div id="image_popup" class="popup">
+     <div class="overlay"></div>
+     <div class="modal">
+         <div class="modal-header">
+            <h3 class="j-alt-text"></h3>
+         </div>
+         <div class="modal-body">
+             <img class="j-popup-image" alt="" />
+         </div>
+         <div class="modal-footer">
+             <a href="#" class="j-popup-close btn">Закрыть</a>
+         </div>
+     </div>
+ </div>
+
 
 
 <div class="hidden">

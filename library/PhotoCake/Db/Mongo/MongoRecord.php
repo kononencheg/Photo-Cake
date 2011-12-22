@@ -2,58 +2,65 @@
 
 namespace PhotoCake\Db\Mongo;
 
-use PhotoCake\Db\Record\RecordInterface;
+use PhotoCake\Db\Record\AbstractRecord;
 
-abstract class MongoRecord implements RecordInterface
+abstract class MongoRecord extends AbstractRecord
 {
+    /**
+     * @var string
+     */
+    public $collection = NULL;
 
     /**
      * @var \MongoId
      */
-    protected $_id = NULL;
-
-    /**
-     * @var string;
-     */
-    public $id = NULL;
+    private $id = NULL;
 
     /**
      * @param mixed $data
      * @return void
      */
-    public function populate($data)
+    public function populate(array $data)
     {
-        $params = get_object_vars($this);
+        parent::populate($data);
 
-        foreach ($params as $name => $value) {
-            if (isset($data[$name])) {
-                $this->{$name} = $data[$name];
-            }
-        }
-
-        if ($this->_id !== NULL) {
-            $this->id = $this->_id->{'$id'};
+        if (isset($data['_id'])) {
+            $this->id = $data['_id'];
         }
     }
 
-    /**
-     * Specify data which should be stored in data base.
-     *
-     * @return mixed
-     */
-    public function serialize()
+    protected function createRecord($type)
     {
-        $result = array();
+        if ($this->collection !== NULL) {
+            return new $type($this->collection);
+        }
 
-        $params = get_object_vars($this);
-        foreach ($params as $name => $value) {
-            if ($name === 'id') {
-                continue;
-            }
+        return NULL;
+    }
 
-            if ($value !== NULL) {
-                $result[$name] = $value;
-            }
+    /**
+     * @return array
+     */
+    public function dbSerialize()
+    {
+        $result = parent::dbSerialize();
+
+        if ($this->id !== NULL) {
+            $result['_id'] = $this->id;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        $result = parent::jsonSerialize();
+
+        if ($this->id !== NULL) {
+            $result['id'] = $this->id->{'$id'};
         }
 
         return $result;
@@ -64,6 +71,6 @@ abstract class MongoRecord implements RecordInterface
      */
     public function getID()
     {
-        return $this->_id;
+        return $this->id;
     }
 }

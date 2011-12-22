@@ -9,16 +9,16 @@ class Page
     /**
      * @var string
      */
-    private $_base = '';
+    private $base = '';
 
     /**
      * @var \PhotoCake\Http\Session
      */
-    private $_session = NULL;
+    private $session = NULL;
 
     public function __construct()
     {
-        $this->_session = Session::getInstance();
+        $this->session = Session::getInstance();
 
         ob_start();
     }
@@ -32,16 +32,16 @@ class Page
      * @param string $path
      * @return string
      */
-    public function render(\string $path)
+    public function render($path)
     {
-        include $this->_base . $path . '.phtml';
+        include $this->base . $path . '.phtml';
     }
 
     /**
      * @param string $base
      */
-    public function setBase(\string $base)
+    public function setBase($base)
     {
-        $this->_base = $base;
+        $this->base = $base;
     }
 }

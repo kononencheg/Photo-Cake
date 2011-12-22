@@ -1,5 +1,27 @@
 (function() {
 
+    var RECIPE_LIST = [
+        { 'id': 1, 'name': 'Фреш', 'image_url': '/img/app/recipes/fresh.jpg',
+          'desc': 'Самый легкий торт: нежное пропитанное алкогольным сиропом бисквитное тесто, пюре манго и суфле на основе сметаны.' },
+        { 'id': 2, 'name': 'Тирамису', 'image_url': '/img/app/recipes/tiramisu.jpg',
+          'desc': 'Классический итальянский десерт – нежный и соблазнительный. Шоколадно-миндальный бисквит, пропитанный кофе с ликером Амаретто, оригинальный сливочный крем на основе итальянского сыра Маскарпоне, нежное песочное печенье.' },
+        { 'id': 3, 'name': 'Марципан', 'image_url': '/img/app/recipes/marzipan.jpg',
+          'desc': 'Натуральный марципан (размолотый в муку предварительно обжаренный миндаль, смешанный с сахарной пудрой), тонкий миндальный бисквит, сливочно-карамельный крем, натуральные сливки и фисташковая паста.' },
+        { 'id': 4, 'name': 'Трюфельный', 'image_url': '/img/app/recipes/truffle.jpg',
+          'desc': 'Все самое вкусное придумали французы - классический французский торт. Щедро-шоколадный бисквит, пропитанный сиропом, шоколадный трюфель, крем на основе натуральных сливок, шоколадный гаммаж сверху.' },
+        { 'id': 5, 'name': 'Торт-Бейлиз', 'image_url': '/img/app/recipes/bayliss.jpg',
+          'desc': 'Кто не любит вкус этого сливочного ликера? Французский бисквит, щедро пропитанный коньячно-ликерным сиропом, легкое нежное суфле ирландским ликером, свежие ягоды.' },
+        { 'id': 6, 'name': 'Манго', 'image_url': '/img/app/recipes/mango.jpg',
+          'desc': 'Яркий и легкий торт. Песочное тесто, нежное суфле из натуральных сливок и пюре маракуйи и манго.' },
+        { 'id': 7, 'name': 'Шоколад', 'image_url': '/img/app/recipes/chocolate.jpg',
+          'desc': 'Роскошный торт с насыщенным шоколадно-коньячным вкусом. Тонкий миндальный бисквит, сливочный мусс с темным бельгийским шоколадом, шоколадный гаммаж.' },
+        { 'id': 8, 'name': 'Клубничный', 'image_url': '/img/app/recipes/strawberry.jpg',
+          'desc': 'Нежный низкокалорийный торт. Нижний слой – тонкий французский бисквит, пропитанный сиропом. Половинки свежей клубники, ванильно-йогуртовое суфле.' },
+        { 'id': 9, 'name': 'Чизкейк', 'image_url': '/img/app/recipes/cheese-cake.jpg',
+          'desc': 'Торт, любимый всеми. Мягкое песочное тесто внизу, начинка на основе сыра Филадельфия и ликера, с добавлением цедры лимона и апельсина, натуральные сливки, свежие ягоды.' }
+    ];
+
+
     var RecipeController = function(id) {
         tuna.view.StepViewController.call(this, id);
 
@@ -51,12 +73,7 @@
     };
 
     RecipeController.prototype.__initRecipeList = function() {
-        this._db.set('recipes', [
-            { 'id': 1, 'name': 'Тортильон кононенски', 'image_url': '/img/app/recipes/bayliss.jpg' },
-            { 'id': 2, 'name': 'Тортильон кононенски', 'image_url': '/img/app/recipes/bayliss.jpg' },
-            { 'id': 3, 'name': 'Тортильон кононенски', 'image_url': '/img/app/recipes/bayliss.jpg' },
-            { 'id': 4, 'name': 'Тортильон кононенски', 'image_url': '/img/app/recipes/bayliss.jpg' }
-        ]);
+        this._db.set('recipes', RECIPE_LIST);
     };
 
     RecipeController.prototype.__initDescriptionPopup = function() {
@@ -92,6 +109,7 @@
             function(event) {
                 var recipes  = self._db.get('recipes');
                 self.__selectedRecipe = recipes[this.value];
+                self.__updateView();
             }
         );
     };
@@ -114,8 +132,37 @@
     };
 
     RecipeController.prototype.__calculatePrice = function() {
-        return 1000;
+        var result = 1000;
+
+        if (this.__selectedRecipe !== null) {
+            var cakeParams = this._db.get('cake_params');
+            result += 1500 * cakeParams.dimensions.mass;
+        }
+
+        return result;
     };
 
     tuna.view.registerController(new RecipeController('recipe_step'));
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

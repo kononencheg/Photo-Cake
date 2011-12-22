@@ -28,4 +28,18 @@ if ($method !== NULL) {
 
 $response->render();
 
+$order = new \Model\Order();
+$order->populate(array(
+    'index'   => 0,
+    'comment' => 'hello',
+    'cake' => array(
+        'image_url' => 'http://image.jpg',
+        'photo_url' => 'http://photo.jpg',
+        'markup' => '{ "base_color": "0x000000" }',
+    ),
+));
+
+var_dump($order->dbSerialize());
+var_dump($order->jsonSerialize());
+
 ?>

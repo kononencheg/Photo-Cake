@@ -14,7 +14,7 @@ class Session
      * @param mixed $value
      * @return void
      */
-    public function __set($name, $value)
+    public function set($name, $value)
     {
         if (is_object($value)) {
             $value = get_object_vars($value);
@@ -27,25 +27,21 @@ class Session
      * @param string $name
      * @return mixed
      */
-    public function &__get($name)
+    public function &get($name)
     {
-        return $_SESSION[$name];
+        if (isset($_SESSION[$name])) {
+            return $_SESSION[$name];
+        }
+
+        return NULL;
     }
 
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function __isset($name)
-    {
-        return isset($_SESSION[$name]);
-    }
 
     /**
      * @param string $name
      * @return void
      */
-    public function __unset($name)
+    public function remove($name)
     {
         unset($_SESSION[$name]);
     }

@@ -51,6 +51,102 @@
 }
 
 /**
+ * Title
+ */
+
+.cake-gallery {
+    overflow: hidden;
+
+    h3 {
+        margin-left: 40px;
+    }
+}
+
+.cake-gallery-body {
+    padding: 10px 40px 40px 40px;
+
+    margin-bottom: -10px;
+    margin-top: 10px;
+
+    &.media-grid {
+        margin-left: -30px;
+
+        a {
+            margin-left: 30px;
+        }
+    }
+    
+    a {
+        height: 90px;
+        width: 110px;
+    }
+
+    .image-box {
+        display: block;
+        line-height: 90px;
+
+        width: 90px;
+        height: 90px;
+
+        cursor: pointer;
+    }
+
+    .expand-item {
+        display: block;
+        float: left;
+
+        position: absolute;
+
+        &.second {
+            margin-left: 10px;
+        }
+
+        &.third {
+            margin-left: 20px;
+        }
+    }
+
+    li.current {
+        .expand-item {
+            position: inherit;
+
+            &.second, &.third {
+                margin-left: 0px;
+            }
+        }
+        
+        a {
+            width: auto;
+        }
+    }
+}
+
+
+.application-intro {
+    margin-top: 50px;
+}
+
+.title-image {
+    text-align: center;
+    margin-top: 25px;
+
+    img {
+        display: inline;
+    }
+}
+
+#image_popup .modal-body {
+    height: 400px;
+
+    img {
+        display: block;
+        height: 100%;
+        margin: auto;
+    }
+}
+
+
+/**
  * Cake designer
  */
 
@@ -58,6 +154,10 @@
     width: 650px;
     height: 630px;
 }
+
+/**
+ * Share
+ */
 
 .share-menu li {
     text-align: center;
@@ -135,13 +235,12 @@
         margin-left: 5px;
         margin-right: 5px;
 
-        width: auto;
-
         color: inherit;
         text-align: left;
+
+
     }
 }
-
 
 /**
  * Misc
@@ -182,6 +281,30 @@
         .opacity(50);
     }
 }
+
+img {
+    &.horizontal {
+        width: 100%;
+    }
+
+    &.vertical {
+        height: 100%;
+    }
+}
+
+.image-center img {
+    display: block;
+
+    margin:auto;
+
+    vertical-align:middle;
+}
+
+.media-grid li a:hover {
+    text-decoration: none;
+    border-color: #ddd;
+}
+
 
 /**
  * Icons

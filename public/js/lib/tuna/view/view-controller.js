@@ -26,7 +26,9 @@
         this._bootstrap(); // Then _terminate
     };
 
-    ViewController.prototype._bootstrap = function() {};
+    ViewController.prototype._bootstrap = function() {
+        this.init();
+    };
 
     ViewController.prototype.init = function() {
         this._requireModules();

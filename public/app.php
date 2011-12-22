@@ -2,13 +2,13 @@
 
 require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
 
-$request = \cakes\globals\Request::getInstance();
-$session = \cakes\globals\Session::getInstance();
+$request = \PhotoCake\Http\Request::getInstance();
+$session = \PhotoCake\Http\Session::getInstance();
 
-$session->network = $request->fetch('net');
-$session->app = $request->getSource();
+$session->set('network', $request->fetch('net'));
+$session->set('app', $request->get());
 
-$page = new \cakes\view\Page();
+$page = new \PhotoCake\View\Page();
 
 $page->setBase('app/');
 $page->render('layout');

@@ -1,11 +1,12 @@
 (function() {
     tuna.namespace('tuna.ui');
 
-    var ItemSelector = function(target, itemSelector) {
+    var ItemSelector = function(target, itemSelector, targetSelector) {
         tuna.utils.Notifier.call(this);
 
         this.__currentIndex = -1;
 
+        this.__targetSelector = targetSelector;
         this.__itemSelector = itemSelector;
 
         // TODO: То же что и итем, тока если не нужно чтобы итем выделял
@@ -30,7 +31,21 @@
     };
 
     ItemSelector.prototype.update = function() {
-        this.__items = tuna.dom.select(this.__itemSelector, this._target);
+        this.__items = [];
+
+        var possibleItems = tuna.dom.select(this.__itemSelector, this._target);
+
+        var i = possibleItems.length - 1;
+        while (i >= 0) {
+            if (tuna.dom.getParentMatches
+                (possibleItems[i], this.__targetSelector) === this._target) {
+
+                this.__items.unshift(possibleItems[i]);
+            }
+
+            i--;
+        }
+
 
         this.__syncCurrentIndex();
     };
@@ -144,12 +159,22 @@
     ItemSelector.prototype.__initListeners = function() {
         var self = this;
 
+        var selectionTimeout = null;
+
         tuna.dom.addChildEventListener(
-            this._target, this.__itemSelector, 'click',
+            this._target, this.__itemSelector, 'mouseover',
             function(event) {
                 tuna.dom.stopPropogation(event);
 
-                self.setCurrentIndex(Number(this.getAttribute('data-index')));
+                if (selectionTimeout !== null) {
+                    clearTimeout(selectionTimeout);
+                }
+
+                var index = Number(this.getAttribute('data-index'));
+
+                selectionTimeout = setTimeout(function() {
+                    self.setCurrentIndex(index);
+                }, 250);
             }
         );
 

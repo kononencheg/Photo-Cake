@@ -30,10 +30,6 @@
         this.__movieID = this._container.getOneModuleInstance('swf');
     };
 
-    DesignerController.prototype.canGoPrev = function() {
-        return false;
-    };
-
     DesignerController.prototype.canClose = function() {
         return this.__movie !== null;
     };

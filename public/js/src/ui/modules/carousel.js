@@ -8,7 +8,9 @@
     Carousel.prototype._initInstance = function(target) {
         var carouselBody = tuna.dom.selectOne('.j-carousel-body', target );
         
-        var carousel = new ui.Carousel(carouselBody, target, '.j-carousel-item');
+        var carousel = new ui.Carousel
+            (carouselBody, target, '.j-carousel-item', this._selector);
+
         carousel.init();
         
         return carousel;
