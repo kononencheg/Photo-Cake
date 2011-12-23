@@ -28,6 +28,7 @@ if ($method !== NULL) {
 
 $response->render();
 
+/*
 $order = new \Model\Order();
 $order->populate(array(
     'index'   => 0,
@@ -40,6 +41,6 @@ $order->populate(array(
 ));
 
 var_dump($order->dbSerialize());
-var_dump($order->jsonSerialize());
+var_dump($order->jsonSerialize());*/
 
 ?>

@@ -4,35 +4,17 @@ namespace PhotoCake\Http;
 
 class Request
 {
-    const GET = 0;
-
-    const POST = 1;
-
     /**
      * @var array
      */
-    private $_source = NULL;
+    private $source = NULL;
 
     /**
-     * @param int $type
+     *
      */
-    private function __construct(\int $type = NULL)
+    private function __construct()
     {
-        switch ($type) {
-            case self::GET: {
-                $this->_source = $_GET;
-                break;
-            }
-
-            case self::POST: {
-                $this->_source = $_POST;
-                break;
-            }
-
-            default: {
-                $this->_source = array_merge($_GET, $_POST);
-            }
-        }
+        $this->source = array_merge($_GET, $_POST);
     }
 
     /**
@@ -42,9 +24,9 @@ class Request
     public function get($name = NULL)
     {
         if ($name === NULL) {
-            return $this->_source;
-        } elseif (isset($this->_source[$name])) {
-            return $this->_source[$name];
+            return $this->source;
+        } elseif (isset($this->source[$name])) {
+            return $this->source[$name];
         }
         
         return NULL;
@@ -58,9 +40,9 @@ class Request
     {
         $result = NULL;
 
-        if (isset($this->_source[$name])) {
-            $result = $this->_source[$name];
-            unset($this->_source[$name]);
+        if (isset($this->source[$name])) {
+            $result = $this->source[$name];
+            unset($this->source[$name]);
         }
 
         return $result;

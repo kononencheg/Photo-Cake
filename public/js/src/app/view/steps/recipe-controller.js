@@ -86,7 +86,8 @@
             );
 
             input.checked = true;
-            tuna.dom.dispatchEvent(input, 'change');
+
+            tuna.dom.dispatchEvent(input, 'click');
         }, this);
     };
 
@@ -105,9 +106,10 @@
         );
 
         tuna.dom.addChildEventListener(
-            this._target, 'input.j-recipe-radio', 'change',
+            this._target, 'input.j-recipe-radio', 'click',
             function(event) {
                 var recipes  = self._db.get('recipes');
+
                 self.__selectedRecipe = recipes[this.value];
                 self.__updateView();
             }

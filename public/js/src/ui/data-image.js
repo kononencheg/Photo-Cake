@@ -26,7 +26,7 @@
             var form = document.createElement('form');
             form.method = 'POST';
             form.target = 'support_frame';
-            form.action = '/api/?method=utils.echoImage&type=' + type;
+            form.action = '/api/?method=util.base64Echo&type=' + type;
 
             var dataInput = document.createElement('input');
             dataInput.type = 'hidden';

@@ -14,9 +14,8 @@ class MethodFactory implements \PhotoCake\Api\Method\MethodFactoryInterface
 
     public function __construct()
     {
-        $session = Session::getInstance();
-
-        $this->sessionFactory = $this->createSessionFactory($session->network);
+        $network = Session::getInstance()->get('network');
+        $this->sessionFactory = $this->createSessionFactory($network);
     }
 
     /**
