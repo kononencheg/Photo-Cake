@@ -7,6 +7,9 @@
 #
 # See end for links
 
+set :stages, %w(production staging)
+set :default_stage, "staging"
+
 set :application, "Photo-Cake" 
 
 set :scm, :git
