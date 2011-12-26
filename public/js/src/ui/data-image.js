@@ -2,12 +2,12 @@
     tuna.namespace('ui');
 
     var DataImage = function(target) {
-        tuna.utils.Notifier.call(this);
+        tuna.events.EventDispatcher.call(this);
         
         this.__targetImage = target;
     };
 
-    tuna.extend(DataImage, tuna.utils.Notifier);
+    tuna.extend(DataImage, tuna.events.EventDispatcher);
 
     DataImage.prototype.getTarget = function() {
         return this.__targetImage;
@@ -20,7 +20,7 @@
 
         if (!tuna.IS_IE) {
             this.__targetImage.src = 'data:' + type + ';base64,' + data;
-            this.notify('loaded', this.__targetImage);
+            this.dispatch('loaded', this.__targetImage);
         } else {
             var self = this;
             var form = document.createElement('form');
@@ -45,7 +45,7 @@
                 if (image !== null) {
                     self.__replaceTarget(image);
                 } else {
-                    self.notify('error');
+                    self.dispatch('error');
                 }
 
                 document.body.removeChild(form);
@@ -66,9 +66,9 @@
 
             this.__targetImage = image;
 
-            this.notify('loaded', this.__targetImage);
+            this.dispatch('loaded', this.__targetImage);
         } else {
-            this.notify('error');
+            this.dispatch('error');
         }
     };
 

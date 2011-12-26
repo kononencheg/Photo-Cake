@@ -1,4 +1,4 @@
-<div class="j-item-selector fluid-container">
+<div class="j-navigation fluid-container">
     <div class="page-header">
         <h1 class="main-title">
             <img class="main-logo" src="/img/app/logo.png"
@@ -10,7 +10,7 @@
             </small>
         </h1>
 
-        <a id="next_step_button"
+        <!--a id="next_step_button"
            class="j-selection-next head-button btn primary large pull-right">
             Дальше &raquo;
         </a>
@@ -18,43 +18,43 @@
         <a id="prev_step_button"
            class="j-selection-prev head-button btn primary large pull-right">
             &laquo; Назад
-        </a>
+        </a-->
     </div>
 
     <div class="content">
-        <div id="title_step"
-             class="j-selection-item j-transform-container step current">
+        <div id="title_step" data-init-event="ui-navigate"
+             class="j-navigation-page j-transform-container step current">
 
              <?php $this->render('steps/title') ?>
         </div>
 
-        <div id="designer_step"
-             class="j-selection-item j-transform-container step">
+        <div id="designer_step" data-init-event="ui-navigate"
+             class="j-navigation-page j-transform-container step">
 
              <?php $this->render('steps/designer') ?>
         </div>
 
-        <div id="share_step" data-init-event="ui-select"
-             class="j-selection-item j-transform-container step">
+        <div id="share_step" data-init-event="ui-navigate"
+             class="j-navigation-page j-transform-container step">
 
             <?php $this->render('steps/share') ?>
         </div>
 
-        <div id="recipe_step" data-init-event="ui-select"
+        <div id="recipe_step" data-init-event="ui-navigate"
              data-template-id="recipe_template"
-             class="j-selection-item j-transform-container step">
+             class="j-navigation-page j-transform-container step">
 
             <?php $this->render('steps/recipe') ?>
         </div>
 
-        <div id="order_step" data-init-event="ui-select"
-             class="j-selection-item j-transform-container step">
+        <div id="order_step" data-init-event="ui-navigate"
+             class="j-navigation-page j-transform-container step">
 
             <?php $this->render('steps/order') ?>
         </div>
 
-        <div id="result_step" data-init-event="ui-select"
-             class="j-selection-item j-transform-container step">
+        <div id="result_step" data-init-event="ui-navigate"
+             class="j-navigation-page j-transform-container step">
 
             <?php $this->render('steps/result') ?>
         </div>

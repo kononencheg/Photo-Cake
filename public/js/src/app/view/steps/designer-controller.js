@@ -17,12 +17,14 @@
 
     DesignerController.prototype._requireModules = function() {
        this._container.requireModule('swf', {
-            params: {
-                'wmode': 'direct',
-                'allowfullscreen': false,
-                'allowscriptaccess': 'always',
+           width: 650,
+           height: 630,
+           params: {
+               'wmode': 'direct',
+               'allowfullscreen': false,
+               'allowscriptaccess': 'always',
                 'menu': false
-            }
+           }
         });
     };
 

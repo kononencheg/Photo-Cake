@@ -2,7 +2,7 @@
     tuna.namespace('tuna.net');
 
     var Request = function(url) {
-        tuna.utils.Notifier.call(this);
+        tuna.events.EventDispatcher.call(this);
 
         /**
          * Адрес запроса.
@@ -54,7 +54,7 @@
     };
 
     tuna.implement(Request, tuna.net.IRequest);
-    tuna.extend(Request, tuna.utils.Notifier);
+    tuna.extend(Request, tuna.events.EventDispatcher);
 
     Request.prototype.setData = function(data) {
         this.__data = data;

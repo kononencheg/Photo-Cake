@@ -350,6 +350,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;
 .title-image{text-align:center;margin-top:25px;}.title-image img{display:inline;}
 #image_popup .modal-body{height:400px;}#image_popup .modal-body img{display:block;height:100%;margin:auto;}
 .cake-designer-swf{width:650px;height:630px;}
+#designer_step{text-align:center;}#designer_step object{margin-left:15px;}
 .share-menu li{text-align:center;padding:5px;}
 .share-menu .download-button{font-family:"Times New Roman";width:auto;}
 .friend-list-overlay{height:205px;overflow:auto;}

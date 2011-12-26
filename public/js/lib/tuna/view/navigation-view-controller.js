@@ -4,27 +4,27 @@
     var NavigationViewController = function(targetID) {
         tuna.view.ViewController.call(this, targetID);
 
-        this._pageNavigator = null;
+        this._pageNavigation = null;
         this._currentController = null;
 
         this.__currentPage = null;
+
+        this._handlePageChange = tuna.bind(this._handlePageChange, this);
     };
 
     tuna.extend(NavigationViewController, tuna.view.ViewController);
 
     NavigationViewController.prototype._requireModules = function() {
-        this._container.requireModule('item-selector');
         this._container.requireModule('transform-container');
+        this._container.requireModule('navigation');
     };
 
     NavigationViewController.prototype._initActions = function(modules) {
-        this._pageNavigator
-            = this._container.getOneModuleInstance('item-selector');
+        this._pageNavigation = this._container.getOneModuleInstance('navigation');
 
-        // TODO: Implement preventDefault for notifications
-        this._pageNavigator.subscribe('select', this._handlePageChange, this);
+        this._pageNavigation.addEventListener('select', this._handlePageChange);
 
-        this._setCurrentPage(this._pageNavigator.getCurrentIndex());
+        this._setCurrentPage(this._pageNavigation.getLastSelectedIndex());
     };
 
     NavigationViewController.prototype._handlePageChange = function(event, index) {
@@ -34,16 +34,14 @@
             }
 
             this._setCurrentPage(index);
-
-            return true;
+        } else {
+            event.preventDefault();
         }
-
-        return false;
     };
 
     NavigationViewController.prototype._canSwitchTo = function(index) {
         if (this._currentController !== null) {
-            var nextPage = this._pageNavigator.getItemAt(index);
+            var nextPage = this._pageNavigation.getItemAt(index);
             return this._currentController.canClose(nextPage);
         }
 
@@ -51,7 +49,7 @@
     };
 
     NavigationViewController.prototype._setCurrentPage = function(index) {
-        var newPage = this._pageNavigator.getItemAt(index);
+        var newPage = this._pageNavigation.getItemAt(index);
         var oldPage = this.__currentPage;
 
         if (oldPage !== null) {

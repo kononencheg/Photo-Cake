@@ -4,6 +4,8 @@ namespace PhotoCake\Http;
 
 class Session
 {
+    private $NULL;
+
     private function __construct()
     {
         session_start();
@@ -33,7 +35,7 @@ class Session
             return $_SESSION[$name];
         }
 
-        return NULL;
+        return $this->NULL;
     }
 
 

@@ -2,10 +2,10 @@
     tuna.namespace('tuna.data');
 
     var DataDispatcher = function() {
-        tuna.utils.Notifier.call(this);
+        tuna.events.EventDispatcher.call(this);
     };
 
-    tuna.extend(DataDispatcher, tuna.utils.Notifier);
+    tuna.extend(DataDispatcher, tuna.events.EventDispatcher);
 
     DataDispatcher.prototype.notify = function(type, notification) {
         for (var path in this._listeners) {

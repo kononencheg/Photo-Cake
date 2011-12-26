@@ -16,7 +16,10 @@
 
     function main() {
         tuna.dom.setSelectorEngine(jQuery.find);
-        tuna.view.initMainController();
+
+        var container = new tuna.ui.container.TransformContainer(document.body);
+        container.setDB(new tuna.data.DataStorage());
+        container.init();
     }
 </script>
 
@@ -24,5 +27,6 @@
     // TODO: implement tuna.config
     case 'vk': { $this->render('scripts/vk'); break; }
     case 'ok': { $this->render('scripts/ok'); break; }
+    default: ?> <script type="text/javascript">main();</script> <?php
 } ?>
 

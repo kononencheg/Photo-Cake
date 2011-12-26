@@ -15,7 +15,11 @@
     };
 
     tuna.ui.modules.getModule = function(name) {
-        return modulesTable[name];
+        if (modulesTable[name] !== undefined) {
+            return modulesTable[name];
+        }
+
+        return null;
     };
 
     tuna.ui.modules.addIsolator = function(className) {

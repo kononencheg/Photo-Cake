@@ -30,27 +30,13 @@
         return this.__templatesTable[id];
     };
 
-    TransformContainer.prototype.__initContainer
-        = function(container, template) {
-
-        if (template !== null) {
-            var target = container.getTarget();
-            var transformer
-                = this.__templateCompiler.makeTransformer(template, target);
-
-            container.setTransformer(transformer);
-        }
-
-        container.initControl();
-    };
-
     TransformContainer.prototype._initInstance = function(target, parent) {
         var self = this;
 
         var templateID  = target.getAttribute('data-template-id');
         var initEvent   = target.getAttribute('data-init-event');
 
-        var container = new tuna.ui.TransformContainer(target, parent);
+        var container = new tuna.ui.container.TransformContainer(target, parent);
 
         var initContainer = function() {
             var template = self.__getTemplate(templateID);

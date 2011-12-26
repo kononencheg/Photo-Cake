@@ -153,43 +153,59 @@ tuna.eval = function(code) {
 };
 
 tuna.bind = function(fn, context) {
-    var args = Array.prototype.slice.call(arguments, 2);
+    if (fn.bind !== undefined) {
+        return fn.bind(context);
+    } else {
+        var args = Array.prototype.slice.call(arguments, 2);
 
-    return function() {
-        return fn.apply(context, args.concat(tuna.toArray(arguments)));
-    };
+        return function() {
+            return fn.apply(context, args.concat(tuna.toArray(arguments)));
+        };
+    }
+};
+
+tuna.nextTick = function(callback) {
+    setTimeout(callback, 0);
 };
 
 tuna.clone = function(object, clones) {
-    var result = object;
-
-    if (clones === undefined) {
-        clones = [];
-    }
-
     if (object instanceof Array) {
-        result = object.slice(0);
+        return tuna.cloneArray(object);
     } else if (object instanceof Date) {
-        result = new Date(object.getTime());
+        return tuna.cloneDate(object);
     } else if (object instanceof Object) {
-        clones.push(object);
+        if (clones === undefined) {
+            clones = [object];
+        } else {
+            clones.push(object);
+        }
 
-        result = {};
+        var result = {};
         for (var key in object) {
             if (object.hasOwnProperty(key)) {
-                if (tuna.indexOf(clones, object[key]) === -1) {
+                if (tuna.indexOf(object[key], clones) === -1) {
                     result[key] = tuna.clone(object[key]);
                 } else {
                     throw new TypeError('Cloning circular structure');
                 }
             }
         }
+
+        return result;
     }
 
-    return result;
+    return object;
 };
 
-tuna.indexOf = function(array, element) {
+tuna.cloneDate = function(date) {
+    return new Date(date.getTime());
+};
+
+tuna.cloneArray = function(array) {
+    return array.slice(0);
+};
+
+tuna.indexOf = function(element, array) {
     if (array.indexOf !== undefined) {
         return array.indexOf(element);
     } else {

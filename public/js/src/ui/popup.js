@@ -2,46 +2,35 @@
     tuna.namespace('ui');
 
     var Popup = function(target) {
-        tuna.utils.Notifier.call(this);
+        tuna.events.EventDispatcher.call(this);
         
         this.__target = target;
         this.__isOpen = false;
 
         var self = this;
+
         tuna.dom.addChildEventListener(
             this.__target, '.j-popup-close', 'click',
             function(event) {
                 tuna.dom.preventDefault(event);
-                tuna.dom.stopPropogation(event);
+                tuna.dom.stopPropagation(event);
 
                 self.close();
             }
         );
+
         tuna.dom.addChildEventListener(
             this.__target, '.j-popup-apply', 'click',
             function(event) {
                 tuna.dom.preventDefault(event);
-                tuna.dom.stopPropogation(event);
+                tuna.dom.stopPropagation(event);
 
                 self.apply();
             }
         );
-
-        //TODO: move to module
-        this.subscribe('popup-open', function() {
-            tuna.dom.dispatchEvent(self.__target, 'ui-popup-open');
-        });
-
-        this.subscribe('popup-close', function() {
-            tuna.dom.dispatchEvent(self.__target, 'ui-popup-close');
-        });
-
-        this.subscribe('popup-apply', function(type, data) {
-            tuna.dom.dispatchEvent(self.__target, 'ui-popup-apply', data);
-        });
     };
 
-    tuna.extend(Popup, tuna.utils.Notifier);
+    tuna.extend(Popup, tuna.events.EventDispatcher);
 
     Popup.prototype.isOpen = function() {
         return this.__isOpen;
@@ -49,18 +38,17 @@
 
     Popup.prototype.open = function() {
         this.__show();
-        this.notify('popup-open');
+        this.dispatch('popup-open');
     };
 
     Popup.prototype.close = function() {
         this.__hide();
-        this.notify('popup-close');
+        this.dispatch('popup-close');
     };
 
     Popup.prototype.apply = function() {
         this.__hide();
-
-        this.notify('popup-apply', this.__collectData());
+        this.dispatch('popup-apply', this.__collectData());
     };
 
     Popup.prototype.__hide = function() {

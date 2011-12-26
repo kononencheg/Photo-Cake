@@ -2,7 +2,7 @@
     tuna.namespace('ui');
 
     var Form = function(target) {
-        tuna.utils.Notifier.call(this);
+        tuna.events.EventDispatcher.call(this);
 
         this.__target = target;
         this.__formMessage = null;
@@ -21,7 +21,7 @@
 
     Form.CALLBACK_PREFIX = 'form_callback';
 
-    tuna.extend(Form, tuna.utils.Notifier);
+    tuna.extend(Form, tuna.events.EventDispatcher);
 
     Form.prototype.setResultParser = function(parser) {
         this.__resultParser = parser;

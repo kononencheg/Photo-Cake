@@ -73,10 +73,4 @@
         return null;
     };
 
-    tuna.view.initMainController = function() {
-        var container = new tuna.ui.TransformContainer(document.body);
-        container.setDB(new tuna.data.DataStorage());
-        container.init();
-    };
-
 })();

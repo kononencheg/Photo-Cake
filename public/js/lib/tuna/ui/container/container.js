@@ -1,5 +1,5 @@
 (function() {
-    tuna.namespace('tuna.ui');
+    tuna.namespace('tuna.ui.container');
 
     var Container = function(target, parent) {
         this._target = target;
@@ -78,7 +78,7 @@
     Container.prototype.destroyModules = function() {
         for (var name in this.__moduleInstances) {
             tuna.ui.modules.getModule(name)
-                                .destroy(this.__moduleInstances[name]);
+                           .destroy(this.__moduleInstances[name]);
 
             this.__moduleInstances[name].length = 0;
         }
@@ -118,6 +118,6 @@
         }
     };
 
-    tuna.ui.Container = Container;
+    tuna.ui.container.Container = Container;
 
 })();

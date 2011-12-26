@@ -2,12 +2,12 @@
     tuna.namespace('tuna.data');
 
     var DataStorage = function() {
-        tuna.utils.Notifier.call(this);
+        tuna.events.EventDispatcher.call(this);
 
         this.__data = {};
     };
 
-    tuna.extend(DataStorage, tuna.utils.Notifier);
+    tuna.extend(DataStorage, tuna.events.EventDispatcher);
 
     DataStorage.prototype.get = function(key) {
         if (this.__data[key] !== undefined) {
@@ -21,9 +21,9 @@
         this.__data[key] = value;
 
         var self = this;
-        setTimeout(function() {
-            self.notify(key, value);
-        }, 0);
+        tuna.nextTick(function() {
+            self.dispatch(new tuna.events.Event(key), value);
+        });
     };
 
     tuna.data.DataStorage = DataStorage;

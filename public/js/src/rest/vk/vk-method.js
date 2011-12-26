@@ -20,9 +20,9 @@
 
     VKMethod.prototype._handleResponse = function(data) {
         if (data.response !== undefined) {
-            this.notify('result', this._mapResponse(data.response));
+            this.dispatch('result', this._mapResponse(data.response));
         } else {
-            this.notify('error', data);
+            this.dispatch('error', data);
         }
     };
 

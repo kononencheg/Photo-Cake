@@ -8,9 +8,12 @@
         this.__request = new tuna.net.Request();
         this.__request.method = 'POST';
         this.__request.setURL('/api/?method=' + name);
-        this.__request.subscribe('complete', function(event, data) {
-            this._handleResponse(data);
-        }, this);
+
+        var self = this;
+
+        this.__request.addEventListener('complete', function(event, data) {
+            self._handleResponse(data);
+        });
     };
 
     tuna.extend(CommonMethod, tuna.rest.RemoteMethod);
@@ -28,9 +31,9 @@
         } catch (error) { alert(data); }
 
         if (result !== null) {
-            this.notify('result', result);
+            this.dispatch('result', result);
         } else {
-            this.notify('error', data);
+            this.dispatch('error', data);
         }
 
     };

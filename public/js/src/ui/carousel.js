@@ -1,7 +1,7 @@
 (function() {
     tuna.namespace('ui');
 
-    var Carousel = function(listElement, overflowElement, itemSelector, targetSelector) {
+    /*var Carousel = function(listElement, overflowElement, itemSelector, targetSelector) {
         tuna.ui.ItemSelector.call(this, listElement, itemSelector);
 
         this.__overflow = overflowElement;
@@ -25,5 +25,5 @@
         $overflow.stop().animate({ 'scrollLeft': scrollLeft }, 'fast');
     };
 
-    ui.Carousel = Carousel;
+    ui.Carousel = Carousel;*/
 })();

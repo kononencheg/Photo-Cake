@@ -7,9 +7,7 @@
 
     tuna.extend(DataImageCopy, tuna.ui.modules.Module);
 
-    DataImageCopy.prototype._initInstance
-        = function(target, container, options) {
-
+    DataImageCopy.prototype._initInstance = function(target) {
         var imageSelector = target.getAttribute('data-image-selector');
         if (imageSelector !== null) {
             var currentImage = target;
@@ -26,7 +24,7 @@
                 }
             };
 
-            targetDataImage.subscribe('loaded', replaceImage);
+            targetDataImage.addEventListener('loaded', replaceImage);
             replaceImage();
 
             return currentImage;

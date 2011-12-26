@@ -190,9 +190,9 @@
         }
     };
 
-    tuna.dom.stopPropogation = function(event) {
-        if (event.stopPropogation !== undefined) {
-            event.stopPropogation();
+    tuna.dom.stopPropagation = function(event) {
+        if (event.stopPropagation() !== undefined) {
+            event.stopPropagation();
         } else {
             event.cancelBubble = true;
         }

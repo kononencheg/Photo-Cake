@@ -4,7 +4,7 @@
 
     var IRequest = function() {};
 
-    tuna.extend(IRequest, tuna.utils.INotifier);
+    tuna.extend(IRequest, tuna.events.IEventDispatcher);
 
     IRequest.prototype.send = function(url) {};
     IRequest.prototype.abort = function() {};
