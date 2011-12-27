@@ -380,7 +380,7 @@ i{display:inline-block;*zoom:1;*display:inline;font-size:0;}
 .ico-persons{width:15px;height:15px;background:no-repeat url(/img/app/persons.png);}
 .ico-super{color:#750000;font-style:italic;vertical-align:super;}
 body{font-family:"Times New Roman";}
-p{padding-top:5px;padding-bottom:5px;font-size:14px;}
+p{padding-top:10px;padding-bottom:10px;font-size:14px;}
 h1{color:#750000;font-style:italic;font-weight:normal;}h1 small{color:#750000;font-weight:normal;font-style:italic;font-size:16px;}
 h2{color:#750000;font-style:italic;font-weight:normal;margin-left:20px;margin-bottom:20px;}
 h3{display:inline;font-size:20px;line-height:normal;}h3 small{color:#0066cc;}
