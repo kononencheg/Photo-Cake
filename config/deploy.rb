@@ -6,9 +6,9 @@ require 'capistrano/ext/multistage'
 
 set :application, "fotonatorte.ru" 
 
-role :app, application
-role :web, application
-role :db,  application, :primary => true
+role :app, "178.250.241.76"
+role :web, "178.250.241.76"
+role :db,  "178.250.241.76", :primary => true
 
 set :scm, :git
 set :scm_verbose, true
