@@ -106,7 +106,7 @@ class Submit extends \PhotoCake\Api\Method\Method
             $this->imageUrl = FILE_URL . $imageFileName;
         }
 
-        if ($this->photoData !== false) {
+        if ($this->photoData !== '') {
             $photoFileName = 'cake_photo_' . $fileId . '.jpg';;
 
             if (file_put_contents(FILE_FOLDER . $photoFileName, $this->photoData)) {
