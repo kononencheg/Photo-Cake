@@ -34,7 +34,7 @@
             result.response.image_data = this.__imageData;
             rest.CommonMethod.prototype.call.call(this, result.response);
         } else {
-            this.notify('error', result);
+            this.dispatch('error', result);
         }
     };
 
@@ -48,7 +48,7 @@
         if (result !== null) {
             VK.api('photos.saveWallPhoto', result, this.__handleSavePhoto);
         } else {
-            this.notify('error', data);
+            this.dispatch('error', data);
         }
     };
 
@@ -67,15 +67,15 @@
                 'attachments': photo.id
             }, this.__handleWallPost);
         } else {
-            this.notify('error', result);
+            this.dispatch('error', result);
         }
     };
 
     Post.prototype.__handleWallPost = function(result) {
         if (result.response !== undefined) {
-            this.notify('result', true);
+            this.dispatch('result', true);
         } else {
-            this.notify('error', result);
+            this.dispatch('error', result);
         }
     };
 

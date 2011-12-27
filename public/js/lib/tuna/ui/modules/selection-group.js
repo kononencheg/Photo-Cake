@@ -9,6 +9,11 @@
     SelectionGroup.prototype._initInstance
         = function(target, container, options) {
 
+        var selectionEvent = target.getAttribute('data-selection-event');
+        if (selectionEvent === null) {
+            selectionEvent = 'click';
+        }
+
         var selectionRule = new tuna.ui.selection.rule.SingleSelectionRule();
 
         var selectionView
@@ -28,7 +33,7 @@
         selectionGroup.init();
 
         tuna.dom.addChildEventListener(
-            target, '.j-selection-item', 'click', function(event) {
+            target, '.j-selection-item', selectionEvent, function(event) {
                 tuna.dom.stopPropagation(event);
 
                 var index = selectionGroup.getItemIndex(this);

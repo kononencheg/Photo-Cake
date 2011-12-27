@@ -1,7 +1,7 @@
 <ul class="unstyled share-menu">
     <li>
-       <img id="share_cake_image" class="j-data-image"
-            alt="Загрузка тортика..." width="317" height="317" />
+       <img class="j-data-image-copy" alt="Загрузка тортика..."
+            data-image-selector="#base_cake_image" width="317" height="317" />
     </li>
     <li>
        <a id="wall_post_link" class="btn primary large">
@@ -15,7 +15,7 @@
         </a>
     </li>
     <li>
-        <form action="api/?method=utils.echoImage"
+        <form action="api/?method=util.base64Echo"
               target="_blank" method="POST">
             
             <input type="hidden" name="type" value="image/jpeg" />
@@ -25,7 +25,11 @@
             <input type="submit" class="download-button btn primary large"
                    value="Скачать" />
         </form>
-        
+    </li>
+    <li>
+        <a class="j-navigation-link btn primary large" data-href="designer_step">
+            &laquo; Назад
+        </a>
     </li>
 </ul>
 

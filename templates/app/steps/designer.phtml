@@ -1,15 +1,18 @@
+<?php if ($this->session->get('network')) {?>
+    <a class="j-navigation-link btn primary large" data-href="share_step">
+        Поделиться
+    </a>
+<?php } ?>
 
-<a class="j-navigation-link btn primary large" data-href="share_step">
-    Поделиться
-</a>
-
-<a class="j-navigation-link btn primary large offset1" data-href="recipe_step">
+<a class="j-navigation-link btn primary large" data-href="recipe_step">
     Купить
 </a>
-
 
 <div id="cake_designer" class="j-swf"
      data-movie-url="/swf/cake-designer.swf">
     
     <p>Загрузка...</p>
 </div>
+
+<img id="base_cake_image" class="j-data-image hidden"
+     alt="Загрузка тортика..." width="317" height="317" />

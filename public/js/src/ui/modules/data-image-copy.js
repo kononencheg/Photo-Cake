@@ -17,10 +17,15 @@
 
             var replaceImage = function() {
                 var image = targetDataImage.getTarget();
-                var parent = target.parentNode;
+                var parent = currentImage.parentNode;
                 if (parent !== null) {
-                    currentImage = parent.replaceChild
-                                        (image.cloneNode(), currentImage);
+                    var newImage = image.cloneNode();
+                    newImage.id = currentImage.id;
+                    newImage.className = currentImage.className;
+
+                    parent.replaceChild(newImage, currentImage);
+
+                    currentImage = newImage;
                 }
             };
 

@@ -25,10 +25,10 @@
     };
 
     ShareController.prototype._requireModules = function() {
+        this._container.requireModule('data-image-copy');
         this._container.requireModule('transform-container');
         this._container.requireModule('selection-group');
         this._container.requireModule('popup');
-        this._container.requireModule('data-image');
     };
 
     ShareController.prototype._initActions = function() {
@@ -64,13 +64,13 @@
     };
 
     ShareController.prototype.__initCakeImage = function() {
-        var cakeDataImage = this._container.getOneModuleInstance('data-image');
         var downloadDataInput = tuna.dom.selectOne('#download_data_input');
 
         this._db.addEventListener('cake_image', function(event, data) {
-            cakeDataImage.setData(data);
             downloadDataInput.value = data;
         });
+
+        downloadDataInput.value = this._db.get('cake_image');
     };
 
     ShareController.prototype.__initFriendsPopup = function() {
@@ -142,8 +142,6 @@
     };
 
     ShareController.prototype.__updateSelectedFriend = function() {
-        debugger;
-
         var friends = this._db.get('filtered_friends_list');
         var index = this.__friendsList.getLastSelectedIndex();
 

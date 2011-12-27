@@ -6,7 +6,8 @@
 <div class="row">
     <div class="span7">
         <div class="title-image">
-            <img src="/img/app/title.jpg" alt="Тортик" width="330" height="330" />
+            <img class="j-navigation-link" data-href="designer_step"
+                 src="/img/app/title.jpg" alt="Тортик" width="330" height="330" />
         </div>
     </div>
     <div class="span5">
@@ -36,7 +37,9 @@
     <div class="span14 carousel cake-gallery">
         <h3>Галерея тортиков</h3>
 
-        <ul class="j-item-selector media-grid cake-gallery-body">
+        <ul class="j-selection-group media-grid cake-gallery-body"
+            data-selection-event="mouseover" data-selection-timeout="250">
+
             <li class="j-selection-item current">
                 <a>
                     <span class="expand-item">

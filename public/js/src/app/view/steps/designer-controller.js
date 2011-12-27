@@ -16,6 +16,7 @@
     };
 
     DesignerController.prototype._requireModules = function() {
+       this._container.requireModule('data-image');
        this._container.requireModule('swf', {
            width: 650,
            height: 630,
@@ -42,6 +43,9 @@
             this._db.set('cake_params', JSON.parse(cakeData.shift()));
             this._db.set('cake_image', cakeData.shift());
         }
+
+        var cakeDataImage = this._container.getOneModuleInstance('data-image');
+        cakeDataImage.setData(this._db.get('cake_image'));
     };
 
     DesignerController.prototype.onFlashReady = function() {

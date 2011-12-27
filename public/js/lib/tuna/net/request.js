@@ -73,7 +73,7 @@
         if (request.readyState === 4) {
             this.__response = request.responseText;
 
-            this.notify('complete', this.__response);
+            this.dispatch('complete', this.__response);
 
             request.abort();
         }
@@ -130,7 +130,7 @@
         if (this.isSync) {
             this.__response = request.responseText;
 
-            this.notify('complete', this.__response);
+            this.dispatch('complete', this.__response);
         }
 
         this.__request = request;

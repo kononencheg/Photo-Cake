@@ -11,7 +11,7 @@
     };
 
     TitleController.prototype._requireModules = function() {
-        this._container.requireModule('item-selector');
+        this._container.requireModule('selection-group');
         this._container.requireModule('image-popup');
     };
 

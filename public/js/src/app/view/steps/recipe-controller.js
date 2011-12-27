@@ -68,7 +68,7 @@
         this.__initRecipeSelection();
         this.__initDescriptionPopup();
 
-        this._db.subscribe('cake_params', this.__updateView, this);
+        this._db.addEventListener('cake_params', tuna.bind(this.__updateView, this));
         this.__updateView();
     };
 
@@ -77,18 +77,20 @@
     };
 
     RecipeController.prototype.__initDescriptionPopup = function() {
+        var self = this;
+
         this.__descriptionPopup = ui.Popup.create
                             (tuna.dom.selectOne('#recipe_description_popup'));
 
-        this.__descriptionPopup.subscribe('popup-apply', function() {
+        this.__descriptionPopup.addEventListener('popup-apply', function() {
             var input = tuna.dom.selectOne(
-                'input[value=' + this.__popupRecipe.index + '].j-recipe-radio'
+                'input[value=' + self.__popupRecipe.index + '].j-recipe-radio'
             );
 
             input.checked = true;
 
             tuna.dom.dispatchEvent(input, 'click');
-        }, this);
+        });
     };
 
     RecipeController.prototype.__initRecipeSelection = function() {
