@@ -27,7 +27,7 @@ class JSONFormat implements FormatInterface
      */
     public function renderResponse($data)
     {
-        echo json_encode($data);
+        echo json_encode(array( 'response' => $data ));
     }
 
 

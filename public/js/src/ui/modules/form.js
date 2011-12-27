@@ -6,9 +6,7 @@
     tuna.extend(Form, tuna.ui.modules.Module);
 
     Form.prototype._initInstance = function(target) {
-        var form = new ui.Form(target);
-        
-        return form;
+        return new ui.forms.Form(target);
     };
 
     tuna.ui.modules.register(new Form());

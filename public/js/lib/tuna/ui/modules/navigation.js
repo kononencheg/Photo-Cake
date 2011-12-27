@@ -28,7 +28,7 @@
         selectionGroup.setSelectionView(selectionView);
         selectionGroup.setItemsCollection(itemsCollection);
 
-        selectionGroup.addEventListener('select', function(event, index) {
+        selectionGroup.addEventListener('selected', function(event, index) {
             tuna.dom.dispatchEvent
                 (selectionGroup.getItemAt(index), 'ui-navigate');
         });

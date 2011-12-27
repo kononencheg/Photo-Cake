@@ -40,16 +40,19 @@
     };
 
     Container.prototype.initModules = function(target) {
+        console.log('Modules for "' + (target || this._target).id + '"');
+
         var module = null;
         for (var name in this.__moduleArgs) {
             module = tuna.ui.modules.getModule(name);
+            console.log('  - ' + name);
 
             if (module === null) {
                 console.error('Unknown module "' + name + '"');
                 continue;
             }
 
-            if (this.__moduleInstances[name] == undefined) {
+            if (this.__moduleInstances[name] === undefined) {
                 this.__moduleInstances[name] = [];
             }
 

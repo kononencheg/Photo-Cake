@@ -42,6 +42,7 @@
         if (cakeData !== null) {
             this._db.set('cake_params', JSON.parse(cakeData.shift()));
             this._db.set('cake_image', cakeData.shift());
+            this._db.set('cake_photo', cakeData.shift());
         }
 
         var cakeDataImage = this._container.getOneModuleInstance('data-image');

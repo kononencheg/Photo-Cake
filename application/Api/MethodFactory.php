@@ -43,6 +43,9 @@ class MethodFactory implements \PhotoCake\Api\Method\MethodFactoryInterface
     private function createOtherMethod($name)
     {
         switch ($name) {
+            case 'order.submit':
+                return new \Api\Order\Submit();
+
             case 'util.base64Echo':
                 return new \Api\Util\Base64Echo();
         }

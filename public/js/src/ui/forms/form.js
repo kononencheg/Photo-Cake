@@ -1,5 +1,5 @@
 (function() {
-    tuna.namespace('ui');
+    tuna.namespace('ui.forms');
 
     var Form = function(target) {
         tuna.events.EventDispatcher.call(this);
@@ -12,7 +12,7 @@
         this.__callbackInput = null;
         this.__callbackName = null;
 
-        this.__resultParser = null;
+        this.__resultParser = new ui.forms.FormResponseParser();
 
         this.__initFormMessage();
         this.__initCallbackInput();
@@ -25,6 +25,11 @@
 
     Form.prototype.setResultParser = function(parser) {
         this.__resultParser = parser;
+    };
+
+    Form.prototype.submit = function() {
+        this.__prepareToSubmit();
+        this.__target.submit();
     };
 
     Form.prototype.__initFormMessage = function() {
@@ -47,11 +52,13 @@
     };
 
     Form.prototype.__initListeners = function() {
-        var self = this;
-        tuna.dom.addEventListener(this.__target, 'submit', function(event) {
-            self.__cleanup();
-            self.__registerCallback();
-        });
+        tuna.dom.addEventListener
+            (this.__target, 'submit', tuna.bind(this.__prepareToSubmit, this));
+    };
+
+    Form.prototype.__prepareToSubmit = function() {
+        this.__cleanup();
+        this.__registerCallback();
     };
 
     Form.prototype.__registerCallback = function() {
@@ -62,20 +69,14 @@
     };
 
     Form.prototype.__handleResponse = function(response) {
-        if (this.__resultParser !== null) {
+        var result = this.__resultParser.parse(response);
+        if (result === null) {
+            var errors = this.__resultParser.getErrors();
+            this.__showErrors(errors);
 
-            var result = this.__resultParser.parse(response);
-            if (result === null) {
-                var error = this.__resultParser.getLastError();
-                this.__showErrors(error);
-
-                this.notify('error', error);
-            } else {
-                this.notify('result', result);
-            }
-
+            this.dispatch('error', errors);
         } else {
-            this.notify('result', response);
+            this.dispatch('result', result);
         }
     };
 
@@ -85,12 +86,19 @@
     };
 
     Form.prototype.__showErrors = function(errors) {
-        if (typeof errors === 'string') {
-            this._showErrorMessage(errors);
-        } else {
-            for (var name in errors) {
-                this._showInputError(name, errors[name]);
+        var i = 0,
+            l = errors.length;
+
+        var error = null;
+        while (i < l) {
+            error = errors[i];
+            if (error.param !== undefined) {
+                this._showInputError(error.param, error.message);
+            } else {
+                this._showErrorMessage(error.message);
             }
+
+            i++;
         }
     };
 
@@ -98,9 +106,11 @@
         var result = null;
 
         if (this._inputTable[name] === undefined) {
-            var inputWrappers = tuna.dom.select('.j-' + name + '-input', this.__target);
-            if (inputWrappers.length > 0) {
-                this._inputTable[name] = new FormInput(inputWrappers[0]);
+            var inputWrapper
+                = tuna.dom.selectOne('.j-' + name + '-input', this.__target);
+
+            if (inputWrapper !== null) {
+                this._inputTable[name] = new ui.forms.FormInput(inputWrapper);
             }
         }
 
@@ -115,11 +125,12 @@
         if (this.__formMessage !== null) {
             tuna.dom.removeClass(this.__formMessage, 'error');
             tuna.dom.addClass(this.__formMessage, 'hidden');
+            this.__formMessage.innerHTML = '';
         }
     };
 
     Form.prototype._showErrorMessage = function(message) {
-        this.__formMessage.innerHTML = message;
+        this.__formMessage.innerHTML += message + '<br />';
 
         tuna.dom.addClass(this.__formMessage, 'error');
         tuna.dom.removeClass(this.__formMessage, 'hidden');
@@ -129,6 +140,8 @@
         var formInput = this._getFormInput(name);
         if (formInput !== null) {
             formInput.showErrorMessage(message);
+        } else {
+            this._showErrorMessage(message);
         }
     };
 
@@ -138,35 +151,5 @@
         }
     };
 
-    var FormInput = function(target) {
-        this.__target = target;
-        this.__message = null;
-        this.__defaultMessage = '';
-
-        this.__init();
-    };
-
-    FormInput.prototype.__init = function() {
-        var messages = tuna.dom.select('.j-message', this.__target);
-        if (messages.length > 0) {
-            this.__message = messages[0];
-            this.__defaultMessage = this.__message.innerHTML;
-        }
-    };
-
-    FormInput.prototype.showErrorMessage = function(message) {
-        tuna.dom.addClass(this.__target, 'error');
-        if (this.__message !== null) {
-            this.__message.innerHTML = message;
-        }
-    };
-
-    FormInput.prototype.cleanup = function() {
-        tuna.dom.removeClass(this.__target, 'error');
-        if (this.__message !== null) {
-            this.__message.innerHTML = this.__defaultMessage;
-        }
-    };
-
-    ui.Form = Form;
+    ui.forms.Form = Form;
 })();

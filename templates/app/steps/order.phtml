@@ -3,38 +3,54 @@
         <h2>Оформление заказа!</h2>
     </div>
     <div class="span7">
-        <a class="j-navigation-link next-btn btn primary large" data-href="result_step">
-            Далее &raquo;
+        <a id="submit_order_button" data-href="result_step"
+           class=" next-btn btn primary large"> <!-- j-navigation-link -->
+            Заказать!
         </a>
     </div>
 </div>
 
 <div class="row">
     <div class="span7">
-        <form action="">
+        <form class="j-form" action="/api/" method="POST" target="support_frame">
+            <div class="j-form-message alert-message hidden"></div>
+
+            <input type="hidden" name="method" value="order.submit" />
+            <input type="hidden" name="format" value="frame-callback" />
+
+            <input id="cake_image_data" type="hidden" name="image_data" />
+            <input id="cake_photo_data" type="hidden" name="photo_data" />
+
             <fieldset>
                 <legend>Личная информация</legend>
 
-                <div class="clearfix">
-                    <label>Имя</label>
+                <div class="j-name-input clearfix">
+                    <label for="name">Имя *</label>
                     <div class="input">
-                        <input name="name" type="text" class="t-user-name" />
+                        <input id="name" name="name" type="text" class="t-user-name" />
+                        <span class="j-message help-block">
+                            Ваше настоящее имя.
+                        </span>
                     </div>
                 </div>
 
-                <div class="clearfix">
-                    <label>Телефон</label>
+                <div class="j-phone-input clearfix">
+                    <label for="phone">Телефон *</label>
                     <div class="input">
-                        <input name="phone" type="text" />
-                        <span class="help-block">Чтобы мы могли с вами связаться</span>
+                        <input id="phone" name="phone" type="text" />
+                        <span class="j-message help-block">
+                            Чтобы мы могли с вами связаться
+                        </span>
                     </div>
                 </div>
 
-                <div class="clearfix">
-                    <label>Email</label>
+                <div class="j-email-input clearfix">
+                    <label for="email">Email *</label>
                     <div class="input">
-                        <input name="email" type="text" />
-                        <span class="help-block">Для подтверждения заказа</span>
+                        <input id="email" name="email" type="text" />
+                        <span class="j-message help-block">
+                            Для подтверждения заказа
+                        </span>
                     </div>
                 </div>
             </fieldset>
@@ -42,50 +58,55 @@
             <fieldset>
                 <legend>Информация о доставке</legend>
 
-                <div class="clearfix">
-                    <label>Адрес</label>
+                <div class="j-address-input clearfix">
+                    <label for="address">Адрес *</label>
                     <div class="input">
-                        <textarea name="address" rows="3"></textarea>
-                        <span class="help-block">
-                            Адрес, куда доставлять торт. Пока, только Санкт-Петербург.
+                        <textarea id="address" name="address" rows="3"></textarea>
+                        <span class="j-message help-block">
+                            Адрес, куда доставлять торт. Пока, только
+                            Санкт-Петербург.
                         </span>
                     </div>
                 </div>
 
-                <div class="clearfix">
-                    <label>Дата</label>
+                <div class="j-day-input clearfix">
+                    <label for="day">Дата *</label>
                     <div class="input">
-                        <select name="day" class="t-month-day micro"></select> \
+                        <select id="day" name="day" class="micro">
+                            <option value="1">1</option>
+                            <option value="2">1</option>
+                        </select> \
                         <select name="month" class="small">
-                            <option value="0">Январь</option>
-                            <option value="1">Февраль</option>
-                            <option value="2">Март</option>
-                            <option value="3">Апрель</option>
-                            <option value="4">Май</option>
-                            <option value="5">Июнь</option>
-                            <option value="6">Июль</option>
-                            <option value="7">Август</option>
-                            <option value="8">Сентябрь</option>
-                            <option value="9">Октябрь</option>
-                            <option value="10">Ноябрь</option>
-                            <option value="11">Декабрь</option>
+                            <option value="01">Январь</option>
+                            <option value="02">Февраль</option>
+                            <option value="03">Март</option>
+                            <option value="04">Апрель</option>
+                            <option value="05">Май</option>
+                            <option value="06">Июнь</option>
+                            <option value="07">Июль</option>
+                            <option value="08">Август</option>
+                            <option value="09">Сентябрь</option>
+                            <option value="10">Октябрь</option>
+                            <option value="11">Ноябрь</option>
+                            <option value="12">Декабрь</option>
                         </select> \
                         <select name="year" class="mini">
                             <option value="2011">2011</option>
                             <option value="2012">2012</option>
                         </select>
-                        <span class="help-block">
+                        <span class="j-message help-block">
                             День, в который курьер привезет торт.
                         </span>
                     </div>
                 </div>
 
-                <div class="clearfix">
-                    <label>Комментарий</label>
+                <div class="j-comment-input clearfix">
+                    <label for="comment">Комментарий</label>
                     <div class="input">
-                        <textarea name="comment" rows="3"></textarea>
-                        <span class="help-block">
-                            Дополнительная информация. Например, комментарий курьеру.
+                        <textarea id="comment" name="comment" rows="3"></textarea>
+                        <span class="j-message help-block">
+                            Дополнительная информация. Например, комментарий
+                            курьеру.
                         </span>
                     </div>
                 </div>

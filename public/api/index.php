@@ -13,7 +13,7 @@ $request = Request::getInstance();
 $methodFactory = new MethodFactory();
 $formatFactory = new FormatFactory();
 
-$format = $formatFactory->create($request->fetch('format'));
+$format = $formatFactory->create($request->fetch('format'), $request);
 $method = $methodFactory->create($request->fetch('method'));
 
 $response = new Response();
