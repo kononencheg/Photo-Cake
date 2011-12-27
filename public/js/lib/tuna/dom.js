@@ -191,7 +191,7 @@
     };
 
     tuna.dom.stopPropagation = function(event) {
-        if (event.stopPropagation() !== undefined) {
+        if (event.stopPropagation !== undefined) {
             event.stopPropagation();
         } else {
             event.cancelBubble = true;
