@@ -123,7 +123,7 @@
 
     tuna.dom.addEventListener = function(element, type, handler) {
         if (element.addEventListener !== undefined) {
-            element.addEventListener(type, handler);
+            element.addEventListener(type, handler, false);
         } else if (element.attachEvent !== undefined) {
             var eventName = 'on' + type;
             if (element[eventName] === undefined) {
@@ -145,7 +145,7 @@
 
     tuna.dom.removeEventListener = function(element, type, handler) {
         if (element.removeEventListener !== undefined) {
-            element.removeEventListener(type, handler);
+            element.removeEventListener(type, handler, false);
         } else if (element.detachEvent !== undefined) {
             var eventName = 'on' + type;
             if (element[eventName] === undefined) {
@@ -161,8 +161,9 @@
         var result = false;
         var doc = element.ownerDocument;
 
+        var event = null;
         if (doc.createEventObject !== undefined){
-            var event = doc.createEventObject();
+            event = doc.createEventObject();
             event.data = data;
 
             var eventName = 'on' + type;
@@ -172,8 +173,8 @@
                 result = element.fireEvent(eventName, event);
             }
         } else {
-            var event = document.createEvent('UIEvents');
-            event.initEvent(type, true, true);
+            event = document.createEvent('UIEvents');
+            event.initUIEvent(type, true, true, window, 1);
             event.data = data;
 
             result = !element.dispatchEvent(event);
