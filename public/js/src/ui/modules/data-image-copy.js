@@ -19,7 +19,7 @@
                 var image = targetDataImage.getTarget();
                 var parent = currentImage.parentNode;
                 if (parent !== null) {
-                    var newImage = image.cloneNode();
+                    var newImage = image.cloneNode(false);
                     newImage.id = currentImage.id;
                     newImage.className = currentImage.className;
 
