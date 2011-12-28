@@ -29,7 +29,7 @@
                 }
             };
 
-            tardogetDataImage.addEventListener('loaded', replaceImage);
+            targetDataImage.addEventListener('loaded', replaceImage);
             replaceImage();
 
             return currentImage;
