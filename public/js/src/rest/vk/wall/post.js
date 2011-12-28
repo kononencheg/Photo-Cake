@@ -45,8 +45,8 @@
             result = JSON.parse(data);
         } catch (error) {}
 
-        if (result !== null) {
-            VK.api('photos.saveWallPhoto', result, this.__handleSavePhoto);
+        if (result !== null && result.response !== undefined) {
+            VK.api('photos.saveWallPhoto', result.response, this.__handleSavePhoto);
         } else {
             this.dispatch('error', data);
         }

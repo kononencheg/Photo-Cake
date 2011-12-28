@@ -1,7 +1,7 @@
 (function() {
 
     var OrderController = function(id) {
-        tuna.view.StepViewController.call(this, id);
+        tuna.view.PageViewController.call(this, id);
 
         this.__form = null;
     };
@@ -17,18 +17,26 @@
         this.__form = this._container.getOneModuleInstance('form');
 
         var self = this;
-        var button = tuna.dom.selectOne('#submit_order_button');
-        button.onclick = function() {
+        tuna.dom.selectOne('#submit_order_button').onclick = function() {
             self.__form.submit();
         };
 
-        var imageDataInput = tuna.dom.selectOne('#cake_image_data');
-        imageDataInput.value = this._db.get('cake_image');
 
-        //var photoDataInput = tuna.dom.selectOne('#cake_photo_data');
-        //photoDataInput.value = this._db.get('cake_photo');
     };
 
+    OrderController.prototype.open = function() {
+        var cakeParams = this._db.get('cake_params');
+
+        this._container.applyData({
+            'cake': {
+                'recipe': this._db.get('recipe'),
+                'weight': cakeParams.dimensions.mass,
+                'image_data': this._db.get('cake_image'),
+                'photo_data': this._db.get('cake_photo')
+            },
+            'price': this._db.get('price')
+        });
+    };
 
     tuna.view.registerController(new OrderController('order_step'));
 })();

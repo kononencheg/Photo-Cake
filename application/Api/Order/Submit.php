@@ -31,13 +31,22 @@ class Submit extends \PhotoCake\Api\Method\Method
     {
         $this->applyFilter(array(
             'image_data' => FILTER_UNSAFE_RAW,
-            'name' => FILTER_SANITIZE_STRING,
+
+            'name'  => FILTER_SANITIZE_STRING,
             'phone' => FILTER_SANITIZE_STRING,
             'email' => FILTER_VALIDATE_EMAIL,
+
             'address' => FILTER_UNSAFE_RAW,
-            'day' => FILTER_VALIDATE_INT,
+            'city'    => FILTER_UNSAFE_RAW,
+
+            'day'   => FILTER_VALIDATE_INT,
             'month' => FILTER_VALIDATE_INT,
-            'year' => FILTER_VALIDATE_INT,
+            'year'  => FILTER_VALIDATE_INT,
+
+            'price'  => FILTER_VALIDATE_FLOAT,
+            'weight' => FILTER_VALIDATE_INT,
+            'recipe' => FILTER_SANITIZE_STRING,
+            'recipe_desc' => FILTER_SANITIZE_STRING,
         ), array(
             'image_data' => array( NULL => 'Ошибка обработки данных торта' ),
             'name' => array( NULL => 'Имя должно быть задано' ),
@@ -46,10 +55,18 @@ class Submit extends \PhotoCake\Api\Method\Method
                 NULL => 'Адрес должен быть задан',
                 false => 'Электронный адрес не корректен'
             ),
+
             'address' => array( NULL => 'Адрес должен быть задан' ),
+            'city' => array( NULL => '' ),
+
             'day' => array( NULL => 'Дата должна быть задана' ),
             'month' => array( NULL => '' ),
             'year' => array( NULL => '' ),
+
+            'price'  => array( NULL => '' ),
+            'weight' => array( NULL => '' ),
+            'recipe' => array( NULL => '' ),
+            'recipe_desc' => array( NULL => '' ),
         ));
     }
 
@@ -123,48 +140,40 @@ class Submit extends \PhotoCake\Api\Method\Method
             <body>
                 <h1>Заказ</h1>
 
-                <p>
-                    Вы заказли торт с помощью приложения Фото На Торте! Спасибо
-                    вам огромное! Надеемся, что вам понравится!
-                </p>
+                <p> Вы заказли торт с помощью приложения Фото На Торте! Спасибо
+                    вам огромное! Надеемся, что вам понравится! </p>
 
                 <h2>Параметры заказа</h2>
 
-                <table>
-                    <tbody>
-                        <tr><th>Ваше имя:</h><td>
-                            ' . $this->getParam('name') . '
-                        </td></tr>
-                        <tr><th>Ваш телефон:</th><td>
-                            ' . $this->getParam('phone') . '
-                        </td></tr>
-                        <tr><th>Адрес доставки:</th><td>
-                            ' . $this->getParam('address') . '
-                        </td></tr>
-                        <tr><th>Дата доставки:</th><td>
-                            ' . $this->getParam('day') . ' \
-                            ' . $this->getParam('month') . ' \
-                            ' . $this->getParam('year') . '
-                        </td></tr>
-                        <tr><th>Торт:</th><td>
-                            <img alt="Торт" src="' . $this->imageUrl . '" />
-                        </td></tr>
-                        <tr><th>Изображения для печати:</th><td>
-                            ' . ($this->photoUrl ?
-                                    '<img alt="Нет изображения" src="' . $this->photoUrl . '" />' :
-                                    'Изображение отсутствует') . '
-                        </td></tr>
-                        <tr><th>Итоговая стоимось (руб.):</th><td>
+                <table><tbody>' .
+                    $this->getMailRow('Ваше имя', $this->getParam('name')) .
+                    $this->getMailRow('Ваш телефон', $this->getParam('phone')) .
+                    $this->getMailRow('Город', $this->getParam('city')) .
+                    $this->getMailRow('Адрес доставки', $this->getParam('address')) .
+                    $this->getMailRow('Дата доставки',
+                                      $this->getParam('day') . ' \ ' .
+                                      $this->getParam('month') . ' \ ' .
+                                      $this->getParam('year')) .
+                    $this->getMailRow('Торт', '<img alt="Торт" src="' . $this->imageUrl . '" />') .
+                    $this->getMailRow('Изображения для печати',
+                                      ($this->photoUrl ?
+                                        '<img alt="Изображения для печати" src="' . $this->photoUrl . '" />' :
+                                        'Изображение отсутствует')) .
+                    $this->getMailRow('Рецепт', $this->getParam('recipe')) .
+                    $this->getMailRow('Описание рецепта', $this->getParam('recipe_desc')) .
+                    $this->getMailRow('Вес (кг.)', $this->getParam('weight')) .
+                    $this->getMailRow('Комментарий', $this->getParam('comment')) .
+                    $this->getMailRow('Цена (руб.)', $this->getParam('price')) .
+                '</tbody></table>
 
-                        </td></tr>
-                    </tbody>
-                </table>
-
-                <p>
-                    По указанному вами телефону в течении дня с вами свяжется
-                    представитель компании для уточнения заказа.
-                </p>
+                <p> По указанному вами телефону в течении дня с вами свяжется
+                    представитель компании для уточнения заказа. </p>
             </body>
         </html>';
+    }
+
+
+    private function getMailRow($name, $value) {
+        return '<tr><td><b>' . $name . ':</b></td><td>' . $value . '</td></tr>';
     }
 }

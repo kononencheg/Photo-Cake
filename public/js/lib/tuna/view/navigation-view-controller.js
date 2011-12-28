@@ -9,7 +9,8 @@
 
         this.__currentPage = null;
 
-        this._handlePageChange = tuna.bind(this._handlePageChange, this);
+        this._closePage = tuna.bind(this._closePage, this);
+        this._openPage = tuna.bind(this._openPage, this);
     };
 
     tuna.extend(NavigationViewController, tuna.view.ViewController);
@@ -22,18 +23,21 @@
     NavigationViewController.prototype._initActions = function(modules) {
         this._pageNavigation = this._container.getOneModuleInstance('navigation');
 
-        this._pageNavigation.addEventListener('select', this._handlePageChange);
+        this._pageNavigation.addEventListener('select', this._closePage);
+        this._pageNavigation.addEventListener('selected', this._openPage);
 
         this._setCurrentPage(this._pageNavigation.getLastSelectedIndex());
     };
 
-    NavigationViewController.prototype._handlePageChange = function(event, index) {
+    NavigationViewController.prototype._openPage = function(event, index) {
+        this._setCurrentPage(index);
+    };
+
+    NavigationViewController.prototype._closePage = function(event, index) {
         if (this._canSwitchTo(index)) {
             if (this._currentController !== null) {
                 this._currentController.close();
             }
-
-            this._setCurrentPage(index);
         } else {
             event.preventDefault();
         }

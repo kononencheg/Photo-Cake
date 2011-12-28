@@ -43,6 +43,9 @@
             return false;
         }
 
+        this._db.set('price', this.__calculatePrice());
+        this._db.set('recipe', this.__selectedRecipe);
+
         return true;
     };
 
