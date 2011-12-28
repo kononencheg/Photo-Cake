@@ -37,8 +37,8 @@
         return true;
     };
 
-    RecipeController.prototype.canClose = function(nextPage) {
-        if (nextPage.id !== 'share_step' && this.__selectedRecipe === null) {
+    RecipeController.prototype.canClose = function(index) {
+        if (index === 'order_step' && this.__selectedRecipe === null) {
             alert('Для продолжения необходимо выбрать рецепт!');
             return false;
         }

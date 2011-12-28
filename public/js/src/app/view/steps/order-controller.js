@@ -14,14 +14,21 @@
     };
 
     OrderController.prototype._initActions = function() {
-        this.__form = this._container.getOneModuleInstance('form');
-
         var self = this;
-        tuna.dom.selectOne('#submit_order_button').onclick = function() {
-            self.__form.submit();
-        };
 
+        this.__form = this._container.getOneModuleInstance('form');
+        this.__form.addEventListener('result', function() {
+            alert('Спасибо за заказ! Пожалуйста, ожидайте звонка!');
+            self._navigation.selectIndex('title_step');
+        });
 
+        tuna.dom.addEventListener(
+            tuna.dom.selectOne('#submit_order_button'), 'click', function() {
+                if (confirm('Вы уверены что правильно заполнили все поля?')) {
+                    self.__form.submit();
+                }
+            }
+        );
     };
 
     OrderController.prototype.open = function() {

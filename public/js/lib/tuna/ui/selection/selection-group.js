@@ -70,6 +70,10 @@
         return this._itemsCollection.getItemAt(index);
     };
 
+    SelectionGroup.prototype.mapItems = function(callback) {
+        this._itemsCollection.mapItems(callback);
+    };
+
     SelectionGroup.prototype.getSelectedIndexes = function() {
         return this._selectionRule.getSelectedIndexes();
     };

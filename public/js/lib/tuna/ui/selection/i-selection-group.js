@@ -22,6 +22,8 @@
 
     ISelectionGroup.prototype.getItemAt = function(index) {};
 
+    ISelectionGroup.prototype.mapItems = function(callback) {};
+
 
     ISelectionGroup.prototype.updateView = function() {};
 

@@ -3,11 +3,17 @@
 
     var PageViewController = function(targetID) {
         tuna.view.ViewController.call(this, targetID);
+
+        this._navigation = null;
     };
 
     tuna.extend(PageViewController, tuna.view.ViewController);
 
-    PageViewController.prototype.canClose = function(nextPage) {
+    PageViewController.prototype.setNavigation = function(navigation) {
+        this._navigation = navigation;
+    };
+
+    PageViewController.prototype.canClose = function(index) {
         return true;
     };
 

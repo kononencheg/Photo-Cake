@@ -38,6 +38,13 @@
         this.__items = {};
     };
 
+    NamedElementsCollection.prototype.mapItems = function(callback) {
+        for (var index in this.__items) {
+            if (this.__items.hasOwnProperty(index)) {
+                callback(index, this.__items[index]);
+            }
+        }
+    };
 
     tuna.ui.selection.items.NamedElementsCollection = NamedElementsCollection;
 })();

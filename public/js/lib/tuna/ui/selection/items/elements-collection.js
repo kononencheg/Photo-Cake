@@ -23,6 +23,16 @@
         this.__items.length = 0;
     };
 
+    ElementsCollection.prototype.mapItems = function(callback) {
+        var i = 0,
+            l = this.__items.length;
+
+        while (i < l) {
+            callback(i, this.__items[i]);
+
+            i++;
+        }
+    };
 
     tuna.ui.selection.items.ElementsCollection = ElementsCollection;
 })();

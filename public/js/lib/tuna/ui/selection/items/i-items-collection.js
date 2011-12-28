@@ -12,6 +12,8 @@
 
     IItemsCollection.prototype.clear = function() {};
 
+    IItemsCollection.prototype.mapItems = function(callback) {};
+
 
     tuna.ui.selection.items.IItemsCollection = IItemsCollection;
 })();

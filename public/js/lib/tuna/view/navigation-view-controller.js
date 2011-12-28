@@ -9,6 +9,7 @@
 
         this.__currentPage = null;
 
+        this._testClose = tuna.bind(this._testClose, this);
         this._closePage = tuna.bind(this._closePage, this);
         this._openPage = tuna.bind(this._openPage, this);
     };
@@ -20,11 +21,20 @@
         this._container.requireModule('navigation');
     };
 
-    NavigationViewController.prototype._initActions = function(modules) {
+    NavigationViewController.prototype._initActions = function() {
         this._pageNavigation = this._container.getOneModuleInstance('navigation');
 
-        this._pageNavigation.addEventListener('select', this._closePage);
+        this._pageNavigation.addEventListener('select', this._testClose);
+        this._pageNavigation.addEventListener('deselected', this._closePage);
         this._pageNavigation.addEventListener('selected', this._openPage);
+
+        var self = this;
+        this._pageNavigation.mapItems(function(index, page) {
+            var pageController = tuna.view.getController(page);
+            if (pageController !== null) {
+                pageController.setNavigation(self._pageNavigation);
+            }
+        });
 
         this._setCurrentPage(this._pageNavigation.getLastSelectedIndex());
     };
@@ -33,20 +43,21 @@
         this._setCurrentPage(index);
     };
 
-    NavigationViewController.prototype._closePage = function(event, index) {
-        if (this._canSwitchTo(index)) {
-            if (this._currentController !== null) {
-                this._currentController.close();
-            }
-        } else {
+    NavigationViewController.prototype._testClose = function(event, index) {
+        if (!this._canClose(index)) {
             event.preventDefault();
         }
     };
 
-    NavigationViewController.prototype._canSwitchTo = function(index) {
+    NavigationViewController.prototype._closePage = function(event, index) {
         if (this._currentController !== null) {
-            var nextPage = this._pageNavigation.getItemAt(index);
-            return this._currentController.canClose(nextPage);
+            this._currentController.close();
+        }
+    };
+
+    NavigationViewController.prototype._canClose = function(index) {
+        if (this._currentController !== null) {
+            return this._currentController.canClose(index);
         }
 
         return true;
