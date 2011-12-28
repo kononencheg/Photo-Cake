@@ -86,7 +86,7 @@
                     <div class="input">
                         <textarea id="address" name="address" rows="3"></textarea>
                         <span class="j-message help-block">
-                            Адрес, куда доставлять торт.
+                            <font color="black">Стоимость доставки: 450 рублей.</font>
                         </span>
                     </div>
                 </div>
@@ -165,14 +165,18 @@
         </form>
     </div>
     <div class="span5">
-        <div class="cake-price">
-            <h3>
-                Цена торта: <small class="t-cake-price">1000 рублей</small>
-            </h3>
-        </div>
         <div class="cake-image">
             <img class="j-data-image-copy" alt="Загрузка тортика..."
                  data-image-selector="#base_cake_image" />
+        </div>
+
+        <div class="cake-price">
+            <h3>
+                Цена торта:
+                <small>
+                    <span class="t-cake-price"></span> (+450) рублей.
+                </small>
+            </h3>
         </div>
     </div>
  </div>
@@ -191,5 +195,8 @@
                    tuna:path="cake/weight" />
 
         <tuna:attr tuna:name="value" tuna:target="t-price" tuna:path="price" />
+
+        <tuna:spot tuna:target="t-cake-price" tuna:path="price" />
+
     </tuna:template>
 </div>

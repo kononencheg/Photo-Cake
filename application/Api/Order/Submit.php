@@ -163,7 +163,7 @@ class Submit extends \PhotoCake\Api\Method\Method
                     $this->getMailRow('Описание рецепта', $this->getParam('recipe_desc')) .
                     $this->getMailRow('Вес (кг.)', $this->getParam('weight')) .
                     $this->getMailRow('Комментарий', $this->getParam('comment')) .
-                    $this->getMailRow('Цена (руб.)', $this->getParam('price')) .
+                    $this->getMailRow('Цена (руб.)', $this->getParam('price') . ' + 450') .
                 '</tbody></table>
 
                 <p> По указанному вами телефону в течении дня с вами свяжется
