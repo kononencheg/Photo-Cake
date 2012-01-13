@@ -78,7 +78,7 @@
             case 'strawberry':
             case 'orange':
             case 'peach':
-            case 'lemon': return 50;
+            case 'lemon': return 10;
 
             case 'pig1':
             case 'car1':
