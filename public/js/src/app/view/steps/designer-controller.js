@@ -92,16 +92,18 @@
             case 'bear1':
             case 'car2':
             case 'car3':
-            case 'mat1':
+            case 'mat1': return 250;
+
             case 'doll1':
-            case 'doll2': return 60;
+            case 'doll2': return 350;
 
             case 'flower1':
-            case 'flower2':
+            case 'flower2': return 300;
+            
             case 'flower3':
             case 'flower4':
             case 'flower5':
-            case 'flower6': return 60;
+            case 'flower6': return 200;
         }
     };
 
