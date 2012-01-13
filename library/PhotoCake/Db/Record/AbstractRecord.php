@@ -15,6 +15,11 @@ abstract class AbstractRecord implements RecordInterface
     }
 
     /**
+     * @var string
+     */
+    public $name = NULL;
+
+    /**
      * @var array
      */
     protected $fields = array();
@@ -69,7 +74,7 @@ abstract class AbstractRecord implements RecordInterface
 
         foreach ($this->data as $name => $value) {
             if (is_object($value) && AbstractRecord::isRecord($value)) {
-                $result[$name] = $value->dbSerialize();
+                $result[$name] = $value->spanSerialize($this->name);
             } else {
                 $result[$name] = $value;
             }
@@ -91,6 +96,11 @@ abstract class AbstractRecord implements RecordInterface
 
         return $result;
     }
+
+    /**
+     * @param string $parent
+     */
+    public function spanSerialize($parent) {}
 
     /**
      * @abstract

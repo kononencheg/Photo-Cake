@@ -8,8 +8,8 @@
 
 <script type="text/javascript">
     FAPI.init(
-        '<?php echo $this->_session->app['api_server'] ?>',
-        '<?php echo $this->_session->app['apiconnection'] ?>',
+        '<?php echo $this->session->app['api_server'] ?>',
+        '<?php echo $this->session->app['apiconnection'] ?>',
         function() {
             FAPI.Client.initialize();
             main();

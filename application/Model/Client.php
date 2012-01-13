@@ -4,6 +4,8 @@ namespace Model;
 
 class Client extends \PhotoCake\Db\Mongo\MongoRecord
 {
+    public $name = 'clients';
+
     /**
      * @var array
      */
@@ -12,11 +14,5 @@ class Client extends \PhotoCake\Db\Mongo\MongoRecord
         'name' => 'string',
         'networks' => 'array',
         'phone' => 'string',
-    );
-
-    protected $embedFields = array(
-        'orders' => array(
-
-        ),
     );
 }
