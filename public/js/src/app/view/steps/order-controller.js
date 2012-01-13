@@ -41,7 +41,7 @@
                 'image_data': this._db.get('cake_image'),
                 'photo_data': this._db.get('cake_photo')
             },
-            'price': this._db.get('price')
+                'price': this._db.get('price')
         });
     };
 

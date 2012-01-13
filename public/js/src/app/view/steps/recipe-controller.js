@@ -139,7 +139,7 @@
     };
 
     RecipeController.prototype.__calculatePrice = function() {
-        var result = 650;
+        var result = this._db.get('deco_price');
 
         if (this.__selectedRecipe !== null) {
             var cakeParams = this._db.get('cake_params');

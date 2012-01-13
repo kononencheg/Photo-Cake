@@ -43,17 +43,72 @@
             this._db.set('cake_params', JSON.parse(cakeData.shift()));
             this._db.set('cake_image', cakeData.shift());
             this._db.set('cake_photo', cakeData.shift());
+
+            this._db.set('deco_price', this.__calculatePrice());
         }
 
         var cakeDataImage = this._container.getOneModuleInstance('data-image');
         cakeDataImage.setData(this._db.get('cake_image'));
     };
 
+    DesignerController.prototype.__calculatePrice = function() {
+        var price = 0;
+
+        var cakeContent = this._db.get('cake_params').content;
+        if (cakeContent.deco !== undefined) {
+            var deco = cakeContent.deco;
+
+            var i = 0,
+                l = deco.length;
+            while (i < l) {
+                price += this.__getPriceByName(deco[i].name);
+                i++;
+            }
+        }
+
+        return price;
+    };
+
+    DesignerController.prototype.__getPriceByName = function(name) {
+        switch (name) {
+            case 'cherry':
+            case 'grape':
+            case 'kiwi':
+            case 'raspberry':
+            case 'strawberry':
+            case 'orange':
+            case 'peach':
+            case 'lemon': return 50;
+
+            case 'pig1':
+            case 'car1':
+            case 'hare1':
+            case 'hedgehog1':
+            case 'moose1':
+            case 'owl1':
+            case 'pin1':
+            case 'sheep1':
+            case 'raven1':
+            case 'bear1':
+            case 'car2':
+            case 'car3':
+            case 'mat1':
+            case 'doll1':
+            case 'doll2': return 60;
+
+            case 'flower1':
+            case 'flower2':
+            case 'flower3':
+            case 'flower4':
+            case 'flower5':
+            case 'flower6': return 60;
+        }
+    };
+
     DesignerController.prototype.onFlashReady = function() {
         this.__movie = swfobject.getObjectById(this.__movieID);
         this.__movie.initialize(DECO_DATA, 'round', 0.25);
     };
-
 
 
     var controller = new DesignerController('designer_step');
