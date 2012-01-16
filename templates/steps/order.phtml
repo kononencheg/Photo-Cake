@@ -1,0 +1,202 @@
+<div class="row">
+    <div class="span5">
+        <h2>Оформление заказа!</h2>
+    </div>
+    <div class="span7">
+        <a id="submit_order_button"
+           class="next-btn btn primary large pull-right">
+            Заказать!
+        </a>
+        <a class="j-navigation-link next-btn btn primary large pull-right"
+           data-href="recipe_step">
+            &laquo; Назад
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span7">
+        <form class="j-form" action="/api" method="POST" target="support_frame">
+            <div class="j-form-message alert-message hidden"></div>
+
+            <input type="hidden" name="method" value="orders.submit" />
+            <input type="hidden" name="format" value="frame-callback" />
+
+            <input class="t-image-data" type="hidden" name="image_data" />
+            <input class="t-photo-data" type="hidden" name="photo_data" />
+
+            <input class="t-recipe-desc" type="hidden" name="recipe_desc" />
+            <input class="t-recipe" type="hidden" name="recipe" />
+
+            <input class="t-weight" type="hidden" name="weight" />
+            <input class="t-price" type="hidden" name="price" />
+
+            <fieldset>
+                <legend>Личная информация</legend>
+
+                <div class="j-name-input clearfix">
+                    <label for="name">Имя *</label>
+                    <div class="input">
+                        <input id="name" name="name" type="text" class="t-user-name" />
+                        <span class="j-message help-block">
+                            Ваше настоящее имя.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="j-phone-input clearfix">
+                    <label for="phone">Телефон *</label>
+                    <div class="input">
+                        <input id="phone" name="phone" type="text" />
+                        <span class="j-message help-block">
+                            Чтобы мы могли с вами связаться
+                        </span>
+                    </div>
+                </div>
+
+                <div class="j-email-input clearfix">
+                    <label for="email">Email *</label>
+                    <div class="input">
+                        <input id="email" name="email" type="text" />
+                        <span class="j-message help-block">
+                            Для подтверждения заказа
+                        </span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Информация о доставке</legend>
+
+                <div class="j-city-input clearfix">
+                    <label for="city">Город *</label>
+                    <div class="input">
+                        <select id="city" name="city">
+                            <option value="Санкт-Петербург">Санкт-Петербург</option>
+                            <option value="Москва">Москва</option>
+                        </select>
+                        <span class="j-message help-block">
+                            Пока, только Санкт-Петербург и Москва.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="j-address-input clearfix">
+                    <label for="address">Адрес *</label>
+                    <div class="input">
+                        <textarea id="address" name="address" rows="3"></textarea>
+                        <span class="j-message help-block">
+                            <font color="black">Стоимость доставки: 450 рублей.</font>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="j-day-input clearfix">
+                    <label for="day">Дата *</label>
+                    <div class="input">
+                        <select id="day" name="day" class="micro">
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                        </select> \
+                        <select name="month" class="small">
+                            <option value="01">Январь</option>
+                            <option value="02">Февраль</option>
+                            <option value="03">Март</option>
+                            <option value="04">Апрель</option>
+                            <option value="05">Май</option>
+                            <option value="06">Июнь</option>
+                            <option value="07">Июль</option>
+                            <option value="08">Август</option>
+                            <option value="09">Сентябрь</option>
+                            <option value="10">Октябрь</option>
+                            <option value="11">Ноябрь</option>
+                            <option value="12">Декабрь</option>
+                        </select> \
+                        <select name="year" class="mini">
+                            <option value="2012">2012</option>
+                            <option value="2011">2011</option>
+                        </select>
+                        <span class="j-message help-block">
+                            День, в который курьер привезет торт.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="j-comment-input clearfix">
+                    <label for="comment">Комментарий</label>
+                    <div class="input">
+                        <textarea id="comment" name="comment" rows="3"></textarea>
+                        <span class="j-message help-block">
+                            Дополнительная информация. Например, комментарий
+                            курьеру.
+                        </span>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="span5">
+        <div class="cake-image">
+            <img class="j-data-image-copy" alt="Загрузка тортика..."
+                 data-image-selector="#base_cake_image" />
+        </div>
+
+        <div class="cake-price">
+            <h3>
+                Цена торта:
+                <small>
+                    <span class="t-cake-price"></span> (+450) рублей.
+                </small>
+            </h3>
+        </div>
+    </div>
+ </div>
+
+<div class="hidden">
+    <tuna:template id="order_template">
+        <tuna:attr tuna:name="value" tuna:target="t-image-data"
+                   tuna:path="cake/image_data" />
+        <tuna:attr tuna:name="value" tuna:target="t-photo-data"
+                   tuna:path="cake/photo_data" />
+        <tuna:attr tuna:name="value" tuna:target="t-recipe-desc"
+                   tuna:path="cake/recipe/desc" />
+        <tuna:attr tuna:name="value" tuna:target="t-recipe"
+                   tuna:path="cake/recipe/name" />
+        <tuna:attr tuna:name="value" tuna:target="t-weight"
+                   tuna:path="cake/weight" />
+
+        <tuna:attr tuna:name="value" tuna:target="t-price" tuna:path="price" />
+
+        <tuna:spot tuna:target="t-cake-price" tuna:path="price" />
+
+    </tuna:template>
+</div>

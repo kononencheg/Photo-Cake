@@ -12,11 +12,12 @@ class MongoCollection extends \PhotoCake\Db\Collection\AbstractCollection
     private $collection;
 
     /**
-     * @param \MongoCollection $collection
+     * @param \MongoDB $db
+     * @param string $collection
      */
-    public function __construct(\MongoCollection $collection)
+    public function __construct(\MongoDB $db, $name)
     {
-        $this->collection = $collection;
+        $this->collection = $db->selectCollection($name);
     }
 
     /**
@@ -30,9 +31,9 @@ class MongoCollection extends \PhotoCake\Db\Collection\AbstractCollection
     /**
      * @param \PhotoCake\Db\Record\RecordInterface $record
      */
-    public function update(RecordInterface &$record)
+    public function update(RecordInterface $record)
     {
-        $data = $record->serialize();
+        $data = $record->dbSerialize();
         $this->collection->save($data);
         $record->populate($data);
     }
@@ -105,7 +106,7 @@ class MongoCollection extends \PhotoCake\Db\Collection\AbstractCollection
      * @param \PhotoCake\Db\Record\RecordInterface $record
      * @return mixed
      */
-    public function remove(RecordInterface &$record)
+    public function remove(RecordInterface $record)
     {
         return $this->collection->remove(array(
             '_id' => $this->mongoID($record->getID())

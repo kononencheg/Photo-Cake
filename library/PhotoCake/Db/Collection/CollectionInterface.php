@@ -17,7 +17,7 @@ interface CollectionInterface
      * @param \PhotoCake\Db\Record\RecordInterface $record
      * @return void
      */
-    function update(RecordInterface &$record);
+    function update(RecordInterface $record);
 
     /**
      * @abstract
@@ -58,7 +58,7 @@ interface CollectionInterface
      * @param \PhotoCake\Db\Record\RecordInterface$record
      * @return void
      */
-    function remove(RecordInterface &$record);
+    function remove(RecordInterface $record);
 
     /**
      * @abstract

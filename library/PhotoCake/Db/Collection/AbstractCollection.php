@@ -15,7 +15,7 @@ abstract class AbstractCollection implements CollectionInterface
     /**
      * @param \PhotoCake\Db\Record\RecordFactoryInterface $factory
      */
-    public function setRecordFactory(RecordFactoryInterface &$factory)
+    public function setRecordFactory(RecordFactoryInterface $factory)
     {
         $this->recordFactory = $factory;
     }

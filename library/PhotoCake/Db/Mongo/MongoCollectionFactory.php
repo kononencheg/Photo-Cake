@@ -3,14 +3,14 @@
 namespace PhotoCake\Db\Mongo;
 
 use PhotoCake\Db\Collection\CollectionFactoryInterface;
+use PhotoCake\Db\Record\RecordFactoryInterface;
 
 class MongoCollectionFactory implements CollectionFactoryInterface
 {
-
     /**
-     * @var \Mongo
+     * @var \MongoDB
      */
-    private $mongo = NULL;
+    private $db = NULL;
 
     /**
      * @var \PhotoCake\Db\Record\RecordFactoryInterface
@@ -22,23 +22,18 @@ class MongoCollectionFactory implements CollectionFactoryInterface
      */
     private $collections = array();
 
-    /**
-     * 
-     */
-    private function __construct() {
-        // TODO: Set connection options externally
-        // TODO: Create connection lazy
-        $this->mongo = new \Mongo();
+
+    public function __construct(\MongoDB $db) {
+        $this->db = $db;
     }
 
     /**
      * @param string $name
-     * @return PhotoCake\Db\Record\RecordInterface
+     * @return \PhotoCake\Db\Mongo\MongoCollection
      */
     public function create($name) {
         if (!isset($this->collections[$name])) {
-            $collection = new MongoCollection
-                            ($this->mongo->selectCollection('cakes', $name));
+            $collection = new MongoCollection($this->db, $name);
             $collection->setRecordFactory($this->recordFactory);
 
             $this->collections[$name] = $collection;
@@ -50,24 +45,7 @@ class MongoCollectionFactory implements CollectionFactoryInterface
     /**
      * @param \PhotoCake\Db\Record\RecordFactoryInterface $recordFactory
      */
-    public function setRecordFactory($recordFactory) {
+    public function setRecordFactory(RecordFactoryInterface $recordFactory) {
         $this->recordFactory = $recordFactory;
-    }
-
-    /**
-     * @var \PhotoCake\Db\Mongo\MongoCollectionFactory
-     */
-    private static $instance = NULL;
-
-    /**
-     * @static
-     * @return \PhotoCake\Db\Mongo\MongoCollectionFactory
-     */
-    public static function getInstance() {
-        if (self::$instance === NULL) {
-            self::$instance = new MongoCollectionFactory();
-        }
-
-        return self::$instance;
     }
 }

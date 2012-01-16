@@ -12,7 +12,8 @@ class Client extends \PhotoCake\Db\Mongo\MongoRecord
     protected $fields = array(
         'email' => 'string',
         'name' => 'string',
-        'networks' => 'array',
+        'network' => 'string',
+        'network_id' => 'string',
         'phone' => 'string',
     );
 }

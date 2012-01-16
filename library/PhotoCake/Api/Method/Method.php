@@ -9,6 +9,16 @@ abstract class Method
     /**
      * @var array
      */
+    protected $arguments = array();
+
+    /**
+     * @var \PhotoCake\Api\Arguments\Filter
+     */
+    private $filter = NULL;
+
+    /**
+     * @var array
+     */
     private $params = array();
 
     /**
@@ -21,17 +31,13 @@ abstract class Method
      */
     public function setResponse(Response $response) {
         $this->response = $response;
+        $this->filter = new \PhotoCake\Api\Arguments\Filter();
     }
 
     /**
      * @return void
      */
     protected function filter() {}
-
-    /**
-     * @return void
-     */
-    protected function test() {}
 
     /**
      * @abstract
@@ -42,14 +48,10 @@ abstract class Method
     /**
      * @param array $params
      */
-    final public function call(array &$params) {
+    final public function call(array $params) {
         $this->params = $params;
 
         $this->filter();
-
-        if (!$this->response->hasErrors()) {
-            $this->test();
-        }
 
         if (!$this->response->hasErrors()) {
             $this->response->setResponse($this->apply());
@@ -60,7 +62,7 @@ abstract class Method
      * @param $name
      * @return mixed
      */
-    protected function getParam($name) {
+    public function __get($name) {
         if (isset($this->params[$name])) {
             return $this->params[$name];
         }
@@ -69,19 +71,24 @@ abstract class Method
     }
 
     /**
-     * @param $filters
-     * @param $messages
+     * @param array $messages
      * @return void
      */
-    protected function applyFilter(array $filters, array $messages) {
-        $filteredParams = filter_var_array($this->params, $filters);
+    protected function applyFilter(array $messages, array $customFilters = array()) {
+        foreach ($this->arguments as $name => $type) {
+            $value = $this->filter->check($this->$name, $type);
 
-        foreach($filteredParams as $name => $value) {
             if (isset($messages[$name]) &&
                 isset($messages[$name][$value])) {
-
                 $this->response->addParamError($name, $messages[$name][$value]);
+            } else {
+                if (isset($customFilters[$name])) {
+                    $this->{$customFilters[$name]}($value);
+                }
+
+                $this->params[$name] = $value;
             }
         }
     }
+
 }

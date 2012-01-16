@@ -4,8 +4,6 @@ namespace PhotoCake\Http;
 
 class Session
 {
-    private $NULL;
-
     private function __construct()
     {
         session_start();
@@ -29,13 +27,13 @@ class Session
      * @param string $name
      * @return mixed
      */
-    public function &get($name)
+    public function get($name)
     {
         if (isset($_SESSION[$name])) {
             return $_SESSION[$name];
         }
 
-        return $this->NULL;
+        return NULL;
     }
 
 
@@ -43,7 +41,7 @@ class Session
      * @param string $name
      * @return void
      */
-    public function remove($name)
+    public function __unset($name)
     {
         unset($_SESSION[$name]);
     }

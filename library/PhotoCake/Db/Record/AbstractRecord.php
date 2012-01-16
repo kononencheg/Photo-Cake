@@ -35,24 +35,58 @@ abstract class AbstractRecord implements RecordInterface
      */
     public function populate(array $data)
     {
-        foreach ($this->fields as $name => $type) {;
+        foreach ($this->fields as $name => $type) {
             if (isset($data[$name])) {
-                if (class_exists($type, true) &&
-                    AbstractRecord::isRecord($type)) {
+                $value = $data[$name];
 
-                    $record = $this->createRecord($type);
+                if (class_exists($type, true)) {
+                    if (AbstractRecord::isRecord($type)) {
+                        $record = $this->createRecord($type);
+                        $record->populate($value);
 
-                    if ($record !== NULL) {
-                        $record->populate($data[$name]);
                         $this->data[$name] = $record;
+                    } else if ($value instanceof $type) {
+                        $this->data[$name] = $value;
                     }
                 } else {
-                    $this->data[$name] = $data[$name];
-
-                    settype($this->data[$name], $type);
+                    settype($value, $type);
+                    $this->data[$name] = $value;
                 }
             }
         }
+    }
+
+    public function __set($name, $value) {
+        $this->set($name, $value);
+    }
+
+    public function __get($name) {
+        return $this->get($name);
+    }
+
+    public function set($name, $value)
+    {
+        if (isset($this->fields[$name])) {
+            $type = $this->fields[$name];
+
+            if (class_exists($type, true)) {
+                if ($value instanceof $type) {
+                    $this->data[$name] = $value;
+                }
+            } else {
+                settype($value, $type);
+                $this->data[$name] = $value;
+            }
+        }
+    }
+
+    public function get($name)
+    {
+        if (isset($this->data[$name])) {
+            return $this->data[$name];
+        }
+
+        return NULL;
     }
 
     /**

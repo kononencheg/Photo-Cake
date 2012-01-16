@@ -7,14 +7,14 @@ use PhotoCake\Db\Record\AbstractRecord;
 abstract class MongoRecord extends AbstractRecord
 {
     /**
-     * @var string
-     */
-    public $collection = NULL;
-
-    /**
      * @var \MongoId
      */
     private $id = NULL;
+
+    /**
+     * @var array
+     */
+    protected $spanFields = array();
 
     /**
      * @param mixed $data
@@ -27,15 +27,6 @@ abstract class MongoRecord extends AbstractRecord
         if (isset($data['_id'])) {
             $this->id = $data['_id'];
         }
-    }
-
-    protected function createRecord($type)
-    {
-        if ($this->collection !== NULL) {
-            return new $type($this->collection);
-        }
-
-        return NULL;
     }
 
     /**
@@ -61,6 +52,31 @@ abstract class MongoRecord extends AbstractRecord
 
         if ($this->id !== NULL) {
             $result['id'] = $this->id->{'$id'};
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string $parent
+     * @return array
+     */
+    public function spanSerialize($parent) {
+        $result = array();
+        $fields = $this->spanFields[$parent];
+
+        foreach ($fields as $i => $name) {
+            if (isset($this->data[$name])) {
+                $value = $this->data[$name];
+
+                if (is_object($value) && AbstractRecord::isRecord($value)) {
+                    $result[$name] = $value->spanSerialize($this->name);
+                } else {
+                    $result[$name] = $value;
+                }
+            } elseif ($name === 'id' && $this->id !== NULL) {
+                $result['id'] = \MongoDBRef::create($this->name, $this->id);
+            }
         }
 
         return $result;

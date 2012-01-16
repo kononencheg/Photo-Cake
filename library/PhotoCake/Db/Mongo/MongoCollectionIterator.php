@@ -29,7 +29,7 @@ class MongoCollectionIterator implements \Iterator
      * @param MongoCollection $collection
      */
     public function __construct
-        (\MongoCursor &$cursor, MongoCollection &$collection)
+        (\MongoCursor $cursor, MongoCollection $collection)
     {
         $this->cursor = $cursor;
 

@@ -26,4 +26,18 @@ interface RecordInterface
      * @return mixed
      */
     public function jsonSerialize();
+
+    /**
+     * @abstract
+     * @param $name
+     * @param $value
+     */
+    public function set($name, $value);
+
+    /**
+     * @abstract
+     * @param $name
+     */
+    public function get($name);
+
 }

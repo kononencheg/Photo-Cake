@@ -2,11 +2,22 @@
 
 require_once($_SERVER["DOCUMENT_ROOT"] . '/bootstrap.php');
 
-use Api\MethodFactory;
+use Api\Methods\MethodFactory;
+
+use Model\RecordFactory;
+
+use PhotoCake\Db\Configuration\ConfigurationManager;
+use PhotoCake\Db\Mongo\MongoConfiguration;
 
 use PhotoCake\Http\Request;
 use PhotoCake\Http\Response\Response;
 use PhotoCake\Http\Response\Format\FormatFactory;
+
+$connection = new MongoConfiguration();
+$connection->setDb('cakes');
+$connection->setRecordFactory(new RecordFactory());
+
+ConfigurationManager::getInstance()->setDefaultConfiguration($connection);
 
 $request = Request::getInstance();
 
@@ -27,20 +38,5 @@ if ($method !== NULL) {
 }
 
 $response->render();
-
-/*
-$order = new \Model\Order();
-$order->populate(array(
-    'index'   => 0,
-    'comment' => 'hello',
-    'cake' => array(
-        'image_url' => 'http://image.jpg',
-        'photo_url' => 'http://photo.jpg',
-        'markup' => '{ "base_color": "0x000000" }',
-    ),
-));
-
-var_dump($order->dbSerialize());
-var_dump($order->jsonSerialize());*/
 
 ?>

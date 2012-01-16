@@ -2,6 +2,8 @@
 
 namespace Model;
 
+use \PhotoCake\Db\Record\AbstractRecord;
+
 class Cake extends \PhotoCake\Db\Mongo\MongoRecord
 {
     public $name = 'cakes';
@@ -13,9 +15,13 @@ class Cake extends \PhotoCake\Db\Mongo\MongoRecord
         'image_url' => 'string',
         'photo_url' => 'string',
         'markup' => 'string',
+        'weight' => 'float',
     );
 
-    public function spanSerialize($parent) {
-
-    }
+    /**
+     * @var array
+     */
+    protected $spanFields = array(
+        'orders' => array('image_url', 'photo_url', 'weight', 'id'),
+    );
 }
