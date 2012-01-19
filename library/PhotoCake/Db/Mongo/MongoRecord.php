@@ -63,7 +63,14 @@ abstract class MongoRecord extends AbstractRecord
      */
     public function spanSerialize($parent) {
         $result = array();
-        $fields = $this->spanFields[$parent];
+
+        $fields = NULL;
+        if (isset($this->spanFields[$parent])) {
+            $fields = $this->spanFields[$parent];
+        } else {
+            $fields = array_keys($this->fields);
+            array_push($fields, 'id');
+        }
 
         foreach ($fields as $i => $name) {
             if (isset($this->data[$name])) {

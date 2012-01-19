@@ -21,8 +21,6 @@ class Payments implements \PhotoCake\Api\Resource\ResourceInterface
 
         $payment->payment_type = \Model\Payment::CASH;
 
-        var_dump($payment);
-
         return $payment;
     }
 

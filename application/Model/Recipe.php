@@ -4,6 +4,9 @@ namespace Model;
 
 class Recipe extends \PhotoCake\Db\Mongo\MongoRecord
 {
+    /**
+     * @var string
+     */
     public $name = 'recipes';
 
     /**
@@ -15,5 +18,12 @@ class Recipe extends \PhotoCake\Db\Mongo\MongoRecord
         'desc' => 'string',
         'image_url' => 'string',
         'price' => 'float',
+    );
+
+    /**
+     * @var array
+     */
+    protected $spanFields = array(
+        'orders' => array('title', 'desc', 'id'),
     );
 }

@@ -28,12 +28,16 @@
 
         try {
             result = JSON.parse(data);
-        } catch (error) { alert(data); }
+        } catch (error) {
+            this.dispatch('error', data);
+        }
 
         if (result !== null) {
-            this.dispatch('result', result);
-        } else {
-            this.dispatch('error', data);
+            if (result.response !== undefined) {
+                this.dispatch('result', result.response);
+            } else {
+                this.dispatch('error', result.errors);
+            }
         }
 
     };

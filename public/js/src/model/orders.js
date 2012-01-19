@@ -28,6 +28,10 @@
         this.__storage.set('recipe_price', this.__getRecipePrice(cake, recipe));
     };
 
+    Orders.prototype.getCurrentRecipe = function() {
+        return this.__storage.get('current_recipe');
+    };
+
     Orders.prototype.getPrice = function() {
         return this.__storage.get('deco_price') +
                     this.__storage.get('recipe_price');

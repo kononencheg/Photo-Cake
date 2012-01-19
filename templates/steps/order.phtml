@@ -16,20 +16,16 @@
 
 <div class="row">
     <div class="span7">
-        <form class="j-form" action="/api" method="POST" target="support_frame">
+        <form class="j-form" action="/api/" method="POST" target="support_frame">
             <div class="j-form-message alert-message hidden"></div>
 
             <input type="hidden" name="method" value="orders.submit" />
             <input type="hidden" name="format" value="frame-callback" />
 
-            <input class="t-image-data" type="hidden" name="image_data" />
-            <input class="t-photo-data" type="hidden" name="photo_data" />
-
-            <input class="t-recipe-desc" type="hidden" name="recipe_desc" />
+            <input class="t-image"  type="hidden" name="image" />
+            <input class="t-photo"  type="hidden" name="photo" />
+            <input class="t-markup" type="hidden" name="markup" />
             <input class="t-recipe" type="hidden" name="recipe" />
-
-            <input class="t-weight" type="hidden" name="weight" />
-            <input class="t-price" type="hidden" name="price" />
 
             <fieldset>
                 <legend>Личная информация</legend>
@@ -37,7 +33,7 @@
                 <div class="j-name-input clearfix">
                     <label for="name">Имя *</label>
                     <div class="input">
-                        <input id="name" name="name" type="text" class="t-user-name" />
+                        <input id="name" name="name" type="text" />
                         <span class="j-message help-block">
                             Ваше настоящее имя.
                         </span>
@@ -91,10 +87,11 @@
                     </div>
                 </div>
 
-                <div class="j-day-input clearfix">
-                    <label for="day">Дата *</label>
+                <div class="j-date-input clearfix">
+                    <label for="date">Дата *</label>
                     <div class="input">
-                        <select id="day" name="day" class="micro">
+                        <input id="date" name="date" value="10000000000" type="hidden"/>
+                        <select class="micro">
                             <option value="01">01</option>
                             <option value="02">02</option>
                             <option value="03">03</option>
@@ -127,7 +124,7 @@
                             <option value="30">30</option>
                             <option value="31">31</option>
                         </select> \
-                        <select name="month" class="small">
+                        <select class="small">
                             <option value="01">Январь</option>
                             <option value="02">Февраль</option>
                             <option value="03">Март</option>
@@ -141,7 +138,7 @@
                             <option value="11">Ноябрь</option>
                             <option value="12">Декабрь</option>
                         </select> \
-                        <select name="year" class="mini">
+                        <select class="mini">
                             <option value="2012">2012</option>
                             <option value="2011">2011</option>
                         </select>
@@ -174,7 +171,7 @@
             <h3>
                 Цена торта:
                 <small>
-                    <span class="t-cake-price"></span> (+450) рублей.
+                    <span class="t-price"></span> (+450) рублей.
                 </small>
             </h3>
         </div>
@@ -183,20 +180,11 @@
 
 <div class="hidden">
     <tuna:template id="order_template">
-        <tuna:attr tuna:name="value" tuna:target="t-image-data"
-                   tuna:path="cake/image_data" />
-        <tuna:attr tuna:name="value" tuna:target="t-photo-data"
-                   tuna:path="cake/photo_data" />
-        <tuna:attr tuna:name="value" tuna:target="t-recipe-desc"
-                   tuna:path="cake/recipe/desc" />
-        <tuna:attr tuna:name="value" tuna:target="t-recipe"
-                   tuna:path="cake/recipe/name" />
-        <tuna:attr tuna:name="value" tuna:target="t-weight"
-                   tuna:path="cake/weight" />
+        <tuna:attr tuna:name="value" tuna:target="t-image" tuna:path="cake/image_base64" />
+        <tuna:attr tuna:name="value" tuna:target="t-photo" tuna:path="cake/photo_base64" />
+        <tuna:attr tuna:name="value" tuna:target="t-markup" tuna:path="cake/markup_json" />
+        <tuna:attr tuna:name="value" tuna:target="t-recipe" tuna:path="recipe/name" />
 
-        <tuna:attr tuna:name="value" tuna:target="t-price" tuna:path="price" />
-
-        <tuna:spot tuna:target="t-cake-price" tuna:path="price" />
-
+        <tuna:spot tuna:target="t-price" tuna:path="price" />
     </tuna:template>
 </div>

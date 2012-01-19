@@ -26,11 +26,10 @@ class Orders extends \PhotoCake\Api\Resource\DbResource
         $order->set('recipe', $recipe);
         $order->set('client', $client);
         $order->set('delivery', $delivery);
-        $order->set('client', $payment);
+        $order->set('payment', $payment);
         $order->set('comment', $comment);
 
-        var_dump($order->dbSerialize());
-        //$this->ordersCollection->update($order);
+        $collection->update($order);
 
         return $order;
     }
@@ -69,21 +68,20 @@ class Orders extends \PhotoCake\Api\Resource\DbResource
                 <h2>Параметры заказа</h2>
 
                 <table><tbody>' .
-                    $this->getMailRow('Ваше имя', $order->client->name) .
-                    $this->getMailRow('Ваш телефон', $order->client->phone) .
-                    $this->getMailRow('Город', $order->delivery->city) .
-                    $this->getMailRow('Адрес доставки', $order->delivery->address) .
-                    $this->getMailRow('Дата доставки', date('Y-M-d', $order->delivery->date->sec)).
-                    $this->getMailRow('Торт', '<img alt="Торт" src="' . $order->cake->image_url . '" />') .
-                    $this->getMailRow('Изображения для печати',
-                                      ($order->cake->photo_url ?
-                                        '<img alt="Изображения для печати" src="' . $order->cake->photo_url . '" />' :
-                                        'Изображение отсутствует')) .
-                    $this->getMailRow('Вес (кг.)', $order->cake->weight) .
-                    $this->getMailRow('Рецепт', $order->recipe->title) .
-                    $this->getMailRow('Описание рецепта', $order->recipe->desc) .
-                    $this->getMailRow('Комментарий', $order->comment) .
-                    $this->getMailRow('Цена (руб.)', $order->payment->total_price ) .
+                    $this->getRow('Ваше имя', $order->client->name) .
+                    $this->getRow('Ваш телефон', $order->client->phone) .
+                    $this->getRow('Город', $order->delivery->city) .
+                    $this->getRow('Адрес доставки', $order->delivery->address) .
+                    $this->getRow('Дата доставки', date('Y-M-d', $order->delivery->date->sec)).
+                    $this->getRow('Торт', '<img alt="Торт" src="' . $order->cake->image_url . '" />') .
+                    $this->getRow('Изображения для печати', ($order->cake->photo_url ?
+                                    '<img alt="Изображения для печати" src="' . $order->cake->photo_url . '" />' :
+                                    'Изображение отсутствует')) .
+                    $this->getRow('Вес (кг.)', $order->cake->weight) .
+                    $this->getRow('Рецепт', $order->recipe->title) .
+                    $this->getRow('Описание рецепта', $order->recipe->desc) .
+                    $this->getRow('Комментарий', $order->comment) .
+                    $this->getRow('Цена (руб.)', $order->payment->total_price) .
                 '</tbody></table>
 
                 <p> По указанному вами телефону в течении дня с вами свяжется
@@ -93,7 +91,7 @@ class Orders extends \PhotoCake\Api\Resource\DbResource
     }
 
 
-    private function getMailRow($name, $value) {
+    private function getRow($name, $value) {
         return '<tr><td><b>' . $name . ':</b></td><td>' . $value . '</td></tr>';
     }
 }

@@ -78,8 +78,10 @@ abstract class Method
         foreach ($this->arguments as $name => $type) {
             $value = $this->filter->check($this->$name, $type);
 
-            if (isset($messages[$name]) &&
+            if (!is_object($value) && !is_array($value) &&
+                isset($messages[$name]) &&
                 isset($messages[$name][$value])) {
+
                 $this->response->addParamError($name, $messages[$name][$value]);
             } else {
                 if (isset($customFilters[$name])) {

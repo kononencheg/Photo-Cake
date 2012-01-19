@@ -32,16 +32,10 @@
     };
 
     OrderController.prototype.open = function() {
-        var cakeParams = this._db.get('cake_params');
-
         this._container.applyData({
-            'cake': {
-                'recipe': this._db.get('recipe'),
-                'weight': cakeParams.dimensions.mass,
-                'image_data': this._db.get('cake_image'),
-                'photo_data': this._db.get('cake_photo')
-            },
-            'price': this._db.get('price')
+            'recipe': model.orders.getCurrentRecipe(),
+            'price':  model.orders.getPrice(),
+            'cake':   model.cakes.getCurrentCake()
         });
     };
 
