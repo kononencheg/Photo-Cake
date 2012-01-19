@@ -15,7 +15,7 @@
         </a>
     </li>
     <li>
-        <form action="/api?method=utils.base64Echo"
+        <form action="/api/?method=utils.base64Echo"
               target="_blank" method="POST">
             
             <input type="hidden" name="type" value="image/jpeg" />
@@ -34,8 +34,8 @@
 </ul>
 
 <div id="friend_list_popup"
-     class="j-selection-group j-transform-container popup"
-     data-template-id="friends_popup_template">
+     class="j-selection-group j-autocomplete popup"
+     data-template-id="friends_autocomplete_template">
 
     <div class="overlay"></div>
     <div class="modal">
@@ -44,8 +44,8 @@
             <h3 class="friends-popup-title">Выберите друга!</h3>
 
             <label class="friends-search">
-                <input id="friend_search_input" type="text"
-                       placeholder="Имя друга" />
+                <input class="j-autocomplete-input" data-list-selector=""
+                       type="text" placeholder="Имя друга" />
             </label>
         </div>
         <div class="modal-body friend-list-overlay">
@@ -62,15 +62,14 @@
 
 
 <div class="hidden">
-    <tuna:template id="friends_popup_template">
+    <tuna:template id="friends_autocomplete_template">
         <tuna:list tuna:target="t-friend-list" tuna:path=""
                    tuna:item-renderer-id="friend_item_renderer"
-                   tuna:item-template-id="selection_item_template"
+                   tuna:item-template-id="friend_item_template"
                    tuna:key-path="$key" />
-
     </tuna:template>
 
-    <tuna:template id="selection_item_template">
+    <tuna:template id="friend_item_template">
         <tuna:spot tuna:target="t-user-name" tuna:path="name" />
         <tuna:attr tuna:target="t-userpic" tuna:name="src"
                    tuna:path="userpic" />

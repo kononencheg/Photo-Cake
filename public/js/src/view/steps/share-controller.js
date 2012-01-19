@@ -3,15 +3,9 @@
     var ShareController = function(id) {
         tuna.view.StepViewController.call(this, id);
 
-        this.__friendsList = null;
-        this.__friendsListContainer = null;
+        this.__friendsAutocomplete = null;
 
         this.__wallPostMethod = null;
-        
-        this.__selectedFriend = null;
-
-        this.__updateSelectedFriend = tuna.bind(this.__updateSelectedFriend, this);
-        this.__updateFriendList = tuna.bind(this.__updateFriendList, this);
     };
 
     tuna.extend(ShareController, tuna.view.StepViewController);
@@ -25,19 +19,16 @@
     };
 
     ShareController.prototype._requireModules = function() {
+        this._container.requireModule('autocomplete');
         this._container.requireModule('data-image-copy');
-        this._container.requireModule('transform-container');
-        this._container.requireModule('selection-group');
         this._container.requireModule('popup');
     };
 
     ShareController.prototype._initActions = function() {
-        this.__initCakeImage();
+        this.__friendsAutocomplete
+            = this._container.getOneModuleInstance('autocomplete');
 
-        this.__initFriendsList();
         this.__initFriendsPopup();
-        this.__initFriendsSearch();
-
         this.__loadFriendsData();
 
         this.__initWallPost();
@@ -58,19 +49,14 @@
             tuna.dom.preventDefault(event);
 
             self.__wallPostMethod.call({
-                'image_data': self._db.get('cake_image')
+                'image_data': model.cakes.getCurrentCake().image_base64
             });
         });
     };
 
-    ShareController.prototype.__initCakeImage = function() {
+    ShareController.prototype.open = function() {
         var downloadDataInput = tuna.dom.selectOne('#download_data_input');
-
-        this._db.addEventListener('cake_image', function(event, data) {
-            downloadDataInput.value = data;
-        });
-
-        downloadDataInput.value = this._db.get('cake_image');
+        downloadDataInput.value = model.cakes.getCurrentCake().image_base64;
     };
 
     ShareController.prototype.__initFriendsPopup = function() {
@@ -82,102 +68,27 @@
         });
 
         popup.addEventListener('popup-apply', function() {
-            self.__wallPostMethod.call({
-                'image_data': self._db.get('cake_image'),
-                'user_id': self.__selectedFriend.id
-            });
-
-            self.__friendsList.clearSelection();
+            var selectedFriend = self.__friendsAutocomplete.getCurrentItem();
+            if (selectedFriend !== null) {
+                self.__wallPostMethod.call({
+                    'image_data': model.cakes.getCurrentCake().image_base64,
+                    'user_id': selectedFriend.id
+                });
+            }
         });
     };
 
-    ShareController.prototype.__initFriendsList = function() {
-        this.__friendsList
-            = this._container.getOneModuleInstance('selection-group');
-
-        this.__friendsList.addEventListener
-            ('selected', this.__updateSelectedFriend);
-        this.__friendsList.addEventListener
-            ('deselected', this.__updateSelectedFriend);
-
-        this._db.addEventListener
-            ('filtered_friends_list', this.__updateSelectedFriend);
-
-        this._db.addEventListener
-            ('filtered_friends_list', this.__updateFriendList);
-
-    };
-
     ShareController.prototype.__loadFriendsData = function() {
-        var self = this;
-
-        this.__friendsListContainer
-            = this._container.getOneModuleInstance('transform-container');
-
         var getFriends = tuna.rest.factory.createMethod('social.friends.get');
 
+        var self = this;
         getFriends.addEventListener('result', function(event, result) {
-            self._db.set('friends_list', result);
-            self._db.set('filtered_friends_list', result);
+            self.__friendsAutocomplete.setData(result);
         });
 
         getFriends.call();
     };
 
-    ShareController.prototype.__initFriendsSearch = function() {
-        var friendNameInput = tuna.dom.selectOne('#friend_search_input');
-        var lastValue = null;
-
-        tuna.dom.addEventListener(
-            friendNameInput, 'keyup', tuna.bind(function(event) {
-                if (friendNameInput.value !== lastValue) {
-                    lastValue = friendNameInput.value;
-
-                    this._db.set
-                        ('filtered_friends_list', this.__filterNamedList
-                            (lastValue, this._db.get('friends_list')));
-                }
-            }, this)
-        );
-    };
-
-    ShareController.prototype.__updateSelectedFriend = function() {
-        var friends = this._db.get('filtered_friends_list');
-        var index = this.__friendsList.getLastSelectedIndex();
-
-        if (friends[index] !== undefined) {
-            this.__selectedFriend = friends[index];
-        } else {
-            this.__selectedFriend = null;
-        }
-    };
-
-    ShareController.prototype.__updateFriendList = function(event, friends) {
-        this.__friendsListContainer.applyData(friends);
-        this.__friendsList.updateView();
-    };
-
-    ShareController.prototype.__filterNamedList = function(term, list) {
-        var result = [];
-
-        if (term.length === 0) {
-            result = list;
-        } else {
-            var needle = term.toUpperCase();
-
-            var i = 0,
-                l = list.length;
-            while (i < l) {
-                if (list[i].name.toUpperCase().indexOf(needle) !== -1) {
-                    result.push(list[i]);
-                }
-
-                i++;
-            }
-        }
-
-        return result;
-    };
 
     tuna.view.registerController(new ShareController('share_step'));
 })();

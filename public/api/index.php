@@ -13,11 +13,11 @@ use PhotoCake\Http\Request;
 use PhotoCake\Http\Response\Response;
 use PhotoCake\Http\Response\Format\FormatFactory;
 
-$connection = new MongoConfiguration();
-$connection->setDb('cakes');
-$connection->setRecordFactory(new RecordFactory());
+$config = new MongoConfiguration();
+$config->setDb('cakes');
+$config->setRecordFactory(new RecordFactory());
 
-ConfigurationManager::getInstance()->setDefaultConfiguration($connection);
+ConfigurationManager::getInstance()->setDefaultConfiguration($config);
 
 $request = Request::getInstance();
 

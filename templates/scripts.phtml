@@ -76,8 +76,9 @@
 <script type="text/javascript" src="/js/lib/tuna/ui/modules/navigation.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/ui/modules/selection-group.js"></script>
 
-<script type="text/javascript" src="/js/lib/tuna/data/origin.js"></script>
-<script type="text/javascript" src="/js/lib/tuna/data/data-storage.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/model.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/model/resource.js"></script>
+<script type="text/javascript" src="/js/lib/tuna/model/data-storage.js"></script>
 
 <script type="text/javascript" src="/js/lib/tuna/view/origin.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/view/i-view-state.js"></script>
@@ -88,7 +89,7 @@
 <script type="text/javascript" src="/js/lib/tuna/view/page-view-controller.js"></script>
 <script type="text/javascript" src="/js/lib/tuna/view/step-view-controller.js"></script>
 
-<script type="text/javascript" src="/js/lib/jquery/jquery-1.6.4.js"></script>
+<script type="text/javascript" src="/js/lib/jquery/jquery-1.7.1.js"></script>
 
 <script type="text/javascript" src="/js/lib/jquery/ui/jquery.ui.core.js"></script>
 <script type="text/javascript" src="/js/lib/jquery/ui/jquery.ui.widget.js"></script>
@@ -102,10 +103,12 @@
 <script type="text/javascript" src="/js/src/ui/forms/form-input.js"></script>
 <script type="text/javascript" src="/js/src/ui/forms/form.js"></script>
 
+<script type="text/javascript" src="/js/src/ui/autocomplete.js"></script>
 <script type="text/javascript" src="/js/src/ui/popup.js"></script>
 <script type="text/javascript" src="/js/src/ui/carousel.js"></script>
 <script type="text/javascript" src="/js/src/ui/data-image.js"></script>
 
+<script type="text/javascript" src="/js/src/ui/modules/autocomplete.js"></script>
 <script type="text/javascript" src="/js/src/ui/modules/swf.js"></script>
 <script type="text/javascript" src="/js/src/ui/modules/popup.js"></script>
 <script type="text/javascript" src="/js/src/ui/modules/image-popup.js"></script>
@@ -118,6 +121,10 @@
 <script type="text/javascript" src="/js/src/rest/common-method.js"></script>
 <script type="text/javascript" src="/js/src/rest/method-factory.js"></script>
 
+<script type="text/javascript" src="/js/src/model/cakes.js"></script>
+<script type="text/javascript" src="/js/src/model/orders.js"></script>
+<script type="text/javascript" src="/js/src/model/recipes.js"></script>
+
 <script type="text/javascript" src="/js/src/view/main-controller.js"></script>
 
 <script type="text/javascript" src="/js/src/view/steps/title-controller.js"></script>
@@ -125,7 +132,6 @@
 <script type="text/javascript" src="/js/src/view/steps/share-controller.js"></script>
 <script type="text/javascript" src="/js/src/view/steps/recipe-controller.js"></script>
 <script type="text/javascript" src="/js/src/view/steps/order-controller.js"></script>
-<script type="text/javascript" src="/js/src/view/steps/result-controller.js"></script>
 
 <script type="text/javascript">
     var APP_NETWORK = '<?php echo $this->session->get('network') ?>';
@@ -133,8 +139,9 @@
     function main() {
         tuna.dom.setSelectorEngine(jQuery.find);
 
+        tuna.model.setDefaultStorage(new tuna.model.DataStorage());
+
         var container = new tuna.ui.container.TransformContainer(document.body);
-        container.setDB(new tuna.data.DataStorage());
         container.init();
     }
 </script>

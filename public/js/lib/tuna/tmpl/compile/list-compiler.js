@@ -4,7 +4,7 @@
 
     var ListCompiler = function(document, compiler) {
         this.__doc = document;
-        this.__compiler = compiler;
+        this.__templateCompiler = compiler;
     };
 
     tuna.implement(ListCompiler, tuna.tmpl.compile.IItemCompiler);
@@ -47,7 +47,7 @@
     ListCompiler.prototype.__createList = function(element, settings, root) {
         var list = new tuna.tmpl.unit.List(root);
 
-        list.setCompiler(this.__compiler);
+        list.setCompiler(this.__templateCompiler);
         list.setItemRenderer(this.__doc.getElementById(settings.getItemRendererID()));
         list.setItemTemplate(settings.getItemTemplate());
         list.setKeyPath(settings.getItemKeyDataPath());

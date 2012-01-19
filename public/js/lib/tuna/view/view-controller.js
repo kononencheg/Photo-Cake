@@ -6,7 +6,6 @@
 
         this._container = null;
         this._target = null;
-        this._db = null;
 
         this._modules = null;
     };
@@ -21,9 +20,8 @@
         this._container = container;
 
         this._target = container.getTarget();
-        this._db     = container.getDB();
 
-        this._bootstrap(); // Then _terminate
+        this._bootstrap(); // TODO: Implement _terminate
     };
 
     ViewController.prototype._bootstrap = function() {
@@ -48,6 +46,18 @@
     };
 
     ViewController.prototype._destroyActions = function() {};
+
+    ViewController.prototype.handleTransformComplete
+        = function(target, createdElements, removedElements) {
+
+        var i = 0,
+            l = createdElements.length;
+
+        while (i < l) {
+            this._container.initModules(createdElements[i]);
+            i++;
+        }
+    };
 
     tuna.view.ViewController = ViewController;
 

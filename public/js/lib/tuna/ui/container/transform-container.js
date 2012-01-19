@@ -5,24 +5,11 @@
     var TransformContainer = function(target, parent) {
         tuna.ui.container.Container.call(this, target, parent);
 
-        this.__db = null;
         this.__controller = null;
         this.__transformer = null;
     };
 
     tuna.extend(TransformContainer, tuna.ui.container.Container);
-
-    TransformContainer.prototype.setDB = function(db) {
-        this.__db = db;
-    };
-
-    TransformContainer.prototype.getDB = function() {
-        if (this.__db === null) {
-            return this._parent.getDB();
-        } else {
-            return this.__db;
-        }
-    };
 
     TransformContainer.prototype.setTransformer = function(transformer) {
         this.__transformer = transformer;

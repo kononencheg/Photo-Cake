@@ -1,10 +1,10 @@
 (function() {
-    tuna.namespace('tuna.data');
+    tuna.namespace('tuna.model');
 
-    var DataStorage = function() {
+    var DataStorage = function(core) {
         tuna.events.EventDispatcher.call(this);
 
-        this.__data = {};
+        this.__data = core == undefined ? {} : core;
     };
 
     tuna.extend(DataStorage, tuna.events.EventDispatcher);
@@ -26,5 +26,5 @@
         });
     };
 
-    tuna.data.DataStorage = DataStorage;
+    tuna.model.DataStorage = DataStorage;
 })();

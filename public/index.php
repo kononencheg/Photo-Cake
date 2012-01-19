@@ -9,8 +9,8 @@ use PhotoCake\View\Page;
 
 $request = Request::getInstance();
 
-$application = new Application();
-$application->setupEnvironment($request->fetch('net'), $request->get());
+$app = new Application();
+$app->setupNetworkEnvironment($request->fetch('network'), $request->get());
 
 $page = new Page();
 $page->render('layout');

@@ -66,11 +66,11 @@
 
 <div class="hidden">
     <tuna:template id="recipe_template">
-        <tuna:spot tuna:target="t-cake-weight"  tuna:path="cake/weight" />
-        <tuna:spot tuna:target="t-cake-persons"  tuna:path="cake/persons_count" />
-        <tuna:spot tuna:target="t-cake-price" tuna:path="cake/price" />
+        <tuna:spot tuna:target="t-cake-weight"  tuna:path="cake/dimensions/mass" />
+        <tuna:spot tuna:target="t-cake-persons"  tuna:path="cake/dimensions/persons_count" />
+        <tuna:spot tuna:target="t-cake-price" tuna:path="price" />
 
-        <tuna:spot tuna:target="t-popup-recipe-name" tuna:path="popup_recipe/name" />
+        <tuna:spot tuna:target="t-popup-recipe-name" tuna:path="popup_recipe/title" />
         <tuna:spot tuna:target="t-popup-recipe-desc" tuna:path="popup_recipe/desc" />
 
         <tuna:list tuna:target="t-recipes-list" tuna:path="recipes"
@@ -81,11 +81,11 @@
 
     <tuna:template id="recipe_item_template">
         <tuna:attr tuna:target="t-recipe-img" tuna:path="image_url" tuna:name="src"/>
-        <tuna:attr tuna:target="t-recipe-img" tuna:path="name" tuna:name="alt"/>
+        <tuna:attr tuna:target="t-recipe-img" tuna:path="title" tuna:name="alt"/>
         
         <tuna:attr tuna:target="t-recipe-index" tuna:path="$key" tuna:name="data-index" />
         <tuna:attr tuna:target="t-recipe-input" tuna:path="$key" tuna:name="value" />
 
-        <tuna:spot tuna:target="t-recipe-name" tuna:path="name" />
+        <tuna:spot tuna:target="t-recipe-name" tuna:path="title" />
     </tuna:template>
 </div>

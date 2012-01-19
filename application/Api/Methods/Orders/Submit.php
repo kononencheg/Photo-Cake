@@ -76,7 +76,7 @@ class Submit extends \PhotoCake\Api\Method\Method
      */
     protected function apply()
     {
-        $session = \PhotoCake\Http\Session::getInstance();
+        $application = new \Api\Resources\Application();
 
         $cakes = new \Api\Resources\Cakes();
         $clients = new \Api\Resources\Clients();
@@ -88,10 +88,11 @@ class Submit extends \PhotoCake\Api\Method\Method
         $cake = $cakes->initCake($this->image, $this->photo, $this->markup);
         $client = $clients->initClient(
             $this->email, $this->name, $this->phone,
-            $session->network, $session->network_id
+            $application->getNetworkName(),
+            $application->getNetworkUserId()
         );
 
-        $recipe = $recipes->initRecipe($this->recipe);
+        $recipe = $recipes->getByName($this->recipe);
         $delivery = $deliveries->initDelivery
             ($this->city, $this->address, $this->date);
 
@@ -99,8 +100,6 @@ class Submit extends \PhotoCake\Api\Method\Method
 
         $order = $orders->initOrder
             ($cake, $recipe, $client, $delivery, $payment, $this->comment);
-
-        var_dump($order->dbSerialize());
 
         return $orders->emailOrder($order);
     }

@@ -87,7 +87,6 @@
         if (this.__transformHandler !== null) {
             this.__transformHandler.handleDestroy(
                 this.__target,
-                this.__core.fetchCreatedChildren(),
                 this.__core.fetchRemovedChildren()
             );
         }

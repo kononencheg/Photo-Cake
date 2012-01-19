@@ -29,8 +29,8 @@ class Orders extends \PhotoCake\Api\Resource\DbResource
         $order->set('client', $payment);
         $order->set('comment', $comment);
 
-        //var_dump($order->dbSerialize());//$this->ordersCollection->update($order);
-        //var_dump($order->jsonSerialize());//$this->ordersCollection->update($order);
+        var_dump($order->dbSerialize());
+        //$this->ordersCollection->update($order);
 
         return $order;
     }

@@ -3,7 +3,7 @@
     tuna.namespace('rest.vk.wall');
 
     var Post = function() {
-        rest.CommonMethod.call(this, 'social.wall.post');
+        rest.CommonMethod.call(this, 'social.vk.uploadImage');
 
         this.__userID = null;
         this.__imageData = null;
@@ -31,7 +31,7 @@
 
     Post.prototype.__handleUploadURL = function(result) {
         if (result.response !== undefined) {
-            result.response.image_data = this.__imageData;
+            result.response.image = this.__imageData;
             rest.CommonMethod.prototype.call.call(this, result.response);
         } else {
             this.dispatch('error', result);

@@ -2,7 +2,7 @@
 
 namespace PhotoCake\Api\Resource;
 
-use PhotoCake\Db\Connection\ConnectionManager;
+use PhotoCake\Db\Configuration\ConfigurationManager;
 
 class DbResource implements ResourceInterface
 {
@@ -13,7 +13,7 @@ class DbResource implements ResourceInterface
 
     public function __construct()
     {
-        $connection = ConnectionManager::getInstance()->getDefaultConnection();
+        $connection = ConfigurationManager::getInstance()->getDefaultConfiguration();
         $this->collectionFactory = $connection->getCollectionFactory();
     }
 

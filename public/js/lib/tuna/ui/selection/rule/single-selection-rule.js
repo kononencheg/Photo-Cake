@@ -14,7 +14,7 @@
     tuna.extend(SingleSelectionRule, AbstractSelectionRule);
 
     SingleSelectionRule.prototype.getSelectedIndexes = function() {
-        if (this.__currentIndex !== 1) {
+        if (this.__currentIndex !== -1) {
             return [this.__currentIndex];
         }
 
@@ -47,9 +47,9 @@
     SingleSelectionRule.prototype.__dispatchSelect = function(newIndex) {
         var oldIndex = this.__currentIndex;
 
-        return this._eventDispatcher.dispatch('select', newIndex) &&
-              (oldIndex === -1 ||
-               this._eventDispatcher.dispatch('deselect', oldIndex))
+        return (oldIndex === -1 ||
+                this._eventDispatcher.dispatch('deselect', oldIndex)) &&
+                this._eventDispatcher.dispatch('select', newIndex)
     };
 
     SingleSelectionRule.prototype.isSelected = function(index) {

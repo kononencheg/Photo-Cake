@@ -16,11 +16,11 @@ class Session
      */
     public function set($name, $value)
     {
-        if (is_object($value)) {
-            $value = get_object_vars($value);
+        if ($value === NULL) {
+            unset($_SESSION[$name]);
+        } else {
+            $_SESSION[$name] = $value;
         }
-
-        $_SESSION[$name] = $value;
     }
 
     /**
@@ -41,7 +41,7 @@ class Session
      * @param string $name
      * @return void
      */
-    public function __unset($name)
+    public function remove($name)
     {
         unset($_SESSION[$name]);
     }

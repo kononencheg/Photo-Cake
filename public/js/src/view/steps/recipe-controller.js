@@ -21,21 +21,16 @@
           'desc': 'Торт, любимый всеми. Мягкое песочное тесто внизу, начинка на основе сыра Филадельфия и ликера, с добавлением цедры лимона и апельсина, натуральные сливки, свежие ягоды.' }
     ];
 
-
     var RecipeController = function(id) {
-        tuna.view.StepViewController.call(this, id);
+        tuna.view.PageViewController.call(this, id);
 
         this.__descriptionPopup = null;
 
         this.__popupRecipe = null;
-        this.__selectedRecipe = null;
+        this.__popupIndex = -1;
     };
 
     tuna.extend(RecipeController, tuna.view.StepViewController);
-
-    RecipeController.prototype.canGoNext = function() {
-        return true;
-    };
 
     RecipeController.prototype.canClose = function(index) {
         if (index === 'order_step' && this.__selectedRecipe === null) {
@@ -43,22 +38,13 @@
             return false;
         }
 
-        this._db.set('price', this.__calculatePrice());
-        this._db.set('recipe', this.__selectedRecipe);
-
         return true;
     };
 
-    RecipeController.prototype.handleTransformComplete
-        = function(target, created, removed) {
+    RecipeController.prototype.open = function() {
+        model.orders.initCurrentOrder(model.cakes.getCurrentCake());
 
-        for (var i in created) {
-            this._container.initModules(created[i]);
-        }
-    };
-
-    RecipeController.prototype._bootstrap = function() {
-        this.init();
+        this.__updateView();
     };
 
     RecipeController.prototype._requireModules = function() {
@@ -71,12 +57,11 @@
         this.__initRecipeSelection();
         this.__initDescriptionPopup();
 
-        this._db.addEventListener('cake_params', tuna.bind(this.__updateView, this));
         this.__updateView();
     };
 
     RecipeController.prototype.__initRecipeList = function() {
-        this._db.set('recipes', RECIPE_LIST);
+        model.recipes.setRecipes(RECIPE_LIST);
     };
 
     RecipeController.prototype.__initDescriptionPopup = function() {
@@ -87,7 +72,7 @@
 
         this.__descriptionPopup.addEventListener('popup-apply', function() {
             var input = tuna.dom.selectOne(
-                'input[value=' + self.__popupRecipe.index + '].j-recipe-radio'
+                'input[value=' + self.__popupIndex + '].j-recipe-radio'
             );
 
             input.checked = true;
@@ -102,10 +87,10 @@
         tuna.dom.addChildEventListener(
             this._target, '.j-recipe-image', 'click', function(event) {
                 var index = this.getAttribute('data-index');
-                var recipes  = self._db.get('recipes');
-                
-                self.__popupRecipe = recipes[index];
-                self.__popupRecipe.index = index;
+
+                self.__popupRecipe = model.recipes.getRecipeAt(index);
+                self.__popupIndex = index;
+
                 self.__updateView();
             }
         );
@@ -113,43 +98,26 @@
         tuna.dom.addChildEventListener(
             this._target, 'input.j-recipe-radio', 'click',
             function(event) {
-                var recipes  = self._db.get('recipes');
+                model.orders.setCurrentRecipeIndex(this.value);
 
-                self.__selectedRecipe = recipes[this.value];
                 self.__updateView();
             }
         );
     };
 
+
     RecipeController.prototype.__updateView = function() {
-        var cakeParams = this._db.get('cake_params');
-        if (cakeParams !== null) {
-            var price = this.__calculatePrice();
-
-            this._container.applyData({
-                'cake': {
-                    'weight': cakeParams.dimensions.mass + ' кг',
-                    'persons_count': cakeParams.dimensions.persons_count,
-                    'price': price + ' рублей'
-                },
-                'recipes': this._db.get('recipes'),
-                'popup_recipe': this.__popupRecipe
-            });
-        }
+        this._container.applyData({
+            'cake': model.cakes.getCurrentCake(),
+            'price': model.orders.getPrice(),
+            'recipes': model.recipes.getRecipes(),
+            'popup_recipe': this.__popupRecipe
+        });
     };
 
-    RecipeController.prototype.__calculatePrice = function() {
-        var result = this._db.get('deco_price');
-
-        if (this.__selectedRecipe !== null) {
-            var cakeParams = this._db.get('cake_params');
-            result += 1500 * cakeParams.dimensions.mass;
-        }
-
-        return result;
-    };
 
     tuna.view.registerController(new RecipeController('recipe_step'));
+
 })();
 
 
