@@ -79,7 +79,13 @@
     };
 
     SelectionGroup.prototype.getLastSelectedIndex = function() {
-        return this._selectionRule.getSelectedIndexes().pop();
+        var indexes = this._selectionRule.getSelectedIndexes();
+        if (indexes.length > 0) {
+            return indexes.pop();
+        }
+
+
+        return -1;
     };
 
     SelectionGroup.prototype.selectIndex = function(index) {
