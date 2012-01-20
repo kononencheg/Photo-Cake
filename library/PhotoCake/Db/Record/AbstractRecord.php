@@ -17,7 +17,7 @@ abstract class AbstractRecord implements RecordInterface
     /**
      * @var string
      */
-    public $name = NULL;
+    protected $collectionName = NULL;
 
     /**
      * @var array
@@ -33,7 +33,7 @@ abstract class AbstractRecord implements RecordInterface
      * @param mixed $data
      * @return void
      */
-    public function populate(array $data)
+    public function populate($data)
     {
         foreach ($this->fields as $name => $type) {
             if (isset($data[$name])) {
@@ -41,10 +41,13 @@ abstract class AbstractRecord implements RecordInterface
 
                 if (class_exists($type, true)) {
                     if (AbstractRecord::isRecord($type)) {
-                        $record = $this->createRecord($type);
-                        $record->populate($value);
+                        //if (!AbstractRecord::isRecord($this->data[$name])) {
+                            //echo 'new' . $type;
+                        //}
 
-                        $this->data[$name] = $record;
+                        $this->data[$name] = $this->createRecord($type);
+                        $this->data[$name]->populate($value);
+
                     } else if ($value instanceof $type) {
                         $this->data[$name] = $value;
                     }
@@ -56,11 +59,13 @@ abstract class AbstractRecord implements RecordInterface
         }
     }
 
-    public function __set($name, $value) {
+    public function __set($name, $value)
+    {
         $this->set($name, $value);
     }
 
-    public function __get($name) {
+    public function __get($name)
+    {
         return $this->get($name);
     }
 
@@ -93,7 +98,8 @@ abstract class AbstractRecord implements RecordInterface
      * @param string $type
      * @return \PhotoCake\Db\Record\RecordInterface
      */
-    protected function createRecord($type) {
+    protected function createRecord($type)
+    {
         return new $type();
     }
 
@@ -108,7 +114,7 @@ abstract class AbstractRecord implements RecordInterface
 
         foreach ($this->data as $name => $value) {
             if (is_object($value) && AbstractRecord::isRecord($value)) {
-                $result[$name] = $value->spanSerialize($this->name);
+                $result[$name] = $value->spanSerialize($this->collectionName);
             } else {
                 $result[$name] = $value;
             }
@@ -117,7 +123,8 @@ abstract class AbstractRecord implements RecordInterface
         return $result;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         $result = array();
 
         foreach ($this->data as $name => $value) {
@@ -134,7 +141,7 @@ abstract class AbstractRecord implements RecordInterface
     /**
      * @param string $parent
      */
-    public function spanSerialize($parent) {}
+    protected function spanSerialize($parent) {}
 
     /**
      * @abstract

@@ -20,12 +20,14 @@ abstract class MongoRecord extends AbstractRecord
      * @param mixed $data
      * @return void
      */
-    public function populate(array $data)
+    public function populate($data)
     {
         parent::populate($data);
 
         if (isset($data['_id'])) {
             $this->id = $data['_id'];
+        } elseif (isset($data['_ref'])) {
+            $this->id = $data['_ref']['$id'];
         }
     }
 
@@ -61,7 +63,8 @@ abstract class MongoRecord extends AbstractRecord
      * @param string $parent
      * @return array
      */
-    public function spanSerialize($parent) {
+    protected function spanSerialize($parent)
+    {
         $result = array();
 
         $fields = NULL;
@@ -69,7 +72,7 @@ abstract class MongoRecord extends AbstractRecord
             $fields = $this->spanFields[$parent];
         } else {
             $fields = array_keys($this->fields);
-            array_push($fields, 'id');
+            array_push($fields, '_ref');
         }
 
         foreach ($fields as $i => $name) {
@@ -77,12 +80,13 @@ abstract class MongoRecord extends AbstractRecord
                 $value = $this->data[$name];
 
                 if (is_object($value) && AbstractRecord::isRecord($value)) {
-                    $result[$name] = $value->spanSerialize($this->name);
+                    $result[$name] = $value->spanSerialize($this->collectionName);
                 } else {
                     $result[$name] = $value;
                 }
-            } elseif ($name === 'id' && $this->id !== NULL) {
-                $result['id'] = \MongoDBRef::create($this->name, $this->id);
+            } elseif ($name === '_ref' && $this->id !== NULL) {
+                $result['_ref']
+                    = \MongoDBRef::create($this->collectionName, $this->id);
             }
         }
 
@@ -90,10 +94,10 @@ abstract class MongoRecord extends AbstractRecord
     }
 
     /**
-     * @return \MongoId
+     * @return string
      */
     public function getID()
     {
-        return $this->id;
+        return $this->id->{'$id'};
     }
 }

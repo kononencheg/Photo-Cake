@@ -79,14 +79,10 @@
     };
 
     ShareController.prototype.__loadFriendsData = function() {
-        var getFriends = tuna.rest.factory.createMethod('social.friends.get');
-
         var self = this;
-        getFriends.addEventListener('result', function(event, result) {
+        tuna.rest.call('social.friends.get', function(result) {
             self.__friendsAutocomplete.setData(result);
         });
-
-        getFriends.call();
     };
 
 

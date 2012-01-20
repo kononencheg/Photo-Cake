@@ -67,10 +67,7 @@
                 <div class="j-city-input clearfix">
                     <label for="city">Город *</label>
                     <div class="input">
-                        <select id="city" name="city">
-                            <option value="Санкт-Петербург">Санкт-Петербург</option>
-                            <option value="Москва">Москва</option>
-                        </select>
+                        <select id="city" name="city" class="t-city-list"></select>
                         <span class="j-message help-block">
                             Пока, только Санкт-Петербург и Москва.
                         </span>
@@ -80,7 +77,7 @@
                 <div class="j-address-input clearfix">
                     <label for="address">Адрес *</label>
                     <div class="input">
-                        <textarea id="address" name="address" rows="3"></textarea>
+                        <textarea id="address" name="address" rows="2"></textarea>
                         <span class="j-message help-block">
                             Стоимость доставки: 450 рублей.
                         </span>
@@ -98,10 +95,29 @@
                     </div>
                 </div>
 
+                <div class="j-time-input clearfix">
+                    <label for="time">Время *</label>
+                    <div class="input">
+                        <select id="time" name="time">
+                            <option value="-1"></option>
+                            <option value="36000">10:00 - 12:00</option>
+                            <option value="43200">12:00 - 14:00</option>
+                            <option value="50400">14:00 - 16:00</option>
+                            <option value="57600">16:00 - 18:00</option>
+                            <option value="64800">18:00 - 20:00</option>
+                            <option value="72000">20:00 - 22:00</option>
+                        </select>
+
+                        <span class="j-message help-block">
+                            Время доставки.
+                        </span>
+                    </div>
+                </div>
+
                 <div class="j-comment-input clearfix">
                     <label for="comment">Комментарий</label>
                     <div class="input">
-                        <textarea id="comment" name="comment" rows="3"></textarea>
+                        <textarea id="comment" name="comment" rows="2"></textarea>
                         <span class="j-message help-block">
                             Дополнительная информация. Например, комментарий
                             курьеру.
@@ -140,5 +156,15 @@
         <tuna:attr tuna:name="value" tuna:target="t-recipe" tuna:path="recipe/name" />
 
         <tuna:spot tuna:target="t-price" tuna:path="price" />
+
+        <tuna:list tuna:target="t-city-list" tuna:path="cities"
+                   tuna:item-renderer-id="option_renderer"
+                   tuna:item-template-id="city_item_template"
+                   tuna:key-path="$key" />
+    </tuna:template>
+
+    <tuna:template id="city_item_template">
+        <tuna:attr tuna:name="value" tuna:target="t-value" tuna:path="id" />
+        <tuna:spot tuna:target="t-value" tuna:path="name" />
     </tuna:template>
 </div>

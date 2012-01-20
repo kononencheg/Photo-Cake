@@ -30,13 +30,25 @@
                 }
             }
         );
+
+        var self = this;
+        tuna.rest.call('cities.getList', function(result) {
+            debugger;
+            model.cities.setCities(result);
+            self.__updateView();
+        });
     };
 
     OrderController.prototype.open = function() {
+        this.__updateView();
+    };
+
+    OrderController.prototype.__updateView = function() {
         this._container.applyData({
             'recipe': model.orders.getCurrentRecipe(),
             'price':  model.orders.getPrice(),
-            'cake':   model.cakes.getCurrentCake()
+            'cake':   model.cakes.getCurrentCake(),
+            'cities': model.cities.getCities()
         });
     };
 

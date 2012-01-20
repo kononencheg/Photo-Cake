@@ -40,16 +40,10 @@
 
     RecipeController.prototype.__initRecipeList = function() {
         var self = this;
-
-        var getRecipesList
-            = tuna.rest.factory.createMethod('recipes.getList');
-
-        getRecipesList.addEventListener('result', function(event, result) {
+        tuna.rest.call('recipes.getList', function(result) {
             model.recipes.setRecipes(result);
             self.__updateView();
         });
-
-        getRecipesList.call();
     };
 
     RecipeController.prototype.__initDescriptionPopup = function() {

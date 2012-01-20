@@ -7,7 +7,7 @@ class Recipe extends \PhotoCake\Db\Mongo\MongoRecord
     /**
      * @var string
      */
-    public $name = 'recipes';
+    protected $collectionName = 'recipes';
 
     /**
      * @var array
@@ -24,6 +24,6 @@ class Recipe extends \PhotoCake\Db\Mongo\MongoRecord
      * @var array
      */
     protected $spanFields = array(
-        'orders' => array('title', 'desc', 'id'),
+        'orders' => array('title', 'desc', '_ref'),
     );
 }

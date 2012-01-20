@@ -11,11 +11,14 @@ class MethodFactory implements \PhotoCake\Api\Method\MethodFactoryInterface
     public function create($name)
     {
         switch ($name) {
-            case 'social.vk.uploadImage': return new Social\Vk\UploadImage();
+
+            case 'cities.getList': return new Cities\GetList();
 
             case 'orders.submit': return new Orders\Submit();
 
             case 'recipes.getList': return new Recipes\GetList();
+
+            case 'social.vk.uploadImage': return new Social\Vk\UploadImage();
 
             case 'utils.base64Echo': return new Utils\Base64Echo();
 

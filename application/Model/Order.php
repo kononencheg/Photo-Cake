@@ -7,7 +7,7 @@ class Order extends \PhotoCake\Db\Mongo\MongoRecord
     /**
      * @var string
      */
-    public $name = 'orders';
+    protected $collectionName = 'orders';
 
     /**
      * @var array

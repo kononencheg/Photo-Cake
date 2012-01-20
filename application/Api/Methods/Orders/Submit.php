@@ -7,6 +7,11 @@ use \PhotoCake\Api\Arguments\Filter;
 class Submit extends \PhotoCake\Api\Method\Method
 {
     /**
+     * @var \DateTime
+     */
+    private $targetDate = NULL;
+
+    /**
      * @var array
      */
     protected $arguments = array(
@@ -19,7 +24,8 @@ class Submit extends \PhotoCake\Api\Method\Method
         'phone' => Filter::PHONE,
         'email' => Filter::EMAIL,
 
-        'date' => Filter::INTEGER,
+        'date' => Filter::STRING,
+        'time' => Filter::INTEGER,
         'city' => Filter::STRING,
         'address' => Filter::STRING,
 
@@ -47,6 +53,7 @@ class Submit extends \PhotoCake\Api\Method\Method
             ),
 
             'date' => array( NULL => 'Дата не задана.' ),
+            'time' => array( -1 => 'Время не задано.' ),
             'city' => array( NULL => 'Город не задан.' ),
             'address' => array( NULL => 'Адрес не задан.' ),
         ), array(
@@ -56,19 +63,26 @@ class Submit extends \PhotoCake\Api\Method\Method
 
     protected function testDate($date)
     {
-        $interval = new \DateInterval('P3D');
+        $this->targetDate = \DateTime::createFromFormat('d.m.Y', $date);
+        if ($this->targetDate !== false) {
+            $this->targetDate->setTime(0, 0);
 
-        $today = new \DateTime();
-        $today->setTime(0, 0);
-        $edgeDate = $today->add($interval);
+            $interval = new \DateInterval('P3D');
 
-        $targetDate = new \DateTime();
-        $targetDate->setTimestamp($date);
+            $today = new \DateTime();
+            $today->setTime(0, 0);
+            $edgeDate = $today->add($interval);
 
-        if ($targetDate->getTimestamp() < $edgeDate->getTimestamp()) {
+            if ($this->targetDate->getTimestamp() < $edgeDate->getTimestamp()) {
+                $this->response->addParamError
+                    ('date', 'Срок обработки заказа минимум двое суток.');
+            }
+        } else {
             $this->response->addParamError
-                ('date', 'Срок обработки заказа минимум двое суток.');
+               ('date', 'Правильный формат даты "дд.мм.гггг".');
         }
+
+
     }
 
     /**
@@ -79,6 +93,7 @@ class Submit extends \PhotoCake\Api\Method\Method
         $application = new \Api\Resources\Application();
 
         $cakes = new \Api\Resources\Cakes();
+        $cities = new \Api\Resources\Cities();
         $clients = new \Api\Resources\Clients();
         $orders = new \Api\Resources\Orders();
         $payments = new \Api\Resources\Payments();
@@ -92,11 +107,12 @@ class Submit extends \PhotoCake\Api\Method\Method
             $application->getNetworkUserId()
         );
 
+        $time = $this->targetDate->getTimestamp() + $this->time;
+        $city = $cities->getById($this->city);
+
+        $delivery = $deliveries->initDelivery($city, $this->address, $time);
 
         $recipe = $recipes->getByName($this->recipe);
-        $delivery = $deliveries->initDelivery
-            ($this->city, $this->address, $this->date);
-
         $payment = $payments->initPayment($this->markup, $recipe, $delivery);
 
         $order = $orders->initOrder

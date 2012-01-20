@@ -9,7 +9,7 @@ class Cake extends \PhotoCake\Db\Mongo\MongoRecord
     /**
      * @var string
      */
-    public $name = 'cakes';
+    protected $collectionName = 'cakes';
 
     /**
      * @var array
@@ -25,6 +25,6 @@ class Cake extends \PhotoCake\Db\Mongo\MongoRecord
      * @var array
      */
     protected $spanFields = array(
-        'orders' => array('image_url', 'photo_url', 'weight', 'id'),
+        'orders' => array('image_url', 'photo_url', 'weight', '_ref'),
     );
 }

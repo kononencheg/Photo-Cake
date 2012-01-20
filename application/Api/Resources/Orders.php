@@ -42,7 +42,7 @@ class Orders extends \PhotoCake\Api\Resource\DbResource
         ));
 
         // subject
-        $subject = 'Заказ торта!';
+        $subject = 'Новый заказ';
 
         // message
         $message = $this->getMailMarkup($order);
@@ -55,6 +55,8 @@ class Orders extends \PhotoCake\Api\Resource\DbResource
     }
 
     private function getMailMarkup(\Model\Order $order) {
+        $time = $order->delivery->date->sec;
+
         return '<html>
             <head>
                 <title>Новый Заказ</title>
@@ -70,9 +72,9 @@ class Orders extends \PhotoCake\Api\Resource\DbResource
                 <table><tbody>' .
                     $this->getRow('Ваше имя', $order->client->name) .
                     $this->getRow('Ваш телефон', $order->client->phone) .
-                    $this->getRow('Город', $order->delivery->city) .
+                    $this->getRow('Город', $order->delivery->city->name) .
                     $this->getRow('Адрес доставки', $order->delivery->address) .
-                    $this->getRow('Дата доставки', date('Y-M-d', $order->delivery->date->sec)).
+                    $this->getRow('Дата доставки', date('d.m.Y (H:i', $time) . '-' . date('H:i)', $time + 7200)).
                     $this->getRow('Торт', '<img alt="Торт" src="' . $order->cake->image_url . '" />') .
                     $this->getRow('Изображения для печати', ($order->cake->photo_url ?
                                     '<img alt="Изображения для печати" src="' . $order->cake->photo_url . '" />' :
@@ -81,7 +83,7 @@ class Orders extends \PhotoCake\Api\Resource\DbResource
                     $this->getRow('Рецепт', $order->recipe->title) .
                     $this->getRow('Описание рецепта', $order->recipe->desc) .
                     $this->getRow('Комментарий', $order->comment) .
-                    $this->getRow('Цена (руб.)', $order->payment->total_price) .
+                    $this->getRow('Цена с доставкой (руб.)', $order->payment->total_price) .
                 '</tbody></table>
 
                 <p> По указанному вами телефону в течении дня с вами свяжется

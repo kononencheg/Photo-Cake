@@ -57,8 +57,15 @@ class MongoCollection extends \PhotoCake\Db\Collection\AbstractCollection
         $data = $this->collection->findOne(array(
             '_id' => $this->mongoID($id)
         ));
-        
-        return $this->createRecord($data);
+
+        if ($data !== NULL) {
+            $record = $this->createRecord();
+            $record->populate($data);
+
+            return $record;
+        }
+
+        return NULL;
     }
 
     /**
