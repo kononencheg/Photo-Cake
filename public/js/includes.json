@@ -1,0 +1,147 @@
+{
+    "vk": [
+        "src/rest/vk/vk-method-factory.js",
+        "src/rest/vk/vk-method.js",
+        "src/rest/vk/friends/get-list.js",
+        "src/rest/vk/wall/post.js"
+    ],
+
+    "common": [
+        "lib/tuna.js",
+
+        "lib/tuna/events/i-event-dispatcher.js",
+        "lib/tuna/events/event-dispatcher.js",
+        "lib/tuna/events/event.js",
+
+        "lib/tuna/net/i-request.js",
+        "lib/tuna/net/request.js",
+
+        "lib/tuna/rest/i-response-parser.js",
+        "lib/tuna/rest/i-remote-method.js",
+        "lib/tuna/rest/remote-method.js",
+        "lib/tuna/rest/i-method-factory.js",
+        "lib/tuna/rest/factory.js",
+
+        "lib/tuna/dom.js",
+
+        "lib/tuna/tmpl/data/data-node.js",
+        "lib/tuna/tmpl/data/path-evaluator.js",
+
+        "lib/tuna/tmpl/settings/spot.js",
+        "lib/tuna/tmpl/settings/attribute.js",
+        "lib/tuna/tmpl/settings/condition.js",
+        "lib/tuna/tmpl/settings/list.js",
+        "lib/tuna/tmpl/settings/template.js",
+
+        "lib/tuna/tmpl/markup/i-markup-extractor.js",
+        "lib/tuna/tmpl/markup/spot-extractor.js",
+        "lib/tuna/tmpl/markup/list-extractor.js",
+        "lib/tuna/tmpl/markup/attribute-extractor.js",
+        "lib/tuna/tmpl/markup/condition-extractor.js",
+        "lib/tuna/tmpl/markup/markup-template-builder.js",
+
+        "lib/tuna/tmpl/unit/i-list-item-router.js",
+        "lib/tuna/tmpl/unit/list-container-router.js",
+        "lib/tuna/tmpl/unit/compiled-unit.js",
+        "lib/tuna/tmpl/unit/spot.js",
+        "lib/tuna/tmpl/unit/attribute.js",
+        "lib/tuna/tmpl/unit/condition.js",
+        "lib/tuna/tmpl/unit/list.js",
+        "lib/tuna/tmpl/unit/template.js",
+
+        "lib/tuna/tmpl/compile/i-item-compiler.js",
+        "lib/tuna/tmpl/compile/template-compiler.js",
+        "lib/tuna/tmpl/compile/spot-compiler.js",
+        "lib/tuna/tmpl/compile/attribute-compiler.js",
+        "lib/tuna/tmpl/compile/condition-compiler.js",
+        "lib/tuna/tmpl/compile/list-compiler.js",
+
+        "lib/tuna/tmpl/i-transform-handler.js",
+        "lib/tuna/tmpl/i-transformer.js",
+        "lib/tuna/tmpl/template-transformer.js",
+
+        "lib/tuna/ui/container/container.js",
+        "lib/tuna/ui/container/transform-container.js",
+
+        "lib/tuna/ui/selection/items/i-items-collection.js",
+        "lib/tuna/ui/selection/items/elements-collection.js",
+        "lib/tuna/ui/selection/items/named-elements-collection.js",
+
+        "lib/tuna/ui/selection/rule/i-selection-rule.js",
+        "lib/tuna/ui/selection/rule/abstract-selection-rule.js",
+        "lib/tuna/ui/selection/rule/single-selection-rule.js",
+        "lib/tuna/ui/selection/rule/multiple-selection-rule.js",
+
+        "lib/tuna/ui/selection/view/i-selection-view.js",
+        "lib/tuna/ui/selection/view/abstract-selection-view.js",
+        "lib/tuna/ui/selection/view/class-selection-view.js",
+
+        "lib/tuna/ui/selection/i-selection-group.js",
+        "lib/tuna/ui/selection/selection-group.js",
+
+        "lib/tuna/ui/modules.js",
+        "lib/tuna/ui/modules/module.js",
+        "lib/tuna/ui/modules/transform-container.js",
+        "lib/tuna/ui/modules/navigation.js",
+        "lib/tuna/ui/modules/selection-group.js",
+
+        "lib/tuna/model.js",
+        "lib/tuna/model/resource.js",
+        "lib/tuna/model/data-storage.js",
+
+        "lib/tuna/view/origin.js",
+        "lib/tuna/view/i-view-state.js",
+        "lib/tuna/view/view-controller.js",
+        "lib/tuna/view/state-view-controller.js",
+        "lib/tuna/view/navigation-view-controller.js",
+        "lib/tuna/view/wizard-view-controller.js",
+        "lib/tuna/view/page-view-controller.js",
+        "lib/tuna/view/step-view-controller.js",
+
+        "lib/jquery/jquery-1.7.1.js",
+
+        "lib/jquery/ui/jquery.ui.core.js",
+        "lib/jquery/ui/jquery.ui.datepicker.js",
+
+        "lib/jquery/ui/i18n/jquery.ui.datepicker-ru.js",
+
+        "lib/json.js",
+        "lib/swfobject.js",
+
+        "src/ui/forms/form-response-parser.js",
+        "src/ui/forms/form-input.js",
+        "src/ui/forms/form.js",
+
+        "src/ui/autocomplete.js",
+        "src/ui/data-image.js",
+        "src/ui/popup.js",
+        "src/ui/carousel.js",
+
+        "src/ui/modules/autocomplete.js",
+        "src/ui/modules/swf.js",
+        "src/ui/modules/popup.js",
+        "src/ui/modules/image-popup.js",
+        "src/ui/modules/slider.js",
+        "src/ui/modules/carousel.js",
+        "src/ui/modules/form.js",
+        "src/ui/modules/datepicker.js",
+        "src/ui/modules/data-image.js",
+        "src/ui/modules/data-image-copy.js",
+
+        "src/rest/common-method.js",
+        "src/rest/method-factory.js",
+
+        "src/model/cakes.js",
+        "src/model/orders.js",
+        "src/model/recipes.js",
+        "src/model/cities.js",
+
+        "src/view/main-controller.js",
+
+        "src/view/steps/title-controller.js",
+        "src/view/steps/designer-controller.js",
+        "src/view/steps/share-controller.js",
+        "src/view/steps/recipe-controller.js",
+        "src/view/steps/order-controller.js"
+    ]
+}

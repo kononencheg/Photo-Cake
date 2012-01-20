@@ -34,6 +34,12 @@
         this.__movie.initialize(DECO_DATA, 'round', 1);
     };
 
+    DesignerController.prototype.confirmShapeChange = function(shape) {
+        if (confirm('При изменении формы торта, все оформление будет утеряно!')) {
+            this.__movie.changeShape(shape);
+        }
+    };
+
     DesignerController.prototype.canClose = function() {
         return this.__movie !== null;
     };
@@ -50,6 +56,7 @@
     var controller = new DesignerController('designer_step');
 
     onFlashReady = tuna.bind(controller.onFlashReady, controller);
+    confirmShapeChange = tuna.bind(controller.confirmShapeChange, controller);
 
     tuna.view.registerController(controller);
 })();

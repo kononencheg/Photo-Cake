@@ -33,7 +33,6 @@
 
         var self = this;
         tuna.rest.call('cities.getList', function(result) {
-            debugger;
             model.cities.setCities(result);
             self.__updateView();
         });
