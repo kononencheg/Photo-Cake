@@ -10,6 +10,7 @@
 
     OrderController.prototype._requireModules = function() {
         this._container.requireModule('data-image-copy');
+        this._container.requireModule('datepicker');
         this._container.requireModule('form');
     };
 

@@ -1,7 +1,6 @@
 @import "/css/jquery/jquery.ui.core.css";
-@import "/css/jquery/jquery.ui.slider.css";
-@import "/css/jquery/jquery.ui.custom.css";
-@import "/css/hacks/image-hacks.css";
+@import "/css/jquery/jquery.ui.theme.css";
+@import "/css/jquery/jquery.ui.datepicker.css";
 html,body{margin:0;padding:0;}
 h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,cite,code,del,dfn,em,img,q,s,samp,small,strike,strong,sub,sup,tt,var,dd,dl,dt,li,ol,ul,fieldset,form,label,legend,button,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:normal;font-style:normal;font-size:100%;line-height:1;font-family:inherit;}
 table{border-collapse:collapse;border-spacing:0;}
@@ -366,7 +365,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;
 .cake-weight{line-height:32px;}
 .recipe-tile{width:100px;}.recipe-tile img{margin-top:5px;margin-left:5px;margin-right:5px;}
 .recipe-tile label{margin-left:5px;margin-right:5px;color:inherit;text-align:left;}
-.next-btn{float:right;margin-right:30px;}
+.next-btn{margin-right:30px;}
 .micro{width:50px;}
 .btn.primary{background-color:#750000;background-repeat:repeat-x;background-image:-khtml-gradient(linear, left top, left bottom, from(#9d261d), to(#750000));background-image:-moz-linear-gradient(top, #9d261d, #750000);background-image:-ms-linear-gradient(top, #9d261d, #750000);background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #9d261d), color-stop(100%, #750000));background-image:-webkit-linear-gradient(top, #9d261d, #750000);background-image:-o-linear-gradient(top, #9d261d, #750000);background-image:linear-gradient(top, #9d261d, #750000);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9d261d', endColorstr='#750000', GradientType=0);text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);border-color:#750000 #750000 #290000;border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);}.btn.primary.large{padding:4px 12px 4px;font-size:24px;}
 .hidden{display:none;}
@@ -377,7 +376,7 @@ img.vertical{height:100%;}
 .media-grid li a:hover{text-decoration:none;border-color:#ddd;}
 i{display:inline-block;*zoom:1;*display:inline;font-size:0;}
 .ico{position:relative;vertical-align:text-bottom;background-repeat:no-repeat;}
-.ico-persons{width:15px;height:15px;background:no-repeat url(/img/app/persons.png);}
+.ico-persons{width:15px;height:15px;background:no-repeat url(/img/persons.png);}
 .ico-super{color:#750000;font-style:italic;vertical-align:super;}
 body{font-family:"Times New Roman";}
 p{padding-top:10px;padding-bottom:10px;font-size:14px;}

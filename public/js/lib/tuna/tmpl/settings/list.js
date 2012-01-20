@@ -14,7 +14,8 @@
 
         this.__keyPath = '';
 
-        this.__itemRenderer = null;
+        this.__itemRendererID = null;
+
         this.__itemTemplate = null;
     };
 

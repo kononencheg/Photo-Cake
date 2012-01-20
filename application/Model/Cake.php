@@ -6,6 +6,9 @@ use \PhotoCake\Db\Record\AbstractRecord;
 
 class Cake extends \PhotoCake\Db\Mongo\MongoRecord
 {
+    /**
+     * @var string
+     */
     public $name = 'cakes';
 
     /**

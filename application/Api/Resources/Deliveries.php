@@ -2,13 +2,15 @@
 
 namespace Api\Resources;
 
-class Deliveries implements \PhotoCake\Api\Resource\ResourceInterface
+class Deliveries extends \PhotoCake\Api\Resource\DbResource
 {
 
-    public function initDelivery($city, $address, $time)
+    public function initDelivery($cityId, $address, $time)
     {
+        $cityCollection = $this->getCollection('cities');
+
         $delivery = new \Model\Delivery();
-        $delivery->city = $city;
+        $delivery->city = $cityCollection->fetch($cityId);
         $delivery->address = $address;
         $delivery->date = new \MongoDate($time);
 
