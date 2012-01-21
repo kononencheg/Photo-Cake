@@ -16,7 +16,7 @@
             var image = tuna.dom.selectOne('.j-popup-image', popupElement);
 
             altText.innerText = target.getAttribute('alt');
-            image.src = target.src;
+            image.src = target.getAttribute('data-image-src');
 
             popup.open();
         });
