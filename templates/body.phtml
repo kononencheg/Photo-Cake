@@ -9,6 +9,13 @@
                 <q class="main-subtitle">Ваш дизайн - наше исполнение!</q>
             </small>
         </h1>
+
+        <?php if ($this->session->get('network') === NULL) {?>
+            <div>
+                Поделиться
+            </div>
+        <?php } ?>
+
     </div>
 
     <div class="content">

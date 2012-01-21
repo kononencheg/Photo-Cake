@@ -57,6 +57,7 @@
 
     onFlashReady = tuna.bind(controller.onFlashReady, controller);
     confirmShapeChange = tuna.bind(controller.confirmShapeChange, controller);
+    openMessageBox = function(message) { alert(message); };
 
     tuna.view.registerController(controller);
 })();

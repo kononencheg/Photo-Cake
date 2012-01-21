@@ -1,18 +1,26 @@
-<?php if ($this->session->get('network')) {?>
-    <a class="j-navigation-link btn primary large" data-href="share_step">
-        Поделиться
-    </a>
-<?php } ?>
+<div class="row">
+    <div class="span12">
+        <?php if ($this->session->get('network')) {?>
+            <a class="j-navigation-link btn primary large" data-href="share_step">
+                Поделиться
+            </a>
+        <?php } ?>
 
-<a class="j-navigation-link btn primary large" data-href="recipe_step">
-    Купить
-</a>
-
-<div id="cake_designer" class="j-swf"
-     data-movie-url="/swf/cake-designer.swf">
-    
-    <p>Загрузка...</p>
+        <a class="j-navigation-link btn primary large" data-href="recipe_step">
+            Купить
+        </a>
+    </div>
 </div>
 
-<img id="base_cake_image" class="j-data-image hidden"
-     alt="Загрузка тортика..." width="317" height="317" />
+<div class="row">
+    <div class="span12">
+        <div id="cake_designer" class="j-swf"
+             data-movie-url="/swf/cake-designer.swf">
+
+            <p>Загрузка...</p>
+        </div>
+
+        <img id="base_cake_image" class="j-data-image hidden"
+             alt="Загрузка тортика..." width="317" height="317" />
+    </div>
+</div>
