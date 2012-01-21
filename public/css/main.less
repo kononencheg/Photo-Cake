@@ -31,9 +31,12 @@
 /**
  * Wizard
  */
+.container {
+    width: 700px;
+}
 
 .step {
-    position: absolute;
+    position: relative;
 
     float:left;
     overflow: hidden;
@@ -44,7 +47,7 @@
 
     &.current {
         width: 100%;
-        left: 0px;
+        left: 20px;
         
         display: inherit;
     }
@@ -345,4 +348,40 @@ i {
     color: @header-color;
     font-style: italic;
     vertical-align: super;
+}
+
+.share-block {
+    float: right;
+    margin: 30px;
+}
+
+#share .b-share-icon {
+    width: 32px;
+    height: 32px;
+    background: url(/img/social-ico.png);
+}
+
+#share .b-share-icon_facebook {
+    background-position: 0 0;
+}
+
+#share .b-share-icon_yaru {
+    background-position: 32px 0;
+}
+
+#share .b-share-icon_vkontakte {
+    background-position: 71px 0;
+}
+
+#share .b-share-icon_odnoklassniki {
+    background-position: 110px 0;
+}
+
+#share .b-share-icon_lj {
+    background-position: 149px 0;
+}
+
+.share-title {
+    font-size: large;
+    margin-left: 5px;
 }

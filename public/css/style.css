@@ -336,7 +336,8 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;
 .main-logo{display:block;}
 .main-subtitle{display:block;margin:0 0 0 20px;font:inherit;}
 .head-button{margin:40px 50px 0 0;}
-.step{position:absolute;float:left;overflow:hidden;left:-1px;height:665px;width:1px;}.step.current{width:100%;left:0px;display:inherit;}
+.container{width:700px;}
+.step{position:relative;float:left;overflow:hidden;left:-1px;height:665px;width:1px;}.step.current{width:100%;left:20px;display:inherit;}
 .cake-gallery{overflow:hidden;}.cake-gallery h3{margin-left:40px;}
 .cake-gallery-body{padding:10px 40px 40px 40px;margin-bottom:-10px;margin-top:10px;}.cake-gallery-body.media-grid{margin-left:-30px;}.cake-gallery-body.media-grid a{margin-left:30px;}
 .cake-gallery-body a{height:90px;width:110px;}
@@ -378,6 +379,14 @@ i{display:inline-block;*zoom:1;*display:inline;font-size:0;}
 .ico{position:relative;vertical-align:text-bottom;background-repeat:no-repeat;}
 .ico-persons{width:15px;height:15px;background:no-repeat url(/img/persons.png);}
 .ico-super{color:#750000;font-style:italic;vertical-align:super;}
+.share-block{float:right;margin:30px;}
+#share .b-share-icon{width:32px;height:32px;background:url(/img/social-ico.png);}
+#share .b-share-icon_facebook{background-position:0 0;}
+#share .b-share-icon_yaru{background-position:32px 0;}
+#share .b-share-icon_vkontakte{background-position:71px 0;}
+#share .b-share-icon_odnoklassniki{background-position:110px 0;}
+#share .b-share-icon_lj{background-position:149px 0;}
+.share-title{font-size:large;margin-left:5px;}
 body{font-family:"Times New Roman";}
 p{padding-top:10px;padding-bottom:10px;font-size:14px;}
 h1{color:#750000;font-style:italic;font-weight:normal;}h1 small{color:#750000;font-weight:normal;font-style:italic;font-size:16px;}

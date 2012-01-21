@@ -1,52 +1,60 @@
-<div class="j-navigation fluid-container">
-    <div class="page-header">
-        <h1 class="main-title">
-            <img class="main-logo" src="/img/logo.png"
-                 alt="Фото на торте!" />
-
-            <small>
-                <q class="main-subtitle">Торты на заказ:</q>
-                <q class="main-subtitle">Ваш дизайн - наше исполнение!</q>
-            </small>
-        </h1>
-
-        <?php if ($this->session->get('network') === NULL) {?>
-            <div>
-                Поделиться
-            </div>
-        <?php } ?>
-
-    </div>
-
+<div class="j-navigation container">
     <div class="content">
-        <div id="title_step" data-init-event="ui-navigate"
-             class="j-navigation-page j-transform-container step current">
+        <div class="page-header">
+            <h1 class="main-title">
+                <img class="main-logo" src="/img/logo.png"
+                     alt="Фото на торте!" />
 
-             <?php $this->render('steps/title') ?>
+                <small>
+                    <q class="main-subtitle">Торты на заказ:</q>
+                    <q class="main-subtitle">Ваш дизайн - наше исполнение!</q>
+                </small>
+            </h1>
+
+            <?php if ($this->session->get('network') === NULL) {?>
+                <script type="text/javascript" src="http://yandex.st/share/share.js"></script>
+                <div id="share" class="share-block">
+                    <div class="share-title">Поделитесь с друзьями:</div>
+                    <div class="yashare-auto-init"
+                         data-yashareL10n="ru"
+                         data-yashareType="none"
+                         data-yashareQuickServices="facebook,lj,odnoklassniki,vkontakte,yaru"></div>
+                </div>
+            <?php } ?>
+
+        </div>
+
+
+        <div id="title_step" data-init-event="ui-navigate"
+             class="j-navigation-page j-transform-container row step current">
+
+            <div class="span12">
+                <?php $this->render('steps/title') ?>
+            </div>
         </div>
 
         <div id="designer_step" data-init-event="ui-navigate"
-             class="j-navigation-page j-transform-container step">
+             class="j-navigation-page j-transform-container row step">
 
              <?php $this->render('steps/designer') ?>
         </div>
 
         <div id="share_step" data-init-event="ui-navigate"
-             class="j-navigation-page j-transform-container step">
+             class="j-navigation-page j-transform-container row step">
 
             <?php $this->render('steps/share') ?>
         </div>
 
         <div id="recipe_step" data-init-event="ui-navigate"
              data-template-id="recipe_template"
-             class="j-navigation-page j-transform-container step">
+             class="j-navigation-page j-transform-container row step">
 
             <?php $this->render('steps/recipe') ?>
         </div>
 
         <div id="order_step" data-init-event="ui-navigate"
              data-template-id="order_template"
-             class="j-navigation-page j-transform-container step">
+             class="j-navigation-page j-transform-container row step">
 
             <?php $this->render('steps/order') ?>
         </div>
