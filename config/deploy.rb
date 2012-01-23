@@ -12,6 +12,7 @@ role :db,  "178.250.241.76", :primary => true
 
 set :scm, :git
 set :scm_verbose, true
+set :git_enable_submodules, true
 
 set :repository,  "git@github.com:kononencheg/Photo-Cake.git"
 
