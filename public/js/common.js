@@ -17000,7 +17000,7 @@ var swfobject = function() {
             var form = document.createElement('form');
             form.method = 'POST';
             form.target = 'support_frame';
-            form.action = '/api/?method=utils.base64Echo&type=' + type;
+            form.action = API_URL + '?method=utils.base64Echo&type=' + type;
 
             var dataInput = document.createElement('input');
             dataInput.type = 'hidden';
@@ -17520,7 +17520,7 @@ var swfobject = function() {
 
         this.__request = new tuna.net.Request();
         this.__request.method = 'POST';
-        this.__request.setURL('/api/?method=' + name);
+        this.__request.setURL(API_URL + '?method=' + name);
 
         var self = this;
 

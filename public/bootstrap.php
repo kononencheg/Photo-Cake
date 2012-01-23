@@ -1,6 +1,6 @@
 <?php
 
-define('FILE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/files/');
+define('FILE_URL', 'http://files.' . $_SERVER['SERVER_NAME'] . '/');
 define('FILE_FOLDER', '/var/db/www/files/');
 define('TEMP_FILE_FOLDER', FILE_FOLDER . 'temp/');
 
