@@ -1,13 +1,6 @@
 <?php
 
-define('FILE_URL', 'http://files.' . $_SERVER['SERVER_NAME'] . '/');
-define('FILE_FOLDER', '/var/db/www/files/');
-define('TEMP_FILE_FOLDER', FILE_FOLDER . 'temp/');
-
-date_default_timezone_set('Europe/Moscow');
-
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath($_SERVER["DOCUMENT_ROOT"] . '/../application'),
     realpath($_SERVER["DOCUMENT_ROOT"] . '/../library'),
     realpath($_SERVER["DOCUMENT_ROOT"] . '/../templates'),
     get_include_path(),
