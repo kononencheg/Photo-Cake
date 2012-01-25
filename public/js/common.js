@@ -2787,7 +2787,7 @@ tuna.indexOf = function(element, array) {
     };
 
     ElementsCollection.prototype.getItemAt = function(index) {
-        return this.__items[index];
+        return this.__items[index] || null;
     };
 
     ElementsCollection.prototype.clear = function() {
@@ -2810,12 +2810,8 @@ tuna.indexOf = function(element, array) {
     tuna.namespace('tuna.ui.selection.items');
 
     var NamedElementsCollection = function(indexAttribute) {
-        this.__indexAttribute = 'id';
+        this.__indexAttribute = indexAttribute;
         this.__items = {};
-
-        if (indexAttribute !== undefined) {
-            this.__indexAttribute = indexAttribute;
-        }
     };
 
     tuna.implement(NamedElementsCollection, tuna.ui.selection.items.IItemsCollection);
@@ -2839,7 +2835,7 @@ tuna.indexOf = function(element, array) {
     };
 
     NamedElementsCollection.prototype.getItemAt = function(index) {
-        return this.__items[index];
+        return this.__items[index] || null;
     };
 
     NamedElementsCollection.prototype.clear = function() {
@@ -3111,8 +3107,10 @@ tuna.indexOf = function(element, array) {
     };
 
     ClassSelectionView.prototype.destroySelectionAt = function(index) {
-        tuna.dom.removeClass
-            (this._itemsCollection.getItemAt(index), this._selectedClass);
+        var item = this._itemsCollection.getItemAt(index);
+        if (item !== null) {
+            tuna.dom.removeClass(item, this._selectedClass);
+        }
     };
 
 
@@ -3192,7 +3190,7 @@ tuna.indexOf = function(element, array) {
 
     tuna.namespace('tuna.ui.selection');
 
-    var SelectionGroup = function(parent) {
+    var AbstractSelectionGroup = function(parent) {
         tuna.events.EventDispatcher.call(this, parent);
 
         this._itemsCollection = null;
@@ -3203,33 +3201,10 @@ tuna.indexOf = function(element, array) {
         this._disabledIndexes = [];
     };
 
-    tuna.implement(SelectionGroup, tuna.ui.selection.ISelectionGroup);
-    tuna.extend(SelectionGroup, tuna.events.EventDispatcher);
+    tuna.implement(AbstractSelectionGroup, tuna.ui.selection.ISelectionGroup);
+    tuna.extend(AbstractSelectionGroup, tuna.events.EventDispatcher);
 
-    SelectionGroup.prototype.init = function(rule) {
-        this._selectionRule.setSelectionGroup(this);
-        this._selectionRule.setEventDispatcher(this);
-        this._selectionRule.setSelectionView(this._selectionView);
-
-        this._selectionView.setSelectionGroup(this);
-        this._selectionView.setItemsCollection(this._itemsCollection);
-
-        this._selectionView.update();
-    };
-
-    SelectionGroup.prototype.setSelectionRule = function(rule) {
-        this._selectionRule = rule;
-    };
-
-    SelectionGroup.prototype.setSelectionView = function(view) {
-        this._selectionView = view;
-    };
-
-    SelectionGroup.prototype.setItemsCollection = function(collection) {
-        this._itemsCollection = collection;
-    };
-
-    SelectionGroup.prototype.setIndexEnabled
+    AbstractSelectionGroup.prototype.setIndexEnabled
         = function(index, isEnabled) {
 
         var indexPosition = tuna.indexOf(index, this._disabledIndexes);
@@ -3244,52 +3219,96 @@ tuna.indexOf = function(element, array) {
         }
     };
 
-    SelectionGroup.prototype.isIndexEnabled = function(index) {
+    AbstractSelectionGroup.prototype.isIndexEnabled = function(index) {
         return tuna.indexOf(index, this._disabledIndexes) === -1;
     };
 
-    SelectionGroup.prototype.updateView = function() {
+    AbstractSelectionGroup.prototype.updateView = function() {
         this._selectionView.update();
     };
 
-    SelectionGroup.prototype.getItemIndex = function(item) {
+    AbstractSelectionGroup.prototype.getItemIndex = function(item) {
         return this._itemsCollection.getItemIndex(item);
     };
 
-    SelectionGroup.prototype.getItemAt = function(index) {
+    AbstractSelectionGroup.prototype.getItemAt = function(index) {
         return this._itemsCollection.getItemAt(index);
     };
 
-    SelectionGroup.prototype.mapItems = function(callback) {
+    AbstractSelectionGroup.prototype.mapItems = function(callback) {
         this._itemsCollection.mapItems(callback);
     };
 
-    SelectionGroup.prototype.getSelectedIndexes = function() {
+    AbstractSelectionGroup.prototype.getSelectedIndexes = function() {
         return this._selectionRule.getSelectedIndexes();
     };
 
-    SelectionGroup.prototype.getLastSelectedIndex = function() {
+    AbstractSelectionGroup.prototype.getLastSelectedIndex = function() {
         var indexes = this._selectionRule.getSelectedIndexes();
         if (indexes.length > 0) {
             return indexes.pop();
         }
 
-
         return -1;
     };
 
-    SelectionGroup.prototype.selectIndex = function(index) {
+    AbstractSelectionGroup.prototype.selectIndex = function(index) {
         this._selectionRule.selectIndex(index);
     };
 
-    SelectionGroup.prototype.isSelected = function(index) {
+    AbstractSelectionGroup.prototype.isSelected = function(index) {
         return this._selectionRule.isSelected(index);
     };
 
-    SelectionGroup.prototype.clearSelection = function() {
+    AbstractSelectionGroup.prototype.clearSelection = function() {
         this._selectionRule.clearSelection();
     };
 
+
+    tuna.ui.selection.AbstractSelectionGroup = AbstractSelectionGroup;
+})();(function() {
+
+    tuna.namespace('tuna.ui.selection');
+
+    var SelectionGroup = function(target, isMultiple, indexAttribute,
+                                  itemSelector, selectedClass) {
+
+        tuna.ui.selection.AbstractSelectionGroup.call(this, null);
+
+        this.__target = target;
+        this.__itemSelector = itemSelector;
+        this.__isMultiple = isMultiple;
+
+        this._itemsCollection = indexAttribute === null ?
+            new tuna.ui.selection.items.ElementsCollection():
+            new tuna.ui.selection.items.NamedElementsCollection(indexAttribute);
+
+        this._selectionView
+            = new tuna.ui.selection.view.ClassSelectionView(target);
+
+        this._selectionView.setSelectedClass(selectedClass);
+        this._selectionView.setItemSelector(this.__itemSelector);
+        this._selectionView.setSelectionGroup(this);
+        this._selectionView.setItemsCollection(this._itemsCollection);
+
+        this._selectionRule =
+            isMultiple ? new tuna.ui.selection.rule.MultipleSelectionRule() :
+                         new tuna.ui.selection.rule.SingleSelectionRule();
+
+        this._selectionRule.setSelectionGroup(this);
+        this._selectionRule.setEventDispatcher(this);
+        this._selectionRule.setSelectionView(this._selectionView);
+    };
+
+    tuna.extend(SelectionGroup, tuna.ui.selection.AbstractSelectionGroup);
+
+    SelectionGroup.prototype.init = function() {
+        this._selectionView.update();
+    };
+
+    SelectionGroup.prototype.isMultiple = function() {
+        return this.__isMultiple;
+    };
 
     tuna.ui.selection.SelectionGroup = SelectionGroup;
 })();(function() {
@@ -3476,49 +3495,30 @@ tuna.indexOf = function(element, array) {
 
     var Navigation = function() {
         tuna.ui.modules.Module.call(this, 'navigation', '.j-navigation');
-
-        this.__pageSelector = '.j-navigation-page';
-        this.__linkSelector = '.j-navigation-link';
     };
 
     tuna.extend(Navigation, tuna.ui.modules.Module);
 
     Navigation.prototype._initInstance = function(target) {
 
-        var selectionRule = new tuna.ui.selection.rule.SingleSelectionRule();
-
-        var selectionView
-            = new tuna.ui.selection.view.ClassSelectionView(target);
-
-
-        selectionView.setItemSelector(this.__pageSelector);
-        selectionView.setSelectedClass('current');
-
-        var itemsCollection
-            = new tuna.ui.selection.items.NamedElementsCollection();
-
-        var selectionGroup = new tuna.ui.selection.SelectionGroup();
-        selectionGroup.setSelectionRule(selectionRule);
-        selectionGroup.setSelectionView(selectionView);
-        selectionGroup.setItemsCollection(itemsCollection);
+        var selectionGroup = new tuna.ui.selection.SelectionGroup
+            (target, false, 'id', '.j-navigation-page', 'current');
 
         selectionGroup.addEventListener('selected', function(event, index) {
             tuna.dom.dispatchEvent
                 (selectionGroup.getItemAt(index), 'ui-navigate');
         });
 
-        selectionGroup.init();
-
         tuna.dom.addChildEventListener(
-            target, this.__linkSelector, 'click', function(event) {
-                tuna.dom.stopPropagation(event);
-
+            target, '.j-navigation-link', 'click', function(event) {
                 var index = this.getAttribute('data-href');
                 if (index !== null) {
                     selectionGroup.selectIndex(index);
                 }
             }
         );
+
+        selectionGroup.init();
 
         return selectionGroup;
     };
@@ -3533,42 +3533,37 @@ tuna.indexOf = function(element, array) {
 
     tuna.extend(SelectionGroup, tuna.ui.modules.Module);
 
-    SelectionGroup.prototype._initInstance
-        = function(target, container, options) {
+    SelectionGroup.prototype._initInstance = function(target) {
+        var isMultiple = target.getAttribute('data-is-multiple') === 'true';
+
+        var itemSelector = target.getAttribute('data-item-selector');
+        if (itemSelector === null) {
+            itemSelector = '.j-selection-item';
+        }
+
+        var selectionClass = target.getAttribute('data-selection-class');
+        if (selectionClass === null) {
+            selectionClass = 'current';
+        }
+
+        var selectionGroup = new tuna.ui.selection.SelectionGroup
+            (target, isMultiple, null, itemSelector, selectionClass);
 
         var selectionEvent = target.getAttribute('data-selection-event');
         if (selectionEvent === null) {
             selectionEvent = 'click';
         }
 
-        var selectionRule = new tuna.ui.selection.rule.SingleSelectionRule();
-
-        var selectionView
-            = new tuna.ui.selection.view.ClassSelectionView(target);
-
-        selectionView.setItemSelector('.j-selection-item');
-        selectionView.setSelectedClass('current');
-
-        var itemsCollection
-            = new tuna.ui.selection.items.ElementsCollection();
-
-        var selectionGroup = new tuna.ui.selection.SelectionGroup();
-        selectionGroup.setSelectionRule(selectionRule);
-        selectionGroup.setSelectionView(selectionView);
-        selectionGroup.setItemsCollection(itemsCollection);
-
-        selectionGroup.init();
-
         tuna.dom.addChildEventListener(
-            target, '.j-selection-item', selectionEvent, function(event) {
-                tuna.dom.stopPropagation(event);
-
+            target, itemSelector, selectionEvent, function() {
                 var index = selectionGroup.getItemIndex(this);
                 if (index !== null) {
                     selectionGroup.selectIndex(index);
                 }
             }
         );
+
+        selectionGroup.init();
 
         return selectionGroup;
     };
@@ -3906,56 +3901,6 @@ tuna.indexOf = function(element, array) {
 })();(function() {
     tuna.namespace('tuna.view');
 
-    var WizardViewController = function(targetID) {
-        tuna.view.NavigationViewController.call(this, targetID);
-
-        this._nextButton = null;
-        this._prevButton = null;
-    };
-
-    tuna.extend(WizardViewController, tuna.view.NavigationViewController);
-
-    WizardViewController.prototype._canSwitchTo = function(index) {
-        var result = tuna.view.NavigationViewController.prototype.
-                        _canSwitchTo.call(this, index);
-        
-        if (result && this._currentController !== null) {
-            // TODO: with circle rewind has no sense
-            if (index > this._pageNavigator.getCurrentIndex()) {
-                result = this._currentController.canGoNext();
-            } else {
-                result = this._currentController.canGoPrev();
-            }
-        }
-
-        return result;
-    };
-
-    WizardViewController.prototype._updateController = function() {
-        tuna.view.NavigationViewController.prototype.
-            _updateController.call(this);
-
-        if (this._currentController !== null) {
-            if (this._nextButton !== null) {
-                tuna.dom.setClassExist(
-                    this._nextButton, 'hidden',
-                    !this._currentController.canGoNext()
-                );
-            }
-
-            if (this.__prevButton !== null) {
-                tuna.dom.setClassExist(
-                    this._prevButton, 'hidden',
-                    !this._currentController.canGoPrev()
-                );
-            }
-        }
-    };
-
-    tuna.view.WizardViewController = WizardViewController;
-})();(function() {
-    tuna.namespace('tuna.view');
-
     var PageViewController = function(targetID) {
         tuna.view.ViewController.call(this, targetID);
 
@@ -3977,24 +3922,6 @@ tuna.indexOf = function(element, array) {
     PageViewController.prototype.open = function() {};
 
     tuna.view.PageViewController = PageViewController;
-})();(function() {
-    tuna.namespace('tuna.view');
-
-    var StepViewController = function(targetID) {
-        tuna.view.ViewController.call(this, targetID);
-    };
-
-    tuna.extend(StepViewController, tuna.view.PageViewController);
-
-    StepViewController.prototype.canGoNext = function() {
-        return true;
-    };
-
-    StepViewController.prototype.canGoPrev = function() {
-        return true;
-    };
-
-    tuna.view.StepViewController = StepViewController;
 })();/*!
  * jQuery JavaScript Library v1.7.1
  * http://jquery.com/
@@ -16892,58 +16819,48 @@ var swfobject = function() {
 })();(function() {
     tuna.namespace('ui');
 
-    var Autocomplete = function(input) {
+    var Autocomplete = function(selectionGroup, transformer) {
         tuna.events.EventDispatcher.call(this);
         
-        this.__input = input;
-
-        this.__selectionGroup = null;
-        this.__transformer = null;
+        this.__selectionGroup = selectionGroup;
+        this.__transformer = transformer;
 
         this.__data = null;
-        this.__filteredData = null;
+        this.__currentData = null;
+
+        this.__selectedData = [];
+
+        this.__filterCallback = function(item) {
+            return item.name;
+        };
     };
 
     tuna.extend(Autocomplete, tuna.events.EventDispatcher);
 
-    Autocomplete.prototype.setTransformer = function(transformer) {
-        return this.__transformer = transformer;
+    Autocomplete.prototype.setFilterCallback = function(callback) {
+        this.__filterCallback = callback;
     };
 
     Autocomplete.prototype.setData = function(data) {
-        this.__data = data;
-        this.__applyFilter('');
+        this.__currentData = this.__data = data;
+        this.update();
     };
 
-    Autocomplete.prototype.setSelectionGroup = function(group) {
-        this.__selectionGroup = group;
-    };
-
-    Autocomplete.prototype.init = function() {
-        var self = this;
-        var lastValue = null;
-
-        tuna.dom.addEventListener(this.__input, 'keyup', function(event) {
-            if (this.value !== lastValue) {
-                lastValue = this.value;
-
-                self.__applyFilter(lastValue);
-            }
-        });
-    };
-
-    Autocomplete.prototype.getCurrentItem = function() {
-        var index = this.__selectionGroup.getLastSelectedIndex();
-        if (index !== -1) {
-            return this.__filteredData[index];
-        } else {
-            return null;
+    Autocomplete.prototype.getValueAt = function(index) {
+        if (this.__currentData[index] !== undefined) {
+            return this.__filterCallback(this.__currentData[index]);
         }
+
+        return null;
     };
 
-    Autocomplete.prototype.__applyFilter = function(term) {
-        this.__filteredData = this.__filterData(term)
-        this.__transformer.applyTransform(this.__filteredData);
+    Autocomplete.prototype.complete = function(term) {
+        this.__currentData = this.__filterData(term);
+        this.update();
+    };
+
+    Autocomplete.prototype.update = function() {
+        this.__transformer.applyTransform(this.__currentData);
         this.__selectionGroup.updateView();
     };
 
@@ -16958,10 +16875,13 @@ var swfobject = function() {
             var i = 0,
                 l = this.__data.length;
 
+            var item = null;
             while (i < l) {
-                // TODO: Change login (do not check name)
-                if (this.__data[i].name.toUpperCase().indexOf(needle) !== -1) {
-                    result.push(this.__data[i]);
+                item = this.__data[i];
+
+                if (this.__filterCallback(item).toUpperCase()
+                                               .indexOf(needle) !== -1) {
+                    result.push(item);
                 }
 
                 i++;
@@ -17076,8 +16996,6 @@ var swfobject = function() {
             this.__target, '.j-popup-close', 'click',
             function(event) {
                 tuna.dom.preventDefault(event);
-                tuna.dom.stopPropagation(event);
-
                 self.close();
             }
         );
@@ -17086,8 +17004,6 @@ var swfobject = function() {
             this.__target, '.j-popup-apply', 'click',
             function(event) {
                 tuna.dom.preventDefault(event);
-                tuna.dom.stopPropagation(event);
-
                 self.apply();
             }
         );
@@ -17100,18 +17016,21 @@ var swfobject = function() {
     };
 
     Popup.prototype.open = function() {
-        this.__show();
-        this.dispatch('popup-open');
+        if (this.dispatch('popup-open')) {
+            this.__show();
+        }
     };
 
     Popup.prototype.close = function() {
-        this.__hide();
-        this.dispatch('popup-close');
+        if (this.dispatch('popup-close')) {
+            this.__hide();
+        }
     };
 
     Popup.prototype.apply = function() {
-        this.__hide();
-        this.dispatch('popup-apply', this.__collectData());
+        if (this.dispatch('popup-apply', this.__collectData())) {
+            this.__hide();
+        }
     };
 
     Popup.prototype.__hide = function() {
@@ -17205,49 +17124,45 @@ var swfobject = function() {
 
         this.__templateCompiler
             = new tuna.tmpl.compile.TemplateCompiler(document);
-
-        this.__selectionModule = null;
     };
 
     tuna.extend(Autocomplete, tuna.ui.modules.Module);
 
     Autocomplete.prototype._initInstance = function(target) {
-
-        var templateID  = target.getAttribute('data-template-id');
-        var template = this.__templateBuilder.buildTemplate(templateID);
-        var transformer
-            = this.__templateCompiler.makeTransformer(template, target);
-
+        var transformer = this._initTransformer(target);
         var selectionGroup = this._initSelectionGroup(target);
 
-        var autocomplete
-            = new ui.Autocomplete(tuna.dom.selectOne('.j-autocomplete-input'));
+        var autocomplete = new ui.Autocomplete(selectionGroup, transformer);
 
-        autocomplete.setTransformer(transformer);
-        autocomplete.setSelectionGroup(selectionGroup);
-        autocomplete.init();
+        var input = tuna.dom.selectOne('.j-autocomplete-input', target);
+        var selectedIndex = -1;
 
-        return autocomplete;
-    };
+        var lastValue = null;
+        tuna.dom.addEventListener(input, 'keyup', function(event) {
+            if (input.value !== lastValue) {
+                autocomplete.complete(lastValue = input.value);
+                selectedIndex = -1;
+            }
+        });
 
-    Autocomplete.prototype._initSelectionGroup = function(target) {
-        var selectionRule = new tuna.ui.selection.rule.SingleSelectionRule();
+        var hasEventListener = false;
+        tuna.dom.addEventListener(input, 'focus', function(event) {
+            if (!hasEventListener) {
+                tuna.dom.addOneEventListener(document.body, 'click', function() {
+                    if (selectedIndex === -1) {
+                        autocomplete.complete(input.value = '');
+                    }
 
-        var selectionView
-            = new tuna.ui.selection.view.ClassSelectionView(target);
+                    hasEventListener = false;
+                });
 
-        selectionView.setItemSelector('.j-autocomplete-item');
-        selectionView.setSelectedClass('current');
+                hasEventListener = true;
+            }
+        });
 
-        var itemsCollection
-            = new tuna.ui.selection.items.ElementsCollection();
-
-        var selectionGroup = new tuna.ui.selection.SelectionGroup();
-        selectionGroup.setSelectionRule(selectionRule);
-        selectionGroup.setSelectionView(selectionView);
-        selectionGroup.setItemsCollection(itemsCollection);
-
-        selectionGroup.init();
+        tuna.dom.addEventListener(input, 'click', function(event) {
+            tuna.dom.stopPropagation(event);
+        });
 
         tuna.dom.addChildEventListener(
             target, '.j-autocomplete-item', 'click', function(event) {
@@ -17255,10 +17170,29 @@ var swfobject = function() {
 
                 var index = selectionGroup.getItemIndex(this);
                 if (index !== null) {
-                    selectionGroup.selectIndex(index);
+                    input.value = autocomplete.getValueAt(index);
+                    selectedIndex = index;
                 }
             }
         );
+
+
+
+        return autocomplete;
+    };
+
+    Autocomplete.prototype._initTransformer = function(target) {
+        var templateId  = target.getAttribute('data-template-id');
+        var template = this.__templateBuilder.buildTemplate(templateId);
+
+        return this.__templateCompiler.makeTransformer(template, target);
+    };
+
+    Autocomplete.prototype._initSelectionGroup = function(target) {
+        var isMultiple = target.getAttribute('data-is-multiple') === 'true';
+
+        var selectionGroup = new tuna.ui.selection.SelectionGroup
+                (target, isMultiple, null, '.j-autocomplete-item', 'current');
 
         return selectionGroup;
     };
@@ -17779,6 +17713,31 @@ var swfobject = function() {
 })();
 (function() {
 
+    tuna.namespace('model');
+
+    var Bakeries = function() {
+        tuna.model.Resource.call(this);
+    };
+
+    tuna.extend(Bakeries, tuna.model.Resource);
+
+    Bakeries.prototype.setBakeries = function(recipes) {
+        this.__storage.set('bakeries', recipes);
+    };
+
+    Bakeries.prototype.getBakeryAt = function(index) {
+        return this.__storage.get('bakeries')[index];
+    };
+
+    Bakeries.prototype.getBakeries = function() {
+        return this.__storage.get('bakeries');
+    };
+
+    model.bakeries = new Bakeries();
+
+})();
+(function() {
+
     var MainController = function() {
         tuna.view.NavigationViewController.call(this, null);
     };
@@ -17794,7 +17753,7 @@ var swfobject = function() {
         tuna.view.PageViewController.call(this, id);
     };
 
-    tuna.extend(TitleController, tuna.view.StepViewController);
+    tuna.extend(TitleController, tuna.view.PageViewController);
 
     TitleController.prototype._requireModules = function() {
         this._container.requireModule('selection-group');
@@ -17813,7 +17772,7 @@ var swfobject = function() {
         this.__movie = null;
     };
 
-    tuna.extend(DesignerController, tuna.view.StepViewController);
+    tuna.extend(DesignerController, tuna.view.PageViewController);
 
     var DECO_DATA = '{"weightsList":[1,1.5,2,2.5,3,3.5,4,4.5,5],"ratiosList":[0.6,0.55,0.5,0.45,0.4,0.38,0.32,0.3,0.25],"personsList":[6,10,15,20,25,30,35,40,45],"decoSelectors":[{"deco":[{"url":"/img/deco/cherry.png","autorotate":true,"name":"cherry","description":"Вишня"},{"url":"/img/deco/grape.png","autorotate":true,"name":"grape","description":"Виноград"},{"url":"/img/deco/kiwi.png","autorotate":true,"name":"kiwi","description":"Киви"},{"url":"/img/deco/raspberry.png","autorotate":true,"name":"raspberry","description":"Малина"},{"url":"/img/deco/strawberry.png","autorotate":true,"name":"strawberry","description":"Клубника"},{"url":"/img/deco/orange.png","autorotate":true,"name":"orange","description":"Апельсин"},{"url":"/img/deco/peach.png","autorotate":true,"name":"peach","description":"Персик"},{"url":"/img/deco/lemon.png","autorotate":true,"name":"lemon","description":"Лимон"}]},{"deco":[{"url":"/img/deco/pig1.png","autorotate":false,"name":"pig1","description":"Сахарная фигурка"},{"url":"/img/deco/car1.png","autorotate":false,"name":"car1","description":"Сахарная фигурка"},{"url":"/img/deco/hare1.png","autorotate":false,"name":"hare1","description":"Сахарная фигурка"},{"url":"/img/deco/hedgehog1.png","autorotate":false,"name":"hedgehog1","description":"Сахарная фигурка"},{"url":"/img/deco/moose1.png","autorotate":false,"name":"moose1","description":"Сахарная фигурка"},{"url":"/img/deco/owl1.png","autorotate":false,"name":"owl1","description":"Сахарная фигурка"},{"url":"/img/deco/pin1.png","autorotate":false,"name":"pin1","description":"Сахарная фигурка"},{"url":"/img/deco/sheep1.png","autorotate":false,"name":"sheep1","description":"Сахарная фигурка"},{"url":"/img/deco/raven1.png","autorotate":false,"name":"raven1","description":"Сахарная фигурка"},{"url":"/img/deco/bear1.png","autorotate":false,"name":"bear1","description":"Сахарная фигурка"},{"url":"/img/deco/car2.png","autorotate":false,"name":"car2","description":"Сахарная фигурка"},{"url":"/img/deco/car3.png","autorotate":false,"name":"car3","description":"Сахарная фигурка"},{"url":"/img/deco/mat1.png","autorotate":false,"name":"mat1","description":"Сахарная фигурка"},{"url":"/img/deco/doll1.png","autorotate":false,"name":"doll1","description":"Сахарная фигурка"},{"url":"/img/deco/doll2.png","autorotate":false,"name":"doll2","description":"Сахарная фигурка"}]},{"deco":[{"url":"/img/deco/flower1.png","autorotate":false,"name":"flower1","description":"Сахарная фигурка"},{"url":"/img/deco/flower2.png","autorotate":false,"name":"flower2","description":"Сахарная фигурка"},{"url":"/img/deco/flower3.png","autorotate":false,"name":"flower3","description":"Сахарная фигурка"},{"url":"/img/deco/flower4.png","autorotate":false,"name":"flower4","description":"Сахарная фигурка"},{"url":"/img/deco/flower5.png","autorotate":false,"name":"flower5","description":"Сахарная фигурка"},{"url":"/img/deco/flower6.png","autorotate":false,"name":"flower6","description":"Сахарная фигурка"}]}]}';
 
@@ -17870,14 +17829,14 @@ var swfobject = function() {
 (function() {
 
     var ShareController = function(id) {
-        tuna.view.StepViewController.call(this, id);
+        tuna.view.PageViewController.call(this, id);
 
         this.__friendsAutocomplete = null;
 
         this.__wallPostMethod = null;
     };
 
-    tuna.extend(ShareController, tuna.view.StepViewController);
+    tuna.extend(ShareController, tuna.view.PageViewController);
 
     ShareController.prototype.canGoNext = function() {
         return true;
@@ -17963,9 +17922,12 @@ var swfobject = function() {
 
         this.__popupRecipe = null;
         this.__popupIndex = -1;
+
+        this.__cityPopup = null;
+        this.__cityAutocomplete = null;
     };
 
-    tuna.extend(RecipeController, tuna.view.StepViewController);
+    tuna.extend(RecipeController, tuna.view.PageViewController);
 
     RecipeController.prototype.canClose = function(index) {
         var selectedRecipe = model.orders.getCurrentRecipe();
@@ -17980,29 +17942,82 @@ var swfobject = function() {
     RecipeController.prototype.open = function() {
         model.orders.initCurrentOrder(model.cakes.getCurrentCake());
 
+        this.__cityPopup.open();
+
         this.__updateView();
     };
 
     RecipeController.prototype._requireModules = function() {
         this._container.requireModule('data-image-copy');
+        this._container.requireModule('autocomplete');
         this._container.requireModule('popup');
     };
 
     RecipeController.prototype._initActions = function() {
-        this.__initRecipeList();
+        this.__initCityPopup();
+
         this.__initRecipeSelection();
+
         this.__initDescriptionPopup();
 
         this.__updateView();
     };
 
-    RecipeController.prototype.__initRecipeList = function() {
+    RecipeController.prototype.__initCityPopup = function() {
+        var cityList = tuna.dom.selectOne('#city_list');
+        tuna.dom.removeClass(cityList, 'hidden');
+        var selectedBakery = null;
+
+        this.__cityAutocomplete
+            = this._container.getOneModuleInstance('autocomplete');
+
+        this.__cityAutocomplete.setFilterCallback(function(item) {
+            return item.city.name;
+        });
+
+        /*this.__cityAutocomplete.addEventListener('selected', function(event, item) {
+            tuna.dom.addClass(cityList, 'hidden');
+            selectedBakery = item;
+        });
+
+        var input = this.__cityAutocomplete.getInput();
+
+        tuna.dom.addEventListener(input, 'focus', function(event) {
+
+
+            self.__cityAutocomplete.applyFilter('');
+            input.value = '';
+        });
+
+        tuna.dom.addEventListener(input, 'change', function(event) {
+            if (self.__cityAutocomplete.getCurrentItem() !== null) {
+                tuna.dom.addClass(cityList, 'hidden');
+            }
+        });*/
+
+        this.__cityPopup
+            = ui.Popup.create(tuna.dom.selectOne('#city_selection_popup'));
+
+        this.__cityPopup.addEventListener('popup-apply', function(event) {
+            if (selectedBakery === null) {
+                event.preventDefault();
+            } else {
+                tuna.rest.call(
+                    'recipes.getList', { 'bakery_id': selectedBakery.id },
+                    function(result) {
+                        model.recipes.setRecipes(result);
+                        self.__updateView();
+                    }
+                );
+            }
+        });
+
         var self = this;
-        tuna.rest.call('recipes.getList', function(result) {
-            model.recipes.setRecipes(result);
-            self.__updateView();
+        tuna.rest.call('bakeries.getList', function(result) {
+            self.__cityAutocomplete.setData(result);
         });
     };
+
 
     RecipeController.prototype.__initDescriptionPopup = function() {
         var self = this;
@@ -18064,7 +18079,7 @@ var swfobject = function() {
         this.__form = null;
     };
 
-    tuna.extend(OrderController, tuna.view.StepViewController);
+    tuna.extend(OrderController, tuna.view.PageViewController);
 
     OrderController.prototype._requireModules = function() {
         this._container.requireModule('data-image-copy');

@@ -16,7 +16,7 @@
     };
 
     ElementsCollection.prototype.getItemAt = function(index) {
-        return this.__items[index];
+        return this.__items[index] || null;
     };
 
     ElementsCollection.prototype.clear = function() {

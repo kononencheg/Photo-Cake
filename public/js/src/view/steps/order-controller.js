@@ -6,7 +6,7 @@
         this.__form = null;
     };
 
-    tuna.extend(OrderController, tuna.view.StepViewController);
+    tuna.extend(OrderController, tuna.view.PageViewController);
 
     OrderController.prototype._requireModules = function() {
         this._container.requireModule('data-image-copy');

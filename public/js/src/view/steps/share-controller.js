@@ -1,14 +1,14 @@
 (function() {
 
     var ShareController = function(id) {
-        tuna.view.StepViewController.call(this, id);
+        tuna.view.PageViewController.call(this, id);
 
         this.__friendsAutocomplete = null;
 
         this.__wallPostMethod = null;
     };
 
-    tuna.extend(ShareController, tuna.view.StepViewController);
+    tuna.extend(ShareController, tuna.view.PageViewController);
 
     ShareController.prototype.canGoNext = function() {
         return true;

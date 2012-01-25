@@ -2,12 +2,8 @@
     tuna.namespace('tuna.ui.selection.items');
 
     var NamedElementsCollection = function(indexAttribute) {
-        this.__indexAttribute = 'id';
+        this.__indexAttribute = indexAttribute;
         this.__items = {};
-
-        if (indexAttribute !== undefined) {
-            this.__indexAttribute = indexAttribute;
-        }
     };
 
     tuna.implement(NamedElementsCollection, tuna.ui.selection.items.IItemsCollection);
@@ -31,7 +27,7 @@
     };
 
     NamedElementsCollection.prototype.getItemAt = function(index) {
-        return this.__items[index];
+        return this.__items[index] || null;
     };
 
     NamedElementsCollection.prototype.clear = function() {

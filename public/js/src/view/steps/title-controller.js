@@ -4,7 +4,7 @@
         tuna.view.PageViewController.call(this, id);
     };
 
-    tuna.extend(TitleController, tuna.view.StepViewController);
+    tuna.extend(TitleController, tuna.view.PageViewController);
 
     TitleController.prototype._requireModules = function() {
         this._container.requireModule('selection-group');

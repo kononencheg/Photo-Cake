@@ -77,6 +77,7 @@
         "lib/tuna/ui/selection/view/class-selection-view.js",
 
         "lib/tuna/ui/selection/i-selection-group.js",
+        "lib/tuna/ui/selection/abstract-selection-group.js",
         "lib/tuna/ui/selection/selection-group.js",
 
         "lib/tuna/ui/modules.js",
@@ -94,9 +95,7 @@
         "lib/tuna/view/view-controller.js",
         "lib/tuna/view/state-view-controller.js",
         "lib/tuna/view/navigation-view-controller.js",
-        "lib/tuna/view/wizard-view-controller.js",
         "lib/tuna/view/page-view-controller.js",
-        "lib/tuna/view/step-view-controller.js",
 
         "lib/jquery/jquery-1.7.1.js",
 
@@ -135,6 +134,7 @@
         "src/model/orders.js",
         "src/model/recipes.js",
         "src/model/cities.js",
+        "src/model/bakeries.js",
 
         "src/view/main-controller.js",
 

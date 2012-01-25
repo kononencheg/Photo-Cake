@@ -388,6 +388,10 @@ i{display:inline-block;*zoom:1;*display:inline;font-size:0;}
 #share .b-share-icon_odnoklassniki{background-position:110px 0;}
 #share .b-share-icon_lj{background-position:149px 0;}
 .share-title{font-size:large;margin-left:5px;}
+.modal-body .clearfix{zoom:1;}.modal-body .clearfix:before,.modal-body .clearfix:after{display:table;content:"";zoom:1;*display:inline;}
+.modal-body .clearfix:after{clear:both;}
+#city_list{width:245px;border:1px solid #ccc;}#city_list .current{background-color:#750000;}#city_list .current a{color:#ffffff;}
+#city_list a{display:block;width:100%;color:#000000;}#city_list a:hover{background-color:#0069d6;color:#ffffff;text-decoration:none;}
 body{font-family:"Times New Roman";}
 p{padding-top:10px;padding-bottom:10px;font-size:14px;}
 h1{color:#750000;font-style:italic;font-weight:normal;}h1 small{color:#750000;font-weight:normal;font-style:italic;font-size:16px;}

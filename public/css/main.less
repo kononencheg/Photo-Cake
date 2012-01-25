@@ -390,3 +390,30 @@ i {
     font-size: large;
     margin-left: 5px;
 }
+
+.modal-body .clearfix {
+    .clearfix();
+}
+
+#city_list {
+    width: 245px;
+    border: 1px solid #ccc;
+
+    .current {
+        background-color: #750000;
+        
+        a { color: @white; }
+    }
+
+    a {
+        display: block;
+        width: 100%;
+        color: @black;
+
+        &:hover {
+            background-color: @linkColor;
+            color: @white;
+            text-decoration: none;
+        }
+    }
+}

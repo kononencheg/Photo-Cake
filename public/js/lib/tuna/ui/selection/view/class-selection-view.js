@@ -33,8 +33,10 @@
     };
 
     ClassSelectionView.prototype.destroySelectionAt = function(index) {
-        tuna.dom.removeClass
-            (this._itemsCollection.getItemAt(index), this._selectedClass);
+        var item = this._itemsCollection.getItemAt(index);
+        if (item !== null) {
+            tuna.dom.removeClass(item, this._selectedClass);
+        }
     };
 
 

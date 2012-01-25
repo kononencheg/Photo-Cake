@@ -7,49 +7,45 @@
 
         this.__templateCompiler
             = new tuna.tmpl.compile.TemplateCompiler(document);
-
-        this.__selectionModule = null;
     };
 
     tuna.extend(Autocomplete, tuna.ui.modules.Module);
 
     Autocomplete.prototype._initInstance = function(target) {
-
-        var templateID  = target.getAttribute('data-template-id');
-        var template = this.__templateBuilder.buildTemplate(templateID);
-        var transformer
-            = this.__templateCompiler.makeTransformer(template, target);
-
+        var transformer = this._initTransformer(target);
         var selectionGroup = this._initSelectionGroup(target);
 
-        var autocomplete
-            = new ui.Autocomplete(tuna.dom.selectOne('.j-autocomplete-input'));
+        var autocomplete = new ui.Autocomplete(selectionGroup, transformer);
 
-        autocomplete.setTransformer(transformer);
-        autocomplete.setSelectionGroup(selectionGroup);
-        autocomplete.init();
+        var input = tuna.dom.selectOne('.j-autocomplete-input', target);
+        var selectedIndex = -1;
 
-        return autocomplete;
-    };
+        var lastValue = null;
+        tuna.dom.addEventListener(input, 'keyup', function(event) {
+            if (input.value !== lastValue) {
+                autocomplete.complete(lastValue = input.value);
+                selectedIndex = -1;
+            }
+        });
 
-    Autocomplete.prototype._initSelectionGroup = function(target) {
-        var selectionRule = new tuna.ui.selection.rule.SingleSelectionRule();
+        var hasEventListener = false;
+        tuna.dom.addEventListener(input, 'focus', function(event) {
+            if (!hasEventListener) {
+                tuna.dom.addOneEventListener(document.body, 'click', function() {
+                    if (selectedIndex === -1) {
+                        autocomplete.complete(input.value = '');
+                    }
 
-        var selectionView
-            = new tuna.ui.selection.view.ClassSelectionView(target);
+                    hasEventListener = false;
+                });
 
-        selectionView.setItemSelector('.j-autocomplete-item');
-        selectionView.setSelectedClass('current');
+                hasEventListener = true;
+            }
+        });
 
-        var itemsCollection
-            = new tuna.ui.selection.items.ElementsCollection();
-
-        var selectionGroup = new tuna.ui.selection.SelectionGroup();
-        selectionGroup.setSelectionRule(selectionRule);
-        selectionGroup.setSelectionView(selectionView);
-        selectionGroup.setItemsCollection(itemsCollection);
-
-        selectionGroup.init();
+        tuna.dom.addEventListener(input, 'click', function(event) {
+            tuna.dom.stopPropagation(event);
+        });
 
         tuna.dom.addChildEventListener(
             target, '.j-autocomplete-item', 'click', function(event) {
@@ -57,10 +53,29 @@
 
                 var index = selectionGroup.getItemIndex(this);
                 if (index !== null) {
-                    selectionGroup.selectIndex(index);
+                    input.value = autocomplete.getValueAt(index);
+                    selectedIndex = index;
                 }
             }
         );
+
+
+
+        return autocomplete;
+    };
+
+    Autocomplete.prototype._initTransformer = function(target) {
+        var templateId  = target.getAttribute('data-template-id');
+        var template = this.__templateBuilder.buildTemplate(templateId);
+
+        return this.__templateCompiler.makeTransformer(template, target);
+    };
+
+    Autocomplete.prototype._initSelectionGroup = function(target) {
+        var isMultiple = target.getAttribute('data-is-multiple') === 'true';
+
+        var selectionGroup = new tuna.ui.selection.SelectionGroup
+                (target, isMultiple, null, '.j-autocomplete-item', 'current');
 
         return selectionGroup;
     };

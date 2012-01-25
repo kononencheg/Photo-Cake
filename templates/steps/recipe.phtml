@@ -46,6 +46,40 @@
     </div>
 </div>
 
+
+<div id="city_selection_popup" class="j-autocomplete popup"
+     data-template-id="city_autocomplete_template">
+
+     <div class="overlay"></div>
+     <div class="modal">
+         <div class="modal-header">
+             <h3>Где вам нужен торт?</h3>
+         </div>
+         <div class="modal-body">
+            <div class="input clearfix">
+                <div class="input-append ">
+                    <input id="city_search" type="text"
+                           class="j-autocomplete-input" />
+
+                    <label for="city_search" class="add-on btn">v</label>
+                </div>
+            </div>
+
+            <ul id="city_list" class="t-city-list unstyled hidden"></ul>
+
+            <div class="help-block">
+                * - если в списке нету вашего города, значит мы
+                не можем доставить туда тортик.
+            </div>
+         </div>
+         <div class="modal-footer">
+             <a href="#" class="j-popup-apply btn primary">ОК</a>
+             <a href="#" class="j-navigation-link j-popup-close btn"
+                data-href="designer_step">Назад</a>
+         </div>
+     </div>
+ </div>
+
 <div id="recipe_description_popup" class="popup">
     <div class="overlay"></div>
     <div class="modal">
@@ -66,8 +100,8 @@
 <div class="hidden">
     <tuna:template id="recipe_template">
         <tuna:spot tuna:target="t-cake-weight"  tuna:path="cake/dimensions/mass" />
-        <tuna:spot tuna:target="t-cake-persons"  tuna:path="cake/dimensions/persons_count" />
-        <tuna:spot tuna:target="t-cake-price" tuna:path="price" />
+        <tuna:spot tuna:target="t-cake-persons" tuna:path="cake/dimensions/persons_count" />
+        <tuna:spot tuna:target="t-cake-price"   tuna:path="price" />
 
         <tuna:spot tuna:target="t-popup-recipe-name" tuna:path="popup_recipe/title" />
         <tuna:spot tuna:target="t-popup-recipe-desc" tuna:path="popup_recipe/desc" />
@@ -87,4 +121,16 @@
 
         <tuna:spot tuna:target="t-recipe-name" tuna:path="title" />
     </tuna:template>
+
+    <tuna:template id="city_autocomplete_template">
+        <tuna:list tuna:target="t-city-list" tuna:path=""
+                   tuna:item-renderer-id="city_item_renderer"
+                   tuna:item-template-id="city_item_template"
+                   tuna:key-path="$key" />
+    </tuna:template>
+
+    <tuna:template id="city_item_template">
+        <tuna:spot tuna:target="t-name" tuna:path="city/name" />
+    </tuna:template>
+
 </div>

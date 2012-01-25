@@ -13,8 +13,6 @@
             this.__target, '.j-popup-close', 'click',
             function(event) {
                 tuna.dom.preventDefault(event);
-                tuna.dom.stopPropagation(event);
-
                 self.close();
             }
         );
@@ -23,8 +21,6 @@
             this.__target, '.j-popup-apply', 'click',
             function(event) {
                 tuna.dom.preventDefault(event);
-                tuna.dom.stopPropagation(event);
-
                 self.apply();
             }
         );
@@ -37,18 +33,21 @@
     };
 
     Popup.prototype.open = function() {
-        this.__show();
-        this.dispatch('popup-open');
+        if (this.dispatch('popup-open')) {
+            this.__show();
+        }
     };
 
     Popup.prototype.close = function() {
-        this.__hide();
-        this.dispatch('popup-close');
+        if (this.dispatch('popup-close')) {
+            this.__hide();
+        }
     };
 
     Popup.prototype.apply = function() {
-        this.__hide();
-        this.dispatch('popup-apply', this.__collectData());
+        if (this.dispatch('popup-apply', this.__collectData())) {
+            this.__hide();
+        }
     };
 
     Popup.prototype.__hide = function() {
