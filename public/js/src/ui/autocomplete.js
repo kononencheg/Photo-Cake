@@ -1,76 +1,39 @@
 (function() {
     tuna.namespace('ui');
 
-    var Autocomplete = function(selectionGroup, transformer) {
-        tuna.events.EventDispatcher.call(this);
+    var Autocomplete = function(input, transformer, selectionGroup) {
+        ui.FiltrationList.call(this, input, transformer);
         
         this.__selectionGroup = selectionGroup;
-        this.__transformer = transformer;
-
-        this.__data = null;
-        this.__currentData = null;
-
         this.__selectedData = [];
-
-        this.__filterCallback = function(item) {
-            return item.name;
-        };
     };
 
-    tuna.extend(Autocomplete, tuna.events.EventDispatcher);
+    tuna.extend(Autocomplete, ui.FiltrationList);
 
-    Autocomplete.prototype.setFilterCallback = function(callback) {
-        this.__filterCallback = callback;
+    Autocomplete.prototype.getSelectedData = function() {
+        return this.__selectedData;
     };
 
-    Autocomplete.prototype.setData = function(data) {
-        this.__currentData = this.__data = data;
-        this.update();
-    };
-
-    Autocomplete.prototype.getValueAt = function(index) {
-        if (this.__currentData[index] !== undefined) {
-            return this.__filterCallback(this.__currentData[index]);
+    Autocomplete.prototype.selectIndex = function(index) {
+        if (this._currentData.length > 0) {
+            var selectedItem = this._currentData[index];
+            this.__selectedData = [selectedItem];
+            this._input.value = this._filterCallback(selectedItem);
         }
-
-        return null;
     };
 
-    Autocomplete.prototype.complete = function(term) {
-        this.__currentData = this.__filterData(term);
-        this.update();
+    Autocomplete.prototype.clearSelection = function() {
+        this.__selectedData.length = 0;
     };
 
     Autocomplete.prototype.update = function() {
-        this.__transformer.applyTransform(this.__currentData);
+        ui.FiltrationList.prototype.update.call(this);
         this.__selectionGroup.updateView();
     };
 
-    Autocomplete.prototype.__filterData = function(term) {
-        var result = [];
-
-        if (term.length === 0) {
-            result = this.__data;
-        } else {
-            var needle = term.toUpperCase();
-
-            var i = 0,
-                l = this.__data.length;
-
-            var item = null;
-            while (i < l) {
-                item = this.__data[i];
-
-                if (this.__filterCallback(item).toUpperCase()
-                                               .indexOf(needle) !== -1) {
-                    result.push(item);
-                }
-
-                i++;
-            }
-        }
-
-        return result;
+    Autocomplete.prototype._handleKeyup = function(event) {
+        ui.FiltrationList.prototype._handleKeyup.call(this, event);
+        this.clearSelection();
     };
 
     ui.Autocomplete = Autocomplete;

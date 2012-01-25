@@ -14,26 +14,18 @@
     Autocomplete.prototype._initInstance = function(target) {
         var transformer = this._initTransformer(target);
         var selectionGroup = this._initSelectionGroup(target);
-
-        var autocomplete = new ui.Autocomplete(selectionGroup, transformer);
-
         var input = tuna.dom.selectOne('.j-autocomplete-input', target);
-        var selectedIndex = -1;
 
-        var lastValue = null;
-        tuna.dom.addEventListener(input, 'keyup', function(event) {
-            if (input.value !== lastValue) {
-                autocomplete.complete(lastValue = input.value);
-                selectedIndex = -1;
-            }
-        });
+        var autocomplete
+            = new ui.Autocomplete(input, transformer, selectionGroup);
 
         var hasEventListener = false;
         tuna.dom.addEventListener(input, 'focus', function(event) {
             if (!hasEventListener) {
                 tuna.dom.addOneEventListener(document.body, 'click', function() {
-                    if (selectedIndex === -1) {
-                        autocomplete.complete(input.value = '');
+                    var indexes = autocomplete.getSelectedData();
+                    if (indexes.length === 0) {
+                        autocomplete.clear();
                     }
 
                     hasEventListener = false;
@@ -53,13 +45,12 @@
 
                 var index = selectionGroup.getItemIndex(this);
                 if (index !== null) {
-                    input.value = autocomplete.getValueAt(index);
-                    selectedIndex = index;
+                    autocomplete.selectIndex(index);
                 }
             }
         );
 
-
+        autocomplete.init();
 
         return autocomplete;
     };

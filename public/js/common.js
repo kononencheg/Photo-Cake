@@ -16819,68 +16819,80 @@ var swfobject = function() {
 })();(function() {
     tuna.namespace('ui');
 
-    var Autocomplete = function(selectionGroup, transformer) {
+    var FiltrationList = function(input, transformer) {
         tuna.events.EventDispatcher.call(this);
         
-        this.__selectionGroup = selectionGroup;
-        this.__transformer = transformer;
+        this._input = input;
+        this._transformer = transformer;
 
-        this.__data = null;
-        this.__currentData = null;
+        this.__inputLastValue = null;
 
-        this.__selectedData = [];
+        this._data = null;
+        this._currentData = null;
 
-        this.__filterCallback = function(item) {
+        this._filterCallback = function(item) {
             return item.name;
         };
     };
 
-    tuna.extend(Autocomplete, tuna.events.EventDispatcher);
+    tuna.extend(FiltrationList, tuna.events.EventDispatcher);
 
-    Autocomplete.prototype.setFilterCallback = function(callback) {
-        this.__filterCallback = callback;
+    FiltrationList.prototype.setFilterCallback = function(callback) {
+        this._filterCallback = callback;
     };
 
-    Autocomplete.prototype.setData = function(data) {
-        this.__currentData = this.__data = data;
+    FiltrationList.prototype.init = function() {
+        var self = this;
+
+        var lastValue = null;
+        tuna.dom.addEventListener(this._input, 'keyup', function(event) {
+            if (this.value !== lastValue) {
+                self._handleKeyup(event);
+
+                lastValue = this.value;
+            }
+        });
+    };
+
+    FiltrationList.prototype._handleKeyup = function(event) {
+        this.filter(this._input.value);
+    };
+
+    FiltrationList.prototype.setData = function(data) {
+        this._currentData = this._data = data;
         this.update();
     };
 
-    Autocomplete.prototype.getValueAt = function(index) {
-        if (this.__currentData[index] !== undefined) {
-            return this.__filterCallback(this.__currentData[index]);
-        }
-
-        return null;
-    };
-
-    Autocomplete.prototype.complete = function(term) {
-        this.__currentData = this.__filterData(term);
+    FiltrationList.prototype.filter = function(term) {
+        this._currentData = this._filterData(term);
         this.update();
     };
 
-    Autocomplete.prototype.update = function() {
-        this.__transformer.applyTransform(this.__currentData);
-        this.__selectionGroup.updateView();
+    FiltrationList.prototype.update = function() {
+        this._transformer.applyTransform(this._currentData);
     };
 
-    Autocomplete.prototype.__filterData = function(term) {
+    FiltrationList.prototype.clear = function() {
+        this.filter(this._input.value = '');
+    };
+
+    FiltrationList.prototype._filterData = function(term) {
         var result = [];
 
         if (term.length === 0) {
-            result = this.__data;
+            result = this._data;
         } else {
             var needle = term.toUpperCase();
 
             var i = 0,
-                l = this.__data.length;
+                l = this._data.length;
 
             var item = null;
             while (i < l) {
-                item = this.__data[i];
+                item = this._data[i];
 
-                if (this.__filterCallback(item).toUpperCase()
-                                               .indexOf(needle) !== -1) {
+                if (this._filterCallback(item).toUpperCase()
+                                              .indexOf(needle) !== -1) {
                     result.push(item);
                 }
 
@@ -16889,6 +16901,45 @@ var swfobject = function() {
         }
 
         return result;
+    };
+
+    ui.FiltrationList = FiltrationList;
+})();(function() {
+    tuna.namespace('ui');
+
+    var Autocomplete = function(input, transformer, selectionGroup) {
+        ui.FiltrationList.call(this, input, transformer);
+        
+        this.__selectionGroup = selectionGroup;
+        this.__selectedData = [];
+    };
+
+    tuna.extend(Autocomplete, ui.FiltrationList);
+
+    Autocomplete.prototype.getSelectedData = function() {
+        return this.__selectedData;
+    };
+
+    Autocomplete.prototype.selectIndex = function(index) {
+        if (this._currentData.length > 0) {
+            var selectedItem = this._currentData[index];
+            this.__selectedData = [selectedItem];
+            this._input.value = this._filterCallback(selectedItem);
+        }
+    };
+
+    Autocomplete.prototype.clearSelection = function() {
+        this.__selectedData.length = 0;
+    };
+
+    Autocomplete.prototype.update = function() {
+        ui.FiltrationList.prototype.update.call(this);
+        this.__selectionGroup.updateView();
+    };
+
+    Autocomplete.prototype._handleKeyup = function(event) {
+        ui.FiltrationList.prototype._handleKeyup.call(this, event);
+        this.clearSelection();
     };
 
     ui.Autocomplete = Autocomplete;
@@ -17131,26 +17182,18 @@ var swfobject = function() {
     Autocomplete.prototype._initInstance = function(target) {
         var transformer = this._initTransformer(target);
         var selectionGroup = this._initSelectionGroup(target);
-
-        var autocomplete = new ui.Autocomplete(selectionGroup, transformer);
-
         var input = tuna.dom.selectOne('.j-autocomplete-input', target);
-        var selectedIndex = -1;
 
-        var lastValue = null;
-        tuna.dom.addEventListener(input, 'keyup', function(event) {
-            if (input.value !== lastValue) {
-                autocomplete.complete(lastValue = input.value);
-                selectedIndex = -1;
-            }
-        });
+        var autocomplete
+            = new ui.Autocomplete(input, transformer, selectionGroup);
 
         var hasEventListener = false;
         tuna.dom.addEventListener(input, 'focus', function(event) {
             if (!hasEventListener) {
                 tuna.dom.addOneEventListener(document.body, 'click', function() {
-                    if (selectedIndex === -1) {
-                        autocomplete.complete(input.value = '');
+                    var indexes = autocomplete.getSelectedData();
+                    if (indexes.length === 0) {
+                        autocomplete.clear();
                     }
 
                     hasEventListener = false;
@@ -17170,13 +17213,12 @@ var swfobject = function() {
 
                 var index = selectionGroup.getItemIndex(this);
                 if (index !== null) {
-                    input.value = autocomplete.getValueAt(index);
-                    selectedIndex = index;
+                    autocomplete.selectIndex(index);
                 }
             }
         );
 
-
+        autocomplete.init();
 
         return autocomplete;
     };

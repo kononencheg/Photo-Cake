@@ -111,6 +111,7 @@
         "src/ui/forms/form-input.js",
         "src/ui/forms/form.js",
 
+        "src/ui/filtration-list.js",
         "src/ui/autocomplete.js",
         "src/ui/data-image.js",
         "src/ui/popup.js",
