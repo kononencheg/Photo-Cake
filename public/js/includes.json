@@ -111,12 +111,13 @@
         "src/ui/forms/form-input.js",
         "src/ui/forms/form.js",
 
-        "src/ui/filtration-list.js",
+        "src/ui/filtration.js",
         "src/ui/autocomplete.js",
         "src/ui/data-image.js",
         "src/ui/popup.js",
         "src/ui/carousel.js",
 
+        "src/ui/modules/filtration.js",
         "src/ui/modules/autocomplete.js",
         "src/ui/modules/swf.js",
         "src/ui/modules/popup.js",

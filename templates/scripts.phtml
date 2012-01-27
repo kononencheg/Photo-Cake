@@ -1,7 +1,7 @@
 <script type="text/javascript" src="/js/common.js"></script>
 
 <script type="text/javascript">
-    var APP_NETWORK = '<?php echo $this->session->get('network') ?>';
+    var APP_NETWORK = '<?php echo $this->request->get('network') ?>';
 
     function main() {
         tuna.dom.setSelectorEngine(jQuery.find);
@@ -13,8 +13,7 @@
     }
 </script>
 
-<?php switch ($this->session->get('network')) {
-    // TODO: implement tuna.config
+<?php switch ($this->request->get('network')) {
     case 'vk': { $this->render('scripts/vk'); break; }
     case 'ok': { $this->render('scripts/ok'); break; }
     default: ?> <script type="text/javascript">main();</script> <?php

@@ -12,6 +12,8 @@
         var cake = this.__storage.get('current_cake');
 
         this.__storage.set('deco_price', this.__getDecorationPrice(cake));
+        this.__storage.set('recipe_price', 0);
+        this.__storage.set('delivery_price', 0);
 
         var recipe = this.__storage.get('current_recipe');
         if (recipe !== null) {
@@ -28,13 +30,26 @@
         this.__storage.set('recipe_price', this.__getRecipePrice(cake, recipe));
     };
 
+    Orders.prototype.setCurrentBakery = function(bakery) {
+        this.__storage.set('current_bakery', bakery);
+        this.__storage.set('delivery_price', bakery.delivery_price);
+    };
+
     Orders.prototype.getCurrentRecipe = function() {
         return this.__storage.get('current_recipe');
     };
 
     Orders.prototype.getPrice = function() {
-        return this.__storage.get('deco_price') +
-                    this.__storage.get('recipe_price');
+        var decoPrice = this.__storage.get('deco_price');
+        var recipePrice = this.__storage.get('recipe_price');
+        var deliveryPrice = this.__storage.get('delivery_price');
+
+        return {
+            'deco': decoPrice,
+            'recipe': recipePrice,
+            'delivery': deliveryPrice,
+            'total': decoPrice + recipePrice + deliveryPrice
+        };
     };
 
     Orders.prototype.__getRecipePrice = function(cake, recipe) {

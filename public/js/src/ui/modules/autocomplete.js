@@ -14,24 +14,31 @@
     Autocomplete.prototype._initInstance = function(target) {
         var transformer = this._initTransformer(target);
         var selectionGroup = this._initSelectionGroup(target);
+
         var input = tuna.dom.selectOne('.j-autocomplete-input', target);
+        var body = tuna.dom.selectOne('.j-autocomplete-body', target);
 
         var autocomplete
             = new ui.Autocomplete(input, transformer, selectionGroup);
 
-        var hasEventListener = false;
+        var isOpen = false;
         tuna.dom.addEventListener(input, 'focus', function(event) {
-            if (!hasEventListener) {
-                tuna.dom.addOneEventListener(document.body, 'click', function() {
-                    var indexes = autocomplete.getSelectedData();
-                    if (indexes.length === 0) {
-                        autocomplete.clear();
+            if (!isOpen) {
+                tuna.dom.addOneEventListener(
+                    document.body, 'click', function() {
+                        var data = autocomplete.getSelectedData();
+                        if (data === null) {
+                            autocomplete.clear();
+                        }
+
+                        tuna.dom.addClass(body, 'hidden');
+                        isOpen = false;
                     }
+                );
 
-                    hasEventListener = false;
-                });
+                tuna.dom.removeClass(body, 'hidden');
 
-                hasEventListener = true;
+                isOpen = true;
             }
         });
 
@@ -41,11 +48,11 @@
 
         tuna.dom.addChildEventListener(
             target, '.j-autocomplete-item', 'click', function(event) {
-                tuna.dom.stopPropagation(event);
-
                 var index = selectionGroup.getItemIndex(this);
                 if (index !== null) {
                     autocomplete.selectIndex(index);
+                } else {
+                    tuna.dom.stopPropagation(event);
                 }
             }
         );

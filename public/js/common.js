@@ -16720,9 +16720,13 @@ var swfobject = function() {
             (this.__target, 'submit', tuna.bind(this.__prepareToSubmit, this));
     };
 
-    Form.prototype.__prepareToSubmit = function() {
-        this.__cleanup();
-        this.__registerCallback();
+    Form.prototype.__prepareToSubmit = function(event) {
+        if (this.dispatch('submit')) {
+            this.__cleanup();
+            this.__registerCallback();
+        } else {
+            tuna.dom.preventDefault(event);
+        }
     };
 
     Form.prototype.__registerCallback = function() {
@@ -16819,8 +16823,8 @@ var swfobject = function() {
 })();(function() {
     tuna.namespace('ui');
 
-    var FiltrationList = function(input, transformer) {
-        tuna.events.EventDispatcher.call(this);
+    var Filtration = function(input, transformer) {
+        tuna.events.EventDispatcher.call(this, null);
         
         this._input = input;
         this._transformer = transformer;
@@ -16835,13 +16839,13 @@ var swfobject = function() {
         };
     };
 
-    tuna.extend(FiltrationList, tuna.events.EventDispatcher);
+    tuna.extend(Filtration, tuna.events.EventDispatcher);
 
-    FiltrationList.prototype.setFilterCallback = function(callback) {
+    Filtration.prototype.setFilterCallback = function(callback) {
         this._filterCallback = callback;
     };
 
-    FiltrationList.prototype.init = function() {
+    Filtration.prototype.init = function() {
         var self = this;
 
         var lastValue = null;
@@ -16854,29 +16858,29 @@ var swfobject = function() {
         });
     };
 
-    FiltrationList.prototype._handleKeyup = function(event) {
+    Filtration.prototype._handleKeyup = function(event) {
         this.filter(this._input.value);
     };
 
-    FiltrationList.prototype.setData = function(data) {
+    Filtration.prototype.setData = function(data) {
         this._currentData = this._data = data;
         this.update();
     };
 
-    FiltrationList.prototype.filter = function(term) {
+    Filtration.prototype.filter = function(term) {
         this._currentData = this._filterData(term);
         this.update();
     };
 
-    FiltrationList.prototype.update = function() {
+    Filtration.prototype.update = function() {
         this._transformer.applyTransform(this._currentData);
     };
 
-    FiltrationList.prototype.clear = function() {
+    Filtration.prototype.clear = function() {
         this.filter(this._input.value = '');
     };
 
-    FiltrationList.prototype._filterData = function(term) {
+    Filtration.prototype._filterData = function(term) {
         var result = [];
 
         if (term.length === 0) {
@@ -16903,18 +16907,18 @@ var swfobject = function() {
         return result;
     };
 
-    ui.FiltrationList = FiltrationList;
+    ui.Filtration = Filtration;
 })();(function() {
     tuna.namespace('ui');
 
     var Autocomplete = function(input, transformer, selectionGroup) {
-        ui.FiltrationList.call(this, input, transformer);
+        ui.Filtration.call(this, input, transformer);
         
         this.__selectionGroup = selectionGroup;
-        this.__selectedData = [];
+        this.__selectedData = null;
     };
 
-    tuna.extend(Autocomplete, ui.FiltrationList);
+    tuna.extend(Autocomplete, ui.Filtration);
 
     Autocomplete.prototype.getSelectedData = function() {
         return this.__selectedData;
@@ -16922,23 +16926,28 @@ var swfobject = function() {
 
     Autocomplete.prototype.selectIndex = function(index) {
         if (this._currentData.length > 0) {
-            var selectedItem = this._currentData[index];
-            this.__selectedData = [selectedItem];
-            this._input.value = this._filterCallback(selectedItem);
+            this.__selectedData = this._currentData[index];
+            this._input.value = this._filterCallback(this.__selectedData);
+
+            this.dispatch('change');
         }
     };
 
     Autocomplete.prototype.clearSelection = function() {
-        this.__selectedData.length = 0;
+        if (this.__selectedData !== null) {
+            this.__selectedData = null;
+
+            this.dispatch('change');
+        }
     };
 
     Autocomplete.prototype.update = function() {
-        ui.FiltrationList.prototype.update.call(this);
+        ui.Filtration.prototype.update.call(this);
         this.__selectionGroup.updateView();
     };
 
     Autocomplete.prototype._handleKeyup = function(event) {
-        ui.FiltrationList.prototype._handleKeyup.call(this, event);
+        ui.Filtration.prototype._handleKeyup.call(this, event);
         this.clearSelection();
     };
 
@@ -17062,6 +17071,10 @@ var swfobject = function() {
 
     tuna.extend(Popup, tuna.events.EventDispatcher);
 
+    Popup.prototype.getTarget = function() {
+        return this.__target;
+    };
+
     Popup.prototype.isOpen = function() {
         return this.__isOpen;
     };
@@ -17167,6 +17180,40 @@ var swfobject = function() {
 
     ui.Carousel = Carousel;*/
 })();(function() {
+    var Filtration = function() {
+        tuna.ui.modules.Module.call(this, 'filtration', '.j-filtration');
+
+        this.__templateBuilder
+            = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
+
+        this.__templateCompiler
+            = new tuna.tmpl.compile.TemplateCompiler(document);
+    };
+
+    tuna.extend(Filtration, tuna.ui.modules.Module);
+
+    Filtration.prototype._initInstance = function(target) {
+        var transformer = this._initTransformer(target);
+        var input = tuna.dom.selectOne('.j-filtration-input', target);
+
+        var filtration
+            = new ui.Filtration(input, transformer);
+
+        filtration.init();
+
+        return filtration;
+    };
+
+    Filtration.prototype._initTransformer = function(target) {
+        var templateId  = target.getAttribute('data-template-id');
+        var template = this.__templateBuilder.buildTemplate(templateId);
+
+        return this.__templateCompiler.makeTransformer(template, target);
+    };
+
+    tuna.ui.modules.register(new Filtration());
+
+})();(function() {
     var Autocomplete = function() {
         tuna.ui.modules.Module.call(this, 'autocomplete', '.j-autocomplete');
 
@@ -17182,24 +17229,31 @@ var swfobject = function() {
     Autocomplete.prototype._initInstance = function(target) {
         var transformer = this._initTransformer(target);
         var selectionGroup = this._initSelectionGroup(target);
+
         var input = tuna.dom.selectOne('.j-autocomplete-input', target);
+        var body = tuna.dom.selectOne('.j-autocomplete-body', target);
 
         var autocomplete
             = new ui.Autocomplete(input, transformer, selectionGroup);
 
-        var hasEventListener = false;
+        var isOpen = false;
         tuna.dom.addEventListener(input, 'focus', function(event) {
-            if (!hasEventListener) {
-                tuna.dom.addOneEventListener(document.body, 'click', function() {
-                    var indexes = autocomplete.getSelectedData();
-                    if (indexes.length === 0) {
-                        autocomplete.clear();
+            if (!isOpen) {
+                tuna.dom.addOneEventListener(
+                    document.body, 'click', function() {
+                        var data = autocomplete.getSelectedData();
+                        if (data === null) {
+                            autocomplete.clear();
+                        }
+
+                        tuna.dom.addClass(body, 'hidden');
+                        isOpen = false;
                     }
+                );
 
-                    hasEventListener = false;
-                });
+                tuna.dom.removeClass(body, 'hidden');
 
-                hasEventListener = true;
+                isOpen = true;
             }
         });
 
@@ -17209,11 +17263,11 @@ var swfobject = function() {
 
         tuna.dom.addChildEventListener(
             target, '.j-autocomplete-item', 'click', function(event) {
-                tuna.dom.stopPropagation(event);
-
                 var index = selectionGroup.getItemIndex(this);
                 if (index !== null) {
                     autocomplete.selectIndex(index);
+                } else {
+                    tuna.dom.stopPropagation(event);
                 }
             }
         );
@@ -17633,6 +17687,8 @@ var swfobject = function() {
         var cake = this.__storage.get('current_cake');
 
         this.__storage.set('deco_price', this.__getDecorationPrice(cake));
+        this.__storage.set('recipe_price', 0);
+        this.__storage.set('delivery_price', 0);
 
         var recipe = this.__storage.get('current_recipe');
         if (recipe !== null) {
@@ -17649,13 +17705,26 @@ var swfobject = function() {
         this.__storage.set('recipe_price', this.__getRecipePrice(cake, recipe));
     };
 
+    Orders.prototype.setCurrentBakery = function(bakery) {
+        this.__storage.set('current_bakery', bakery);
+        this.__storage.set('delivery_price', bakery.delivery_price);
+    };
+
     Orders.prototype.getCurrentRecipe = function() {
         return this.__storage.get('current_recipe');
     };
 
     Orders.prototype.getPrice = function() {
-        return this.__storage.get('deco_price') +
-                    this.__storage.get('recipe_price');
+        var decoPrice = this.__storage.get('deco_price');
+        var recipePrice = this.__storage.get('recipe_price');
+        var deliveryPrice = this.__storage.get('delivery_price');
+
+        return {
+            'deco': decoPrice,
+            'recipe': recipePrice,
+            'delivery': deliveryPrice,
+            'total': decoPrice + recipePrice + deliveryPrice
+        };
     };
 
     Orders.prototype.__getRecipePrice = function(cake, recipe) {
@@ -17763,8 +17832,8 @@ var swfobject = function() {
 
     tuna.extend(Bakeries, tuna.model.Resource);
 
-    Bakeries.prototype.setBakeries = function(recipes) {
-        this.__storage.set('bakeries', recipes);
+    Bakeries.prototype.setBakeries = function(bakeries) {
+        this.__storage.set('bakeries', bakeries);
     };
 
     Bakeries.prototype.getBakeryAt = function(index) {
@@ -17873,9 +17942,8 @@ var swfobject = function() {
     var ShareController = function(id) {
         tuna.view.PageViewController.call(this, id);
 
-        this.__friendsAutocomplete = null;
-
         this.__wallPostMethod = null;
+        this.__imageData = null;
     };
 
     tuna.extend(ShareController, tuna.view.PageViewController);
@@ -17884,22 +17952,26 @@ var swfobject = function() {
         return true;
     };
 
-    ShareController.prototype._bootstrap = function() {
-        this.init();
+    ShareController.prototype.open = function() {
+        var currentCake = model.cakes.getCurrentCake();
+        this.__imageData = currentCake.image_base64;
+
+        var downloadDataInput = tuna.dom.selectOne('#download_data_input');
+        downloadDataInput.value = this.__imageData;
     };
 
     ShareController.prototype._requireModules = function() {
-        this._container.requireModule('autocomplete');
+        this._container.requireModule('filtration');
         this._container.requireModule('data-image-copy');
         this._container.requireModule('popup');
     };
 
     ShareController.prototype._initActions = function() {
-        this.__friendsAutocomplete
-            = this._container.getOneModuleInstance('autocomplete');
-
-        this.__initFriendsPopup();
-        this.__loadFriendsData();
+        if (APP_NETWORK === 'ok') {
+            this.__initOKNotificationPopup();
+        } else {
+            this.__initFriendsPopup();
+        }
 
         this.__initWallPost();
     };
@@ -17918,43 +17990,44 @@ var swfobject = function() {
         tuna.dom.addEventListener(wallPostLink, 'click', function(event) {
             tuna.dom.preventDefault(event);
 
-            self.__wallPostMethod.call({
-                'image_data': model.cakes.getCurrentCake().image_base64
-            });
+            self.__wallPostMethod.call({ 'image_data': this.__imageData });
         });
-    };
-
-    ShareController.prototype.open = function() {
-        var downloadDataInput = tuna.dom.selectOne('#download_data_input');
-        downloadDataInput.value = model.cakes.getCurrentCake().image_base64;
     };
 
     ShareController.prototype.__initFriendsPopup = function() {
-        var self = this;
         var popup = this._container.getOneModuleInstance('popup');
-        
-        popup.addEventListener('popup-close', function() {
-            self.__friendsList.clearSelection();
-        });
 
-        popup.addEventListener('popup-apply', function() {
-            var selectedFriend = self.__friendsAutocomplete.getCurrentItem();
-            if (selectedFriend !== null) {
+        var self = this;
+        tuna.dom.addChildEventListener(
+            popup.getTarget(), '.j-send-button', 'click', function() {
                 self.__wallPostMethod.call({
-                    'image_data': model.cakes.getCurrentCake().image_base64,
-                    'user_id': selectedFriend.id
+                    'image_data': this.__imageData,
+                    'user_id': this.getAttribute('data-user-id')
                 });
             }
-        });
-    };
+        );
 
-    ShareController.prototype.__loadFriendsData = function() {
-        var self = this;
+        var friendsFiltration
+            = this._container.getOneModuleInstance('filtration');
+
         tuna.rest.call('social.friends.get', function(result) {
-            self.__friendsAutocomplete.setData(result);
+            friendsFiltration.setData(result);
         });
     };
 
+    ShareController.prototype.__initOKNotificationPopup = function() {
+        var popup = this._container.getOneModuleInstance('popup');
+        popup.addEventListener('popup-open', function(event) {
+            event.preventDefault();
+
+            tuna.rest.call('social.ok.uploadImage', {
+                'image_data': this.__imageData
+            }, function(result) {
+                FAPI.UI.showNotification
+                    ('Сматри какой я сделал тортик!', 'url=' + result);
+            });
+        });
+    };
 
     tuna.view.registerController(new ShareController('share_step'));
 })();(function() {
@@ -18006,9 +18079,7 @@ var swfobject = function() {
     };
 
     RecipeController.prototype.__initCityPopup = function() {
-        var cityList = tuna.dom.selectOne('#city_list');
-        tuna.dom.removeClass(cityList, 'hidden');
-        var selectedBakery = null;
+        var self = this;
 
         this.__cityAutocomplete
             = this._container.getOneModuleInstance('autocomplete');
@@ -18017,64 +18088,53 @@ var swfobject = function() {
             return item.city.name;
         });
 
-        /*this.__cityAutocomplete.addEventListener('selected', function(event, item) {
-            tuna.dom.addClass(cityList, 'hidden');
-            selectedBakery = item;
-        });
-
-        var input = this.__cityAutocomplete.getInput();
-
-        tuna.dom.addEventListener(input, 'focus', function(event) {
-
-
-            self.__cityAutocomplete.applyFilter('');
-            input.value = '';
-        });
-
-        tuna.dom.addEventListener(input, 'change', function(event) {
-            if (self.__cityAutocomplete.getCurrentItem() !== null) {
-                tuna.dom.addClass(cityList, 'hidden');
+        var okButton = tuna.dom.selectOne('#city_ok_button');
+        this.__cityAutocomplete.addEventListener('change', function() {
+            if (null === self.__cityAutocomplete.getSelectedData()) {
+                tuna.dom.addClass(okButton, 'disabled');
+            } else {
+                tuna.dom.removeClass(okButton, 'disabled');
             }
-        });*/
+        });
 
         this.__cityPopup
             = ui.Popup.create(tuna.dom.selectOne('#city_selection_popup'));
 
         this.__cityPopup.addEventListener('popup-apply', function(event) {
+            var selectedBakery = self.__cityAutocomplete.getSelectedData();
             if (selectedBakery === null) {
                 event.preventDefault();
             } else {
+                model.orders.setCurrentBakery(selectedBakery);
+
                 tuna.rest.call(
                     'recipes.getList', { 'bakery_id': selectedBakery.id },
                     function(result) {
                         model.recipes.setRecipes(result);
                         self.__updateView();
+                        self.__selectRecipeAt(0);
                     }
                 );
+
+                self.__updateView();
             }
         });
 
         var self = this;
         tuna.rest.call('bakeries.getList', function(result) {
             self.__cityAutocomplete.setData(result);
+            model.bakeries.setBakeries(result);
         });
     };
 
 
     RecipeController.prototype.__initDescriptionPopup = function() {
-        var self = this;
-
         var descriptionPopup = ui.Popup.create
                             (tuna.dom.selectOne('#recipe_description_popup'));
 
+        var self = this;
         descriptionPopup.addEventListener('popup-apply', function() {
-            var input = tuna.dom.selectOne(
-                'input[value=' + self.__popupIndex + '].j-recipe-radio'
-            );
-
-            input.checked = true;
-
-            tuna.dom.dispatchEvent(input, 'click');
+            self.__selectRecipeAt(self.__popupIndex);
         });
     };
 
@@ -18111,6 +18171,15 @@ var swfobject = function() {
         });
     };
 
+    RecipeController.prototype.__selectRecipeAt = function(index) {
+        var input = tuna.dom.selectOne
+            ('input[value=' + index + '].j-recipe-radio');
+
+        input.checked = true;
+
+        tuna.dom.dispatchEvent(input, 'click');
+    };
+
     tuna.view.registerController(new RecipeController('recipe_step'));
 
 })();(function() {
@@ -18138,13 +18207,11 @@ var swfobject = function() {
             self._navigation.selectIndex('title_step');
         });
 
-        tuna.dom.addEventListener(
-            tuna.dom.selectOne('#submit_order_button'), 'click', function() {
-                if (confirm('Вы уверены что правильно заполнили все поля?')) {
-                    self.__form.submit();
-                }
+        this.__form.addEventListener('submit', function(event) {
+            if (!confirm('Вы уверены что правильно заполнили все поля?')) {
+                event.preventDefault();
             }
-        );
+        });
 
         var self = this;
         tuna.rest.call('cities.getList', function(result) {

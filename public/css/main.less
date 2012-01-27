@@ -43,7 +43,7 @@
     overflow: hidden;
     left: -1px;
 
-    height: 690px;
+    height: 775px;
     width: 1px;
 
     &.current {
@@ -62,10 +62,12 @@
     overflow: hidden;
 
     h3 {
+        display: inline;
         margin-left: 40px;
     }
 
     h4 {
+        display: inline;
         margin-left: 150px;
     }
 }
@@ -180,11 +182,6 @@
     padding: 5px;
 }
 
-.share-menu .download-button {
-    font-family: "Times New Roman";
-    width: auto;
-}
-
 .friend-list-overlay {
     height: 205px;
     overflow: auto;
@@ -192,6 +189,7 @@
 
 .friend-list li {
     color: #000000;
+    height: 60px;
 
     img {
         padding: 5px;
@@ -207,11 +205,12 @@
 }
 
 .friends-popup-title {
+    padding-top: 6px;
     float: left;
 }
 
 .friends-search {
-    padding-left: 150px;
+    padding-left: 85px;
 }
 
 .userpic {
@@ -395,7 +394,7 @@ i {
     .clearfix();
 }
 
-#city_list {
+#city_selection_popup ul {
     width: 245px;
     border: 1px solid #ccc;
 
@@ -416,4 +415,44 @@ i {
             text-decoration: none;
         }
     }
+}
+
+.cake-price {
+    padding-top: 10px;
+
+    table {
+        margin-top: 5px;
+
+        width: 200px;
+
+        border: none;
+
+        th {
+            border: none;
+        }
+
+        td {
+            border: none;
+            color: @dynamic-color;
+        }
+    }
+}
+
+.cake-weight h3 {
+    display: inline;
+}
+
+.order-navigation {
+    padding-top: 150px;
+    padding-right: 5px;
+}
+
+input.btn {
+    font-family: "Times New Roman";
+    width: auto;
+}
+
+.send-cake-button {
+    padding-top: 16px;
+    cursor: pointer;
 }

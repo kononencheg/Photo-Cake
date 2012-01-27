@@ -56,9 +56,13 @@
             (this.__target, 'submit', tuna.bind(this.__prepareToSubmit, this));
     };
 
-    Form.prototype.__prepareToSubmit = function() {
-        this.__cleanup();
-        this.__registerCallback();
+    Form.prototype.__prepareToSubmit = function(event) {
+        if (this.dispatch('submit')) {
+            this.__cleanup();
+            this.__registerCallback();
+        } else {
+            tuna.dom.preventDefault(event);
+        }
     };
 
     Form.prototype.__registerCallback = function() {

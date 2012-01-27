@@ -28,6 +28,10 @@
 
     tuna.extend(Popup, tuna.events.EventDispatcher);
 
+    Popup.prototype.getTarget = function() {
+        return this.__target;
+    };
+
     Popup.prototype.isOpen = function() {
         return this.__isOpen;
     };

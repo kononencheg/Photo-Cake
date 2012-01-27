@@ -23,13 +23,11 @@
             self._navigation.selectIndex('title_step');
         });
 
-        tuna.dom.addEventListener(
-            tuna.dom.selectOne('#submit_order_button'), 'click', function() {
-                if (confirm('Вы уверены что правильно заполнили все поля?')) {
-                    self.__form.submit();
-                }
+        this.__form.addEventListener('submit', function(event) {
+            if (!confirm('Вы уверены что правильно заполнили все поля?')) {
+                event.preventDefault();
             }
-        );
+        });
 
         var self = this;
         tuna.rest.call('cities.getList', function(result) {

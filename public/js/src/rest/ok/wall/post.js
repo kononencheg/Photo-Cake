@@ -4,40 +4,53 @@
 
     var Post = function(name) {
         tuna.rest.RemoteMethod.call(this, name);
-
-        this.__handleConfirm = tuna.bind(this.__handleConfirm, this);
-        this.__request = null;
     };
 
     tuna.extend(Post, tuna.rest.RemoteMethod);
 
     Post.prototype.call = function(args) {
-        this.__request = {
-            'method' : 'stream.publish',
-            'uid': 0,
-            'message': 'Смотри, какой у меня получился торт!'
-        };
-
-        FAPI.UI.showConfirmation(
-            'stream.publish', 'Вы действительно хотите опубликовать торт?',
-            FAPI.Util.calcSignature
-                (this.__request, FAPI.Client.sessionSecretKey)
-        );
-
-        window.API_callback = this.__handleConfirm;
+        if (args.user_id === undefined) {
+            this.__wallPost();
+        }
     };
 
-    Post.prototype.__handleConfirm = function(method, status, attributes) {
-        if(method == 'showConfirmation' && status == 'ok') {
-            this.__request.sig = attributes;
-            FAPI.Client.call(this.__request,
-                function(status, data, error) {
-                    alert(error.error_msg);
-                }
-            );
-        }
+    Post.prototype.__notificationPost = function(uid) {
+        var request = {
+            'uid': uid,
+            'method' : 'notifications.sendSimple',
+            'text': 'Смотри, какой у меня получился торт!'
+        };
 
-        delete window.API_callback;
+        var self = this;
+        FAPI.Client.call(request, function(status, data, error) {
+            if (error === null) {
+                self.dispatch('result', data);
+            } else {
+                self.dispatch('error', error);
+            }
+        });
+    };
+
+    Post.prototype.__wallPost = function() {
+        var request = {
+            'method' : 'stream.publish',
+            'message': 'сделал прекрасный тортик ',
+            'attachment': JSON.stringify({
+                'caption': 'Попробуйте сделать свой тортик! Закажите настоящий или отправьте друзьям!',
+                'media': [{ 'href': 'link', 'src': 'img/title.jpg', 'type': 'image' }]
+            }),
+            'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': 'param1=value1' }])
+        };
+
+
+        var self = this;
+        FAPI.Client.call(request, function(status, data, error) {
+            if (error === null) {
+                self.dispatch('result', data);
+            } else {
+                self.dispatch('error', error);
+            }
+        });
     };
 
     rest.ok.wall.Post = Post;

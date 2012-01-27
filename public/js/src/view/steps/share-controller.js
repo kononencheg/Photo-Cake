@@ -3,9 +3,8 @@
     var ShareController = function(id) {
         tuna.view.PageViewController.call(this, id);
 
-        this.__friendsAutocomplete = null;
-
         this.__wallPostMethod = null;
+        this.__imageData = null;
     };
 
     tuna.extend(ShareController, tuna.view.PageViewController);
@@ -14,22 +13,26 @@
         return true;
     };
 
-    ShareController.prototype._bootstrap = function() {
-        this.init();
+    ShareController.prototype.open = function() {
+        var currentCake = model.cakes.getCurrentCake();
+        this.__imageData = currentCake.image_base64;
+
+        var downloadDataInput = tuna.dom.selectOne('#download_data_input');
+        downloadDataInput.value = this.__imageData;
     };
 
     ShareController.prototype._requireModules = function() {
-        this._container.requireModule('autocomplete');
+        this._container.requireModule('filtration');
         this._container.requireModule('data-image-copy');
         this._container.requireModule('popup');
     };
 
     ShareController.prototype._initActions = function() {
-        this.__friendsAutocomplete
-            = this._container.getOneModuleInstance('autocomplete');
-
-        this.__initFriendsPopup();
-        this.__loadFriendsData();
+        if (APP_NETWORK === 'ok') {
+            this.__initOKNotificationPopup();
+        } else {
+            this.__initFriendsPopup();
+        }
 
         this.__initWallPost();
     };
@@ -48,43 +51,44 @@
         tuna.dom.addEventListener(wallPostLink, 'click', function(event) {
             tuna.dom.preventDefault(event);
 
-            self.__wallPostMethod.call({
-                'image_data': model.cakes.getCurrentCake().image_base64
-            });
+            self.__wallPostMethod.call({ 'image_data': this.__imageData });
         });
-    };
-
-    ShareController.prototype.open = function() {
-        var downloadDataInput = tuna.dom.selectOne('#download_data_input');
-        downloadDataInput.value = model.cakes.getCurrentCake().image_base64;
     };
 
     ShareController.prototype.__initFriendsPopup = function() {
-        var self = this;
         var popup = this._container.getOneModuleInstance('popup');
-        
-        popup.addEventListener('popup-close', function() {
-            self.__friendsList.clearSelection();
-        });
 
-        popup.addEventListener('popup-apply', function() {
-            var selectedFriend = self.__friendsAutocomplete.getCurrentItem();
-            if (selectedFriend !== null) {
+        var self = this;
+        tuna.dom.addChildEventListener(
+            popup.getTarget(), '.j-send-button', 'click', function() {
                 self.__wallPostMethod.call({
-                    'image_data': model.cakes.getCurrentCake().image_base64,
-                    'user_id': selectedFriend.id
+                    'image_data': this.__imageData,
+                    'user_id': this.getAttribute('data-user-id')
                 });
             }
-        });
-    };
+        );
 
-    ShareController.prototype.__loadFriendsData = function() {
-        var self = this;
+        var friendsFiltration
+            = this._container.getOneModuleInstance('filtration');
+
         tuna.rest.call('social.friends.get', function(result) {
-            self.__friendsAutocomplete.setData(result);
+            friendsFiltration.setData(result);
         });
     };
 
+    ShareController.prototype.__initOKNotificationPopup = function() {
+        var popup = this._container.getOneModuleInstance('popup');
+        popup.addEventListener('popup-open', function(event) {
+            event.preventDefault();
+
+            tuna.rest.call('cakes.uploadImage', {
+                'image_data': this.__imageData
+            }, function(result) {
+                FAPI.UI.showNotification
+                    ('Сматри какой я сделал тортик!', 'url=' + result);
+            });
+        });
+    };
 
     tuna.view.registerController(new ShareController('share_step'));
 })();

@@ -3,10 +3,9 @@
         <h2>Оформление заказа!</h2>
     </div>
 </div>
-
-<div class="row">
-    <div class="span7">
-        <form class="j-form" action="/api/" method="POST" target="support_frame">
+<form class="j-form" action="/api/" method="POST" target="support_frame">
+    <div class="row">
+        <div class="span7">
             <div class="j-form-message alert-message hidden"></div>
 
             <input type="hidden" name="method" value="orders.submit" />
@@ -54,42 +53,23 @@
             <fieldset>
                 <legend>Информация о доставке</legend>
 
-                <div class="j-city-input clearfix">
-                    <label for="city">Город *</label>
-                    <div class="input">
-                        <select id="city" name="city" class="t-city-list"></select>
-                        <span class="j-message help-block">
-                            Пока, только Санкт-Петербург и Москва.
-                        </span>
-                    </div>
-                </div>
-
                 <div class="j-address-input clearfix">
                     <label for="address">Адрес *</label>
                     <div class="input">
                         <textarea id="address" name="address" rows="2"></textarea>
                         <span class="j-message help-block">
-                            Стоимость доставки: 450 рублей.
+                            Куда нужно везти торт.
                         </span>
                     </div>
                 </div>
 
-                <div class="j-date-input clearfix">
+                <div class="j-date-input j-time-input clearfix">
                     <label for="date">Дата *</label>
                     <div class="input">
-                        <input id="date" class="j-datepicker" name="date" type="text"/>
+                        <input id="date" class="j-datepicker small" name="date" type="text"/>
 
-                        <span class="j-message help-block">
-                            День, в который курьер привезет торт.
-                        </span>
-                    </div>
-                </div>
-
-                <div class="j-time-input clearfix">
-                    <label for="time">Время *</label>
-                    <div class="input">
-                        <select id="time" name="time">
-                            <option value="-1"></option>
+                        <select id="time" name="time" class="small-rest">
+                            <option value="-1">и время</option>
                             <option value="36000">10:00 - 12:00</option>
                             <option value="43200">12:00 - 14:00</option>
                             <option value="50400">14:00 - 16:00</option>
@@ -99,7 +79,21 @@
                         </select>
 
                         <span class="j-message help-block">
-                            Время доставки.
+                            Когда нужно везти торт.
+                        </span>
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset>
+                <legend>Дополнительно</legend>
+
+                <div class="j-message-input clearfix">
+                    <label for="message">Текст открытки</label>
+                    <div class="input">
+                        <textarea id="message" name="message" rows="2"></textarea>
+                        <span class="j-message help-block">
+                            Записка к торту, если, например, торт в подарок.
                         </span>
                     </div>
                 </div>
@@ -113,58 +107,66 @@
                         </span>
                     </div>
                 </div>
+
             </fieldset>
-        </form>
-    </div>
-    <div class="span5">
-        <div class="cake-image">
-            <img class="j-data-image-copy" alt="Загрузка тортика..."
-                 data-image-selector="#base_cake_image" />
         </div>
+        <div class="span5">
+            <div class="cake-image">
+                <img class="j-data-image-copy" alt="Загрузка тортика..."
+                     data-image-selector="#base_cake_image" />
+            </div>
 
-        <div class="cake-price">
-            <h3>
-                Цена торта:
-                <small>
-                    <span class="t-price"></span> (+450) рублей.
-                </small>
-            </h3>
+            <div class="cake-price">
+                <h3>Цена</h3>
+
+                <table class="condensed-table">
+                    <tr>
+                        <th>Оформление: </th>
+                        <td><span class="t-deco-price">0</span> рублей</td>
+                    </tr>
+                    <tr>
+                        <th>Рецепт: </th>
+                        <td><span class="t-recipe-price">0</span> рублей</td>
+                    </tr>
+                    <tr>
+                        <th>Доставка: </th>
+                        <td><span class="t-delivery-price">0</span> рублей</td>
+                    </tr>
+                    <tr>
+                        <th>Итого: </th>
+                        <td><span class="t-total-price">0</span> рублей</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="order-navigation">
+                <input type="submit" class="next-btn btn primary large pull-right" value="Заказать!" />
+
+                <a class="j-navigation-link next-btn btn primary large pull-right"
+                   data-href="recipe_step">
+                    &laquo; Назад
+                </a>
+            </div>
+
         </div>
-
-        <a id="submit_order_button"
-           class="next-btn btn primary large pull-right">
-            Заказать!
-        </a>
-
-        <a class="j-navigation-link next-btn btn primary large pull-right"
-           data-href="recipe_step">
-            &laquo; Назад
-        </a>
-
     </div>
- </div>
+    <div class="row">
+        <div class="span12">
+
+        </div>
+    </div>
+</form>
 
 <div class="hidden">
-    <select>
-        <option id="option_renderer" class="t-value"></option>
-    </select>
-
     <tuna:template id="order_template">
         <tuna:attr tuna:name="value" tuna:target="t-image" tuna:path="cake/image_base64" />
         <tuna:attr tuna:name="value" tuna:target="t-photo" tuna:path="cake/photo_base64" />
         <tuna:attr tuna:name="value" tuna:target="t-markup" tuna:path="cake/markup_json" />
         <tuna:attr tuna:name="value" tuna:target="t-recipe" tuna:path="recipe/name" />
 
-        <tuna:spot tuna:target="t-price" tuna:path="price" />
-
-        <tuna:list tuna:target="t-city-list" tuna:path="cities"
-                   tuna:item-renderer-id="option_renderer"
-                   tuna:item-template-id="city_item_template_1"
-                   tuna:key-path="$key" />
-    </tuna:template>
-
-    <tuna:template id="city_item_template_1">
-        <tuna:attr tuna:name="value" tuna:target="t-value" tuna:path="id" />
-        <tuna:spot tuna:target="t-value" tuna:path="name" />
+        <tuna:spot tuna:target="t-total-price"    tuna:path="price/total" />
+        <tuna:spot tuna:target="t-deco-price"     tuna:path="price/deco" />
+        <tuna:spot tuna:target="t-recipe-price"   tuna:path="price/recipe" />
+        <tuna:spot tuna:target="t-delivery-price" tuna:path="price/delivery" />
     </tuna:template>
 </div>

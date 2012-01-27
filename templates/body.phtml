@@ -11,7 +11,7 @@
                 </small>
             </h1>
 
-            <?php if ($this->session->get('network') === NULL) {?>
+            <?php if ($this->request->get('network') === NULL) {?>
                 <script type="text/javascript" src="http://yandex.st/share/share.js"></script>
                 <div id="share" class="share-block">
                     <div class="share-title">Поделитесь с друзьями:</div>
@@ -84,9 +84,11 @@
     </select>
 
     <ul>
-        <li id="friend_item_renderer" class="j-autocomplete-item">
-            <img class="t-userpic userpic" alt="Фото друга"/>
+        <li id="friend_item_renderer">
+            <img class="t-userpic userpic" alt="Фото друга"
+                 width="50" height="50"/>
             <span class="t-user-name"></span>
+            <a class="t-user-id j-send-button send-cake-button pull-right">Отправить</a>
         </li>
         <li id="recipe_renderer">
             <a class="recipe-tile">

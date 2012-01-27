@@ -8,8 +8,8 @@
 
     tuna.extend(Bakeries, tuna.model.Resource);
 
-    Bakeries.prototype.setBakeries = function(recipes) {
-        this.__storage.set('bakeries', recipes);
+    Bakeries.prototype.setBakeries = function(bakeries) {
+        this.__storage.set('bakeries', bakeries);
     };
 
     Bakeries.prototype.getBakeryAt = function(index) {

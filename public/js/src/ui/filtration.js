@@ -1,8 +1,8 @@
 (function() {
     tuna.namespace('ui');
 
-    var FiltrationList = function(input, transformer) {
-        tuna.events.EventDispatcher.call(this);
+    var Filtration = function(input, transformer) {
+        tuna.events.EventDispatcher.call(this, null);
         
         this._input = input;
         this._transformer = transformer;
@@ -17,13 +17,13 @@
         };
     };
 
-    tuna.extend(FiltrationList, tuna.events.EventDispatcher);
+    tuna.extend(Filtration, tuna.events.EventDispatcher);
 
-    FiltrationList.prototype.setFilterCallback = function(callback) {
+    Filtration.prototype.setFilterCallback = function(callback) {
         this._filterCallback = callback;
     };
 
-    FiltrationList.prototype.init = function() {
+    Filtration.prototype.init = function() {
         var self = this;
 
         var lastValue = null;
@@ -36,29 +36,29 @@
         });
     };
 
-    FiltrationList.prototype._handleKeyup = function(event) {
+    Filtration.prototype._handleKeyup = function(event) {
         this.filter(this._input.value);
     };
 
-    FiltrationList.prototype.setData = function(data) {
+    Filtration.prototype.setData = function(data) {
         this._currentData = this._data = data;
         this.update();
     };
 
-    FiltrationList.prototype.filter = function(term) {
+    Filtration.prototype.filter = function(term) {
         this._currentData = this._filterData(term);
         this.update();
     };
 
-    FiltrationList.prototype.update = function() {
+    Filtration.prototype.update = function() {
         this._transformer.applyTransform(this._currentData);
     };
 
-    FiltrationList.prototype.clear = function() {
+    Filtration.prototype.clear = function() {
         this.filter(this._input.value = '');
     };
 
-    FiltrationList.prototype._filterData = function(term) {
+    Filtration.prototype._filterData = function(term) {
         var result = [];
 
         if (term.length === 0) {
@@ -85,5 +85,5 @@
         return result;
     };
 
-    ui.FiltrationList = FiltrationList;
+    ui.Filtration = Filtration;
 })();

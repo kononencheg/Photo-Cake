@@ -46,9 +46,9 @@
                 });
             }
 
-            this.notify('result', result);
+            this.dispatch('result', result);
         } else {
-            this.notify('error', error);
+            this.dispatch('error', error);
         }
     };
 

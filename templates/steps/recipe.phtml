@@ -26,9 +26,26 @@
             </div>
 
             <div class="cake-price">
-                <h3>
-                    Цена торта: <small><span class="t-cake-price">0</span> рублей</small>
-                </h3>
+                <h3>Цена</h3>
+
+                <table class="condensed-table">
+                    <tr>
+                        <th>Оформление: </th>
+                        <td><span class="t-deco-price">0</span> рублей</td>
+                    </tr>
+                    <tr>
+                        <th>Рецепт: </th>
+                        <td><span class="t-recipe-price">0</span> рублей</td>
+                    </tr>
+                    <tr>
+                        <th>Доставка: </th>
+                        <td><span class="t-delivery-price">0</span> рублей</td>
+                    </tr>
+                    <tr>
+                        <th>Итого: </th>
+                        <td><span class="t-total-price">0</span> рублей</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
@@ -65,7 +82,7 @@
                 </div>
             </div>
 
-            <ul id="city_list" class="t-city-list unstyled hidden"></ul>
+            <ul class="j-autocomplete-body t-city-list unstyled hidden"></ul>
 
             <div class="help-block">
                 * - если в списке нету вашего города, значит мы
@@ -73,7 +90,7 @@
             </div>
          </div>
          <div class="modal-footer">
-             <a href="#" class="j-popup-apply btn primary">ОК</a>
+             <a id="city_ok_button" href="#" class="j-popup-apply btn primary disabled">ОК</a>
              <a href="#" class="j-navigation-link j-popup-close btn"
                 data-href="designer_step">Назад</a>
          </div>
@@ -101,9 +118,13 @@
     <tuna:template id="recipe_template">
         <tuna:spot tuna:target="t-cake-weight"  tuna:path="cake/dimensions/mass" />
         <tuna:spot tuna:target="t-cake-persons" tuna:path="cake/dimensions/persons_count" />
-        <tuna:spot tuna:target="t-cake-price"   tuna:path="price" />
 
-        <tuna:spot tuna:target="t-popup-recipe-name" tuna:path="popup_recipe/title" />
+        <tuna:spot tuna:target="t-total-price"    tuna:path="price/total" />
+        <tuna:spot tuna:target="t-deco-price"     tuna:path="price/deco" />
+        <tuna:spot tuna:target="t-recipe-price"   tuna:path="price/recipe" />
+        <tuna:spot tuna:target="t-delivery-price" tuna:path="price/delivery" />
+
+        <tuna:spot tuna:target="t-popup-recipe-name" tuna:path="popup_recipe/name" />
         <tuna:spot tuna:target="t-popup-recipe-desc" tuna:path="popup_recipe/desc" />
 
         <tuna:list tuna:target="t-recipes-list" tuna:path="recipes"
@@ -119,7 +140,7 @@
         <tuna:attr tuna:target="t-recipe-index" tuna:path="$key" tuna:name="data-index" />
         <tuna:attr tuna:target="t-recipe-input" tuna:path="$key" tuna:name="value" />
 
-        <tuna:spot tuna:target="t-recipe-name" tuna:path="title" />
+        <tuna:spot tuna:target="t-recipe-name" tuna:path="name" />
     </tuna:template>
 
     <tuna:template id="city_autocomplete_template">

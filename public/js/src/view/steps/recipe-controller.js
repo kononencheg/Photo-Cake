@@ -47,9 +47,7 @@
     };
 
     RecipeController.prototype.__initCityPopup = function() {
-        var cityList = tuna.dom.selectOne('#city_list');
-        tuna.dom.removeClass(cityList, 'hidden');
-        var selectedBakery = null;
+        var self = this;
 
         this.__cityAutocomplete
             = this._container.getOneModuleInstance('autocomplete');
@@ -58,64 +56,53 @@
             return item.city.name;
         });
 
-        /*this.__cityAutocomplete.addEventListener('selected', function(event, item) {
-            tuna.dom.addClass(cityList, 'hidden');
-            selectedBakery = item;
-        });
-
-        var input = this.__cityAutocomplete.getInput();
-
-        tuna.dom.addEventListener(input, 'focus', function(event) {
-
-
-            self.__cityAutocomplete.applyFilter('');
-            input.value = '';
-        });
-
-        tuna.dom.addEventListener(input, 'change', function(event) {
-            if (self.__cityAutocomplete.getCurrentItem() !== null) {
-                tuna.dom.addClass(cityList, 'hidden');
+        var okButton = tuna.dom.selectOne('#city_ok_button');
+        this.__cityAutocomplete.addEventListener('change', function() {
+            if (null === self.__cityAutocomplete.getSelectedData()) {
+                tuna.dom.addClass(okButton, 'disabled');
+            } else {
+                tuna.dom.removeClass(okButton, 'disabled');
             }
-        });*/
+        });
 
         this.__cityPopup
             = ui.Popup.create(tuna.dom.selectOne('#city_selection_popup'));
 
         this.__cityPopup.addEventListener('popup-apply', function(event) {
+            var selectedBakery = self.__cityAutocomplete.getSelectedData();
             if (selectedBakery === null) {
                 event.preventDefault();
             } else {
+                model.orders.setCurrentBakery(selectedBakery);
+
                 tuna.rest.call(
                     'recipes.getList', { 'bakery_id': selectedBakery.id },
                     function(result) {
                         model.recipes.setRecipes(result);
                         self.__updateView();
+                        self.__selectRecipeAt(0);
                     }
                 );
+
+                self.__updateView();
             }
         });
 
         var self = this;
         tuna.rest.call('bakeries.getList', function(result) {
             self.__cityAutocomplete.setData(result);
+            model.bakeries.setBakeries(result);
         });
     };
 
 
     RecipeController.prototype.__initDescriptionPopup = function() {
-        var self = this;
-
         var descriptionPopup = ui.Popup.create
                             (tuna.dom.selectOne('#recipe_description_popup'));
 
+        var self = this;
         descriptionPopup.addEventListener('popup-apply', function() {
-            var input = tuna.dom.selectOne(
-                'input[value=' + self.__popupIndex + '].j-recipe-radio'
-            );
-
-            input.checked = true;
-
-            tuna.dom.dispatchEvent(input, 'click');
+            self.__selectRecipeAt(self.__popupIndex);
         });
     };
 
@@ -150,6 +137,15 @@
             'recipes': model.recipes.getRecipes(),
             'popup_recipe': this.__popupRecipe
         });
+    };
+
+    RecipeController.prototype.__selectRecipeAt = function(index) {
+        var input = tuna.dom.selectOne
+            ('input[value=' + index + '].j-recipe-radio');
+
+        input.checked = true;
+
+        tuna.dom.dispatchEvent(input, 'click');
     };
 
     tuna.view.registerController(new RecipeController('recipe_step'));
