@@ -18387,11 +18387,7 @@ var swfobject = function() {
     };
 
     OrderController.prototype.__updateView = function() {
-        this._container.applyData({
-            'recipe': model.orders.getCurrentRecipe(),
-            'price':  model.orders.getPrice(),
-            'cake':   model.cakes.getCurrentCake()
-        });
+        this._container.applyData({ 'order': model.orders.getOrder() });
     };
 
     tuna.view.registerController(new OrderController('order_step'));
