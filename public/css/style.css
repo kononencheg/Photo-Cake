@@ -423,6 +423,8 @@ i{display:inline-block;*zoom:1;*display:inline;font-size:0;}
 .order-navigation{padding-top:150px;padding-right:5px;}
 input.btn{font-family:"Times New Roman";width:auto;}
 .send-cake-button{padding-top:16px;cursor:pointer;}
+#cake_image_popup .modal-body{height:350px;overflow:hidden;}#cake_image_popup .modal-body .image-container{width:10000px;overflow:hidden;}
+#cake_image_popup .modal-body img{height:100%;display:block;float:left;}
 body{font-family:"Times New Roman";}
 p{padding-top:10px;padding-bottom:10px;font-size:14px;}
 h1{color:#750000;font-style:italic;font-weight:normal;}h1 small{color:#750000;font-weight:normal;font-style:italic;font-size:16px;}

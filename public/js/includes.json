@@ -122,6 +122,7 @@
         "src/ui/modules/swf.js",
         "src/ui/modules/popup.js",
         "src/ui/modules/image-popup.js",
+        "src/ui/modules/cake-image-popup.js",
         "src/ui/modules/slider.js",
         "src/ui/modules/carousel.js",
         "src/ui/modules/form.js",
