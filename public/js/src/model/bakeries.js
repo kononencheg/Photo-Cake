@@ -3,21 +3,19 @@
     tuna.namespace('model');
 
     var Bakeries = function() {
-        tuna.model.Resource.call(this);
+        this.__list = []
     };
 
-    tuna.extend(Bakeries, tuna.model.Resource);
-
-    Bakeries.prototype.setBakeries = function(bakeries) {
-        this.__storage.set('bakeries', bakeries);
+    Bakeries.prototype.addBakery = function(bakery) {
+        this.__list.push(bakery);
     };
 
     Bakeries.prototype.getBakeryAt = function(index) {
-        return this.__storage.get('bakeries')[index];
+        return this.__list[index];
     };
 
-    Bakeries.prototype.getBakeries = function() {
-        return this.__storage.get('bakeries');
+    Bakeries.prototype.getList = function() {
+        return this.__list;
     };
 
     model.bakeries = new Bakeries();

@@ -3,57 +3,65 @@
     tuna.namespace('model');
 
     var Orders = function() {
-        tuna.model.Resource.call(this);
+        this.__order = null;
     };
 
-    tuna.extend(Orders, tuna.model.Resource);
+    Orders.prototype.getOrder = function() {
+        return this.__order;
+    };
 
-    Orders.prototype.initCurrentOrder = function() {
-        var cake = this.__storage.get('current_cake');
-
-        this.__storage.set('deco_price', this.__getDecorationPrice(cake));
-        this.__storage.set('recipe_price', 0);
-        this.__storage.set('delivery_price', 0);
-
-        var recipe = this.__storage.get('current_recipe');
-        if (recipe !== null) {
-            this.__storage.set
-                ('recipe_price', this.__getRecipePrice(cake, recipe));
+    Orders.prototype.updateOrder = function() {
+        if (this.__order === null) {
+            this.__order = new model.records.Order();
+            this.__order.user = model.users.getCurrentUser().clone();
         }
+
+        this.__order.cake = model.cakes.getCurrentCake().clone();
+        this.__updateOrderPrice();
     };
 
-    Orders.prototype.setCurrentRecipeIndex = function(index) {
-        var cake = this.__storage.get('current_cake');
-        var recipe = model.recipes.getRecipeAt(index);
-
-        this.__storage.set('current_recipe', recipe);
-        this.__storage.set('recipe_price', this.__getRecipePrice(cake, recipe));
+    Orders.prototype.setOrderRecipe = function(recipe) {
+        this.__order.recipe = recipe;
+        this.__updateOrderPrice();
     };
 
-    Orders.prototype.setCurrentBakery = function(bakery) {
-        this.__storage.set('current_bakery', bakery);
-        this.__storage.set('delivery_price', bakery.delivery_price);
+    Orders.prototype.setOrderBakery = function(bakery) {
+        this.__order.bakery = bakery;
+        this.__updateOrderPrice();
     };
 
-    Orders.prototype.getCurrentRecipe = function() {
-        return this.__storage.get('current_recipe');
+    Orders.prototype.getOrderRecipe = function() {
+        return this.__order.recipe;
     };
 
-    Orders.prototype.getPrice = function() {
-        var decoPrice = this.__storage.get('deco_price');
-        var recipePrice = this.__storage.get('recipe_price');
-        var deliveryPrice = this.__storage.get('delivery_price');
+    Orders.prototype.getOrderBakery = function() {
+        return this.__order.bakery;
+    };
 
-        return {
-            'deco': decoPrice,
-            'recipe': recipePrice,
-            'delivery': deliveryPrice,
-            'total': decoPrice + recipePrice + deliveryPrice
-        };
+    Orders.prototype.__updateOrderPrice = function() {
+        if (this.__order.payment === null) {
+            this.__order.payment = new model.records.Payment();
+        }
+
+        var payment = this.__order.payment;
+
+        payment.decoPrice = this.__getDecorationPrice(this.__order.cake);
+
+        if (this.__order.recipe !== null) {
+            payment.recipePrice = this.__getRecipePrice
+                (this.__order.cake, this.__order.recipe);
+        }
+
+        if (this.__order.bakery !== null) {
+            payment.deliveryPrice = this.__order.bakery.deliveryPrice;
+        }
+
+        payment.totalPrice
+            = payment.decoPrice + payment.recipePrice + payment.deliveryPrice;
     };
 
     Orders.prototype.__getRecipePrice = function(cake, recipe) {
-        return 1500 * cake.dimensions.mass;
+        return recipe.price * cake.dimensions.mass;
     };
 
     Orders.prototype.__getDecorationPrice = function(cake) {

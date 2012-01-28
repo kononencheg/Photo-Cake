@@ -116,13 +116,13 @@
 
 <div class="hidden">
     <tuna:template id="recipe_template">
-        <tuna:spot tuna:target="t-cake-weight"  tuna:path="cake/dimensions/mass" />
-        <tuna:spot tuna:target="t-cake-persons" tuna:path="cake/dimensions/persons_count" />
+        <tuna:spot tuna:target="t-cake-weight"  tuna:path="order/cake/dimensions/mass" />
+        <tuna:spot tuna:target="t-cake-persons" tuna:path="order/cake/dimensions/persons_count" />
 
-        <tuna:spot tuna:target="t-total-price"    tuna:path="price/total" />
-        <tuna:spot tuna:target="t-deco-price"     tuna:path="price/deco" />
-        <tuna:spot tuna:target="t-recipe-price"   tuna:path="price/recipe" />
-        <tuna:spot tuna:target="t-delivery-price" tuna:path="price/delivery" />
+        <tuna:spot tuna:target="t-total-price"    tuna:path="order/payment/totalPrice" />
+        <tuna:spot tuna:target="t-deco-price"     tuna:path="order/payment/decoPrice" />
+        <tuna:spot tuna:target="t-recipe-price"   tuna:path="order/payment/recipePrice" />
+        <tuna:spot tuna:target="t-delivery-price" tuna:path="order/payment/deliveryPrice" />
 
         <tuna:spot tuna:target="t-popup-recipe-name" tuna:path="popup_recipe/name" />
         <tuna:spot tuna:target="t-popup-recipe-desc" tuna:path="popup_recipe/desc" />
@@ -134,8 +134,8 @@
     </tuna:template>
 
     <tuna:template id="recipe_item_template">
-        <tuna:attr tuna:target="t-recipe-img" tuna:path="image_url" tuna:name="src"/>
-        <tuna:attr tuna:target="t-recipe-img" tuna:path="title" tuna:name="alt"/>
+        <tuna:attr tuna:target="t-recipe-img" tuna:path="imageUrl" tuna:name="src"/>
+        <tuna:attr tuna:target="t-recipe-img" tuna:path="name" tuna:name="alt"/>
         
         <tuna:attr tuna:target="t-recipe-index" tuna:path="$key" tuna:name="data-index" />
         <tuna:attr tuna:target="t-recipe-input" tuna:path="$key" tuna:name="value" />
@@ -151,7 +151,7 @@
     </tuna:template>
 
     <tuna:template id="city_item_template">
-        <tuna:spot tuna:target="t-name" tuna:path="city/name" />
+        <tuna:spot tuna:target="t-name" tuna:path="city" />
     </tuna:template>
 
 </div>

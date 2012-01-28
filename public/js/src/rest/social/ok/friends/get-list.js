@@ -1,14 +1,11 @@
 (function() {
 
-    tuna.namespace('rest.ok.friends');
-
     var GetList = function() {
         tuna.rest.RemoteMethod.call(this);
 
         this.__handleFriendsList = tuna.bind(this.__handleFriendsList, this);
         this.__handleFriendsData = tuna.bind(this.__handleFriendsData, this);
     };
-
 
     tuna.extend(GetList, tuna.rest.RemoteMethod);
 
@@ -52,6 +49,6 @@
         }
     };
 
-    rest.ok.friends.GetList = GetList;
+    tuna.rest.factory.addMethod('social.friends.get', new GetList())
 
 })();

@@ -6,7 +6,7 @@
 
     tuna.extend(SelectionGroup, tuna.ui.modules.Module);
 
-    SelectionGroup.prototype._initInstance = function(target) {
+    SelectionGroup.prototype.initInstance = function(target) {
         var isMultiple = target.getAttribute('data-is-multiple') === 'true';
 
         var itemSelector = target.getAttribute('data-item-selector');

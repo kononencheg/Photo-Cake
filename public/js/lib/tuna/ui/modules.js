@@ -8,7 +8,7 @@
         var name = module.getName();
 
         if (modulesTable[name] !== undefined) {
-            console.warn('Module with name "' + name + '" already registered!');
+            alert('Module with name "' + name + '" already registered!');
         }
 
         modulesTable[name] = module;

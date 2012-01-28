@@ -5,18 +5,17 @@
     var RemoteMethod = function(name) {
         tuna.events.EventDispatcher.call(this);
 
-        this._name = null;
-
-        if (name !== undefined) {
-            this._name = name;
-        }
+        this._name = name || null;
     };
 
     tuna.implement(RemoteMethod, tuna.rest.IRemoteMethod);
     tuna.extend(RemoteMethod, tuna.events.EventDispatcher);
 
     RemoteMethod.prototype.call = function(args) {};
-    RemoteMethod.prototype._handleResponse = function(data) {};
+
+    RemoteMethod.prototype.clone = function() {
+        return new this.constructor(this._name);
+    };
 
     tuna.rest.RemoteMethod = RemoteMethod;
 

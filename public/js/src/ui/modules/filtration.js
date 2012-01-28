@@ -11,7 +11,7 @@
 
     tuna.extend(Filtration, tuna.ui.modules.Module);
 
-    Filtration.prototype._initInstance = function(target) {
+    Filtration.prototype.initInstance = function(target) {
         var transformer = this._initTransformer(target);
         var input = tuna.dom.selectOne('.j-filtration-input', target);
 

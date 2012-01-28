@@ -30,7 +30,7 @@
         return this.__templatesTable[id];
     };
 
-    TransformContainer.prototype._initInstance = function(target, parent) {
+    TransformContainer.prototype.initInstance = function(target, parent) {
         var self = this;
 
         var templateID  = target.getAttribute('data-template-id');

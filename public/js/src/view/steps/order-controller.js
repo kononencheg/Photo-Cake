@@ -28,12 +28,6 @@
                 event.preventDefault();
             }
         });
-
-        var self = this;
-        tuna.rest.call('cities.getList', function(result) {
-            model.cities.setCities(result);
-            self.__updateView();
-        });
     };
 
     OrderController.prototype.open = function() {
@@ -44,8 +38,7 @@
         this._container.applyData({
             'recipe': model.orders.getCurrentRecipe(),
             'price':  model.orders.getPrice(),
-            'cake':   model.cakes.getCurrentCake(),
-            'cities': model.cities.getCities()
+            'cake':   model.cakes.getCurrentCake()
         });
     };
 

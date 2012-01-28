@@ -1,9 +1,9 @@
 {
     "vk": [
-        "src/rest/vk/vk-method-factory.js",
-        "src/rest/vk/vk-method.js",
-        "src/rest/vk/friends/get-list.js",
-        "src/rest/vk/wall/post.js"
+        "src/rest/social/vk/vk-method.js",
+        "src/rest/social/vk/users/get-current.js",
+        "src/rest/social/vk/friends/get-list.js",
+        "src/rest/social/vk/wall/post.js"
     ],
 
     "common": [
@@ -23,6 +23,7 @@
         "lib/tuna/rest/factory.js",
 
         "lib/tuna/dom.js",
+        "lib/tuna/config.js",
 
         "lib/tuna/tmpl/data/data-node.js",
         "lib/tuna/tmpl/data/path-evaluator.js",
@@ -86,9 +87,7 @@
         "lib/tuna/ui/modules/navigation.js",
         "lib/tuna/ui/modules/selection-group.js",
 
-        "lib/tuna/model.js",
-        "lib/tuna/model/resource.js",
-        "lib/tuna/model/data-storage.js",
+        "lib/tuna/model/record.js",
 
         "lib/tuna/view/origin.js",
         "lib/tuna/view/i-view-state.js",
@@ -130,14 +129,22 @@
         "src/ui/modules/data-image.js",
         "src/ui/modules/data-image-copy.js",
 
+        "src/ui/modules/social/common/friends-popup.js",
+
         "src/rest/common-method.js",
-        "src/rest/method-factory.js",
 
         "src/model/cakes.js",
         "src/model/orders.js",
         "src/model/recipes.js",
-        "src/model/cities.js",
         "src/model/bakeries.js",
+        "src/model/users.js",
+
+        "src/model/records/bakery.js",
+        "src/model/records/cake.js",
+        "src/model/records/order.js",
+        "src/model/records/payment.js",
+        "src/model/records/recipe.js",
+        "src/model/records/user.js",
 
         "src/view/main-controller.js",
 

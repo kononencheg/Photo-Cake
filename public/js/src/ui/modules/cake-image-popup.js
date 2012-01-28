@@ -9,7 +9,7 @@
 
     tuna.extend(CakeImagePopup, tuna.ui.modules.Module);
 
-    CakeImagePopup.prototype._initInstance = function(target) {
+    CakeImagePopup.prototype.initInstance = function(target) {
         var self = this;
 
         var cakeIndex = target.getAttribute('data-cake-index');

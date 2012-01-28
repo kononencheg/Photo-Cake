@@ -14,6 +14,16 @@
         return this.__selectedData;
     };
 
+    Autocomplete.prototype.selectValue = function(value) {
+        var filteredData = this._filterData(value);
+        if (filteredData.length === 1) {
+            this.__selectedData = filteredData[0];
+            this._input.value = value;
+
+            this.dispatch('change');
+        }
+    };
+
     Autocomplete.prototype.selectIndex = function(index) {
         if (this._currentData.length > 0) {
             this.__selectedData = this._currentData[index];

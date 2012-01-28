@@ -6,7 +6,7 @@
 
     tuna.extend(DataImage, tuna.ui.modules.Module);
 
-    DataImage.prototype._initInstance = function(target, container, options) {
+    DataImage.prototype.initInstance = function(target, container, options) {
         return ui.DataImage.create(target);
     };
 

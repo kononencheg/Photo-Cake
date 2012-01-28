@@ -5,7 +5,7 @@
 
     tuna.extend(ImagePopup, tuna.ui.modules.Module);
 
-    ImagePopup.prototype._initInstance = function(target) {
+    ImagePopup.prototype.initInstance = function(target) {
         var popupElement = tuna.dom.selectOne('#image_popup');
         var popup = ui.Popup.create(popupElement);
 

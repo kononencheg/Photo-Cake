@@ -1,6 +1,6 @@
 (function() {
 
-    tuna.namespace('rest.vk');
+    tuna.namespace('rest.social.vk');
 
     var VKMethod = function(name) {
         tuna.rest.RemoteMethod.call(this, name);
@@ -30,6 +30,6 @@
         return null;
     };
 
-    rest.vk.VKMethod = VKMethod;
+    rest.social.vk.VKMethod = VKMethod;
 
 })();

@@ -1,12 +1,10 @@
 <script type="text/javascript" src="/js/common.js"></script>
 
 <script type="text/javascript">
-    var APP_NETWORK = '<?php echo $this->request->get('network') ?>';
-
     function main() {
-        tuna.dom.setSelectorEngine(jQuery.find);
+        tuna.config.init(<?php echo json_encode($this->request->get()) ?>);
 
-        tuna.model.setDefaultStorage(new tuna.model.DataStorage());
+        tuna.dom.setSelectorEngine(jQuery.find);
 
         var container = new tuna.ui.container.TransformContainer(document.body);
         container.init();

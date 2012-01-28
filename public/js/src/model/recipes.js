@@ -3,21 +3,23 @@
     tuna.namespace('model');
 
     var Recipes = function() {
-        tuna.model.Resource.call(this);
+        this.__list = [];
     };
 
-    tuna.extend(Recipes, tuna.model.Resource);
+    Recipes.prototype.clearRecipes = function() {
+        this.__list.length = 0;
+    };
 
-    Recipes.prototype.setRecipes = function(recipes) {
-        this.__storage.set('recipes', recipes);
+    Recipes.prototype.addRecipe = function(recipe) {
+        this.__list.push(recipe);
     };
 
     Recipes.prototype.getRecipeAt = function(index) {
-        return this.__storage.get('recipes')[index];
+        return this.__list[index];
     };
 
-    Recipes.prototype.getRecipes = function() {
-        return this.__storage.get('recipes');
+    Recipes.prototype.getList = function() {
+        return this.__list;
     };
 
     model.recipes = new Recipes();

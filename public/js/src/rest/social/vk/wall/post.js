@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('rest.vk.wall');
-
     var Post = function() {
         rest.CommonMethod.call(this, 'social.vk.uploadImage');
 
@@ -18,7 +16,7 @@
     Post.prototype.call = function(args) {
         if (args !== undefined) {
             this.__userID = args.user_id || null;
-            this.__imageData = args.image_data || null;
+            this.__imageData = args.image || null;
         }
 
         var params = {};
@@ -79,6 +77,6 @@
         }
     };
 
-    rest.vk.wall.Post = Post;
+    tuna.rest.factory.addMethod('social.wall.post', new Post())
 
 })();

@@ -25,7 +25,7 @@
         while (i < l) {
             if (this.__isInContext(targets[i], context)) {
                 instances.push
-                    (this._initInstance(targets[i], container, options));
+                    (this.initInstance(targets[i], container, options));
             }
 
             i++;
@@ -74,8 +74,9 @@
         }
     };
 
-    Module.prototype._initInstance = function(target, container, options) {};
-    Module.prototype._destroyInstance = function(instance) {};
+    Module.prototype.initInstance = function(target, container, options) {};
+
+    Module.prototype.destroyInstance = function(instance) {};
 
     tuna.ui.modules.Module = Module;
 

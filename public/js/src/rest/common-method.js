@@ -44,4 +44,14 @@
 
     rest.CommonMethod = CommonMethod;
 
+    var MethodFactory = function() {};
+
+    tuna.implement(MethodFactory, tuna.rest.IMethodFactory);
+
+    MethodFactory.prototype.createMethod = function(name) {
+        return new rest.CommonMethod(name);
+    };
+
+    tuna.rest.factory.setCommonFactory(new MethodFactory());
+
 })();

@@ -8,7 +8,7 @@
 
     SWF.ID_PREFIX = "movie_";
 
-    SWF.prototype._initInstance = function(target, container, options) {
+    SWF.prototype.initInstance = function(target, container, options) {
         var flashvars = null;
         var params = null;
         var width = null;

@@ -46,18 +46,21 @@
 
     DesignerController.prototype.close = function() {
         var data = this.__movie.getCakeData();
-        var cake = model.cakes.saveCurrentCake
+
+        var cake = model.cakes.createCake
             (data.shift(), data.shift(), data.shift());
 
         var cakeDataImage = this._container.getOneModuleInstance('data-image');
-        cakeDataImage.setData(cake.image_base64);
+        cakeDataImage.setData(cake.imageBase64);
+
+        model.cakes.setCurrentCake(cake);
     };
 
     var controller = new DesignerController('designer_step');
 
-    onFlashReady = tuna.bind(controller.onFlashReady, controller);
-    confirmShapeChange = tuna.bind(controller.confirmShapeChange, controller);
-    openMessageBox = function(message) { alert(message); };
+    window.onFlashReady = tuna.bind(controller.onFlashReady, controller);
+    window.confirmShapeChange = tuna.bind(controller.confirmShapeChange, controller);
+    window.openMessageBox = function(message) { alert(message); };
 
     tuna.view.registerController(controller);
 })();

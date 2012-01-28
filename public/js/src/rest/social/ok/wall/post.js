@@ -53,6 +53,7 @@
         });
     };
 
-    rest.ok.wall.Post = Post;
+    tuna.rest.factory.addMethod('social.wall.post', new Post())
+
 })();
 

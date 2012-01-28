@@ -11,7 +11,7 @@
 
     tuna.extend(Autocomplete, tuna.ui.modules.Module);
 
-    Autocomplete.prototype._initInstance = function(target) {
+    Autocomplete.prototype.initInstance = function(target) {
         var transformer = this._initTransformer(target);
         var selectionGroup = this._initSelectionGroup(target);
 

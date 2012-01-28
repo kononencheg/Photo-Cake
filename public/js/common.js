@@ -611,6 +611,7 @@ tuna.indexOf = function(element, array) {
     var IRemoteMethod = function() {};
     
     IRemoteMethod.prototype.call = function(args) {};
+    IRemoteMethod.prototype.clone = function() {};
 
     tuna.rest.IRemoteMethod = IRemoteMethod;
 
@@ -622,18 +623,17 @@ tuna.indexOf = function(element, array) {
     var RemoteMethod = function(name) {
         tuna.events.EventDispatcher.call(this);
 
-        this._name = null;
-
-        if (name !== undefined) {
-            this._name = name;
-        }
+        this._name = name || null;
     };
 
     tuna.implement(RemoteMethod, tuna.rest.IRemoteMethod);
     tuna.extend(RemoteMethod, tuna.events.EventDispatcher);
 
     RemoteMethod.prototype.call = function(args) {};
-    RemoteMethod.prototype._handleResponse = function(data) {};
+
+    RemoteMethod.prototype.clone = function() {
+        return new this.constructor(this._name);
+    };
 
     tuna.rest.RemoteMethod = RemoteMethod;
 
@@ -652,23 +652,32 @@ tuna.indexOf = function(element, array) {
 
     tuna.namespace('tuna.rest.factory');
 
-    var FactoryWrapper = function() {
+    var Factory = function() {
+        this.__methods = {};
         this.__factory = null;
     };
 
-    tuna.implement(FactoryWrapper, tuna.rest.IMethodFactory);
+    tuna.implement(Factory, tuna.rest.IMethodFactory);
 
-    FactoryWrapper.prototype.setCore = function(core) {
-        this.__factory = core;
+    Factory.prototype.setCommonFactory = function(factory) {
+        this.__factory = factory;
     };
 
-    FactoryWrapper.prototype.createMethod = function(name) {
-        if (this.__factory !== null) {
+    Factory.prototype.createMethod = function(name) {
+        if (this.__methods[name] !== undefined) {
+            return this.__methods[name].clone();
+        } else if (this.__factory !== null) {
             return this.__factory.createMethod(name);
         }
 
         return null;
     };
+
+    Factory.prototype.addMethod = function(name, method) {
+        this.__methods[name] = method;
+    };
+
+    tuna.rest.factory = new Factory();
 
     tuna.rest.call = function(name, args, callback) {
         if (typeof args === 'function') {
@@ -687,8 +696,6 @@ tuna.indexOf = function(element, array) {
 
         method.call(args);
     };
-
-    tuna.rest.factory = new FactoryWrapper();
 
 })();
 /**
@@ -975,6 +982,37 @@ tuna.indexOf = function(element, array) {
         }
     };
 
+})();/**
+ * TUNA FRAMEWORK
+ *
+ * @file config.js
+ * @author Kononenko Sergey <kononenheg@gmail.com>
+ */
+(function() {
+
+    tuna.namespace('tuna');
+
+    var Config = function() {
+        this.__data = null;
+    };
+
+    Config.prototype.init = function(data) {
+        this.__data = data;
+    };
+
+    Config.prototype.get = function(key) {
+        if (this.__data[key] !== undefined) {
+            return this.__data[key];
+        }
+
+        return null;
+    };
+
+    Config.prototype.set = function(key, value) {
+        this.__data[key] = value;
+    };
+
+    tuna.config = new Config();
 })();/**
  * TUNA FRAMEWORK
  * 
@@ -3321,7 +3359,7 @@ tuna.indexOf = function(element, array) {
         var name = module.getName();
 
         if (modulesTable[name] !== undefined) {
-            console.warn('Module with name "' + name + '" already registered!');
+            alert('Module with name "' + name + '" already registered!');
         }
 
         modulesTable[name] = module;
@@ -3372,7 +3410,7 @@ tuna.indexOf = function(element, array) {
         while (i < l) {
             if (this.__isInContext(targets[i], context)) {
                 instances.push
-                    (this._initInstance(targets[i], container, options));
+                    (this.initInstance(targets[i], container, options));
             }
 
             i++;
@@ -3421,8 +3459,9 @@ tuna.indexOf = function(element, array) {
         }
     };
 
-    Module.prototype._initInstance = function(target, container, options) {};
-    Module.prototype._destroyInstance = function(instance) {};
+    Module.prototype.initInstance = function(target, container, options) {};
+
+    Module.prototype.destroyInstance = function(instance) {};
 
     tuna.ui.modules.Module = Module;
 
@@ -3458,7 +3497,7 @@ tuna.indexOf = function(element, array) {
         return this.__templatesTable[id];
     };
 
-    TransformContainer.prototype._initInstance = function(target, parent) {
+    TransformContainer.prototype.initInstance = function(target, parent) {
         var self = this;
 
         var templateID  = target.getAttribute('data-template-id');
@@ -3499,7 +3538,7 @@ tuna.indexOf = function(element, array) {
 
     tuna.extend(Navigation, tuna.ui.modules.Module);
 
-    Navigation.prototype._initInstance = function(target) {
+    Navigation.prototype.initInstance = function(target) {
 
         var selectionGroup = new tuna.ui.selection.SelectionGroup
             (target, false, 'id', '.j-navigation-page', 'current');
@@ -3533,7 +3572,7 @@ tuna.indexOf = function(element, array) {
 
     tuna.extend(SelectionGroup, tuna.ui.modules.Module);
 
-    SelectionGroup.prototype._initInstance = function(target) {
+    SelectionGroup.prototype.initInstance = function(target) {
         var isMultiple = target.getAttribute('data-is-multiple') === 'true';
 
         var itemSelector = target.getAttribute('data-item-selector');
@@ -3574,84 +3613,25 @@ tuna.indexOf = function(element, array) {
 
 })();(function() {
 
-    tuna.namespace('tuna');
-
-    var Model = function() {
-        this.__defaultStorage = null;
-        this.__resources = [];
-    };
-
-    Model.prototype.setDefaultStorage = function(storage) {
-        this.__defaultStorage = storage;
-        this.__initResources();
-    };
-
-    Model.prototype.getDefaultStorage = function() {
-        return this.__defaultStorage;
-    };
-
-    Model.prototype.addResource = function(resource) {
-        this.__resources.push(resource);
-    };
-
-    Model.prototype.__initResources = function() {
-        var i = 0,
-            l = this.__resources.length;
-
-        while (i < l) {
-            this.__resources[i].setStorage(this.__defaultStorage);
-
-            i++;
-        }
-    };
-
-    tuna.model = new Model();
-
-})();(function() {
     tuna.namespace('tuna.model');
 
-    var Resource = function() {
-        this.__storage = null;
+    var Record = function() {};
 
-        tuna.model.addResource(this);
-    };
-
-    Resource.prototype.setStorage = function(storage) {
-        this.__storage = storage;
-    };
-
-    tuna.model.Resource = Resource;
-
-})();(function() {
-    tuna.namespace('tuna.model');
-
-    var DataStorage = function(core) {
-        tuna.events.EventDispatcher.call(this);
-
-        this.__data = core == undefined ? {} : core;
-    };
-
-    tuna.extend(DataStorage, tuna.events.EventDispatcher);
-
-    DataStorage.prototype.get = function(key) {
-        if (this.__data[key] !== undefined) {
-            return tuna.clone(this.__data[key]);
+    Record.prototype.clone = function() {
+        var clone = new this.constructor();
+        for (var param in this) {
+            if (this.hasOwnProperty(param)) {
+                clone[param] = this[param];
+            }
         }
 
-        return null;
+        return clone;
     };
 
-    DataStorage.prototype.set = function(key, value) {
-        this.__data[key] = value;
+    tuna.model.Record = Record;
 
-        var self = this;
-        tuna.nextTick(function() {
-            self.dispatch(new tuna.events.Event(key), value);
-        });
-    };
-
-    tuna.model.DataStorage = DataStorage;
-})();(function() {
+})();
+(function() {
     tuna.namespace('tuna.view');
 
     var ContentOrigin = function() {
@@ -16924,6 +16904,16 @@ var swfobject = function() {
         return this.__selectedData;
     };
 
+    Autocomplete.prototype.selectValue = function(value) {
+        var filteredData = this._filterData(value);
+        if (filteredData.length === 1) {
+            this.__selectedData = filteredData[0];
+            this._input.value = value;
+
+            this.dispatch('change');
+        }
+    };
+
     Autocomplete.prototype.selectIndex = function(index) {
         if (this._currentData.length > 0) {
             this.__selectedData = this._currentData[index];
@@ -17192,7 +17182,7 @@ var swfobject = function() {
 
     tuna.extend(Filtration, tuna.ui.modules.Module);
 
-    Filtration.prototype._initInstance = function(target) {
+    Filtration.prototype.initInstance = function(target) {
         var transformer = this._initTransformer(target);
         var input = tuna.dom.selectOne('.j-filtration-input', target);
 
@@ -17226,7 +17216,7 @@ var swfobject = function() {
 
     tuna.extend(Autocomplete, tuna.ui.modules.Module);
 
-    Autocomplete.prototype._initInstance = function(target) {
+    Autocomplete.prototype.initInstance = function(target) {
         var transformer = this._initTransformer(target);
         var selectionGroup = this._initSelectionGroup(target);
 
@@ -17305,7 +17295,7 @@ var swfobject = function() {
 
     SWF.ID_PREFIX = "movie_";
 
-    SWF.prototype._initInstance = function(target, container, options) {
+    SWF.prototype.initInstance = function(target, container, options) {
         var flashvars = null;
         var params = null;
         var width = null;
@@ -17342,26 +17332,12 @@ var swfobject = function() {
 
     tuna.extend(Popup, tuna.ui.modules.Module);
 
-    Popup.prototype._initInstance = function(target) {
+    Popup.prototype.initInstance = function(target) {
         var popupElement =
             tuna.dom.selectOne(target.getAttribute('data-popup-selector'));
 
         var popup = ui.Popup.create(popupElement);
-        popup.addEventListener('popup-open', function() {
-            tuna.dom.dispatchEvent(target, 'ui-popup-open');
-        });
-
-        popup.addEventListener('popup-close', function() {
-            tuna.dom.dispatchEvent(target, 'ui-popup-close');
-        });
-
-        popup.addEventListener('popup-apply', function(type, data) {
-            tuna.dom.dispatchEvent(target, 'ui-popup-apply', data);
-        });
-
-
         tuna.dom.addEventListener(target, 'click', function(event) {
-            tuna.dom.preventDefault(event);
             popup.open();
         });
 
@@ -17377,7 +17353,7 @@ var swfobject = function() {
 
     tuna.extend(ImagePopup, tuna.ui.modules.Module);
 
-    ImagePopup.prototype._initInstance = function(target) {
+    ImagePopup.prototype.initInstance = function(target) {
         var popupElement = tuna.dom.selectOne('#image_popup');
         var popup = ui.Popup.create(popupElement);
 
@@ -17409,7 +17385,7 @@ var swfobject = function() {
 
     tuna.extend(CakeImagePopup, tuna.ui.modules.Module);
 
-    CakeImagePopup.prototype._initInstance = function(target) {
+    CakeImagePopup.prototype.initInstance = function(target) {
         var self = this;
 
         var cakeIndex = target.getAttribute('data-cake-index');
@@ -17477,7 +17453,7 @@ var swfobject = function() {
 
     tuna.extend(Slider, tuna.ui.modules.Module);
 
-    Slider.prototype._initInstance = function(target) {
+    Slider.prototype.initInstance = function(target) {
         var $this = $(target);
 
         $this.slider({
@@ -17511,7 +17487,7 @@ var swfobject = function() {
 
     tuna.extend(Carousel, tuna.ui.modules.Module);
 
-    Carousel.prototype._initInstance = function(target) {
+    Carousel.prototype.initInstance = function(target) {
         var carouselBody = tuna.dom.selectOne('.j-carousel-body', target );
         
         var carousel = new ui.Carousel
@@ -17531,7 +17507,7 @@ var swfobject = function() {
 
     tuna.extend(Form, tuna.ui.modules.Module);
 
-    Form.prototype._initInstance = function(target) {
+    Form.prototype.initInstance = function(target) {
         return new ui.forms.Form(target);
     };
 
@@ -17545,7 +17521,7 @@ var swfobject = function() {
 
     tuna.extend(Datepicker, tuna.ui.modules.Module);
 
-    Datepicker.prototype._initInstance = function(target) {
+    Datepicker.prototype.initInstance = function(target) {
         var minTime = (new Date().getTime() + 3*24*60*60*1000);
 
         $(target).keydown(function(event){ event.preventDefault(); })
@@ -17564,7 +17540,7 @@ var swfobject = function() {
 
     tuna.extend(DataImage, tuna.ui.modules.Module);
 
-    DataImage.prototype._initInstance = function(target, container, options) {
+    DataImage.prototype.initInstance = function(target, container, options) {
         return ui.DataImage.create(target);
     };
 
@@ -17579,7 +17555,7 @@ var swfobject = function() {
 
     tuna.extend(DataImageCopy, tuna.ui.modules.Module);
 
-    DataImageCopy.prototype._initInstance = function(target) {
+    DataImageCopy.prototype.initInstance = function(target) {
         var imageSelector = target.getAttribute('data-image-selector');
         if (imageSelector !== null) {
             var currentImage = target;
@@ -17613,6 +17589,42 @@ var swfobject = function() {
     tuna.ui.modules.register(new DataImageCopy());
 })();
 (function() {
+    var FriendsPopup = function() {
+        tuna.ui.modules.Module.call(this, 'friends-popup', '.j-friends-popup');
+    };
+
+    tuna.extend(FriendsPopup, tuna.ui.modules.Module);
+
+    FriendsPopup.prototype.initInstance = function(target) {
+        var popupModule = tuna.ui.modules.getModule('popup');
+        var filtrationModule = tuna.ui.modules.getModule('filtration');
+
+        var popup = popupModule.initInstance(target);
+        var popupContainer = popup.getTarget();
+
+        var friendsFiltration = filtrationModule.initInstance(popupContainer);
+
+        tuna.rest.call('social.friends.get', function(result) {
+            friendsFiltration.setData(result);
+        });
+
+        tuna.dom.addChildEventListener(
+            popupContainer, '.j-send-button', 'click', function() {
+                var currentCake = model.cakes.getCurrentCake();
+
+                tuna.rest.call('social.wall.post', {
+                    'image': currentCake.imageBase64,
+                    'user_id': this.getAttribute('data-user-id')
+                });
+            }
+        );
+
+        return popup;
+    };
+
+    tuna.ui.modules.register(new FriendsPopup());
+
+})();(function() {
 
     tuna.namespace('rest');
 
@@ -17658,57 +17670,15 @@ var swfobject = function() {
 
     rest.CommonMethod = CommonMethod;
 
-})();
-(function() {
-
-    tuna.namespace('rest');
-
-    var MethodFactory = function() {
-        this.__socialFactory = null;
-    };
+    var MethodFactory = function() {};
 
     tuna.implement(MethodFactory, tuna.rest.IMethodFactory);
 
     MethodFactory.prototype.createMethod = function(name) {
-        if (name.indexOf('social.') === -1) {
-            return this.__createCommonMethod(name);
-        } else {
-            return this.__createSocialMethod(name);
-        }
-    };
-
-    MethodFactory.prototype.__createCommonMethod = function(name) {
         return new rest.CommonMethod(name);
     };
 
-    MethodFactory.prototype.__createSocialMethod = function(name) {
-        var factory = this.__getSocialFactory();
-        if (factory !== null) {
-            return factory.createMethod(name);
-        }
-
-        return null;
-    };
-
-    MethodFactory.prototype.__getSocialFactory = function() {
-        if (this.__socialFactory === null) {
-            this.__socialFactory = this.__createSocialFactory();
-        }
-
-        return this.__socialFactory;
-    };
-
-    MethodFactory.prototype.__createSocialFactory = function() {
-        switch (APP_NETWORK) {
-            case 'vk': return new rest.vk.VKMethodFactory();
-            case 'ok': return new rest.ok.OKMethodFactory();
-        }
-
-        return null;
-    };
-
-
-    tuna.rest.factory.setCore(new MethodFactory());
+    tuna.rest.factory.setCommonFactory(new MethodFactory());
 
 })();
 (function() {
@@ -17716,29 +17686,31 @@ var swfobject = function() {
     tuna.namespace('model');
 
     var Cakes = function() {
-        tuna.model.Resource.call(this);
+        this.__currentCake = null;
     };
 
-    tuna.extend(Cakes, tuna.model.Resource);
+    Cakes.prototype.createCake = function(markupJSON, imageBase64,
+                                          photoBase64) {
 
-    Cakes.prototype.saveCurrentCake = function(markupJSON, imageBase64,
-                                               photoBase64) {
         var markup = JSON.parse(markupJSON);
-        var cake = {
-            'markup_json': markupJSON,
-            'image_base64': imageBase64,
-            'photo_base64': photoBase64,
-            'dimensions': markup.dimensions,
-            'content': markup.content
-        };
 
-        this.__storage.set('current_cake', cake);
+        var cake = new model.records.Cake();
+        cake.markupJson = markupJSON;
+        cake.imageBase64 = imageBase64;
+        cake.photoBase64 = photoBase64;
+
+        cake.dimensions = markup.dimensions;
+        cake.content = markup.content;
 
         return cake;
     };
 
+    Cakes.prototype.setCurrentCake = function(cake) {
+        this.__currentCake = cake;
+    };
+
     Cakes.prototype.getCurrentCake = function() {
-        return this.__storage.get('current_cake');
+        return this.__currentCake;
     };
 
     model.cakes = new Cakes();
@@ -17749,57 +17721,65 @@ var swfobject = function() {
     tuna.namespace('model');
 
     var Orders = function() {
-        tuna.model.Resource.call(this);
+        this.__order = null;
     };
 
-    tuna.extend(Orders, tuna.model.Resource);
+    Orders.prototype.getOrder = function() {
+        return this.__order;
+    };
 
-    Orders.prototype.initCurrentOrder = function() {
-        var cake = this.__storage.get('current_cake');
-
-        this.__storage.set('deco_price', this.__getDecorationPrice(cake));
-        this.__storage.set('recipe_price', 0);
-        this.__storage.set('delivery_price', 0);
-
-        var recipe = this.__storage.get('current_recipe');
-        if (recipe !== null) {
-            this.__storage.set
-                ('recipe_price', this.__getRecipePrice(cake, recipe));
+    Orders.prototype.updateOrder = function() {
+        if (this.__order === null) {
+            this.__order = new model.records.Order();
+            this.__order.user = model.users.getCurrentUser().clone();
         }
+
+        this.__order.cake = model.cakes.getCurrentCake().clone();
+        this.__updateOrderPrice();
     };
 
-    Orders.prototype.setCurrentRecipeIndex = function(index) {
-        var cake = this.__storage.get('current_cake');
-        var recipe = model.recipes.getRecipeAt(index);
-
-        this.__storage.set('current_recipe', recipe);
-        this.__storage.set('recipe_price', this.__getRecipePrice(cake, recipe));
+    Orders.prototype.setOrderRecipe = function(recipe) {
+        this.__order.recipe = recipe;
+        this.__updateOrderPrice();
     };
 
-    Orders.prototype.setCurrentBakery = function(bakery) {
-        this.__storage.set('current_bakery', bakery);
-        this.__storage.set('delivery_price', bakery.delivery_price);
+    Orders.prototype.setOrderBakery = function(bakery) {
+        this.__order.bakery = bakery;
+        this.__updateOrderPrice();
     };
 
-    Orders.prototype.getCurrentRecipe = function() {
-        return this.__storage.get('current_recipe');
+    Orders.prototype.getOrderRecipe = function() {
+        return this.__order.recipe;
     };
 
-    Orders.prototype.getPrice = function() {
-        var decoPrice = this.__storage.get('deco_price');
-        var recipePrice = this.__storage.get('recipe_price');
-        var deliveryPrice = this.__storage.get('delivery_price');
+    Orders.prototype.getOrderBakery = function() {
+        return this.__order.bakery;
+    };
 
-        return {
-            'deco': decoPrice,
-            'recipe': recipePrice,
-            'delivery': deliveryPrice,
-            'total': decoPrice + recipePrice + deliveryPrice
-        };
+    Orders.prototype.__updateOrderPrice = function() {
+        if (this.__order.payment === null) {
+            this.__order.payment = new model.records.Payment();
+        }
+
+        var payment = this.__order.payment;
+
+        payment.decoPrice = this.__getDecorationPrice(this.__order.cake);
+
+        if (this.__order.recipe !== null) {
+            payment.recipePrice = this.__getRecipePrice
+                (this.__order.cake, this.__order.recipe);
+        }
+
+        if (this.__order.bakery !== null) {
+            payment.deliveryPrice = this.__order.bakery.deliveryPrice;
+        }
+
+        payment.totalPrice
+            = payment.decoPrice + payment.recipePrice + payment.deliveryPrice;
     };
 
     Orders.prototype.__getRecipePrice = function(cake, recipe) {
-        return 1500 * cake.dimensions.mass;
+        return recipe.price * cake.dimensions.mass;
     };
 
     Orders.prototype.__getDecorationPrice = function(cake) {
@@ -17852,21 +17832,23 @@ var swfobject = function() {
     tuna.namespace('model');
 
     var Recipes = function() {
-        tuna.model.Resource.call(this);
+        this.__list = [];
     };
 
-    tuna.extend(Recipes, tuna.model.Resource);
+    Recipes.prototype.clearRecipes = function() {
+        this.__list.length = 0;
+    };
 
-    Recipes.prototype.setRecipes = function(recipes) {
-        this.__storage.set('recipes', recipes);
+    Recipes.prototype.addRecipe = function(recipe) {
+        this.__list.push(recipe);
     };
 
     Recipes.prototype.getRecipeAt = function(index) {
-        return this.__storage.get('recipes')[index];
+        return this.__list[index];
     };
 
-    Recipes.prototype.getRecipes = function() {
-        return this.__storage.get('recipes');
+    Recipes.prototype.getList = function() {
+        return this.__list;
     };
 
     model.recipes = new Recipes();
@@ -17876,43 +17858,20 @@ var swfobject = function() {
 
     tuna.namespace('model');
 
-    var Cities = function() {
-        tuna.model.Resource.call(this);
-    };
-
-    tuna.extend(Cities, tuna.model.Resource);
-
-    Cities.prototype.setCities = function(cities) {
-        this.__storage.set('cities', cities);
-    };
-
-    Cities.prototype.getCities = function() {
-        return this.__storage.get('cities');
-    };
-
-    model.cities = new Cities();
-
-})();
-(function() {
-
-    tuna.namespace('model');
-
     var Bakeries = function() {
-        tuna.model.Resource.call(this);
+        this.__list = []
     };
 
-    tuna.extend(Bakeries, tuna.model.Resource);
-
-    Bakeries.prototype.setBakeries = function(bakeries) {
-        this.__storage.set('bakeries', bakeries);
+    Bakeries.prototype.addBakery = function(bakery) {
+        this.__list.push(bakery);
     };
 
     Bakeries.prototype.getBakeryAt = function(index) {
-        return this.__storage.get('bakeries')[index];
+        return this.__list[index];
     };
 
-    Bakeries.prototype.getBakeries = function() {
-        return this.__storage.get('bakeries');
+    Bakeries.prototype.getList = function() {
+        return this.__list;
     };
 
     model.bakeries = new Bakeries();
@@ -17920,12 +17879,137 @@ var swfobject = function() {
 })();
 (function() {
 
+    tuna.namespace('model');
+
+    var Users = function() {
+        this.__currentUser = null;
+    };
+
+    Users.prototype.setCurrentUser = function(user) {
+        this.__currentUser = user;
+    };
+
+    Users.prototype.getCurrentUser = function() {
+        return this.__currentUser;
+    };
+
+    model.users = new Users();
+
+})();
+(function() {
+
+    tuna.namespace('model.records');
+
+    var Bakery = function() {
+        this.id = '';
+        this.city = '';
+        this.deliveryPrice = 0;
+    };
+
+    tuna.extend(Bakery, tuna.model.Record);
+
+    model.records.Bakery = Bakery;
+
+})();(function() {
+
+    tuna.namespace('model.records');
+
+    var Cake = function() {
+        this.markupJson = '';
+        this.imageBase64 = '';
+        this.photoBase64 = '';
+
+        this.dimensions = null;
+        this.content = null;
+    };
+
+    tuna.extend(Cake, tuna.model.Record);
+
+    model.records.Cake = Cake;
+
+})();(function() {
+
+    tuna.namespace('model.records');
+
+    var Order = function() {
+        this.user = null;
+        this.cake = null;
+
+        this.bakery = null;
+        this.recipe = null;
+
+        this.payment = null;
+    };
+
+    tuna.extend(Order, tuna.model.Record);
+
+    model.records.Order = Order;
+
+})();(function() {
+
+    tuna.namespace('model.records');
+
+    var Payment = function() {
+        this.decoPrice = 0;
+        this.recipePrice = 0;
+        this.deliveryPrice = 0;
+
+        this.totalPrice = 0;
+    };
+
+    tuna.extend(Payment, tuna.model.Record);
+
+    model.records.Payment = Payment;
+
+})();(function() {
+
+    tuna.namespace('model.records');
+
+    var Recipe = function() {
+        this.id = '';
+        this.name = '';
+        this.desc = '';
+
+        this.price = 0;
+
+        this.imageUrl = '';
+    };
+
+    tuna.extend(Recipe, tuna.model.Record);
+
+    model.records.Recipe = Recipe;
+
+})();(function() {
+
+    tuna.namespace('model.records');
+
+    var User = function() {
+        this.id = '';
+        this.name = '';
+        this.city = '';
+        this.userpicUrl = '';
+    };
+
+    tuna.extend(User, tuna.model.Record);
+
+    model.records.User = User;
+
+})();(function() {
+
     var MainController = function() {
         tuna.view.NavigationViewController.call(this, null);
     };
 
     tuna.extend(MainController, tuna.view.NavigationViewController);
-    
+
+    MainController.prototype._initActions = function() {
+        tuna.view.NavigationViewController.prototype._initActions.call(this);
+
+        tuna.rest.call('social.users.getCurrent', function(user) {
+            model.users.setCurrentUser(user);
+        });
+    };
+
     tuna.view.setMainController(new MainController());
 
 })();
@@ -17993,18 +18077,21 @@ var swfobject = function() {
 
     DesignerController.prototype.close = function() {
         var data = this.__movie.getCakeData();
-        var cake = model.cakes.saveCurrentCake
+
+        var cake = model.cakes.createCake
             (data.shift(), data.shift(), data.shift());
 
         var cakeDataImage = this._container.getOneModuleInstance('data-image');
-        cakeDataImage.setData(cake.image_base64);
+        cakeDataImage.setData(cake.imageBase64);
+
+        model.cakes.setCurrentCake(cake);
     };
 
     var controller = new DesignerController('designer_step');
 
-    onFlashReady = tuna.bind(controller.onFlashReady, controller);
-    confirmShapeChange = tuna.bind(controller.confirmShapeChange, controller);
-    openMessageBox = function(message) { alert(message); };
+    window.onFlashReady = tuna.bind(controller.onFlashReady, controller);
+    window.confirmShapeChange = tuna.bind(controller.confirmShapeChange, controller);
+    window.openMessageBox = function(message) { alert(message); };
 
     tuna.view.registerController(controller);
 })();
@@ -18019,35 +18106,20 @@ var swfobject = function() {
 
     tuna.extend(ShareController, tuna.view.PageViewController);
 
-    ShareController.prototype.canGoNext = function() {
-        return true;
-    };
-
     ShareController.prototype.open = function() {
         var currentCake = model.cakes.getCurrentCake();
-        this.__imageData = currentCake.image_base64;
+        this.__imageData = currentCake.imageBase64;
 
         var downloadDataInput = tuna.dom.selectOne('#download_data_input');
         downloadDataInput.value = this.__imageData;
     };
 
     ShareController.prototype._requireModules = function() {
-        this._container.requireModule('filtration');
         this._container.requireModule('data-image-copy');
-        this._container.requireModule('popup');
+        this._container.requireModule('friends-popup');
     };
 
     ShareController.prototype._initActions = function() {
-        if (APP_NETWORK === 'ok') {
-            this.__initOKNotificationPopup();
-        } else {
-            this.__initFriendsPopup();
-        }
-
-        this.__initWallPost();
-    };
-
-    ShareController.prototype.__initWallPost = function() {
         var self = this;
 
         this.__wallPostMethod
@@ -18061,42 +18133,7 @@ var swfobject = function() {
         tuna.dom.addEventListener(wallPostLink, 'click', function(event) {
             tuna.dom.preventDefault(event);
 
-            self.__wallPostMethod.call({ 'image_data': this.__imageData });
-        });
-    };
-
-    ShareController.prototype.__initFriendsPopup = function() {
-        var popup = this._container.getOneModuleInstance('popup');
-
-        var self = this;
-        tuna.dom.addChildEventListener(
-            popup.getTarget(), '.j-send-button', 'click', function() {
-                self.__wallPostMethod.call({
-                    'image_data': this.__imageData,
-                    'user_id': this.getAttribute('data-user-id')
-                });
-            }
-        );
-
-        var friendsFiltration
-            = this._container.getOneModuleInstance('filtration');
-
-        tuna.rest.call('social.friends.get', function(result) {
-            friendsFiltration.setData(result);
-        });
-    };
-
-    ShareController.prototype.__initOKNotificationPopup = function() {
-        var popup = this._container.getOneModuleInstance('popup');
-        popup.addEventListener('popup-open', function(event) {
-            event.preventDefault();
-
-            tuna.rest.call('cakes.uploadImage', {
-                'image_data': this.__imageData
-            }, function(result) {
-                FAPI.UI.showNotification
-                    ('Сматри какой я сделал тортик!', 'url=' + result);
-            });
+            self.__wallPostMethod.call({ 'image': self.__imageData });
         });
     };
 
@@ -18116,8 +18153,8 @@ var swfobject = function() {
     tuna.extend(RecipeController, tuna.view.PageViewController);
 
     RecipeController.prototype.canClose = function(index) {
-        var selectedRecipe = model.orders.getCurrentRecipe();
-        if (index === 'order_step' && selectedRecipe === null) {
+        var order = model.orders.getOrder();
+        if (index === 'order_step' && order.recipe === null) {
             alert('Для продолжения необходимо выбрать рецепт!');
             return false;
         }
@@ -18126,7 +18163,7 @@ var swfobject = function() {
     };
 
     RecipeController.prototype.open = function() {
-        model.orders.initCurrentOrder(model.cakes.getCurrentCake());
+        model.orders.updateOrder();
 
         this.__cityPopup.open();
 
@@ -18140,7 +18177,11 @@ var swfobject = function() {
     };
 
     RecipeController.prototype._initActions = function() {
+        model.orders.updateOrder();
+
         this.__initCityPopup();
+
+        this.__loadBakeries();
 
         this.__initRecipeSelection();
 
@@ -18155,8 +18196,8 @@ var swfobject = function() {
         this.__cityAutocomplete
             = this._container.getOneModuleInstance('autocomplete');
 
-        this.__cityAutocomplete.setFilterCallback(function(item) {
-            return item.city.name;
+        this.__cityAutocomplete.setFilterCallback(function(bakery) {
+            return bakery.city;
         });
 
         var okButton = tuna.dom.selectOne('#city_ok_button');
@@ -18171,33 +18212,27 @@ var swfobject = function() {
         this.__cityPopup
             = ui.Popup.create(tuna.dom.selectOne('#city_selection_popup'));
 
+        var bakery = null;
+
+        this.__cityPopup.addEventListener('popup-open', function(event) {
+            bakery = model.orders.getOrderBakery();
+        });
+
         this.__cityPopup.addEventListener('popup-apply', function(event) {
             var selectedBakery = self.__cityAutocomplete.getSelectedData();
             if (selectedBakery === null) {
                 event.preventDefault();
             } else {
-                model.orders.setCurrentBakery(selectedBakery);
+                if (bakery !== selectedBakery) {
+                    model.orders.setOrderBakery(selectedBakery);
 
-                tuna.rest.call(
-                    'recipes.getList', { 'bakery_id': selectedBakery.id },
-                    function(result) {
-                        model.recipes.setRecipes(result);
-                        self.__updateView();
-                        self.__selectRecipeAt(0);
-                    }
-                );
-
-                self.__updateView();
+                    self.__loadRecipes();
+                    self.__updateView();
+                }
             }
         });
 
-        var self = this;
-        tuna.rest.call('bakeries.getList', function(result) {
-            self.__cityAutocomplete.setData(result);
-            model.bakeries.setBakeries(result);
-        });
     };
-
 
     RecipeController.prototype.__initDescriptionPopup = function() {
         var descriptionPopup = ui.Popup.create
@@ -18226,7 +18261,8 @@ var swfobject = function() {
         tuna.dom.addChildEventListener(
             this._target, 'input.j-recipe-radio', 'click',
             function(event) {
-                model.orders.setCurrentRecipeIndex(this.value);
+                var recipe = model.recipes.getRecipeAt(this.value);
+                model.orders.setOrderRecipe(recipe);
 
                 self.__updateView();
             }
@@ -18235,9 +18271,8 @@ var swfobject = function() {
 
     RecipeController.prototype.__updateView = function() {
         this._container.applyData({
-            'cake': model.cakes.getCurrentCake(),
-            'price': model.orders.getPrice(),
-            'recipes': model.recipes.getRecipes(),
+            'order': model.orders.getOrder(),
+            'recipes': model.recipes.getList(),
             'popup_recipe': this.__popupRecipe
         });
     };
@@ -18249,6 +18284,68 @@ var swfobject = function() {
         input.checked = true;
 
         tuna.dom.dispatchEvent(input, 'click');
+    };
+
+    RecipeController.prototype.__loadRecipes = function() {
+        var self = this;
+        var bakery = model.orders.getOrderBakery();
+
+        tuna.rest.call('recipes.getList', { 'bakery_id': bakery.id },
+            function(result) {
+                model.recipes.clearRecipes();
+
+                var i = 0,
+                    l = result.length;
+
+                var value = null;
+                var recipe = null;
+                while (i < l) {
+                    value = result[i];
+
+                    recipe = new model.records.Recipe();
+                    recipe.id = value.id;
+                    recipe.name = value.name;
+                    recipe.desc = value.desc;
+                    recipe.price = value.price;
+                    recipe.imageUrl = value.image_url;
+
+                    model.recipes.addRecipe(recipe);
+
+                    i++;
+                }
+
+
+                self.__updateView();
+                self.__selectRecipeAt(0);
+            }
+        );
+    };
+
+    RecipeController.prototype.__loadBakeries = function() {
+        var self = this;
+        tuna.rest.call('bakeries.getList', function(result) {
+            var i = 0,
+                l = result.length;
+
+            var value = null;
+            var bakery = null;
+            while (i < l) {
+                value = result[i];
+
+                bakery = new model.records.Bakery();
+                bakery.id = value.id;
+                bakery.city = value.city.name;
+                bakery.deliveryPrice = value.delivery_price;
+
+                model.bakeries.addBakery(bakery);
+
+                i++;
+            }
+
+            var user = model.users.getCurrentUser();
+            self.__cityAutocomplete.setData(model.bakeries.getList());
+            self.__cityAutocomplete.selectValue(user.city);
+        });
     };
 
     tuna.view.registerController(new RecipeController('recipe_step'));
@@ -18283,12 +18380,6 @@ var swfobject = function() {
                 event.preventDefault();
             }
         });
-
-        var self = this;
-        tuna.rest.call('cities.getList', function(result) {
-            model.cities.setCities(result);
-            self.__updateView();
-        });
     };
 
     OrderController.prototype.open = function() {
@@ -18299,8 +18390,7 @@ var swfobject = function() {
         this._container.applyData({
             'recipe': model.orders.getCurrentRecipe(),
             'price':  model.orders.getPrice(),
-            'cake':   model.cakes.getCurrentCake(),
-            'cities': model.cities.getCities()
+            'cake':   model.cakes.getCurrentCake()
         });
     };
 

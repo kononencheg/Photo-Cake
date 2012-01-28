@@ -6,7 +6,7 @@
 
     tuna.extend(Navigation, tuna.ui.modules.Module);
 
-    Navigation.prototype._initInstance = function(target) {
+    Navigation.prototype.initInstance = function(target) {
 
         var selectionGroup = new tuna.ui.selection.SelectionGroup
             (target, false, 'id', '.j-navigation-page', 'current');
