@@ -17,7 +17,7 @@
            'width': 650,
            'height': 630,
            'params': {
-               'wmode': 'direct',
+               'wmode': 'opaque',
                'allowfullscreen': false,
                'allowscriptaccess': 'always',
                'menu': false
@@ -35,9 +35,14 @@
     };
 
     DesignerController.prototype.confirmShapeChange = function(shape) {
-        if (confirm('При изменении формы торта, все оформление будет утеряно!')) {
-            this.__movie.changeShape(shape);
-        }
+        var self = this;
+
+        ui.Popup.confirm(
+            'При изменении формы торта, все оформление будет утеряно!',
+            function() {
+                self.__movie.changeShape(shape);
+            }
+        );
     };
 
     DesignerController.prototype.canClose = function() {
@@ -60,7 +65,7 @@
 
     window.onFlashReady = tuna.bind(controller.onFlashReady, controller);
     window.confirmShapeChange = tuna.bind(controller.confirmShapeChange, controller);
-    window.openMessageBox = function(message) { alert(message); };
+    window.openMessageBox = function(message) { ui.Popup.alert(message); };
 
     tuna.view.registerController(controller);
 })();

@@ -15,7 +15,7 @@
     RecipeController.prototype.canClose = function(index) {
         var order = model.orders.getOrder();
         if (index === 'order_step' && order.recipe === null) {
-            alert('Для продолжения необходимо выбрать рецепт!');
+            ui.Popup.alert('Для продолжения необходимо выбрать рецепт!');
             return false;
         }
 

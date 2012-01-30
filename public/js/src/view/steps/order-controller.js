@@ -16,16 +16,31 @@
 
     OrderController.prototype._initActions = function() {
         var self = this;
+        var isConfirmed = false;
 
         this.__form = this._container.getOneModuleInstance('form');
         this.__form.addEventListener('result', function() {
-            alert('Спасибо за заказ! Пожалуйста, ожидайте звонка!');
+            ui.Popup.alert('Спасибо за заказ! Пожалуйста, ожидайте звонка!');
             self._navigation.selectIndex('title_step');
+            isConfirmed = false;
         });
 
+        this.__form.addEventListener('error', function() {
+            isConfirmed = false;
+        });
+
+
         this.__form.addEventListener('submit', function(event) {
-            if (!confirm('Вы уверены что правильно заполнили все поля?')) {
+            if (!isConfirmed) {
                 event.preventDefault();
+
+                ui.Popup.confirm(
+                    'Вы уверены что правильно заполнили все поля?',
+                    function() {
+                        isConfirmed = true;
+                        self.__form.submit();
+                    }
+                );
             }
         });
     };

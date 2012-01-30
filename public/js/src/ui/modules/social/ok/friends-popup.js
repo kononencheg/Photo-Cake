@@ -126,7 +126,7 @@
             'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': '' }])
         }, function(status, data, error) {
             if (status === 'ok') {
-                alert('Торт успешно опубликован!');
+                ui.Popup.alert('Торт успешно опубликован!');
             }
         });
     };

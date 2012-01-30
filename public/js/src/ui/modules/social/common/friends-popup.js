@@ -36,7 +36,7 @@
             'image': currentCake.imageBase64,
             'user_id': userId
         }, function() {
-            alert('Торт успешно опубликован!');
+            ui.Popup.alert('Торт успешно опубликован!');
         });
     };
 

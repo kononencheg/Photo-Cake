@@ -17133,6 +17133,47 @@ var swfobject = function() {
         return new Popup(target);
     };
 
+    var alert = null;
+    var alertMessage = null;
+
+    Popup.registerAlertElement = function(target) {
+        alert = Popup.create(target);
+        alertMessage = tuna.dom.selectOne('.j-message', target);
+    };
+
+    Popup.alert = function(message) {
+        alertMessage.innerHTML = message;
+        alert.open();
+    };
+
+    var confirm = null;
+    var confirmMessage = null;
+
+    Popup.registerConfirmElement = function(target) {
+        confirm = Popup.create(target);
+        confirmMessage = tuna.dom.selectOne('.j-message', target);
+    };
+
+    Popup.confirm = function(message, okCallback, cancelCallback) {
+        confirmMessage.innerHTML = message
+
+        var okHandler = function() {
+            okCallback && okCallback();
+            confirm.removeEventListener('popup-apply', okHandler);
+            confirm.removeEventListener('popup-close', cancelHandler);
+        };
+
+        var cancelHandler = function() {
+            cancelCallback && cancelCallback();
+            confirm.removeEventListener('popup-apply', okHandler);
+            confirm.removeEventListener('popup-close', cancelHandler);
+        };
+
+        confirm.addEventListener('popup-apply', okHandler);
+        confirm.addEventListener('popup-close', cancelHandler);
+
+        confirm.open();
+    };
 
     ui.Popup = Popup;
 })();(function() {
@@ -17620,7 +17661,7 @@ var swfobject = function() {
             'image': currentCake.imageBase64,
             'user_id': userId
         }, function() {
-            alert('Торт успешно опубликован!');
+            ui.Popup.alert('Торт успешно опубликован!');
         });
     };
 
@@ -18050,7 +18091,7 @@ var swfobject = function() {
            'width': 650,
            'height': 630,
            'params': {
-               'wmode': 'direct',
+               'wmode': 'opaque',
                'allowfullscreen': false,
                'allowscriptaccess': 'always',
                'menu': false
@@ -18068,9 +18109,14 @@ var swfobject = function() {
     };
 
     DesignerController.prototype.confirmShapeChange = function(shape) {
-        if (confirm('При изменении формы торта, все оформление будет утеряно!')) {
-            this.__movie.changeShape(shape);
-        }
+        var self = this;
+
+        ui.Popup.confirm(
+            'При изменении формы торта, все оформление будет утеряно!',
+            function() {
+                self.__movie.changeShape(shape);
+            }
+        );
     };
 
     DesignerController.prototype.canClose = function() {
@@ -18093,7 +18139,7 @@ var swfobject = function() {
 
     window.onFlashReady = tuna.bind(controller.onFlashReady, controller);
     window.confirmShapeChange = tuna.bind(controller.confirmShapeChange, controller);
-    window.openMessageBox = function(message) { alert(message); };
+    window.openMessageBox = function(message) { ui.Popup.alert(message); };
 
     tuna.view.registerController(controller);
 })();
@@ -18150,7 +18196,7 @@ var swfobject = function() {
     RecipeController.prototype.canClose = function(index) {
         var order = model.orders.getOrder();
         if (index === 'order_step' && order.recipe === null) {
-            alert('Для продолжения необходимо выбрать рецепт!');
+            ui.Popup.alert('Для продолжения необходимо выбрать рецепт!');
             return false;
         }
 
@@ -18363,16 +18409,31 @@ var swfobject = function() {
 
     OrderController.prototype._initActions = function() {
         var self = this;
+        var isConfirmed = false;
 
         this.__form = this._container.getOneModuleInstance('form');
         this.__form.addEventListener('result', function() {
-            alert('Спасибо за заказ! Пожалуйста, ожидайте звонка!');
+            ui.Popup.alert('Спасибо за заказ! Пожалуйста, ожидайте звонка!');
             self._navigation.selectIndex('title_step');
+            isConfirmed = false;
         });
 
+        this.__form.addEventListener('error', function() {
+            isConfirmed = false;
+        });
+
+
         this.__form.addEventListener('submit', function(event) {
-            if (!confirm('Вы уверены что правильно заполнили все поля?')) {
+            if (!isConfirmed) {
                 event.preventDefault();
+
+                ui.Popup.confirm(
+                    'Вы уверены что правильно заполнили все поля?',
+                    function() {
+                        isConfirmed = true;
+                        self.__form.submit();
+                    }
+                );
             }
         });
     };
