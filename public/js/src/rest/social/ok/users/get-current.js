@@ -14,7 +14,7 @@
             'uids': FAPI.Client.uid
         }, function(status, data, error) {
             if (status === 'ok') {
-                var value = data[0];
+                var value = data ? data[0] : {};
 
                 var user = new model.records.User();
                 user.id = value.uid;
