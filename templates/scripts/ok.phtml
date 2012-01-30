@@ -11,6 +11,13 @@
         function() {
             main();
             FAPI.Client.initialize();
+
+            if (tuna.config.get('ok_cake_url')) {
+                ui.Popup.alert(
+                    '<img src="http://files.fotonatorte.ru/ok-image/' +
+                    tuna.config.get('ok_cake_url') + '" alt="Мой тортик!" />'
+                )
+            }
         }
     );
 </script>
