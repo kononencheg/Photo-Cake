@@ -88,7 +88,7 @@
                     var currentCake = model.cakes.getCurrentCake();
                     tuna.rest.call('social.ok.uploadImage', {
                         'image': currentCake.imageBase64,
-                        'upload_url': 'http://api-sandbox.odnoklassniki.ru:8088/api/photos/upload',
+                        'upload_url': url,
                         'album_id': self.__albumId,
                         'session_key': FAPI.Client.sessionKey,
                         'application_key' : FAPI.Client.applicationKey,
