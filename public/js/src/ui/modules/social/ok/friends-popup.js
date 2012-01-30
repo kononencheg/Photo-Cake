@@ -108,7 +108,7 @@
     FriendsPopup.prototype.__showFriendsPopup = function(photo) {
         FAPI.UI.showNotification(
             'Смотри какой у меня получился торт!',
-            'ok_cake_url=' + this.__parsePhotoUrl(photo.standard_url)
+            'ok_cake_url=' + encodeURI(this.__parsePhotoUrl(photo.standard_url))
         );
     };
 
