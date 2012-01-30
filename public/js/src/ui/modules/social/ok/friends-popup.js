@@ -134,7 +134,7 @@
         var id = url.split('photoId=').pop().split('&').shift();
         var server = url.split('//').pop().split('.').shift();
 
-        return 'ok_image/' + server + '/' + id;
+        return encodeURI('server=' + server + '&id=' + id);
     };
 
     tuna.ui.modules.register(new FriendsPopup());
