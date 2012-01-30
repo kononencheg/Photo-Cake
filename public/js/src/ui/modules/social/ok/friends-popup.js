@@ -81,31 +81,25 @@
     FriendsPopup.prototype.__uploadPhoto = function(callback) {
         var self = this;
 
-        FAPI.Client.call(
-            { 'method': 'photos.getUploadUrl', 'aid': this.__albumId },
-            function (status, url, error) {
-                if (status === 'ok') {
-                    var currentCake = model.cakes.getCurrentCake();
-                    tuna.rest.call('social.ok.uploadImage', {
-                        'image': currentCake.imageBase64,
-                        'upload_url': url,
-                        'album_id': self.__albumId,
-                        'session_key': FAPI.Client.sessionKey,
-                        'application_key' : FAPI.Client.applicationKey,
-                        'secret_key' : FAPI.Client.sessionSecretKey
-                    }, function() {
-                        FAPI.Client.call({
-                            'method': 'photos.getUserAlbumPhotos',
-                            'aid': self.__albumId,
-                            'pagingDirection': 'backward',
-                            'count': 1
-                        }, function(status, data, error) {
-                            callback(data.photos.shift());
-                        });
-                    });
-                }
-            }
-        );
+        var currentCake = model.cakes.getCurrentCake();
+        tuna.rest.call('social.ok.uploadImage', {
+            'image': currentCake.imageBase64,
+            'upload_url': 'http://api.odnoklassniki.ru/api/photos/upload',
+            'album_id': self.__albumId,
+            'session_key': FAPI.Client.sessionKey,
+            'application_key' : FAPI.Client.applicationKey,
+            'secret_key' : FAPI.Client.sessionSecretKey
+        }, function() {
+            FAPI.Client.call({
+                'method': 'photos.getUserAlbumPhotos',
+                'aid': self.__albumId,
+                'pagingDirection': 'backward',
+                'count': 1
+            }, function(status, data, error) {
+                callback(data.photos.shift());
+            });
+        });
+
     };
 
     FriendsPopup.prototype.__showFriendsPopup = function(photo) {
