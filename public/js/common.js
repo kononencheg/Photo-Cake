@@ -18413,7 +18413,6 @@ var swfobject = function() {
 
         this.__form = this._container.getOneModuleInstance('form');
         this.__form.addEventListener('result', function() {
-            ui.Popup.alert('Спасибо за заказ! Пожалуйста, ожидайте звонка!');
             self._navigation.selectIndex('result_step');
             isConfirmed = false;
         });
