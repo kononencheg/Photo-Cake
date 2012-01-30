@@ -108,12 +108,12 @@
     FriendsPopup.prototype.__showFriendsPopup = function(photo) {
         FAPI.UI.showNotification(
             'Смотри какой у меня получился торт!',
-            'ok_cake_url=' + encodeURI(this.__parsePhotoUrl(photo.standard_url))
+            'ok_cake_url=' + this.__parsePhotoUrl(photo.standard_url)
         );
     };
 
     FriendsPopup.prototype.__post = function(photo) {
-        var url = this.__parsePhotoUrl(photo.standard_url);
+        var url = photo ? this.__parsePhotoUrl(photo.standard_url) : '';
 
         FAPI.Client.call({
             'method' : 'stream.publish',
@@ -134,7 +134,7 @@
         var id = url.split('photoId=').pop().split('&').shift();
         var server = url.split('//').pop().split('.').shift();
 
-        return encodeURI('server=' + server + '&id=' + id);
+        return server + '/' + id;
     };
 
     tuna.ui.modules.register(new FriendsPopup());
