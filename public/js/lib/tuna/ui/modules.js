@@ -5,13 +5,7 @@
     var isolators = [];
 
     tuna.ui.modules.register = function(module) {
-        var name = module.getName();
-
-        if (modulesTable[name] !== undefined) {
-            alert('Module with name "' + name + '" already registered!');
-        }
-
-        modulesTable[name] = module;
+        modulesTable[module.getName()] = module;
     };
 
     tuna.ui.modules.getModule = function(name) {

@@ -3356,13 +3356,7 @@ tuna.indexOf = function(element, array) {
     var isolators = [];
 
     tuna.ui.modules.register = function(module) {
-        var name = module.getName();
-
-        if (modulesTable[name] !== undefined) {
-            alert('Module with name "' + name + '" already registered!');
-        }
-
-        modulesTable[name] = module;
+        modulesTable[module.getName()] = module;
     };
 
     tuna.ui.modules.getModule = function(name) {
@@ -17608,18 +17602,26 @@ var swfobject = function() {
             friendsFiltration.setData(result);
         });
 
+        var self = this;
+
         tuna.dom.addChildEventListener(
             popupContainer, '.j-send-button', 'click', function() {
-                var currentCake = model.cakes.getCurrentCake();
-
-                tuna.rest.call('social.wall.post', {
-                    'image': currentCake.imageBase64,
-                    'user_id': this.getAttribute('data-user-id')
-                });
+                self.postImage(this.getAttribute('data-user-id'));
             }
         );
 
-        return popup;
+        return this;
+    };
+
+    FriendsPopup.prototype.postImage = function(userId) {
+        var currentCake = model.cakes.getCurrentCake();
+
+        tuna.rest.call('social.wall.post', {
+            'image': currentCake.imageBase64,
+            'user_id': userId
+        }, function() {
+            alert('Торт успешно опубликован!');
+        });
     };
 
     tuna.ui.modules.register(new FriendsPopup());
@@ -18120,21 +18122,14 @@ var swfobject = function() {
     };
 
     ShareController.prototype._initActions = function() {
-        var self = this;
+        var friendsPopup = this._container.getOneModuleInstance('friends-popup');
 
-        this.__wallPostMethod
-            = tuna.rest.factory.createMethod('social.wall.post');
-
-        this.__wallPostMethod.addEventListener('result', function() {
-            alert('Торт успешно опубликован!')
-        });
-
-        var wallPostLink = tuna.dom.selectOne('#wall_post_link');
-        tuna.dom.addEventListener(wallPostLink, 'click', function(event) {
-            tuna.dom.preventDefault(event);
-
-            self.__wallPostMethod.call({ 'image': self.__imageData });
-        });
+        tuna.dom.addEventListener(
+            tuna.dom.selectOne('#wall_post_link'), 'click', function(event) {
+                tuna.dom.preventDefault(event);
+                friendsPopup.postImage();
+            }
+        );
     };
 
     tuna.view.registerController(new ShareController('share_step'));

@@ -23,21 +23,14 @@
     };
 
     ShareController.prototype._initActions = function() {
-        var self = this;
+        var friendsPopup = this._container.getOneModuleInstance('friends-popup');
 
-        this.__wallPostMethod
-            = tuna.rest.factory.createMethod('social.wall.post');
-
-        this.__wallPostMethod.addEventListener('result', function() {
-            alert('Торт успешно опубликован!')
-        });
-
-        var wallPostLink = tuna.dom.selectOne('#wall_post_link');
-        tuna.dom.addEventListener(wallPostLink, 'click', function(event) {
-            tuna.dom.preventDefault(event);
-
-            self.__wallPostMethod.call({ 'image': self.__imageData });
-        });
+        tuna.dom.addEventListener(
+            tuna.dom.selectOne('#wall_post_link'), 'click', function(event) {
+                tuna.dom.preventDefault(event);
+                friendsPopup.postImage();
+            }
+        );
     };
 
     tuna.view.registerController(new ShareController('share_step'));

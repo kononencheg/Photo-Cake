@@ -18,18 +18,26 @@
             friendsFiltration.setData(result);
         });
 
+        var self = this;
+
         tuna.dom.addChildEventListener(
             popupContainer, '.j-send-button', 'click', function() {
-                var currentCake = model.cakes.getCurrentCake();
-
-                tuna.rest.call('social.wall.post', {
-                    'image': currentCake.imageBase64,
-                    'user_id': this.getAttribute('data-user-id')
-                });
+                self.postImage(this.getAttribute('data-user-id'));
             }
         );
 
-        return popup;
+        return this;
+    };
+
+    FriendsPopup.prototype.postImage = function(userId) {
+        var currentCake = model.cakes.getCurrentCake();
+
+        tuna.rest.call('social.wall.post', {
+            'image': currentCake.imageBase64,
+            'user_id': userId
+        }, function() {
+            alert('Торт успешно опубликован!');
+        });
     };
 
     tuna.ui.modules.register(new FriendsPopup());
