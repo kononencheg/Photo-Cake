@@ -115,7 +115,7 @@
             'message': 'сделал прекрасный тортик ',
             'attachment': JSON.stringify({
                 'caption': 'Попробуйте сделать свой тортик! Закажите настоящий или отправьте друзьям!',
-                'media': [{ 'href': 'link', 'src': photo.standard_url, 'type': 'image' }]
+                'media': [{ 'href': 'link', 'src': encodeURI(photo.standard_url), 'type': 'image' }]
             }),
             'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': '' }])
         }, function(status, data, error) {
