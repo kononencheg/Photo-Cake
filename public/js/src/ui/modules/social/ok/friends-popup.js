@@ -105,17 +105,19 @@
     FriendsPopup.prototype.__showFriendsPopup = function(photo) {
         FAPI.UI.showNotification(
             'Смотри какой у меня получился торт!',
-            'ok_cake_url=' + encodeURI(photo.standard_url)
+            'ok_cake_url=' + this.__parsePhotoUrl(photo.standard_url)
         );
     };
 
     FriendsPopup.prototype.__post = function(photo) {
+        var url = this.__parsePhotoUrl(photo.standard_url);
+
         FAPI.Client.call({
             'method' : 'stream.publish',
             'message': 'сделал прекрасный тортик ',
             'attachment': JSON.stringify({
                 'caption': 'Попробуйте сделать свой тортик! Закажите настоящий или отправьте друзьям!',
-                'media': [{ 'href': 'link', 'src': encodeURI(photo.standard_url), 'type': 'image' }]
+                'media': [{ 'href': 'link', 'src': url, 'type': 'image' }]
             }),
             'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': '' }])
         }, function(status, data, error) {
@@ -123,6 +125,13 @@
                 ui.Popup.alert('Торт успешно опубликован!');
             }
         });
+    };
+
+    FriendsPopup.prototype.__parsePhotoUrl = function(url) {
+        var id = url.split('photoId=').pop().split('&').shift();
+        var server = url.split('//').pop().split('.').shift();
+
+        return 'ok_image/' + server + '/' + id;
     };
 
     tuna.ui.modules.register(new FriendsPopup());
