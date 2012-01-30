@@ -152,6 +152,7 @@
         "src/view/steps/designer-controller.js",
         "src/view/steps/share-controller.js",
         "src/view/steps/recipe-controller.js",
-        "src/view/steps/order-controller.js"
+        "src/view/steps/order-controller.js",
+        "src/view/steps/result-controller.js"
     ]
 }

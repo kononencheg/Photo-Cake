@@ -20,15 +20,13 @@
 
         this.__form = this._container.getOneModuleInstance('form');
         this.__form.addEventListener('result', function() {
-            ui.Popup.alert('Спасибо за заказ! Пожалуйста, ожидайте звонка!');
-            self._navigation.selectIndex('title_step');
+            self._navigation.selectIndex('result_step');
             isConfirmed = false;
         });
 
         this.__form.addEventListener('error', function() {
             isConfirmed = false;
         });
-
 
         this.__form.addEventListener('submit', function(event) {
             if (!isConfirmed) {

@@ -18414,14 +18414,13 @@ var swfobject = function() {
         this.__form = this._container.getOneModuleInstance('form');
         this.__form.addEventListener('result', function() {
             ui.Popup.alert('Спасибо за заказ! Пожалуйста, ожидайте звонка!');
-            self._navigation.selectIndex('title_step');
+            self._navigation.selectIndex('result_step');
             isConfirmed = false;
         });
 
         this.__form.addEventListener('error', function() {
             isConfirmed = false;
         });
-
 
         this.__form.addEventListener('submit', function(event) {
             if (!isConfirmed) {
@@ -18447,4 +18446,18 @@ var swfobject = function() {
     };
 
     tuna.view.registerController(new OrderController('order_step'));
+})();
+(function() {
+
+    var ResultController = function(id) {
+        tuna.view.PageViewController.call(this, id);
+    };
+
+    tuna.extend(ResultController, tuna.view.PageViewController);
+
+    ResultController.prototype._requireModules = function() {
+        this._container.requireModule('data-image-copy');
+    };
+
+    tuna.view.registerController(new ResultController('result_step'));
 })();
