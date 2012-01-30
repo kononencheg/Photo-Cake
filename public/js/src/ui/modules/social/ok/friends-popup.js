@@ -3,6 +3,9 @@
         tuna.ui.modules.Module.call(this, 'friends-popup', '.j-friends-popup');
 
         this.__albumId = null;
+
+        this.__showFriendsPopup = tuna.bind(this.__showFriendsPopup, this);
+        this.__post = tuna.bind(this.__post, this);
     };
 
     tuna.extend(FriendsPopup, tuna.ui.modules.Module);

@@ -16857,7 +16857,7 @@ var swfobject = function() {
     Filtration.prototype._filterData = function(term) {
         var result = [];
 
-        if (term.length === 0) {
+        if (!term || term.length === 0) {
             result = this._data;
         } else {
             var needle = term.toUpperCase();
