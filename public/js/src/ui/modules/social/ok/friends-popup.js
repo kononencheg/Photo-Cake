@@ -116,23 +116,23 @@
         var url = photo ? this.__parsePhotoUrl(photo.standard_url) : '';
         var request = {
             'method' : 'stream.publish',
-            'message': 'сделал прекрасный тортик ',
-            'attachment': JSON.stringify({
-                'caption': 'Попробуйте сделать свой тортик! Закажите настоящий или отправьте друзьям!',
-                'media': [{ 'href': 'link', 'src': url, 'type': 'image' }]
-            }),
-            'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': 'action=create' }])
+            'message': 'сделал прекрасный тортик '//,
+            //'attachment': JSON.stringify({
+            //    'caption': 'Попробуйте сделать свой тортик! Закажите настоящий или отправьте друзьям!',
+            //    'media': [{ 'href': 'link', 'src': url, 'type': 'image' }]
+            //}),
+            //'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': 'action=create' }])
         };
 
         var sig = FAPI.Util.calcSignature(request, FAPI.Client.sessionSecretKey);
 
-        window.API_callback = function(method, status, attributes) {
+        window.API_callback = function(method, status, resig) {
             if(status == 'ok') {
                 FAPI.Client.call(request, function(status, data, error) {
                     if (status === 'ok') {
                         ui.Popup.alert('Торт успешно опубликован!');
                     }
-                }, attributes);
+                }, resig);
             }
 
             window.API_callback = null;
