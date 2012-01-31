@@ -13,7 +13,7 @@
             'fields': 'uid,first_name,last_name,current_location,gender',
             'uids': FAPI.Client.uid
         }, function(status, data, error) {
-            if (status === 'ok' && data.length > 0) {
+            if (status === 'ok' && data !== null && data.length > 0) {
                 var value = data[0];
 
                 var user = new model.records.User();
