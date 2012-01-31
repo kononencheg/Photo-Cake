@@ -124,7 +124,7 @@
             //'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': 'action=create' }])
         };
 
-        var sig = FAPI.Util.calcSignature(request, FAPI.Client.sessionSecretKey);
+        var sig = FAPI.Util.calcSignature(request);
 
         window.API_callback = function(method, status, resig) {
             if(status == 'ok') {
