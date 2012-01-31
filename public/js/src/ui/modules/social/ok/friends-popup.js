@@ -138,7 +138,7 @@
             window.API_callback = null;
         };
 
-        FAPI.UI.showConfirmation('stream.publish', request['message'], sig);
+        FAPI.UI.showConfirmation('stream.publish', 'Запостить в ленту?', sig);
     };
 
     FriendsPopup.prototype.__parsePhotoUrl = function(url) {
