@@ -116,12 +116,12 @@
         var url = photo ? this.__parsePhotoUrl(photo.standard_url) : '';
         var request = {
             'method' : 'stream.publish',
-            'message': 'test'//,
-            //'attachment': JSON.stringify({
-            //    'caption': 'Попробуйте сделать свой тортик! Закажите настоящий или отправьте друзьям!',
-            //    'media': [{ 'href': 'link', 'src': url, 'type': 'image' }]
-            //}),
-            //'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': 'action=create' }])
+            'message': 'Смотрите какой у меня получился торт!',
+            'attachment': JSON.stringify({
+                'caption': 'Попробуйте сделать свой тортик! Закажите настоящий или отправьте друзьям!',
+                'media': [{ 'href': 'link', 'src': url, 'type': 'image' }]
+            }),
+            'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': 'action=create' }])
         };
 
         var sig = FAPI.Util.calcSignature(request);
@@ -138,7 +138,7 @@
             window.API_callback = null;
         };
 
-        FAPI.UI.showConfirmation('stream.publish', 'test', sig);
+        FAPI.UI.showConfirmation('stream.publish', 'Запостить в ленту?', sig);
     };
 
     FriendsPopup.prototype.__parsePhotoUrl = function(url) {
