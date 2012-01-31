@@ -17851,11 +17851,14 @@ var swfobject = function() {
         switch (name) {
             case 'cherry': case 'grape': case 'kiwi': case 'raspberry':
             case 'strawberry': case 'orange': case 'peach': case 'lemon':
+            case 'blueberry': case 'currant':
                 return 10;
 
             case 'pig1': case 'car1': case 'hare1': case 'hedgehog1':
             case 'moose1': case 'owl1': case 'pin1': case 'sheep1':
             case 'raven1': case 'bear1': case 'car2': case 'car3': case 'mat1':
+            case 'ia': case 'ladybug': case 'pig': case 'rabbit': case 'tiger':
+            case 'winnie': case 'winnie1': case 'bootes':
                 return 250;
 
             case 'doll1': case 'doll2':
@@ -17865,6 +17868,7 @@ var swfobject = function() {
                 return 300;
 
             case 'flower3': case 'flower4': case 'flower5': case 'flower6':
+            case 'physalis':
                 return 200;
 
             default:
@@ -18097,7 +18101,7 @@ var swfobject = function() {
                             {"url":"/img/deco/raspberry.png","autorotate":true,"name":"raspberry","description":"Малина"},\
                             {"url":"/img/deco/strawberry.png","autorotate":true,"name":"strawberry","description":"Клубника"},\
                             {"url":"/img/deco/orange.png","autorotate":true,"name":"orange","description":"Апельсин"},\
-                            {"url":"/img/deco/blueberrie.png","autorotate":true,"name":"blueberrie","description":"Черника"},\
+                            {"url":"/img/deco/blueberry.png","autorotate":true,"name":"blueberry","description":"Черника"},\
                             {"url":"/img/deco/currant.png","autorotate":true,"name":"currant","description":"Смородина"},\
                             {"url":"/img/deco/peach.png","autorotate":true,"name":"peach","description":"Персик"},\
                             {"url":"/img/deco/lemon.png","autorotate":true,"name":"lemon","description":"Лимон"}]},\
