@@ -116,7 +116,7 @@
         var url = photo ? this.__parsePhotoUrl(photo.standard_url) : '';
         var request = {
             'method' : 'stream.publish',
-            'message': 'сделал прекрасный тортик '//,
+            'message': 'test'//,
             //'attachment': JSON.stringify({
             //    'caption': 'Попробуйте сделать свой тортик! Закажите настоящий или отправьте друзьям!',
             //    'media': [{ 'href': 'link', 'src': url, 'type': 'image' }]
@@ -138,7 +138,7 @@
             window.API_callback = null;
         };
 
-        FAPI.UI.showConfirmation("stream.publish", 'Отправить в ленту?', sig);
+        FAPI.UI.showConfirmation('stream.publish', 'test', sig);
     };
 
     FriendsPopup.prototype.__parsePhotoUrl = function(url) {
