@@ -202,9 +202,12 @@
                 i++;
             }
 
-            var user = model.users.getCurrentUser();
             self.__cityAutocomplete.setData(model.bakeries.getList());
-            self.__cityAutocomplete.selectValue(user.city);
+
+            var user = model.users.getCurrentUser();
+            if (user !== null) {
+                self.__cityAutocomplete.selectValue(user.city);
+            }
         });
     };
 
