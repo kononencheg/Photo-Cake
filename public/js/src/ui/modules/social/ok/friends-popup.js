@@ -114,20 +114,31 @@
 
     FriendsPopup.prototype.__post = function(photo) {
         var url = photo ? this.__parsePhotoUrl(photo.standard_url) : '';
-
-        FAPI.Client.call({
+        var request = {
             'method' : 'stream.publish',
             'message': 'сделал прекрасный тортик ',
             'attachment': JSON.stringify({
                 'caption': 'Попробуйте сделать свой тортик! Закажите настоящий или отправьте друзьям!',
                 'media': [{ 'href': 'link', 'src': url, 'type': 'image' }]
             }),
-            'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': '' }])
-        }, function(status, data, error) {
-            if (status === 'ok') {
-                ui.Popup.alert('Торт успешно опубликован!');
+            'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': 'action=create' }])
+        };
+
+        var sig = FAPI.Util.calcSignature(request, FAPI.Client.sessionSecretKey);
+
+        window.API_callback = function(method, status, attributes) {
+            if(status == 'ok') {
+                FAPI.Client.call(request, function(status, data, error) {
+                    if (status === 'ok') {
+                        ui.Popup.alert('Торт успешно опубликован!');
+                    }
+                });
             }
-        });
+
+            window.API_callback = null;
+        };
+
+        FAPI.UI.showConfirmation("stream.publish", 'Отправить в ленту?', sig);
     };
 
     FriendsPopup.prototype.__parsePhotoUrl = function(url) {
