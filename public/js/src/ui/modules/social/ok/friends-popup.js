@@ -113,7 +113,7 @@
     };
 
     FriendsPopup.prototype.__post = function(photo) {
-        var url = photo ? this.__parsePhotoUrl(photo.standard_url) : '';
+        var url = photo ? this.__parsePhotoUrl(photo.standard_url) : 'url';
         var request = {
             'method' : 'stream.publish',
             'message': 'Смотрите какой у меня получился торт!',
