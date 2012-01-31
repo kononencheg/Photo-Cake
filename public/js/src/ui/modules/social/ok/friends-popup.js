@@ -128,12 +128,11 @@
 
         window.API_callback = function(method, status, attributes) {
             if(status == 'ok') {
-                request['resig'] = attributes;
                 FAPI.Client.call(request, function(status, data, error) {
                     if (status === 'ok') {
                         ui.Popup.alert('Торт успешно опубликован!');
                     }
-                });
+                }, attributes);
             }
 
             window.API_callback = null;
