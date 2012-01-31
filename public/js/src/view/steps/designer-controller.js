@@ -19,7 +19,7 @@
                             {"url":"/img/deco/raspberry.png","autorotate":true,"name":"raspberry","description":"Малина"},\
                             {"url":"/img/deco/strawberry.png","autorotate":true,"name":"strawberry","description":"Клубника"},\
                             {"url":"/img/deco/orange.png","autorotate":true,"name":"orange","description":"Апельсин"},\
-                            {"url":"/img/deco/blueberrie.png","autorotate":true,"name":"blueberrie","description":"Черника"},\
+                            {"url":"/img/deco/blueberry.png","autorotate":true,"name":"blueberry","description":"Черника"},\
                             {"url":"/img/deco/currant.png","autorotate":true,"name":"currant","description":"Смородина"},\
                             {"url":"/img/deco/peach.png","autorotate":true,"name":"peach","description":"Персик"},\
                             {"url":"/img/deco/lemon.png","autorotate":true,"name":"lemon","description":"Лимон"}]},\
@@ -55,20 +55,6 @@
                             {"url":"/img/deco/physalis.png","autorotate":false,"name":"flower5","description":"Сахарная фигурка"},\
                             {"url":"/img/deco/flower6.png","autorotate":false,"name":"flower6","description":"Сахарная фигурка"}]}\
                         ]}';
-    /*
-     	public/img/deco/blueberrie.png
-     	public/img/deco/bootes.png
-     	public/img/deco/currant.png
-     	public/img/deco/ia.png
-     	public/img/deco/ladybug.png
-     	public/img/deco/physalis.png
-     	public/img/deco/pig.png
-     	public/img/deco/rabbit.png
-     	public/img/deco/tiger.png
-     	public/img/deco/winnie.png
-     	public/img/deco/winnie1.png
-     */
-
 
     DesignerController.prototype._requireModules = function() {
        this._container.requireModule('data-image');
