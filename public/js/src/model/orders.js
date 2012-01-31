@@ -13,7 +13,11 @@
     Orders.prototype.updateOrder = function() {
         if (this.__order === null) {
             this.__order = new model.records.Order();
-            this.__order.user = model.users.getCurrentUser().clone();
+
+            var user = model.users.getCurrentUser();
+            if (user !== null) {
+                this.__order.user = user.clone();
+            }
         }
 
         this.__order.cake = model.cakes.getCurrentCake().clone();
