@@ -1,7 +1,7 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file List.js
+ *  List.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 

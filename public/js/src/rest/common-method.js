@@ -2,7 +2,12 @@
 
     tuna.namespace('rest');
 
-    var CommonMethod = function(name) {
+    /**
+     * @constructor
+     * @extends {tuna.rest.RemoteMethod}
+     * @param {string} name
+     */
+    rest.CommonMethod = function(name) {
         tuna.rest.RemoteMethod.call(this, name);
 
         this.__request = new tuna.net.Request();
@@ -16,14 +21,14 @@
         });
     };
 
-    tuna.extend(CommonMethod, tuna.rest.RemoteMethod);
+    tuna.extend(rest.CommonMethod, tuna.rest.RemoteMethod);
 
-    CommonMethod.prototype.call = function(args) {
+    rest.CommonMethod.prototype.call = function(args) {
         this.__request.setData(args);
         this.__request.send();
     };
 
-    CommonMethod.prototype._handleResponse = function(data) {
+    rest.CommonMethod.prototype._handleResponse = function(data) {
         var result = null;
 
         try {
@@ -33,17 +38,20 @@
         }
 
         if (result !== null) {
-            if (result.response !== undefined) {
-                this.dispatch('result', result.response);
+            if (result['response'] !== undefined) {
+                this.dispatch('result', result['response']);
             } else {
-                this.dispatch('error', result.errors);
+                this.dispatch('error', result['errors']);
             }
         }
 
     };
 
-    rest.CommonMethod = CommonMethod;
 
+    /**
+     * @constructor
+     * @implements {tuna.rest.IMethodFactory}
+     */
     var MethodFactory = function() {};
 
     tuna.implement(MethodFactory, tuna.rest.IMethodFactory);

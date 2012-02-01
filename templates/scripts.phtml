@@ -1,18 +1,8 @@
+<script type="text/javascript" src="/js/lib/jquery/jquery-1.7.1.js"></script>
+
+<script type="text/javascript" src="/js/lib/swfobject.js"></script>
+
 <script type="text/javascript" src="/js/common.js"></script>
-
-<script type="text/javascript">
-    function main() {
-        tuna.config.init(<?php echo json_encode($this->request->get()) ?>);
-
-        tuna.dom.setSelectorEngine(jQuery.find);
-
-        ui.Popup.registerAlertElement(tuna.dom.selectOne('#alert_popup'));
-        ui.Popup.registerConfirmElement(tuna.dom.selectOne('#confirm_popup'));
-
-        var container = new tuna.ui.container.TransformContainer(document.body);
-        container.init();
-    }
-</script>
 
 <?php switch ($this->request->get('network')) {
     case 'vk': { $this->render('scripts/vk'); break; }

@@ -2,12 +2,12 @@
 
     tuna.namespace('tuna.tmpl');
 
-    var ITransformer = function() {};
-
-    ITransformer.prototype.applyTransform = function(data) {};
-    ITransformer.prototype.setTransformHandler = function(handler) {};
-    ITransformer.prototype.destroy = function() {};
-
-    tuna.tmpl.ITransformer = ITransformer;
+    /**
+     * @interface
+     */
+    tuna.tmpl.ITransformer = function() {};
+    tuna.tmpl.ITransformer.prototype.applyTransform = function(data) {};
+    tuna.tmpl.ITransformer.prototype.setTransformHandler = function(handler) {};
+    tuna.tmpl.ITransformer.prototype.destroy = function() {};
 
 })();

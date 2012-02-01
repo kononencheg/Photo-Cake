@@ -1,25 +1,28 @@
 (function() {
     tuna.namespace('tuna.view');
 
-    var PageViewController = function(targetID) {
+    /**
+     * @constructor
+     * @extends {tuna.view.ViewController}
+     * @param {string} targetID
+     */
+    tuna.view.PageViewController = function(targetID) {
         tuna.view.ViewController.call(this, targetID);
 
         this._navigation = null;
     };
 
-    tuna.extend(PageViewController, tuna.view.ViewController);
+    tuna.extend(tuna.view.PageViewController, tuna.view.ViewController);
 
-    PageViewController.prototype.setNavigation = function(navigation) {
+    tuna.view.PageViewController.prototype.setNavigation = function(navigation) {
         this._navigation = navigation;
     };
 
-    PageViewController.prototype.canClose = function(index) {
+    tuna.view.PageViewController.prototype.canClose = function(index) {
         return true;
     };
 
-    PageViewController.prototype.close = function() {};
+    tuna.view.PageViewController.prototype.close = function() {};
     
-    PageViewController.prototype.open = function() {};
-
-    tuna.view.PageViewController = PageViewController;
+    tuna.view.PageViewController.prototype.open = function() {};
 })();

@@ -1,20 +1,27 @@
 (function() {
     tuna.namespace('tuna.ui.module');
 
-    var Module = function(name, selector) {
+    /**
+     * @constructor
+     * @param {!string} name
+     * @param {!string} selector
+     */
+    tuna.ui.modules.Module = function(name, selector) {
         this._name = name;
         this._selector = selector;
     };
 
-    Module.prototype.getName = function() {
+    tuna.ui.modules.Module.prototype.getName = function() {
         return this._name;
     };
 
-    Module.prototype.getSelector = function() {
+    tuna.ui.modules.Module.prototype.getSelector = function() {
         return this._selector;
     };
 
-    Module.prototype.init = function(context, container, options) {
+    tuna.ui.modules.Module.prototype.init
+        = function(context, container, options) {
+
         var instances = [];
 
         var targets = this._findTargets(context);
@@ -34,14 +41,14 @@
         return instances;
     };
 
-    Module.prototype._findTargets = function(context) {
+    tuna.ui.modules.Module.prototype._findTargets = function(context) {
         var targets = tuna.dom.select(this._selector, context);
         targets = targets.concat(tuna.dom.filter(this._selector, [context]));
 
         return targets;
     };
 
-    Module.prototype.__isInContext = function(target, context) {
+    tuna.ui.modules.Module.prototype.__isInContext = function(target, context) {
         var result = true;
 
         var isolators = tuna.ui.modules.getIsolators();
@@ -59,25 +66,23 @@
             i++;
         }
 
-
         return result;
     };
 
-    Module.prototype.destroy = function(instances) {
+    tuna.ui.modules.Module.prototype.destroy = function(instances) {
         var i = 0,
             l = instances.length;
 
         while (i < l) {
-            this._destroyInstance(instances[i]);
+            this.destroyInstance(instances[i]);
 
             i++;
         }
     };
 
-    Module.prototype.initInstance = function(target, container, options) {};
+    tuna.ui.modules.Module.prototype.initInstance
+        = function(target, container, options) {};
 
-    Module.prototype.destroyInstance = function(instance) {};
-
-    tuna.ui.modules.Module = Module;
+    tuna.ui.modules.Module.prototype.destroyInstance = function(instance) {};
 
 })();

@@ -2,9 +2,15 @@
 
     tuna.namespace('tuna.model');
 
-    var Record = function() {};
+    /**
+     * @constructor
+     */
+    tuna.model.Record = function() {};
 
-    Record.prototype.clone = function() {
+    /**
+     * @return {tuna.model.Record}
+     */
+    tuna.model.Record.prototype.clone = function() {
         var clone = new this.constructor();
         for (var param in this) {
             if (this.hasOwnProperty(param)) {
@@ -14,7 +20,5 @@
 
         return clone;
     };
-
-    tuna.model.Record = Record;
 
 })();

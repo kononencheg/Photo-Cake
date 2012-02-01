@@ -1,14 +1,13 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file template.js
+ *  template.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 
 (function() {
 
     tuna.namespace('tuna.tmpl.settings');
-
 
     /**
      * Template data class.
@@ -20,45 +19,43 @@
      *
      * @constructor
      */
-    var Template = function() {
+    tuna.tmpl.settings.Template = function() {
         this.__spots = [];
         this.__lists = [];
         this.__attributes = [];
         this.__conditions = [];
     };
 
-    Template.prototype.addCondition = function(attr) {
+    tuna.tmpl.settings.Template.prototype.addCondition = function(attr) {
         this.__conditions.push(attr);
     };
 
-    Template.prototype.getConditions = function() {
+    tuna.tmpl.settings.Template.prototype.getConditions = function() {
         return this.__conditions;
     };
 
-    Template.prototype.addAttribute = function(attr) {
+    tuna.tmpl.settings.Template.prototype.addAttribute = function(attr) {
         this.__attributes.push(attr);
     };
 
-    Template.prototype.getAttributes = function() {
+    tuna.tmpl.settings.Template.prototype.getAttributes = function() {
         return this.__attributes;
     };
 
-    Template.prototype.addList = function(list) {
+    tuna.tmpl.settings.Template.prototype.addList = function(list) {
         this.__lists.push(list);
     };
 
-    Template.prototype.getLists = function() {
+    tuna.tmpl.settings.Template.prototype.getLists = function() {
         return this.__lists;
     };
 
-    Template.prototype.addSpot = function(spot) {
+    tuna.tmpl.settings.Template.prototype.addSpot = function(spot) {
         this.__spots.push(spot);
     };
 
-    Template.prototype.getSpots = function() {
+    tuna.tmpl.settings.Template.prototype.getSpots = function() {
         return this.__spots;
     };
-
-    tuna.tmpl.settings.Template = Template;
 
 })();

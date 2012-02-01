@@ -2,9 +2,16 @@
 
     tuna.namespace('tuna.rest');
 
-    var IMethodFactory = function() {};
-    IMethodFactory.prototype.createMethod = function(name) {};
+    /**
+     * @interface
+     */
+    tuna.rest.IMethodFactory  = function() {};
 
-    tuna.rest.IMethodFactory = IMethodFactory;
+    /**
+     *
+     * @param {!string} name
+     * @return {tuna.rest.IRemoteMethod}
+     */
+    tuna.rest.IMethodFactory.prototype.createMethod = function(name) {};
 
 })();

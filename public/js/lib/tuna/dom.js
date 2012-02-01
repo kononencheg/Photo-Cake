@@ -1,7 +1,6 @@
 /**
  * TUNA FRAMEWORK
  *
- * @file dom.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 (function() {
@@ -74,6 +73,10 @@
         return null;
     };
 
+    /**
+     * @param {string} selector
+     * @param {Element=} context
+     */
     tuna.dom.selectOne = function(selector, context) {
         if (selectorEngine !== null) {
             var result = selectorEngine(selector, context);
@@ -136,11 +139,12 @@
 
     // TODO: Make remove listener
     tuna.dom.addOneEventListener = function(element, type, handler) {
-        tuna.dom.addEventListener(element, type, function(event) {
+        var listener = function(event) {
             handler.call(element, event);
+            tuna.dom.removeEventListener(element, type, listener);
+        };
 
-            tuna.dom.removeEventListener(element, type, arguments.callee);
-        });
+        tuna.dom.addEventListener(element, type, listener);
     };
 
     tuna.dom.removeEventListener = function(element, type, handler) {
@@ -157,6 +161,12 @@
         }
     };
 
+    /**
+     *
+     * @param {Element} element
+     * @param {string} type
+     * @param {string=} data
+     */
     tuna.dom.dispatchEvent = function(element, type, data) {
         var result = false;
         var doc = element.ownerDocument;
@@ -164,7 +174,8 @@
         var event = null;
         if (doc.createEventObject !== undefined){
             event = doc.createEventObject();
-            event.data = data;
+
+            data && (event.data = data);
 
             var eventName = 'on' + type;
             if (element[eventName] === undefined) {
@@ -175,7 +186,8 @@
         } else {
             event = document.createEvent('UIEvents');
             event.initUIEvent(type, true, true, window, 1);
-            event.data = data;
+
+            data && (event.data = data);
 
             result = !element.dispatchEvent(event);
         }

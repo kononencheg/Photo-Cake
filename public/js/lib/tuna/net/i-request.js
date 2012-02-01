@@ -2,13 +2,16 @@
 
     tuna.namespace('tuna.net');
 
-    var IRequest = function() {};
+    /**
+     * @interface
+     * @extends {tuna.events.IEventDispatcher}
+     */
+    tuna.net.IRequest = function() {};
 
-    tuna.extend(IRequest, tuna.events.IEventDispatcher);
+    tuna.extend(tuna.net.IRequest, tuna.events.IEventDispatcher);
 
-    IRequest.prototype.send = function(url) {};
-    IRequest.prototype.abort = function() {};
+    tuna.net.IRequest.prototype.send = function(url) {};
+    tuna.net.IRequest.prototype.abort = function() {};
 
-    tuna.net.IRequest = IRequest;
 
 })();

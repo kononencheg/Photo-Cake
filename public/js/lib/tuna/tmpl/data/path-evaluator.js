@@ -1,13 +1,15 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file path-evaluator.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 
 (function() {
     tuna.namespace('tuna.tmpl.data');
 
+    /**
+     * @constructor
+     */
     var PathEvaluator = function() {
         this.__parsedPath = null;
     };
@@ -75,5 +77,8 @@
         return result;
     };
 
+    /**
+     * @typedef {PathEvaluator}
+     */
     tuna.tmpl.data.PathEvaluator = PathEvaluator;
 })();

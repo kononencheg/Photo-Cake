@@ -1,7 +1,7 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file i-compiled-unit.js
+ *  i-compiled-unit.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 (function() {

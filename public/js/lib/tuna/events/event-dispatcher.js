@@ -1,19 +1,33 @@
 (function() {
     tuna.namespace('tuna.events');
 
-    var EventDispatcher = function(parent) {
+    /**
+     * Диспетчер событий
+     *
+     * @constructor
+     * @implements {tuna.events.IEventDispatcher}
+     * @param {tuna.events.EventDispatcher=} parent
+     */
+    tuna.events.EventDispatcher = function(parent) {
+        /**
+         * @type tuna.events.EventDispatcher
+         * @protected
+         */
         this._propagationParent = null;
 
         this._listeners = {};
 
-        if (parent !== null) {
+        if (parent !== undefined) {
             this._propagationParent = parent;
         }
     };
 
-    tuna.implement(EventDispatcher, tuna.events.IEventDispatcher);
+    tuna.implement(tuna.events.EventDispatcher, tuna.events.IEventDispatcher);
 
-    EventDispatcher.prototype.dispatch = function(event, data) {
+    /**
+     * @inheritDoc
+     */
+    tuna.events.EventDispatcher.prototype.dispatch = function(event, data) {
         if (!(event instanceof tuna.events.Event)) {
             event = new tuna.events.Event(event);
         }
@@ -48,7 +62,9 @@
         return !event.isDefaultPrevented();
     };
 
-    EventDispatcher.prototype.addEventListener = function(type, listener) {
+    tuna.events.EventDispatcher.prototype.addEventListener
+        = function(type, listener) {
+
         if (this._listeners[type] === undefined) {
             this._listeners[type] = [listener];
         } else if (!this.hasEventListener(type, listener)) {
@@ -56,7 +72,9 @@
         }
     };
 
-    EventDispatcher.prototype.removeEventListener = function(type, listener) {
+    tuna.events.EventDispatcher.prototype.removeEventListener
+        = function(type, listener) {
+
         if (this._listeners[type] !== undefined) {
             var listenerIndex = tuna.indexOf(listener, this._listeners[type]);
 
@@ -66,14 +84,14 @@
         }
     };
 
-    EventDispatcher.prototype.hasEventListener = function(type, listener) {
+    tuna.events.EventDispatcher.prototype.hasEventListener
+        = function(type, listener) {
+
         if (this._listeners[type] !== undefined) {
             return tuna.indexOf(listener, this._listeners[type]) !== -1;
         }
 
         return false;
     };
-
-    tuna.events.EventDispatcher = EventDispatcher;
 
 })();

@@ -1,7 +1,7 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file spot.js
+ *  spot.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 
@@ -26,7 +26,7 @@
          * @private
          * @type {string}
          */
-        this.__class = null;
+        this.__class = '';
 
         /**
          * Data selection path.
@@ -34,7 +34,7 @@
          * @private
          * @type {string}
          */
-        this.__path = null;
+        this.__path = '';
     };
 
     /**

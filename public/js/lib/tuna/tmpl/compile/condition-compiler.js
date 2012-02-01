@@ -57,13 +57,25 @@
     //
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @constructor
+     * @param {string=} data
+     */
     var ConditionOperator = function(data) {
         this._data = data;
     };
 
+    /**
+     *
+     * @param {string} value
+     */
     ConditionOperator.prototype.test = function(value) {};
 
 
+    /**
+     * @constructor
+     * @extends {ConditionOperator}
+     */
     var IsSetOperator = function() {
         ConditionOperator.call(this);
     };
@@ -75,6 +87,10 @@
     };
 
 
+    /**
+     * @constructor
+     * @extends {ConditionOperator}
+     */
     var EqualsOperator = function(data) {
         ConditionOperator.call(this, data);
     };
@@ -86,6 +102,10 @@
     };
 
 
+    /**
+     * @constructor
+     * @extends {ConditionOperator}
+     */
     var NotEqualsOperator = function(data) {
         ConditionOperator.call(this, data);
     };
@@ -102,6 +122,9 @@
     //
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @constructor
+     */
     var ConditionAction = function(data) {
         this._data = data;
     };
@@ -109,6 +132,10 @@
     ConditionAction.prototype.apply = function(node, testResult, value) {};
 
 
+    /**
+     * @constructor
+     * @extends {ConditionAction}
+     */
     var ClassAction = function(data) {
         ConditionAction.call(this, data);
 

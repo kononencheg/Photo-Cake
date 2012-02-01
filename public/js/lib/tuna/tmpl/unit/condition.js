@@ -1,7 +1,7 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file compiled-attribute.js
+ *  compiled-attribute.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 (function() {

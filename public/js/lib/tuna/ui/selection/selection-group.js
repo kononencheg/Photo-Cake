@@ -2,10 +2,21 @@
 
     tuna.namespace('tuna.ui.selection');
 
-    var SelectionGroup = function(target, isMultiple, indexAttribute,
-                                  itemSelector, selectedClass) {
+    /**
+     * @constructor
+     * @extends {tuna.ui.selection.AbstractSelectionGroup}
+     *
+     * @param {!Element} target
+     * @param {!boolean} isMultiple
+     * @param {string} indexAttribute
+     * @param {!string} itemSelector
+     * @param {!string} selectedClass
+     */
+    tuna.ui.selection.SelectionGroup = function(target, isMultiple,
+                                                indexAttribute, itemSelector,
+                                                selectedClass) {
 
-        tuna.ui.selection.AbstractSelectionGroup.call(this, null);
+        tuna.ui.selection.AbstractSelectionGroup.call(this);
 
         this.__target = target;
         this.__itemSelector = itemSelector;
@@ -32,15 +43,15 @@
         this._selectionRule.setSelectionView(this._selectionView);
     };
 
-    tuna.extend(SelectionGroup, tuna.ui.selection.AbstractSelectionGroup);
+    tuna.extend(tuna.ui.selection.SelectionGroup,
+                tuna.ui.selection.AbstractSelectionGroup);
 
-    SelectionGroup.prototype.init = function() {
+    tuna.ui.selection.SelectionGroup.prototype.init = function() {
         this._selectionView.update();
     };
 
-    SelectionGroup.prototype.isMultiple = function() {
+    tuna.ui.selection.SelectionGroup.prototype.isMultiple = function() {
         return this.__isMultiple;
     };
 
-    tuna.ui.selection.SelectionGroup = SelectionGroup;
 })();

@@ -2,8 +2,13 @@
 
     tuna.namespace('tuna.ui.selection');
 
-    var AbstractSelectionGroup = function(parent) {
-        tuna.events.EventDispatcher.call(this, parent);
+    /**
+     * @constructor
+     * @extends {tuna.events.EventDispatcher}
+     * @implements {tuna.ui.selection.ISelectionGroup}
+     */
+    tuna.ui.selection.AbstractSelectionGroup = function() {
+        tuna.events.EventDispatcher.call(this, null);
 
         this._itemsCollection = null;
 
@@ -13,10 +18,16 @@
         this._disabledIndexes = [];
     };
 
-    tuna.implement(AbstractSelectionGroup, tuna.ui.selection.ISelectionGroup);
-    tuna.extend(AbstractSelectionGroup, tuna.events.EventDispatcher);
+    tuna.implement(tuna.ui.selection.AbstractSelectionGroup,
+                   tuna.ui.selection.ISelectionGroup);
 
-    AbstractSelectionGroup.prototype.setIndexEnabled
+    tuna.extend(tuna.ui.selection.AbstractSelectionGroup,
+                tuna.events.EventDispatcher);
+
+    /**
+     * @inheritDoc
+     */
+    tuna.ui.selection.AbstractSelectionGroup.prototype.setIndexEnabled
         = function(index, isEnabled) {
 
         var indexPosition = tuna.indexOf(index, this._disabledIndexes);
@@ -31,31 +42,66 @@
         }
     };
 
-    AbstractSelectionGroup.prototype.isIndexEnabled = function(index) {
+    /**
+     * @inheritDoc
+     */
+    tuna.ui.selection.AbstractSelectionGroup.prototype.isIndexEnabled
+        = function(index) {
+
         return tuna.indexOf(index, this._disabledIndexes) === -1;
     };
 
-    AbstractSelectionGroup.prototype.updateView = function() {
+    /**
+     * @inheritDoc
+     */
+    tuna.ui.selection.AbstractSelectionGroup.prototype.updateView
+        = function() {
+
         this._selectionView.update();
     };
 
-    AbstractSelectionGroup.prototype.getItemIndex = function(item) {
+    /**
+     * @inheritDoc
+     */
+    tuna.ui.selection.AbstractSelectionGroup.prototype.getItemIndex
+        = function(item) {
+
         return this._itemsCollection.getItemIndex(item);
     };
 
-    AbstractSelectionGroup.prototype.getItemAt = function(index) {
+    /**
+     * @inheritDoc
+     */
+    tuna.ui.selection.AbstractSelectionGroup.prototype.getItemAt
+        = function(index) {
+
         return this._itemsCollection.getItemAt(index);
     };
 
-    AbstractSelectionGroup.prototype.mapItems = function(callback) {
+    /**
+     * @inheritDoc
+     */
+    tuna.ui.selection.AbstractSelectionGroup.prototype.mapItems
+        = function(callback) {
+
         this._itemsCollection.mapItems(callback);
     };
 
-    AbstractSelectionGroup.prototype.getSelectedIndexes = function() {
+    /**
+     * @inheritDoc
+     */
+    tuna.ui.selection.AbstractSelectionGroup.prototype.getSelectedIndexes
+        = function() {
+
         return this._selectionRule.getSelectedIndexes();
     };
 
-    AbstractSelectionGroup.prototype.getLastSelectedIndex = function() {
+    /**
+     * @return {number}
+     */
+    tuna.ui.selection.AbstractSelectionGroup.prototype.getLastSelectedIndex
+        = function() {
+
         var indexes = this._selectionRule.getSelectedIndexes();
         if (indexes.length > 0) {
             return indexes.pop();
@@ -64,18 +110,31 @@
         return -1;
     };
 
-    AbstractSelectionGroup.prototype.selectIndex = function(index) {
+    /**
+     * @inheritDoc
+     */
+    tuna.ui.selection.AbstractSelectionGroup.prototype.selectIndex
+        = function(index) {
+
         this._selectionRule.selectIndex(index);
     };
 
-    AbstractSelectionGroup.prototype.isSelected = function(index) {
+    /**
+     * @inheritDoc
+     */
+    tuna.ui.selection.AbstractSelectionGroup.prototype.isSelected
+        = function(index) {
+
         return this._selectionRule.isSelected(index);
     };
 
-    AbstractSelectionGroup.prototype.clearSelection = function() {
+    /**
+     * @inheritDoc
+     */
+    tuna.ui.selection.AbstractSelectionGroup.prototype.clearSelection
+        = function() {
+
         this._selectionRule.clearSelection();
     };
 
-
-    tuna.ui.selection.AbstractSelectionGroup = AbstractSelectionGroup;
 })();

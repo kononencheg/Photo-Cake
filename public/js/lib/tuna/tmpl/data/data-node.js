@@ -1,52 +1,45 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file data-node.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 (function() {
 
     tuna.namespace('tuna.tmpl.data');
 
-    var DataNode = function(value, parent, key) {
-        this.__value = null;
-        this.__parent = null;
-        this.__key = null;
-
-        if (value !== undefined) {
-            this.__value = value;
-        }
-        
-        if (parent !== undefined) {
-            this.__parent = parent;
-        }
-
-        if (key !== undefined) {
-            this.__key = key;
-        }
+    /**
+     * @constructor
+     * @param {*} value
+     * @param {tuna.tmpl.data.DataNode=} parent
+     * @param {string=} key
+     */
+    tuna.tmpl.data.DataNode = function(value, parent, key) {
+        this.__value = value;
+        this.__parent = parent || null;
+        this.__key = key || null;
 
         this.__children = {};
     };
 
-    DataNode.NULL_NODE = new DataNode(null, null, null);
+    tuna.tmpl.data.DataNode.NULL_NODE = new tuna.tmpl.data.DataNode(null);
 
-    DataNode.prototype.getParent = function() {
+    tuna.tmpl.data.DataNode.prototype.getParent = function() {
         return this.__parent;
     };
 
-    DataNode.prototype.getKey = function() {
+    tuna.tmpl.data.DataNode.prototype.getKey = function() {
         return this.__key;
     };
 
-    DataNode.prototype.getRoot = function() {
+    tuna.tmpl.data.DataNode.prototype.getRoot = function() {
         return this.__parent !== null ? this.__parent.getRoot() : this;
     };
 
-    DataNode.prototype.getValue = function() {
+    tuna.tmpl.data.DataNode.prototype.getValue = function() {
         return this.__value;
     };
 
-    DataNode.prototype.growChild = function(key) {
+    tuna.tmpl.data.DataNode.prototype.growChild = function(key) {
         var result = null;
 
         if (this.__children[key] !== undefined) {
@@ -54,14 +47,15 @@
         } else if (this.__value !== null) {
             var keyValue = this.__value[key];
             if (keyValue !== undefined) {
-                result = this.__children[key] = new DataNode(keyValue, this, key);
+                result = this.__children[key]
+                    = new tuna.tmpl.data.DataNode(keyValue, this, key);
+
             } else {
-                this.__children[key] = DataNode.NULL_NODE;
+                this.__children[key] = tuna.tmpl.data.DataNode.NULL_NODE;
             }
         }
 
         return result;
     };
 
-    tuna.tmpl.data.DataNode = DataNode;
 })();

@@ -2,6 +2,12 @@
 
     tuna.namespace('tuna.ui.container');
 
+    /**
+     * @constructor
+     * @extends {tuna.ui.container.Container}
+     * @param {!Element} target
+     * @param {Element} parent
+     */
     var TransformContainer = function(target, parent) {
         tuna.ui.container.Container.call(this, target, parent);
 

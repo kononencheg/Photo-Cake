@@ -1,7 +1,7 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file markup-template-builder.js
+ *  markup-template-builder.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 (function() {
@@ -35,11 +35,6 @@
         this.__extractors.push(new tuna.tmpl.markup.ListExtractor(this));
     };
 
-    /**
-     * Build template from markup.
-     *
-     * @param {Element} markupNode Element with markup inside.
-     */
     MarkupTemplateBuilder.prototype.buildTemplate = function(templateID) {
         var template = null;
 

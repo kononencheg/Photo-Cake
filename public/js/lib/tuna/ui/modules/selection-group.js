@@ -1,5 +1,9 @@
 (function() {
 
+    /**
+     * @constructor
+     * @extends {tuna.ui.modules.Module}
+     */
     var SelectionGroup = function() {
         tuna.ui.modules.Module.call(this, 'selection-group', '.j-selection-group');
     };
@@ -40,7 +44,6 @@
 
         return selectionGroup;
     };
-
 
 
     tuna.ui.modules.register(new SelectionGroup());

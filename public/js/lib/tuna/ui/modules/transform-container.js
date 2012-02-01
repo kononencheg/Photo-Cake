@@ -1,5 +1,9 @@
 (function() {
 
+    /**
+     * @constructor
+     * @extends {tuna.ui.modules.Module}
+     */
     var TransformContainer = function() {
         tuna.ui.modules.Module.call
             (this, 'transform-container', '.j-transform-container');

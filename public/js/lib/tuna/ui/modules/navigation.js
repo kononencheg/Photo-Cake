@@ -1,10 +1,15 @@
 (function() {
 
+    /**
+     * @constructor
+     * @extends {tuna.ui.modules.Module}
+     */
     var Navigation = function() {
         tuna.ui.modules.Module.call(this, 'navigation', '.j-navigation');
     };
 
     tuna.extend(Navigation, tuna.ui.modules.Module);
+
 
     Navigation.prototype.initInstance = function(target) {
 

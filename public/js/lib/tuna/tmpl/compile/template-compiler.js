@@ -1,7 +1,6 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file template-compiler.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 
@@ -9,14 +8,11 @@
 
     tuna.namespace('tuna.tmpl.compile');
 
-
     /**
-     * @public
-     * @class
-     *
      * @constructor
+     * @param {HTMLDocument} doc
      */
-    var TemplateCompiler = function(doc) {
+    tuna.tmpl.compile.TemplateCompiler = function(doc) {
         this.__doc = doc;
 
         this.__itemCompilers = [];
@@ -24,7 +20,7 @@
         this.__registerItemCompilers();
     };
 
-    TemplateCompiler.prototype.__registerItemCompilers = function() {
+    tuna.tmpl.compile.TemplateCompiler.prototype.__registerItemCompilers = function() {
         this.__itemCompilers.push(new tuna.tmpl.compile.SpotCompiler());
         this.__itemCompilers.push(new tuna.tmpl.compile.AttributeCompiler());
         this.__itemCompilers.push(new tuna.tmpl.compile.ConditionCompiler());
@@ -34,21 +30,24 @@
     /**
      * Compiling template with target DOM element.
      *
-     * @param {tuna.tmpl.settings.Template} template Template to compile.
+     * @param {tuna.tmpl.settings.Template} templateSettings Template to compile.
      * @param {Element} element Target DOM element.
      * @return {tuna.tmpl.ITransformer} New template transformer.
      */
-    TemplateCompiler.prototype.makeTransformer
+    tuna.tmpl.compile.TemplateCompiler.prototype.makeTransformer
         = function(templateSettings, element) {
 
         var transformer = new tuna.tmpl.TemplateTransformer();
         transformer.setTargetElement(element);
-        transformer.setCore(this.compileTemplate(templateSettings, element));
+        transformer.setCore
+            (this.compileTemplate(templateSettings, element, null));
 
         return transformer;
     };
 
-    TemplateCompiler.prototype.compileTemplate = function(settings, element, root) {
+    tuna.tmpl.compile.TemplateCompiler.prototype.compileTemplate
+        = function(settings, element, root) {
+
         var template = new tuna.tmpl.unit.Template(root);
         template.setTarget(element);
 
@@ -62,7 +61,5 @@
 
         return template;
     };
-
-    tuna.tmpl.compile.TemplateCompiler = TemplateCompiler;
 
 })();

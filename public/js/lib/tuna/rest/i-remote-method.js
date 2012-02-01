@@ -2,11 +2,15 @@
 
     tuna.namespace('tuna.rest');
 
-    var IRemoteMethod = function() {};
-    
-    IRemoteMethod.prototype.call = function(args) {};
-    IRemoteMethod.prototype.clone = function() {};
+    /**
+     * @interface
+     */
+    tuna.rest.IRemoteMethod = function() {};
+    tuna.rest.IRemoteMethod.prototype.call = function(args) {};
 
-    tuna.rest.IRemoteMethod = IRemoteMethod;
+    /**
+     * @return {tuna.rest.IRemoteMethod}
+     */
+    tuna.rest.IRemoteMethod.prototype.clone = function() {};
 
 })();

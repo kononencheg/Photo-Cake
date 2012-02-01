@@ -1,5 +1,9 @@
 (function() {
 
+    /**
+     * @constructor
+     * @extends {tuna.view.NavigationViewController}
+     */
     var MainController = function() {
         tuna.view.NavigationViewController.call(this, null);
     };

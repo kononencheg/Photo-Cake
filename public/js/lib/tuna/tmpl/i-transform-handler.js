@@ -2,17 +2,18 @@
 
     tuna.namespace('tuna.tmpl');
 
-    var ITransformHandler = function() {};
+    /**
+     * @interface
+     */
+    tuna.tmpl.ITransformHandler = function() {};
 
-    ITransformHandler.prototype.handleTransformStart
+    tuna.tmpl.ITransformHandler.prototype.handleTransformStart
         = function(target) {};
 
-    ITransformHandler.prototype.handleTransformComplete
+    tuna.tmpl.ITransformHandler.prototype.handleTransformComplete
         = function(target, createdElements, removedElements) {};
 
-    ITransformHandler.prototype.handleDestroy
+    tuna.tmpl.ITransformHandler.prototype.handleDestroy
         = function(target, removedElements) {};
-
-    tuna.tmpl.ITransformHandler = ITransformHandler;
 
 })();

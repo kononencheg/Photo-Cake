@@ -1,9 +1,13 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file tuna.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
+
+/**
+ * @define {boolean}
+ */
+var IS_COMPILED = false;
 
 /**
  * Основная область имен.
@@ -88,12 +92,14 @@ tuna.implement = function(Class, Interface) {
  * @param {!Object} Parent Родительский класс.
  */
 tuna.extend = function(Class, Parent) {
+    /**
+     * @constructor
+     */
     var Link = function() {};
     Link.prototype = Parent.prototype;
 
     Class.prototype = new Link();
     Class.prototype.constructor = Class;
-    Class.prototype._super = Parent.prototype;
 };
 
 /**
@@ -111,27 +117,26 @@ tuna.typedef = function(object, name) {
 /**
  * Безопасное объявление области имен.
  *
+ * @nosideeffects
  * @public
  * @static
  * @param {!string} path Полное имя области имен.
- * @return {Object} Ссылка на область имен.
  */
 tuna.namespace = function(path) {
+    if (!IS_COMPILED) {
+        var pathHash = path.split('.');
+        var scope = window, next;
 
-    var pathHash = path.split('.');
-    var scope = window, next;
+        while(pathHash.length > 0) {
+            next = pathHash.shift();
 
-    while(pathHash.length > 0) {
-        next = pathHash.shift();
+            if (scope[next] === undefined) {
+                scope[next] = {};
+            }
 
-        if (scope[next] === undefined) {
-            scope[next] = {};
+            scope = scope[next];
         }
-
-        scope = scope[next];
     }
-
-    return scope;
 };
 
 
@@ -168,6 +173,11 @@ tuna.nextTick = function(callback) {
     setTimeout(callback, 0);
 };
 
+/**
+ *
+ * @param {Object} object
+ * @param {Array=} clones
+ */
 tuna.clone = function(object, clones) {
     if (object instanceof Array) {
         return tuna.cloneArray(object);
@@ -205,6 +215,12 @@ tuna.cloneArray = function(array) {
     return array.slice(0);
 };
 
+/**
+ *
+ * @param {*} element
+ * @param {Array} array
+ * @return number
+ */
 tuna.indexOf = function(element, array) {
     if (array.indexOf !== undefined) {
         return array.indexOf(element);

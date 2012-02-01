@@ -1,7 +1,7 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file attribute.js
+ *  attribute.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 

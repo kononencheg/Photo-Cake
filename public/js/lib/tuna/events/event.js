@@ -1,7 +1,13 @@
 (function() {
+
     tuna.namespace('tuna.events');
 
-    var Event = function(type, isBubbling) {
+    /**
+     * @constructor
+     * @param {string} type
+     * @param {boolean=} isBubbling
+     */
+    tuna.events.Event = function(type, isBubbling) {
         this._target = null;
 
         this._type = type;
@@ -17,45 +23,44 @@
         }
     };
 
-    Event.prototype.setTarget = function(target) {
+    tuna.events.Event.prototype.setTarget = function(target) {
         this._target = target;
     };
 
-    Event.prototype.getTarget = function() {
+    tuna.events.Event.prototype.getTarget = function() {
         return this._target;
     };
 
-    Event.prototype.getType = function() {
+    tuna.events.Event.prototype.getType = function() {
         return this._type;
     };
 
-    Event.prototype.isBubbling = function() {
+    tuna.events.Event.prototype.isBubbling = function() {
         return this._isBubbling;
     };
 
-    Event.prototype.preventDefault = function() {
+    tuna.events.Event.prototype.preventDefault = function() {
         this._isCanceled = true;
     };
 
-    Event.prototype.isDefaultPrevented = function() {
+    tuna.events.Event.prototype.isDefaultPrevented = function() {
         return this._isCanceled;
     };
 
-    Event.prototype.stopImmediatePropagation = function() {
+    tuna.events.Event.prototype.stopImmediatePropagation = function() {
         this._isImmediateStopped = true;
     };
 
-    Event.prototype.isImmediatePropagationStopped = function() {
+    tuna.events.Event.prototype.isImmediatePropagationStopped = function() {
          return this._isImmediateStopped;
     };
 
-    Event.prototype.stopPropagation = function() {
+    tuna.events.Event.prototype.stopPropagation = function() {
         this._isStopped = true;
     };
 
-    Event.prototype.isPropagationStopped = function() {
+    tuna.events.Event.prototype.isPropagationStopped = function() {
         return this._isImmediateStopped || this._isStopped;
     };
-
-    tuna.events.Event = Event;
+    
 })();

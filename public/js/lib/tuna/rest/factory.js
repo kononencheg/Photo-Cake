@@ -2,6 +2,10 @@
 
     tuna.namespace('tuna.rest.factory');
 
+    /**
+     * @constructor
+     * @implements {tuna.rest.IMethodFactory}
+     */
     var Factory = function() {
         this.__methods = {};
         this.__factory = null;
@@ -13,6 +17,9 @@
         this.__factory = factory;
     };
 
+    /**
+     * @inheritDoc
+     */
     Factory.prototype.createMethod = function(name) {
         if (this.__methods[name] !== undefined) {
             return this.__methods[name].clone();
@@ -29,6 +36,12 @@
 
     tuna.rest.factory = new Factory();
 
+    /**
+     *
+     * @param {!string} name
+     * @param {Object|function(*)} args
+     * @param {function(*)=} callback
+     */
     tuna.rest.call = function(name, args, callback) {
         if (typeof args === 'function') {
             callback = args;
@@ -38,10 +51,12 @@
         var method = tuna.rest.factory.createMethod(name);
 
         if (callback !== undefined) {
-            method.addEventListener('result', function(event, result) {
+            var listener = function(event, result) {
                 callback(result);
-                method.removeEventListener('result', arguments.callee)
-            });
+                method.removeEventListener('result', listener);
+            };
+
+            method.addEventListener('result', listener);
         }
 
         method.call(args);

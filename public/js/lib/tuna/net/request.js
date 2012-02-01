@@ -1,75 +1,42 @@
 (function() {
     tuna.namespace('tuna.net');
 
-    var Request = function(url) {
+    /**
+     * @constructor
+     * @extends {tuna.events.EventDispatcher}
+     * @implements {tuna.net.IRequest}
+     * @param {string=} url
+     */
+    tuna.net.Request = function(url) {
         tuna.events.EventDispatcher.call(this);
 
-        /**
-         * Адрес запроса.
-         *
-         * @type String
-         */
         this.__url = url;
 
-        /**
-         * Флаг о синхронности запроса
-         *
-         * @type Boolean
-         */
         this.isSync = false;
 
-        /**
-         * Метод запроса.
-         *
-         * По-умолчанию GET.
-         *
-         * @type Boolean
-         */
         this.method = 'GET';
 
-        /**
-         * Заголовки запроса
-         *
-         * @type Array.<{ name: '', value: '' }>
-         */
         this.headers = [];
 
-        /**
-         * Данные запроса
-         *
-         * TODO: Implement setData method!
-         *
-         * @type Object
-         */
         this.__data = null;
 
-        /**
-         * Строка результата запроса
-         *
-         * @type String
-         */
         this.__response = {};
 
         this.__request = null;
     };
 
-    tuna.implement(Request, tuna.net.IRequest);
-    tuna.extend(Request, tuna.events.EventDispatcher);
+    tuna.implement(tuna.net.Request, tuna.net.IRequest);
+    tuna.extend(tuna.net.Request, tuna.events.EventDispatcher);
 
-    Request.prototype.setData = function(data) {
+    tuna.net.Request.prototype.setData = function(data) {
         this.__data = data;
     };
 
-    Request.prototype.setURL = function(url) {
+    tuna.net.Request.prototype.setURL = function(url) {
         this.__url = url;
     };
 
-    /**
-     * Обработка состояния запроса.
-     *
-     * @private
-     */
-    Request.prototype.__requestStateHandler = function(request) {
+    tuna.net.Request.prototype.__requestStateHandler = function(request) {
         if (request.readyState === 4) {
             this.__response = request.responseText;
 
@@ -79,10 +46,7 @@
         }
     };
 
-    /**
-     * Функци отправки запроса.
-     */
-    Request.prototype.send = function() {
+    tuna.net.Request.prototype.send = function() {
         var requestURL = this.__url;
 
         if (this.__request !== null) {
@@ -102,7 +66,7 @@
             }
         }
 
-        var dataString = Request.encode(this.__data);
+        var dataString = tuna.net.Request.encode(this.__data);
 
         if (this.method === 'GET' && dataString !== '') {
             requestURL += (requestURL.indexOf('?') === -1 ? '?' : '&') + dataString;
@@ -136,43 +100,26 @@
         this.__request = request;
     };
 
-    /**
-     * Прерывание запроса.
-     */
-    Request.prototype.abort = function() {
+    tuna.net.Request.prototype.abort = function() {
         if (this.__request !== null) {
             this.__request.abort();
         }
     };
 
-    /**
-     * Возвращение результата в виде строки.
-     *
-     * @return {String} Строка результата.
-     */
-    Request.prototype.getResponse = function() {
+    tuna.net.Request.prototype.getResponse = function() {
         return this.__response;
     };
 
-    /**
-     * Кодирование объекта в x-www-form-urlencoded форму.
-     *
-     * @param {Object} object Объект кодирования.
-     * @return {String} Перекодированный в строку объект.
-     */
-    Request.encode = function(object) {
-        return Request.__splitData(object).join('&');
+    tuna.net.Request.encode = function(object) {
+        return tuna.net.Request.__splitData(object).join('&');
     };
 
     /**
-     * Рекурсивное разбиение объекта н данные для кодирования в x-www-form-urlencoded.
      *
-     * @param {Object} object Объект кодирования.
-     * @param {Object} path Путь к элементарной единице данных.
-     * @return {Array} Массив элементарных данных составляющих объект
-     * @private
+     * @param {Object|string} object
+     * @param {Array.<string>=} path
      */
-    Request.__splitData = function(object, path) {
+    tuna.net.Request.__splitData = function(object, path) {
         var result = [];
 
         if (path === undefined) {
@@ -183,10 +130,10 @@
             object !== null &&
             object.constructor !== Function) {
 
-            if (object.constructor === Object) {
+            if (object instanceof Object) {
                 for (var key in object) {
                     var newPath = path.length === 0 ? [key] : (path.join(',') + ',' + key).split(',');
-                    result = result.concat(Request.__splitData(object[key], newPath));
+                    result = result.concat(tuna.net.Request.__splitData(object[key], newPath));
                 }
             } else {
                 result = [path.shift() + (path.length > 0 ? '[' + path.join('][') + ']=' : '=') + encodeURIComponent(object)];
@@ -195,7 +142,5 @@
 
         return result;
     };
-
-    tuna.net.Request = Request;
 
 })();

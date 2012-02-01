@@ -1,5 +1,10 @@
 (function() {
 
+    /**
+     * @constructor
+     * @extends {tuna.view.PageViewController}
+     * @param {string} id
+     */
     var TitleController = function(id) {
         tuna.view.PageViewController.call(this, id);
     };

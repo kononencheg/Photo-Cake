@@ -2,6 +2,9 @@
 
     tuna.namespace('model');
 
+    /**
+     * @constructor
+     */
     var Users = function() {
         this.__currentUser = null;
     };

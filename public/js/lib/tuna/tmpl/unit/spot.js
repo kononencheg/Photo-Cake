@@ -1,7 +1,7 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file compiled-spot.js
+ *  compiled-spot.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 (function() {

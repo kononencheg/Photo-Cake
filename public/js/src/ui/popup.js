@@ -1,6 +1,11 @@
 (function() {
     tuna.namespace('ui');
 
+    /**
+     * @constructor
+     * @extends {tuna.events.EventDispatcher}
+     * @param {Element} target
+     */
     var Popup = function(target) {
         tuna.events.EventDispatcher.call(this);
         
