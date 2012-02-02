@@ -6,18 +6,21 @@
                      alt="Фото на торте!" />
 
                 <small>
-                    <q class="main-subtitle">Торты на заказ:</q>
-                    <q class="main-subtitle">Ваш дизайн - наше исполнение!</q>
+                    <q class="main-subtitle">Дизайнерские сладости на</q>
+                    <q class="main-subtitle">День святого Валентина!</q>
                 </small>
             </h1>
 
-            <div id="share" class="share-block">
-                <div class="share-title">
-                    Дизайнерские сладости на
-                    День святого Валентина!
+            <?php if ($this->request->get('network') === NULL) {?>
+                <script type="text/javascript" src="http://yandex.st/share/share.js"></script>
+                <div id="share" class="share-block">
+                    <div class="share-title">Поделитесь с друзьями:</div>
+                    <div class="yashare-auto-init"
+                         data-yashareL10n="ru"
+                         data-yashareType="none"
+                         data-yashareQuickServices="facebook,lj,odnoklassniki,vkontakte,yaru"></div>
                 </div>
-                <div class="share-info">8 (812) 323-52-18 | visser@creat-present.ru</div>
-            </div>
+            <?php } ?>
 
         </div>
 
@@ -121,3 +124,7 @@
 </div>
 
 
+<?php switch ($this->request->get('campaign')) {
+   case 'vkval':{ $this->render('counters/vkval'); break; }
+   case 'yaval': { $this->render('counters/yaval'); break; }
+} ?>
