@@ -282,4 +282,31 @@
         }
     };
 
+    /**
+     * @param {Element} element
+     * @param {string} prefix
+     * @return {Object.<string, string>}
+     */
+    tuna.dom.getAttributesData = function(element, prefix) {
+        if (prefix === undefined) {
+            prefix = 'data-';
+        }
+
+        var result = {};
+
+        var attrs = element.attributes;
+        var i = 0,
+            l = attrs.length;
+
+        while (i < l) {
+            if (attrs[i].name.indexOf(prefix) === 0) {
+                result[attrs[i].name.substr(prefix.length)] = attrs[i].value;
+            }
+
+            i++;
+        }
+
+        return result;
+    };
+
 })();

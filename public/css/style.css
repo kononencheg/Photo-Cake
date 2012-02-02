@@ -373,7 +373,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;
 .cake-gallery-body .expand-item.third{margin-left:20px;}
 .cake-gallery-body li.current .expand-item{position:inherit;}.cake-gallery-body li.current .expand-item.second,.cake-gallery-body li.current .expand-item.third{margin-left:0px;}
 .cake-gallery-body li.current a{width:auto;}
-.application-intro{margin-top:50px;}
+.application-intro{margin-top:30px;}
 .title-image{text-align:center;margin-top:25px;}.title-image img{display:inline;}
 #image_popup .modal-body{height:400px;}#image_popup .modal-body img{display:block;height:100%;margin:auto;}
 .cake-designer-swf{width:650px;height:630px;}
@@ -405,14 +405,14 @@ i{display:inline-block;*zoom:1;*display:inline;font-size:0;}
 .ico{position:relative;vertical-align:text-bottom;background-repeat:no-repeat;}
 .ico-persons{width:15px;height:15px;background:no-repeat url(/img/persons.png);}
 .ico-super{color:#750000;font-style:italic;vertical-align:super;}
-.share-block{float:right;margin:30px;}
+.share-block{float:right;margin:25px;}
 #share .b-share-icon{width:32px;height:32px;background:url(/img/social-ico.png);}
 #share .b-share-icon_facebook{background-position:0 0;}
 #share .b-share-icon_yaru{background-position:32px 0;}
 #share .b-share-icon_vkontakte{background-position:71px 0;}
 #share .b-share-icon_odnoklassniki{background-position:110px 0;}
 #share .b-share-icon_lj{background-position:149px 0;}
-.share-title{font-size:large;margin-left:5px;}
+.share-title{width:210px;margin-left:5px;color:#750000;font-size:large;font-style:italic;font-weight:normal;line-height:27px;}
 .modal-body .clearfix{zoom:1;}.modal-body .clearfix:before,.modal-body .clearfix:after{display:table;content:"";zoom:1;}
 .modal-body .clearfix:after{clear:both;}
 #city_selection_popup ul{width:245px;border:1px solid #ccc;}#city_selection_popup ul .current{background-color:#750000;}#city_selection_popup ul .current a{color:#ffffff;}
@@ -426,6 +426,12 @@ input.btn{font-family:"Times New Roman";width:auto;}
 #cake_image_popup .modal-body{height:350px;overflow:hidden;}#cake_image_popup .modal-body .image-container{width:10000px;overflow:hidden;}
 #cake_image_popup .modal-body img{height:100%;display:block;float:left;}
 #alert_popup .modal-body{text-align:center;}
+.detailed-comment{color:#750000;font-style:italic;padding:0;}
+.campaign-list{margin-top:30px;}.campaign-list .cake-info{vertical-align:middle;line-height:30px;margin-top:5px;display:block;}
+.campaign-list .cake{display:block;height:110px;width:110px;}.campaign-list .cake img{position:absolute;}
+.campaign-list .cake-price{display:none;position:absolute;padding:0;background-color:#000000;height:110px;width:110px;filter:alpha(opacity=50);-khtml-opacity:0.5;-moz-opacity:0.5;opacity:0.5;color:#ffffff;font-size:large;text-align:center;vertical-align:middle;line-height:110px;}
+.campaign-list li:hover .cake-price{display:block;}
+.intro.span4{margin-left:40px;}
 body{font-family:"Times New Roman";}
 p{padding-top:10px;padding-bottom:10px;font-size:14px;}
 h1{color:#750000;font-style:italic;font-weight:normal;}h1 small{color:#750000;font-weight:normal;font-style:italic;font-size:16px;}

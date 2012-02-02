@@ -4,6 +4,7 @@
         tuna.view.PageViewController.call(this, id);
 
         this.__form = null;
+        this.__cakeImage = null;
     };
 
     tuna.extend(OrderController, tuna.view.PageViewController);
@@ -41,14 +42,20 @@
                 );
             }
         });
+
+        this.__cakeImage
+            = this._container.getOneModuleInstance('data-image-copy');
     };
 
-    OrderController.prototype.open = function() {
-        this.__updateView();
-    };
+    OrderController.prototype.open = function(args) {
+        if (args.image !== undefined) {
+            this.__cakeImage.src = args.image;
 
-    OrderController.prototype.__updateView = function() {
-        this._container.applyData({ 'order': model.orders.getOrder() });
+            var cake = model.cakes.createCampaingCake(args.id, args.image);
+            model.orders.updateCampaignOrder(args.campaign, cake, args.price);
+        }
+
+        this._container.applyData(model.orders.getOrder());
     };
 
     tuna.view.registerController(new OrderController('order_step'));

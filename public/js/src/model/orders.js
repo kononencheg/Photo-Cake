@@ -10,18 +10,35 @@
         return this.__order;
     };
 
+    Orders.prototype.updateCampaignOrder = function(campaign, cake, price) {
+        if (this.__order === null) {
+            this.__initOrder();
+        }
+
+        this.__order.campaign = campaign;
+
+        this.__order.cake = cake.clone();
+
+        this.__order.payment = new model.records.Payment();
+        this.__order.payment.totalPrice = price;
+    };
+
     Orders.prototype.updateOrder = function() {
         if (this.__order === null) {
-            this.__order = new model.records.Order();
-
-            var user = model.users.getCurrentUser();
-            if (user !== null) {
-                this.__order.user = user.clone();
-            }
+            this.__initOrder();
         }
 
         this.__order.cake = model.cakes.getCurrentCake().clone();
         this.__updateOrderPrice();
+    };
+
+    Orders.prototype.__initOrder = function() {
+        this.__order = new model.records.Order();
+
+        var user = model.users.getCurrentUser();
+        if (user !== null) {
+            this.__order.user = user.clone();
+        }
     };
 
     Orders.prototype.setOrderRecipe = function(recipe) {

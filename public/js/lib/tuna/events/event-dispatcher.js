@@ -21,8 +21,8 @@
         var type = event.getType();
 
         if (this._listeners[type] !== undefined) {
-            if (event.target === null) {
-                event.target = this;
+            if (event.getTarget() === null) {
+                event.setTarget(this);
             }
 
             var i = 0,

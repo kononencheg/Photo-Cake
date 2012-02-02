@@ -261,8 +261,8 @@ tuna.indexOf = function(element, array) {
         var type = event.getType();
 
         if (this._listeners[type] !== undefined) {
-            if (event.target === null) {
-                event.target = this;
+            if (event.getTarget() === null) {
+                event.setTarget(this);
             }
 
             var i = 0,
@@ -980,6 +980,33 @@ tuna.indexOf = function(element, array) {
         } else if (isExist && !tuna.dom.hasClass(element, className)) {
             tuna.dom.addClass(element, className)
         }
+    };
+
+    /**
+     * @param {Element} element
+     * @param {string} prefix
+     * @return {Object.<string, string>}
+     */
+    tuna.dom.getAttributesData = function(element, prefix) {
+        if (prefix === undefined) {
+            prefix = 'data-';
+        }
+
+        var result = {};
+
+        var attrs = element.attributes;
+        var i = 0,
+            l = attrs.length;
+
+        while (i < l) {
+            if (attrs[i].name.indexOf(prefix) === 0) {
+                result[attrs[i].name.substr(prefix.length)] = attrs[i].value;
+            }
+
+            i++;
+        }
+
+        return result;
     };
 
 })();/**
@@ -3350,6 +3377,53 @@ tuna.indexOf = function(element, array) {
 
     tuna.ui.selection.SelectionGroup = SelectionGroup;
 })();(function() {
+
+    tuna.namespace('tuna.ui.selection');
+
+    var Navigation = function(target) {
+        tuna.ui.selection.SelectionGroup.call
+            (this, target, false, 'id', '.j-navigation-page', 'current');
+
+        this.__openArgs = null;
+
+        this.__history = [];
+    };
+
+    tuna.extend(Navigation, tuna.ui.selection.SelectionGroup);
+
+    Navigation.prototype.init = function() {
+        var self = this;
+
+        this.addEventListener('deselected', function(event, index) {
+            self.dispatch('close', index);
+        });
+
+        this.addEventListener('selected', function(event, index) {
+            self.dispatch('open', { args: self.__openArgs, index: index });
+        });
+
+        tuna.ui.selection.SelectionGroup.prototype.init.call(this);
+    };
+
+    Navigation.prototype.navigate = function(index, args) {
+        var currentIndex = this.getLastSelectedIndex()
+        if (currentIndex !== null) {
+            this.__history.push(currentIndex);
+        }
+
+        this.__openArgs = args;
+        this.selectIndex(index);
+        this.__openArgs = null;
+
+    };
+
+    Navigation.prototype.back = function() {
+        this.selectIndex(this.__history.pop());
+    };
+
+
+    tuna.ui.selection.Navigation = Navigation;
+})();(function() {
     tuna.namespace('tuna.ui.modules');
 
     var modulesTable = {};
@@ -3451,6 +3525,7 @@ tuna.indexOf = function(element, array) {
 
             i++;
         }
+
     };
 
     Module.prototype.initInstance = function(target, container, options) {};
@@ -3533,27 +3608,31 @@ tuna.indexOf = function(element, array) {
     tuna.extend(Navigation, tuna.ui.modules.Module);
 
     Navigation.prototype.initInstance = function(target) {
+        var navigation = new tuna.ui.selection.Navigation(target);
 
-        var selectionGroup = new tuna.ui.selection.SelectionGroup
-            (target, false, 'id', '.j-navigation-page', 'current');
-
-        selectionGroup.addEventListener('selected', function(event, index) {
-            tuna.dom.dispatchEvent
-                (selectionGroup.getItemAt(index), 'ui-navigate');
+        navigation.addEventListener('selected', function(event, index) {
+            tuna.dom.dispatchEvent(navigation.getItemAt(index), 'ui-navigate');
         });
 
         tuna.dom.addChildEventListener(
             target, '.j-navigation-link', 'click', function(event) {
                 var index = this.getAttribute('data-href');
                 if (index !== null) {
-                    selectionGroup.selectIndex(index);
+                    navigation.navigate
+                        (index, tuna.dom.getAttributesData(this));
                 }
             }
         );
 
-        selectionGroup.init();
+        tuna.dom.addChildEventListener(
+            target, '.j-navigation-back', 'click', function(event) {
+                navigation.back();
+            }
+        );
 
-        return selectionGroup;
+        navigation.init();
+
+        return navigation;
     };
 
     tuna.ui.modules.register(new Navigation());
@@ -3809,8 +3888,8 @@ tuna.indexOf = function(element, array) {
         this._pageNavigation = this._container.getOneModuleInstance('navigation');
 
         this._pageNavigation.addEventListener('select', this._testClose);
-        this._pageNavigation.addEventListener('deselected', this._closePage);
-        this._pageNavigation.addEventListener('selected', this._openPage);
+        this._pageNavigation.addEventListener('close', this._closePage);
+        this._pageNavigation.addEventListener('open', this._openPage);
 
         var self = this;
         this._pageNavigation.mapItems(function(index, page) {
@@ -3823,8 +3902,8 @@ tuna.indexOf = function(element, array) {
         this._setCurrentPage(this._pageNavigation.getLastSelectedIndex());
     };
 
-    NavigationViewController.prototype._openPage = function(event, index) {
-        this._setCurrentPage(index);
+    NavigationViewController.prototype._openPage = function(event, data) {
+        this._setCurrentPage(data.index, data.args);
     };
 
     NavigationViewController.prototype._testClose = function(event, index) {
@@ -3847,7 +3926,7 @@ tuna.indexOf = function(element, array) {
         return true;
     };
 
-    NavigationViewController.prototype._setCurrentPage = function(index) {
+    NavigationViewController.prototype._setCurrentPage = function(index, args) {
         var newPage = this._pageNavigation.getItemAt(index);
         var oldPage = this.__currentPage;
 
@@ -3856,16 +3935,13 @@ tuna.indexOf = function(element, array) {
         }
 
         this.__currentPage = newPage;
-        this._updateController();
+
+        this._currentController = tuna.view.getController(newPage);
+        if (this._currentController !== null) {
+            this._currentController.open(args);
+        }
 
         this._handlePageOpen(newPage, oldPage);
-    };
-
-    NavigationViewController.prototype._updateController = function() {
-        this._currentController = tuna.view.getController(this.__currentPage);
-        if (this._currentController !== null) {
-            this._currentController.open();
-        }
     };
 
     NavigationViewController.prototype._handlePageClose = function(page, newPage) {};
@@ -3893,7 +3969,7 @@ tuna.indexOf = function(element, array) {
 
     PageViewController.prototype.close = function() {};
     
-    PageViewController.prototype.open = function() {};
+    PageViewController.prototype.open = function(args) {};
 
     tuna.view.PageViewController = PageViewController;
 })();/*!
@@ -17748,6 +17824,14 @@ var swfobject = function() {
         return cake;
     };
 
+    Cakes.prototype.createCampaingCake = function(id, imageUrl) {
+        var cake = new model.records.Cake();
+        cake.id = id;
+        cake.imageUrl = imageUrl;
+
+        return cake;
+    };
+
     Cakes.prototype.setCurrentCake = function(cake) {
         this.__currentCake = cake;
     };
@@ -17771,18 +17855,35 @@ var swfobject = function() {
         return this.__order;
     };
 
+    Orders.prototype.updateCampaignOrder = function(campaign, cake, price) {
+        if (this.__order === null) {
+            this.__initOrder();
+        }
+
+        this.__order.campaign = campaign;
+
+        this.__order.cake = cake.clone();
+        
+        this.__order.payment = new model.records.Payment();
+        this.__order.payment.totalPrice = price;
+    };
+
     Orders.prototype.updateOrder = function() {
         if (this.__order === null) {
-            this.__order = new model.records.Order();
-
-            var user = model.users.getCurrentUser();
-            if (user !== null) {
-                this.__order.user = user.clone();
-            }
+            this.__initOrder();
         }
 
         this.__order.cake = model.cakes.getCurrentCake().clone();
         this.__updateOrderPrice();
+    };
+
+    Orders.prototype.__initOrder = function() {
+        this.__order = new model.records.Order();
+
+        var user = model.users.getCurrentUser();
+        if (user !== null) {
+            this.__order.user = user.clone();
+        }
     };
 
     Orders.prototype.setOrderRecipe = function(recipe) {
@@ -17966,6 +18067,9 @@ var swfobject = function() {
     tuna.namespace('model.records');
 
     var Cake = function() {
+        this.id = '';
+        this.imageUrl = '';
+
         this.markupJson = '';
         this.imageBase64 = '';
         this.photoBase64 = '';
@@ -17990,6 +18094,8 @@ var swfobject = function() {
         this.recipe = null;
 
         this.payment = null;
+
+        this.campaign = '';
     };
 
     tuna.extend(Order, tuna.model.Record);
@@ -18453,6 +18559,7 @@ var swfobject = function() {
         tuna.view.PageViewController.call(this, id);
 
         this.__form = null;
+        this.__cakeImage = null;
     };
 
     tuna.extend(OrderController, tuna.view.PageViewController);
@@ -18490,14 +18597,20 @@ var swfobject = function() {
                 );
             }
         });
+
+        this.__cakeImage
+            = this._container.getOneModuleInstance('data-image-copy');
     };
 
-    OrderController.prototype.open = function() {
-        this.__updateView();
-    };
+    OrderController.prototype.open = function(args) {
+        if (args.image !== undefined) {
+            this.__cakeImage.src = args.image;
 
-    OrderController.prototype.__updateView = function() {
-        this._container.applyData({ 'order': model.orders.getOrder() });
+            var cake = model.cakes.createCampaingCake(args.id, args.image);
+            model.orders.updateCampaignOrder(args.campaign, cake, args.price);
+        }
+
+        this._container.applyData(model.orders.getOrder());
     };
 
     tuna.view.registerController(new OrderController('order_step'));

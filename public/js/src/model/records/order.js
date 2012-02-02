@@ -10,6 +10,8 @@
         this.recipe = null;
 
         this.payment = null;
+
+        this.campaign = '';
     };
 
     tuna.extend(Order, tuna.model.Record);

@@ -133,7 +133,7 @@
 
 
 .application-intro {
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .title-image {
@@ -356,7 +356,7 @@ i {
 
 .share-block {
     float: right;
-    margin: 30px;
+    margin: 25px;
 }
 
 #share .b-share-icon {
@@ -386,8 +386,16 @@ i {
 }
 
 .share-title {
-    font-size: large;
+    width: 210px;
     margin-left: 5px;
+
+    color: @header-color;
+
+    font-size: large;
+    font-style: italic;
+    font-weight: normal;
+
+    line-height: 27px;
 }
 
 .modal-body .clearfix {
@@ -471,8 +479,62 @@ input.btn {
         display: block;
         float: left;
     }
+
 }
 
 #alert_popup .modal-body {
     text-align: center;
 }
+
+.detailed-comment {
+    color: @header-color;
+    font-style: italic;
+    padding: 0;
+}
+
+.campaign-list {
+    margin-top: 30px;
+
+    .cake-info {
+        vertical-align: middle;
+        line-height: 30px;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .cake {
+        display: block;
+        .square(110px);
+        
+        img {
+            position: absolute;
+        }
+
+
+    }
+
+    .cake-price {
+        display: none;
+        position: absolute;
+        padding: 0;
+
+        background-color: @black;
+        .square(110px);
+        .opacity(50);
+
+        color: @white;
+        font-size: large;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 110px;
+    }
+
+    li:hover .cake-price {
+        display: block;
+    }
+}
+
+.intro.span4 {
+    margin-left: 40px;
+}
+

@@ -3,6 +3,9 @@
     tuna.namespace('model.records');
 
     var Cake = function() {
+        this.id = '';
+        this.imageUrl = '';
+
         this.markupJson = '';
         this.imageBase64 = '';
         this.photoBase64 = '';

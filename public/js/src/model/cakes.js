@@ -22,6 +22,14 @@
         return cake;
     };
 
+    Cakes.prototype.createCampaingCake = function(id, imageUrl) {
+        var cake = new model.records.Cake();
+        cake.id = id;
+        cake.imageUrl = imageUrl;
+
+        return cake;
+    };
+
     Cakes.prototype.setCurrentCake = function(cake) {
         this.__currentCake = cake;
     };

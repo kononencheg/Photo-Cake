@@ -7,27 +7,31 @@
     tuna.extend(Navigation, tuna.ui.modules.Module);
 
     Navigation.prototype.initInstance = function(target) {
+        var navigation = new tuna.ui.selection.Navigation(target);
 
-        var selectionGroup = new tuna.ui.selection.SelectionGroup
-            (target, false, 'id', '.j-navigation-page', 'current');
-
-        selectionGroup.addEventListener('selected', function(event, index) {
-            tuna.dom.dispatchEvent
-                (selectionGroup.getItemAt(index), 'ui-navigate');
+        navigation.addEventListener('selected', function(event, index) {
+            tuna.dom.dispatchEvent(navigation.getItemAt(index), 'ui-navigate');
         });
 
         tuna.dom.addChildEventListener(
             target, '.j-navigation-link', 'click', function(event) {
                 var index = this.getAttribute('data-href');
                 if (index !== null) {
-                    selectionGroup.selectIndex(index);
+                    navigation.navigate
+                        (index, tuna.dom.getAttributesData(this));
                 }
             }
         );
 
-        selectionGroup.init();
+        tuna.dom.addChildEventListener(
+            target, '.j-navigation-back', 'click', function(event) {
+                navigation.back();
+            }
+        );
 
-        return selectionGroup;
+        navigation.init();
+
+        return navigation;
     };
 
     tuna.ui.modules.register(new Navigation());

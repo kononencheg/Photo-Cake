@@ -18,6 +18,13 @@
             <input class="t-recipe" type="hidden" name="recipe" />
             <input class="t-bakery-id" type="hidden" name="bakery_id" />
 
+            <input class="t-campaign" type="hidden" name="campaign" />
+
+            <input class="t-cake-id" type="hidden" name="cake_id" />
+
+            <!-- убрать в будущем когда у cake будет id -->
+            <input class="t-cake-image" type="hidden" name="cake_image" />
+
             <fieldset>
                 <legend>Личная информация</legend>
 
@@ -114,7 +121,7 @@
         </div>
         <div class="span5">
             <div class="cake-image">
-                <img class="j-data-image-copy" alt="Загрузка тортика..."
+                <img class="j-data-image-copy t-cake-image" alt="Загрузка тортика..."
                      data-image-selector="#base_cake_image" />
             </div>
 
@@ -144,8 +151,7 @@
             <div class="order-navigation">
                 <input type="submit" class="next-btn btn primary large pull-right" value="Заказать!" />
 
-                <a class="j-navigation-link next-btn btn primary large pull-right"
-                   data-href="recipe_step">
+                <a class="j-navigation-back next-btn btn primary large pull-right">
                     &laquo; Назад
                 </a>
             </div>
@@ -161,18 +167,23 @@
 
 <div class="hidden">
     <tuna:template id="order_template">
-        <tuna:attr tuna:name="value" tuna:target="t-image" tuna:path="order/cake/imageBase64" />
-        <tuna:attr tuna:name="value" tuna:target="t-photo" tuna:path="order/cake/photoBase64" />
-        <tuna:attr tuna:name="value" tuna:target="t-markup" tuna:path="order/cake/markupJson" />
+        <tuna:attr tuna:name="value" tuna:target="t-image" tuna:path="cake/imageBase64" />
+        <tuna:attr tuna:name="value" tuna:target="t-photo" tuna:path="cake/photoBase64" />
+        <tuna:attr tuna:name="value" tuna:target="t-markup" tuna:path="cake/markupJson" />
 
-        <tuna:attr tuna:name="value" tuna:target="t-recipe" tuna:path="order/recipe/name" />
-        <tuna:attr tuna:name="value" tuna:target="t-bakery-id" tuna:path="order/bakery/id" />
+        <tuna:attr tuna:name="value" tuna:target="t-recipe" tuna:path="recipe/name" />
+        <tuna:attr tuna:name="value" tuna:target="t-bakery-id" tuna:path="bakery/id" />
 
-        <tuna:attr tuna:name="value" tuna:target="t-user-name" tuna:path="order/user/name" />
+        <tuna:attr tuna:name="value" tuna:target="t-campaign" tuna:path="campaign" />
+        <tuna:attr tuna:name="value" tuna:target="t-cake-id" tuna:path="cake/id" />
+        <tuna:attr tuna:name="value" tuna:target="t-cake-image" tuna:path="cake/imageUrl" />
 
-        <tuna:spot tuna:target="t-total-price"    tuna:path="order/payment/totalPrice" />
-        <tuna:spot tuna:target="t-deco-price"     tuna:path="order/payment/decoPrice" />
-        <tuna:spot tuna:target="t-recipe-price"   tuna:path="order/payment/recipePrice" />
-        <tuna:spot tuna:target="t-delivery-price" tuna:path="order/payment/deliveryPrice" />
+        <tuna:attr tuna:name="value" tuna:target="t-user-name" tuna:path="user/name" />
+
+        <tuna:spot tuna:target="t-total-price"    tuna:path="payment/totalPrice" />
+        <tuna:spot tuna:target="t-deco-price"     tuna:path="payment/decoPrice" />
+        <tuna:spot tuna:target="t-recipe-price"   tuna:path="payment/recipePrice" />
+        <tuna:spot tuna:target="t-delivery-price" tuna:path="payment/deliveryPrice" />
+
     </tuna:template>
 </div>

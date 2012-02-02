@@ -19,7 +19,7 @@
 
     PageViewController.prototype.close = function() {};
     
-    PageViewController.prototype.open = function() {};
+    PageViewController.prototype.open = function(args) {};
 
     tuna.view.PageViewController = PageViewController;
 })();

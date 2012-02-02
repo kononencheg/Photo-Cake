@@ -80,6 +80,7 @@
         "lib/tuna/ui/selection/i-selection-group.js",
         "lib/tuna/ui/selection/abstract-selection-group.js",
         "lib/tuna/ui/selection/selection-group.js",
+        "lib/tuna/ui/selection/navigation.js",
 
         "lib/tuna/ui/modules.js",
         "lib/tuna/ui/modules/module.js",

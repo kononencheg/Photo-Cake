@@ -72,6 +72,7 @@
 
             i++;
         }
+
     };
 
     Module.prototype.initInstance = function(target, container, options) {};

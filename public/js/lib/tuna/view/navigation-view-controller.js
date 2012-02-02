@@ -25,8 +25,8 @@
         this._pageNavigation = this._container.getOneModuleInstance('navigation');
 
         this._pageNavigation.addEventListener('select', this._testClose);
-        this._pageNavigation.addEventListener('deselected', this._closePage);
-        this._pageNavigation.addEventListener('selected', this._openPage);
+        this._pageNavigation.addEventListener('close', this._closePage);
+        this._pageNavigation.addEventListener('open', this._openPage);
 
         var self = this;
         this._pageNavigation.mapItems(function(index, page) {
@@ -39,8 +39,8 @@
         this._setCurrentPage(this._pageNavigation.getLastSelectedIndex());
     };
 
-    NavigationViewController.prototype._openPage = function(event, index) {
-        this._setCurrentPage(index);
+    NavigationViewController.prototype._openPage = function(event, data) {
+        this._setCurrentPage(data.index, data.args);
     };
 
     NavigationViewController.prototype._testClose = function(event, index) {
@@ -63,7 +63,7 @@
         return true;
     };
 
-    NavigationViewController.prototype._setCurrentPage = function(index) {
+    NavigationViewController.prototype._setCurrentPage = function(index, args) {
         var newPage = this._pageNavigation.getItemAt(index);
         var oldPage = this.__currentPage;
 
@@ -72,16 +72,13 @@
         }
 
         this.__currentPage = newPage;
-        this._updateController();
+
+        this._currentController = tuna.view.getController(newPage);
+        if (this._currentController !== null) {
+            this._currentController.open(args);
+        }
 
         this._handlePageOpen(newPage, oldPage);
-    };
-
-    NavigationViewController.prototype._updateController = function() {
-        this._currentController = tuna.view.getController(this.__currentPage);
-        if (this._currentController !== null) {
-            this._currentController.open();
-        }
     };
 
     NavigationViewController.prototype._handlePageClose = function(page, newPage) {};

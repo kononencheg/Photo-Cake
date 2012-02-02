@@ -11,16 +11,13 @@
                 </small>
             </h1>
 
-            <?php if ($this->request->get('network') === NULL) {?>
-                <script type="text/javascript" src="http://yandex.st/share/share.js"></script>
-                <div id="share" class="share-block">
-                    <div class="share-title">Поделитесь с друзьями:</div>
-                    <div class="yashare-auto-init"
-                         data-yashareL10n="ru"
-                         data-yashareType="none"
-                         data-yashareQuickServices="facebook,lj,odnoklassniki,vkontakte,yaru"></div>
+            <div id="share" class="share-block">
+                <div class="share-title">
+                    Дизайнерские сладости на
+                    День святого Валентина!
                 </div>
-            <?php } ?>
+                <div class="share-info">8 (812) 323-52-18 | visser@creat-present.ru</div>
+            </div>
 
         </div>
 
@@ -29,7 +26,16 @@
              class="j-navigation-page j-transform-container row step current">
 
             <div class="span12">
-                <?php $this->render('steps/title') ?>
+
+                <?php switch ($this->request->get('campaign')) {
+                    case 'vkval':
+                    case 'yaval': {
+                        $this->render('steps/campaign/title');
+                        break;
+                    }
+                    default: { $this->render('steps/title'); }
+                } ?>
+
             </div>
         </div>
 
