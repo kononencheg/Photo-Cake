@@ -25,6 +25,7 @@
             this.__user.id = value.uid;
             this.__user.name = value.first_name + ' ' + value.last_name;
             this.__user.userpicUrl = value.photo;
+            this.__user.network = 'vk';
 
             VK.api('places.getCityById', {
                 'cids': value.city

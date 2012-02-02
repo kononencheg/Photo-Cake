@@ -20,10 +20,13 @@
 
             <input class="t-campaign" type="hidden" name="campaign" />
 
-            <input class="t-cake-id" type="hidden" name="cake_id" />
-
-            <!-- убрать в будущем когда у cake будет id -->
+            <input class="t-cake-weight" type="hidden" name="cake_weight" />
+            <input class="t-cake-price" type="hidden" name="cake_price" />
             <input class="t-cake-image" type="hidden" name="cake_image" />
+
+            <input class="t-user-id" type="hidden" name="user_id" />
+            <input class="t-user-network" type="hidden" name="network" />
+
 
             <fieldset>
                 <legend>Личная информация</legend>
@@ -72,7 +75,8 @@
                     </div>
                 </div>
 
-                <div class="j-date-input j-time-input clearfix">
+                <div class="j-date-input j-tim            <!-- убрать в будущем когда у cake будет id -->
+e-input clearfix">
                     <label for="date">Дата *</label>
                     <div class="input">
                         <input id="date" class="j-datepicker small" name="date" type="text"/>
@@ -175,10 +179,15 @@
         <tuna:attr tuna:name="value" tuna:target="t-bakery-id" tuna:path="bakery/id" />
 
         <tuna:attr tuna:name="value" tuna:target="t-campaign" tuna:path="campaign" />
-        <tuna:attr tuna:name="value" tuna:target="t-cake-id" tuna:path="cake/id" />
+
+        <tuna:attr tuna:name="value" tuna:target="t-cake-weight" tuna:path="cake/weight" />
         <tuna:attr tuna:name="value" tuna:target="t-cake-image" tuna:path="cake/imageUrl" />
 
+        <tuna:attr tuna:name="value" tuna:target="t-cake-price" tuna:path="payment/totalPrice" />
+
         <tuna:attr tuna:name="value" tuna:target="t-user-name" tuna:path="user/name" />
+        <tuna:attr tuna:name="value" tuna:target="t-user-id" tuna:path="user/id" />
+        <tuna:attr tuna:name="value" tuna:target="t-user-network" tuna:path="user/network" />
 
         <tuna:spot tuna:target="t-total-price"    tuna:path="payment/totalPrice" />
         <tuna:spot tuna:target="t-deco-price"     tuna:path="payment/decoPrice" />

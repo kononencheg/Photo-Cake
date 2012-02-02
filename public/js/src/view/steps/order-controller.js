@@ -20,8 +20,9 @@
         var isConfirmed = false;
 
         this.__form = this._container.getOneModuleInstance('form');
-        this.__form.addEventListener('result', function() {
-            self._navigation.selectIndex('result_step');
+        this.__form.addEventListener('result', function(event, result) {
+            self._navigation.navigate('result_step', result.cake);
+
             isConfirmed = false;
         });
 
@@ -51,7 +52,7 @@
         if (args.image !== undefined) {
             this.__cakeImage.src = args.image;
 
-            var cake = model.cakes.createCampaingCake(args.id, args.image);
+            var cake = model.cakes.createCampaingCake(args.weight, args.image);
             model.orders.updateCampaignOrder(args.campaign, cake, args.price);
         }
 

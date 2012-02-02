@@ -3,15 +3,16 @@
     tuna.namespace('model.records');
 
     var Cake = function() {
-        this.id = '';
         this.imageUrl = '';
 
         this.markupJson = '';
         this.imageBase64 = '';
         this.photoBase64 = '';
 
-        this.dimensions = null;
         this.content = null;
+
+        this.weight = 0;
+        this.personsCount = 0;
     };
 
     tuna.extend(Cake, tuna.model.Record);

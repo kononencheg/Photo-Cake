@@ -16,15 +16,17 @@
         cake.imageBase64 = imageBase64;
         cake.photoBase64 = photoBase64;
 
-        cake.dimensions = markup.dimensions;
         cake.content = markup.content;
+
+        cake.weight = markup.dimensions.mass;
+        cake.personsCount = markup.dimensions.persons_count;
 
         return cake;
     };
 
-    Cakes.prototype.createCampaingCake = function(id, imageUrl) {
+    Cakes.prototype.createCampaingCake = function(weight, imageUrl) {
         var cake = new model.records.Cake();
-        cake.id = id;
+        cake.weight = weight;
         cake.imageUrl = imageUrl;
 
         return cake;

@@ -7,6 +7,7 @@
         this.name = '';
         this.city = '';
         this.userpicUrl = '';
+        this.network = ''
     };
 
     tuna.extend(User, tuna.model.Record);

@@ -21,6 +21,7 @@
                 user.name = value.first_name + ' ' + value.last_name;
                 user.city = value.location.city;
                 user.userpicUrl = value.pic_1;
+                user.network = 'ok';
 
                 self.dispatch('result', user);
             } else {

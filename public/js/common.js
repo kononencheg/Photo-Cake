@@ -17818,15 +17818,17 @@ var swfobject = function() {
         cake.imageBase64 = imageBase64;
         cake.photoBase64 = photoBase64;
 
-        cake.dimensions = markup.dimensions;
         cake.content = markup.content;
+
+        cake.weight = markup.dimensions.mass;
+        cake.personsCount = markup.dimensions.persons_count;
 
         return cake;
     };
 
-    Cakes.prototype.createCampaingCake = function(id, imageUrl) {
+    Cakes.prototype.createCampaingCake = function(weight, imageUrl) {
         var cake = new model.records.Cake();
-        cake.id = id;
+        cake.weight = weight;
         cake.imageUrl = imageUrl;
 
         return cake;
@@ -17863,7 +17865,7 @@ var swfobject = function() {
         this.__order.campaign = campaign;
 
         this.__order.cake = cake.clone();
-        
+
         this.__order.payment = new model.records.Payment();
         this.__order.payment.totalPrice = price;
     };
@@ -17927,7 +17929,7 @@ var swfobject = function() {
     };
 
     Orders.prototype.__getRecipePrice = function(cake, recipe) {
-        return recipe.price * cake.dimensions.mass;
+        return recipe.price * cake.weight;
     };
 
     Orders.prototype.__getDecorationPrice = function(cake) {
@@ -18067,15 +18069,16 @@ var swfobject = function() {
     tuna.namespace('model.records');
 
     var Cake = function() {
-        this.id = '';
         this.imageUrl = '';
 
         this.markupJson = '';
         this.imageBase64 = '';
         this.photoBase64 = '';
 
-        this.dimensions = null;
         this.content = null;
+
+        this.weight = 0;
+        this.personsCount = 0;
     };
 
     tuna.extend(Cake, tuna.model.Record);
@@ -18145,6 +18148,7 @@ var swfobject = function() {
         this.name = '';
         this.city = '';
         this.userpicUrl = '';
+        this.network = ''
     };
 
     tuna.extend(User, tuna.model.Record);
@@ -18575,8 +18579,9 @@ var swfobject = function() {
         var isConfirmed = false;
 
         this.__form = this._container.getOneModuleInstance('form');
-        this.__form.addEventListener('result', function() {
-            self._navigation.selectIndex('result_step');
+        this.__form.addEventListener('result', function(event, result) {
+            self._navigation.navigate('result_step', result.cake);
+
             isConfirmed = false;
         });
 
@@ -18606,7 +18611,7 @@ var swfobject = function() {
         if (args.image !== undefined) {
             this.__cakeImage.src = args.image;
 
-            var cake = model.cakes.createCampaingCake(args.id, args.image);
+            var cake = model.cakes.createCampaingCake(args.weight, args.image);
             model.orders.updateCampaignOrder(args.campaign, cake, args.price);
         }
 
@@ -18625,6 +18630,11 @@ var swfobject = function() {
 
     ResultController.prototype._requireModules = function() {
         this._container.requireModule('data-image-copy');
+    };
+
+    ResultController.prototype.open = function(args) {
+        var image = this._container.getOneModuleInstance('data-image-copy');
+        image.src = args.image_url;
     };
 
     tuna.view.registerController(new ResultController('result_step'));
