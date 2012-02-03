@@ -13,7 +13,10 @@ task('default', function() {
 desc('Glue and compress javascript client');
 task('compress-js', compressJS);
 
-desc('Watch JS changing');
+desc('Compile LESS files into CSS');
+task('compile-css', compileCSS);
+
+desc('Watch JS changing to auto compress');
 task('watch-js', function() {
     fs.watch(JS_FOLDER, function (event, filename) {
         console.log('event is: ' + event);
@@ -24,6 +27,12 @@ task('watch-js', function() {
         }
     });
 });
+
+function compileCSS() {
+    cp.exec('cd public; ' +
+            'rm css/style.css; ' +
+            'lessc -x css/style.less >> css/style.css');
+}
 
 function combine(files) {
     var result = '';
@@ -45,7 +54,7 @@ function compressJS() {
         fs.writeFileSync(file + '.js', combine(includes[group]));
         console.log('Created "' + file + '.js".');
 
-        (function(file) {
+        /*(function(file) {
             cp.exec('uglifyjs -v -nc -o ' + file + '.min.js ' + file + '.js',
                 function (error, stdout, stderr) {
                     var mainStats = fs.statSync(file + '.js');
@@ -55,6 +64,6 @@ function compressJS() {
                     console.log('Created "' + file + '.min.js" (' + rate + '%).');
                 }
             );
-        })(file);
+        })(file);*/
     }
 }

@@ -1,83 +1,53 @@
 (function() {
-    tuna.namespace('ui');
 
-    var Autocomplete = function(input) {
-        tuna.events.EventDispatcher.call(this);
+    var Autocomplete = function(input, transformer, selectionGroup) {
+        ui.Filtration.call(this, input, transformer);
         
-        this.__input = input;
-
-        this.__selectionGroup = null;
-        this.__transformer = null;
-
-        this.__data = null;
-        this.__filteredData = null;
+        this.__selectionGroup = selectionGroup;
+        this.__selectedData = null;
     };
 
-    tuna.extend(Autocomplete, tuna.events.EventDispatcher);
+    tuna.utils.extend(Autocomplete, ui.Filtration);
 
-    Autocomplete.prototype.setTransformer = function(transformer) {
-        return this.__transformer = transformer;
+    Autocomplete.prototype.getSelectedData = function() {
+        return this.__selectedData;
     };
 
-    Autocomplete.prototype.setData = function(data) {
-        this.__data = data;
-        this.__applyFilter('');
-    };
+    Autocomplete.prototype.selectValue = function(value) {
+        var filteredData = this._filterData(value);
+        if (filteredData.length === 1) {
+            this.__selectedData = filteredData[0];
+            this._input.value = value;
 
-    Autocomplete.prototype.setSelectionGroup = function(group) {
-        this.__selectionGroup = group;
-    };
-
-    Autocomplete.prototype.init = function() {
-        var self = this;
-        var lastValue = null;
-
-        tuna.dom.addEventListener(this.__input, 'keyup', function(event) {
-            if (this.value !== lastValue) {
-                lastValue = this.value;
-
-                self.__applyFilter(lastValue);
-            }
-        });
-    };
-
-    Autocomplete.prototype.getCurrentItem = function() {
-        var index = this.__selectionGroup.getLastSelectedIndex();
-        if (index !== -1) {
-            return this.__filteredData[index];
-        } else {
-            return null;
+            this.dispatch('change');
         }
     };
 
-    Autocomplete.prototype.__applyFilter = function(term) {
-        this.__filteredData = this.__filterData(term)
-        this.__transformer.applyTransform(this.__filteredData);
+    Autocomplete.prototype.selectIndex = function(index) {
+        if (this._currentData.length > 0) {
+            this.__selectedData = this._currentData[index];
+            this._input.value = this._filterCallback(this.__selectedData);
+
+            this.dispatch('change');
+        }
+    };
+
+    Autocomplete.prototype.clearSelection = function() {
+        if (this.__selectedData !== null) {
+            this.__selectedData = null;
+
+            this.dispatch('change');
+        }
+    };
+
+    Autocomplete.prototype.update = function() {
+        ui.Filtration.prototype.update.call(this);
         this.__selectionGroup.updateView();
     };
 
-    Autocomplete.prototype.__filterData = function(term) {
-        var result = [];
-
-        if (term.length === 0) {
-            result = this.__data;
-        } else {
-            var needle = term.toUpperCase();
-
-            var i = 0,
-                l = this.__data.length;
-
-            while (i < l) {
-                // TODO: Change login (do not check name)
-                if (this.__data[i].name.toUpperCase().indexOf(needle) !== -1) {
-                    result.push(this.__data[i]);
-                }
-
-                i++;
-            }
-        }
-
-        return result;
+    Autocomplete.prototype._handleKeyup = function(event) {
+        ui.Filtration.prototype._handleKeyup.call(this, event);
+        this.clearSelection();
     };
 
     ui.Autocomplete = Autocomplete;

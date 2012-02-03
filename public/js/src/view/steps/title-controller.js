@@ -4,11 +4,11 @@
         tuna.view.PageViewController.call(this, id);
     };
 
-    tuna.extend(TitleController, tuna.view.StepViewController);
+    tuna.utils.extend(TitleController, tuna.view.PageViewController);
 
     TitleController.prototype._requireModules = function() {
         this._container.requireModule('selection-group');
-        this._container.requireModule('image-popup');
+        this._container.requireModule('cake-image-popup');
     };
 
     tuna.view.registerController(new TitleController('title_step'));

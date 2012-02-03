@@ -1,22 +1,11 @@
 <div class="row">
-    <div class="span5">
+    <div class="span12">
         <h2>Оформление заказа!</h2>
     </div>
-    <div class="span7">
-        <a id="submit_order_button"
-           class="next-btn btn primary large pull-right">
-            Заказать!
-        </a>
-        <a class="j-navigation-link next-btn btn primary large pull-right"
-           data-href="recipe_step">
-            &laquo; Назад
-        </a>
-    </div>
 </div>
-
-<div class="row">
-    <div class="span7">
-        <form class="j-form" action="/api/" method="POST" target="support_frame">
+<form class="j-form" action="/api/" method="POST" target="support_frame">
+    <div class="row">
+        <div class="span7">
             <div class="j-form-message alert-message hidden"></div>
 
             <input type="hidden" name="method" value="orders.submit" />
@@ -25,7 +14,19 @@
             <input class="t-image"  type="hidden" name="image" />
             <input class="t-photo"  type="hidden" name="photo" />
             <input class="t-markup" type="hidden" name="markup" />
+
             <input class="t-recipe" type="hidden" name="recipe" />
+            <input class="t-bakery-id" type="hidden" name="bakery_id" />
+
+            <input class="t-campaign" type="hidden" name="campaign" />
+
+            <input class="t-cake-weight" type="hidden" name="cake_weight" />
+            <input class="t-cake-price" type="hidden" name="cake_price" />
+            <input class="t-cake-image" type="hidden" name="cake_image" />
+
+            <input class="t-user-id" type="hidden" name="user_id" />
+            <input class="t-user-network" type="hidden" name="network" />
+
 
             <fieldset>
                 <legend>Личная информация</legend>
@@ -33,7 +34,7 @@
                 <div class="j-name-input clearfix">
                     <label for="name">Имя *</label>
                     <div class="input">
-                        <input id="name" name="name" type="text" />
+                        <input id="name" name="name" type="text" class="t-user-name" />
                         <span class="j-message help-block">
                             Ваше настоящее имя.
                         </span>
@@ -64,42 +65,24 @@
             <fieldset>
                 <legend>Информация о доставке</legend>
 
-                <div class="j-city-input clearfix">
-                    <label for="city">Город *</label>
-                    <div class="input">
-                        <select id="city" name="city" class="t-city-list"></select>
-                        <span class="j-message help-block">
-                            Пока, только Санкт-Петербург и Москва.
-                        </span>
-                    </div>
-                </div>
-
                 <div class="j-address-input clearfix">
                     <label for="address">Адрес *</label>
                     <div class="input">
                         <textarea id="address" name="address" rows="2"></textarea>
                         <span class="j-message help-block">
-                            Стоимость доставки: 450 рублей.
+                            Куда нужно везти торт.
                         </span>
                     </div>
                 </div>
 
-                <div class="j-date-input clearfix">
+                <div class="j-date-input j-tim            <!-- убрать в будущем когда у cake будет id -->
+e-input clearfix">
                     <label for="date">Дата *</label>
                     <div class="input">
-                        <input id="date" class="j-datepicker" name="date" type="text"/>
+                        <input id="date" class="j-datepicker small" name="date" type="text"/>
 
-                        <span class="j-message help-block">
-                            День, в который курьер привезет торт.
-                        </span>
-                    </div>
-                </div>
-
-                <div class="j-time-input clearfix">
-                    <label for="time">Время *</label>
-                    <div class="input">
-                        <select id="time" name="time">
-                            <option value="-1"></option>
+                        <select id="time" name="time" class="small-rest">
+                            <option value="-1">и время</option>
                             <option value="36000">10:00 - 12:00</option>
                             <option value="43200">12:00 - 14:00</option>
                             <option value="50400">14:00 - 16:00</option>
@@ -109,7 +92,21 @@
                         </select>
 
                         <span class="j-message help-block">
-                            Время доставки.
+                            Когда нужно везти торт.
+                        </span>
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset>
+                <legend>Дополнительно</legend>
+
+                <div class="j-message-input clearfix">
+                    <label for="message">Текст открытки</label>
+                    <div class="input">
+                        <textarea id="message" name="message" rows="2"></textarea>
+                        <span class="j-message help-block">
+                            Записка к торту, если, например, торт в подарок.
                         </span>
                     </div>
                 </div>
@@ -123,47 +120,79 @@
                         </span>
                     </div>
                 </div>
-            </fieldset>
-        </form>
-    </div>
-    <div class="span5">
-        <div class="cake-image">
-            <img class="j-data-image-copy" alt="Загрузка тортика..."
-                 data-image-selector="#base_cake_image" />
-        </div>
 
-        <div class="cake-price">
-            <h3>
-                Цена торта:
-                <small>
-                    <span class="t-price"></span> (+450) рублей.
-                </small>
-            </h3>
+            </fieldset>
+        </div>
+        <div class="span5">
+            <div class="cake-image">
+                <img class="j-data-image-copy t-cake-image" alt="Загрузка тортика..."
+                     data-image-selector="#base_cake_image" />
+            </div>
+
+            <div class="cake-price">
+                <h3>Цена</h3>
+
+                <table class="condensed-table">
+                    <tr>
+                        <th>Оформление: </th>
+                        <td><span class="t-deco-price">0</span> рублей</td>
+                    </tr>
+                    <tr>
+                        <th>Рецепт: </th>
+                        <td><span class="t-recipe-price">0</span> рублей</td>
+                    </tr>
+                    <tr>
+                        <th>Доставка: </th>
+                        <td><span class="t-delivery-price">0</span> рублей</td>
+                    </tr>
+                    <tr>
+                        <th>Итого: </th>
+                        <td><span class="t-total-price">0</span> рублей</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="order-navigation">
+                <input type="submit" class="next-btn btn primary large pull-right" value="Заказать!" />
+
+                <a class="j-navigation-back next-btn btn primary large pull-right">
+                    &laquo; Назад
+                </a>
+            </div>
+
         </div>
     </div>
- </div>
+    <div class="row">
+        <div class="span12">
+
+        </div>
+    </div>
+</form>
 
 <div class="hidden">
-    <select>
-        <option id="option_renderer" class="t-value"></option>
-    </select>
-
     <tuna:template id="order_template">
-        <tuna:attr tuna:name="value" tuna:target="t-image" tuna:path="cake/image_base64" />
-        <tuna:attr tuna:name="value" tuna:target="t-photo" tuna:path="cake/photo_base64" />
-        <tuna:attr tuna:name="value" tuna:target="t-markup" tuna:path="cake/markup_json" />
+        <tuna:attr tuna:name="value" tuna:target="t-image" tuna:path="cake/imageBase64" />
+        <tuna:attr tuna:name="value" tuna:target="t-photo" tuna:path="cake/photoBase64" />
+        <tuna:attr tuna:name="value" tuna:target="t-markup" tuna:path="cake/markupJson" />
+
         <tuna:attr tuna:name="value" tuna:target="t-recipe" tuna:path="recipe/name" />
+        <tuna:attr tuna:name="value" tuna:target="t-bakery-id" tuna:path="bakery/id" />
 
-        <tuna:spot tuna:target="t-price" tuna:path="price" />
+        <tuna:attr tuna:name="value" tuna:target="t-campaign" tuna:path="campaign" />
 
-        <tuna:list tuna:target="t-city-list" tuna:path="cities"
-                   tuna:item-renderer-id="option_renderer"
-                   tuna:item-template-id="city_item_template"
-                   tuna:key-path="$key" />
-    </tuna:template>
+        <tuna:attr tuna:name="value" tuna:target="t-cake-weight" tuna:path="cake/weight" />
+        <tuna:attr tuna:name="value" tuna:target="t-cake-image" tuna:path="cake/imageUrl" />
 
-    <tuna:template id="city_item_template">
-        <tuna:attr tuna:name="value" tuna:target="t-value" tuna:path="id" />
-        <tuna:spot tuna:target="t-value" tuna:path="name" />
+        <tuna:attr tuna:name="value" tuna:target="t-cake-price" tuna:path="payment/totalPrice" />
+
+        <tuna:attr tuna:name="value" tuna:target="t-user-name" tuna:path="user/name" />
+        <tuna:attr tuna:name="value" tuna:target="t-user-id" tuna:path="user/id" />
+        <tuna:attr tuna:name="value" tuna:target="t-user-network" tuna:path="user/network" />
+
+        <tuna:spot tuna:target="t-total-price"    tuna:path="payment/totalPrice" />
+        <tuna:spot tuna:target="t-deco-price"     tuna:path="payment/decoPrice" />
+        <tuna:spot tuna:target="t-recipe-price"   tuna:path="payment/recipePrice" />
+        <tuna:spot tuna:target="t-delivery-price" tuna:path="payment/deliveryPrice" />
+
     </tuna:template>
 </div>

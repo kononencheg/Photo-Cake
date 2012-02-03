@@ -5,46 +5,41 @@
     </li>
     <li>
        <a id="wall_post_link" class="btn primary large">
-           Запостить на стену
+           Запостить в ленту
        </a>
     </li>
     <li>
-        <a class="j-popup btn primary large"
+        <a class="j-friends-popup j-popup btn primary large"
            data-popup-selector="#friend_list_popup">
             Послать другу
         </a>
     </li>
     <li>
-        <form action="/api/?method=utils.base64Echo"
-              target="_blank" method="POST">
-            
+        <form action="/api/" target="_blank" method="POST">
+            <input type="hidden" name="method" value="utils.base64Echo" />
             <input type="hidden" name="type" value="image/jpeg" />
             <input type="hidden" name="is_downloading" value="true" />
             <input id="download_data_input" type="hidden" name="data" />
-
-            <input type="submit" class="download-button btn primary large"
-                   value="Скачать" />
+            <input type="submit" class="btn primary large" value="Скачать" />
         </form>
     </li>
     <li>
-        <a class="j-navigation-link btn primary large" data-href="designer_step">
+        <a class="j-navigation-back btn primary large">
             &laquo; Назад
         </a>
     </li>
 </ul>
 
-<div id="friend_list_popup"
-     class="j-selection-group j-autocomplete popup"
+<div id="friend_list_popup" class="j-filtration popup"
      data-template-id="friends_autocomplete_template">
 
     <div class="overlay"></div>
     <div class="modal">
         <div class="modal-header friends-popup-header">
-            <a href="#" class="j-popup-close close">&times;</a>
-            <h3 class="friends-popup-title">Выберите друга!</h3>
+            <h3 class="friends-popup-title">Выберите кому отослать!</h3>
 
             <label class="friends-search">
-                <input class="j-autocomplete-input" data-list-selector=""
+                <input class="j-filtration-input"
                        type="text" placeholder="Имя друга" />
             </label>
         </div>
@@ -53,9 +48,6 @@
         </div>
         <div class="modal-footer">
             <a href="#" class="j-popup-close btn">Закрыть</a>
-            <a href="#" class="j-popup-apply btn primary">
-                Выбрать
-            </a>
         </div>
     </div>
 </div>
@@ -72,7 +64,10 @@
     <tuna:template id="friend_item_template">
         <tuna:spot tuna:target="t-user-name" tuna:path="name" />
         <tuna:attr tuna:target="t-userpic" tuna:name="src"
-                   tuna:path="userpic" />
+                   tuna:path="userpicUrl" />
+
+        <tuna:attr tuna:target="t-user-id" tuna:name="data-user-id"
+                   tuna:path="id" />
     </tuna:template>
 </div>
 

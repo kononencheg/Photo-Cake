@@ -1,90 +1,37 @@
 (function() {
 
     var ShareController = function(id) {
-        tuna.view.StepViewController.call(this, id);
-
-        this.__friendsAutocomplete = null;
+        tuna.view.PageViewController.call(this, id);
 
         this.__wallPostMethod = null;
+        this.__imageData = null;
     };
 
-    tuna.extend(ShareController, tuna.view.StepViewController);
+    tuna.utils.extend(ShareController, tuna.view.PageViewController);
 
-    ShareController.prototype.canGoNext = function() {
-        return true;
-    };
+    ShareController.prototype.open = function() {
+        var currentCake = model.cakes.getCurrentCake();
+        this.__imageData = currentCake.imageBase64;
 
-    ShareController.prototype._bootstrap = function() {
-        this.init();
+        var downloadDataInput = tuna.dom.selectOne('#download_data_input');
+        downloadDataInput.value = this.__imageData;
     };
 
     ShareController.prototype._requireModules = function() {
-        this._container.requireModule('autocomplete');
         this._container.requireModule('data-image-copy');
-        this._container.requireModule('popup');
+        this._container.requireModule('friends-popup');
     };
 
     ShareController.prototype._initActions = function() {
-        this.__friendsAutocomplete
-            = this._container.getOneModuleInstance('autocomplete');
+        var friendsPopup = this._container.getOneModuleInstance('friends-popup');
 
-        this.__initFriendsPopup();
-        this.__loadFriendsData();
-
-        this.__initWallPost();
-    };
-
-    ShareController.prototype.__initWallPost = function() {
-        var self = this;
-
-        this.__wallPostMethod
-            = tuna.rest.factory.createMethod('social.wall.post');
-
-        this.__wallPostMethod.addEventListener('result', function() {
-            alert('Торт успешно опубликован!')
-        });
-
-        var wallPostLink = tuna.dom.selectOne('#wall_post_link');
-        tuna.dom.addEventListener(wallPostLink, 'click', function(event) {
-            tuna.dom.preventDefault(event);
-
-            self.__wallPostMethod.call({
-                'image_data': model.cakes.getCurrentCake().image_base64
-            });
-        });
-    };
-
-    ShareController.prototype.open = function() {
-        var downloadDataInput = tuna.dom.selectOne('#download_data_input');
-        downloadDataInput.value = model.cakes.getCurrentCake().image_base64;
-    };
-
-    ShareController.prototype.__initFriendsPopup = function() {
-        var self = this;
-        var popup = this._container.getOneModuleInstance('popup');
-        
-        popup.addEventListener('popup-close', function() {
-            self.__friendsList.clearSelection();
-        });
-
-        popup.addEventListener('popup-apply', function() {
-            var selectedFriend = self.__friendsAutocomplete.getCurrentItem();
-            if (selectedFriend !== null) {
-                self.__wallPostMethod.call({
-                    'image_data': model.cakes.getCurrentCake().image_base64,
-                    'user_id': selectedFriend.id
-                });
+        tuna.dom.addEventListener(
+            tuna.dom.selectOne('#wall_post_link'), 'click', function(event) {
+                tuna.dom.preventDefault(event);
+                friendsPopup.postImage();
             }
-        });
+        );
     };
-
-    ShareController.prototype.__loadFriendsData = function() {
-        var self = this;
-        tuna.rest.call('social.friends.get', function(result) {
-            self.__friendsAutocomplete.setData(result);
-        });
-    };
-
 
     tuna.view.registerController(new ShareController('share_step'));
 })();

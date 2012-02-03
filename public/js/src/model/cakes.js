@@ -1,31 +1,41 @@
 (function() {
 
-    tuna.namespace('model');
-
     var Cakes = function() {
-        tuna.model.Resource.call(this);
+        this.__currentCake = null;
     };
 
-    tuna.extend(Cakes, tuna.model.Resource);
+    Cakes.prototype.createCake = function(markupJSON, imageBase64,
+                                          photoBase64) {
 
-    Cakes.prototype.saveCurrentCake = function(markupJSON, imageBase64,
-                                               photoBase64) {
         var markup = JSON.parse(markupJSON);
-        var cake = {
-            'markup_json': markupJSON,
-            'image_base64': imageBase64,
-            'photo_base64': photoBase64,
-            'dimensions': markup.dimensions,
-            'content': markup.content
-        };
 
-        this.__storage.set('current_cake', cake);
+        var cake = new model.records.Cake();
+        cake.markupJson = markupJSON;
+        cake.imageBase64 = imageBase64;
+        cake.photoBase64 = photoBase64;
+
+        cake.content = markup.content;
+
+        cake.weight = markup.dimensions.mass;
+        cake.personsCount = markup.dimensions.persons_count;
 
         return cake;
     };
 
+    Cakes.prototype.createCampaingCake = function(weight, imageUrl) {
+        var cake = new model.records.Cake();
+        cake.weight = weight;
+        cake.imageUrl = imageUrl;
+
+        return cake;
+    };
+
+    Cakes.prototype.setCurrentCake = function(cake) {
+        this.__currentCake = cake;
+    };
+
     Cakes.prototype.getCurrentCake = function() {
-        return this.__storage.get('current_cake');
+        return this.__currentCake;
     };
 
     model.cakes = new Cakes();

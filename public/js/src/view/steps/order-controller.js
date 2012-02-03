@@ -4,9 +4,10 @@
         tuna.view.PageViewController.call(this, id);
 
         this.__form = null;
+        this.__cakeImage = null;
     };
 
-    tuna.extend(OrderController, tuna.view.StepViewController);
+    tuna.utils.extend(OrderController, tuna.view.PageViewController);
 
     OrderController.prototype._requireModules = function() {
         this._container.requireModule('data-image-copy');
@@ -16,39 +17,46 @@
 
     OrderController.prototype._initActions = function() {
         var self = this;
+        var isConfirmed = false;
 
         this.__form = this._container.getOneModuleInstance('form');
-        this.__form.addEventListener('result', function() {
-            alert('Спасибо за заказ! Пожалуйста, ожидайте звонка!');
-            self._navigation.selectIndex('title_step');
+        this.__form.addEventListener('result', function(event, result) {
+            self._navigation.navigate('result_step', result.cake);
+
+            isConfirmed = false;
         });
 
-        tuna.dom.addEventListener(
-            tuna.dom.selectOne('#submit_order_button'), 'click', function() {
-                if (confirm('Вы уверены что правильно заполнили все поля?')) {
-                    self.__form.submit();
-                }
+        this.__form.addEventListener('error', function() {
+            isConfirmed = false;
+        });
+
+        this.__form.addEventListener('submit', function(event) {
+            if (!isConfirmed) {
+                event.preventDefault();
+
+                ui.Popup.confirm(
+                    'Вы уверены что правильно заполнили все поля?',
+                    function() {
+                        isConfirmed = true;
+                        self.__form.submit();
+                    }
+                );
             }
-        );
-
-        var self = this;
-        tuna.rest.call('cities.getList', function(result) {
-            model.cities.setCities(result);
-            self.__updateView();
         });
+
+        this.__cakeImage
+            = this._container.getOneModuleInstance('data-image-copy');
     };
 
-    OrderController.prototype.open = function() {
-        this.__updateView();
-    };
+    OrderController.prototype.open = function(args) {
+        if (args.image !== undefined) {
+            this.__cakeImage.src = args.image;
 
-    OrderController.prototype.__updateView = function() {
-        this._container.applyData({
-            'recipe': model.orders.getCurrentRecipe(),
-            'price':  model.orders.getPrice(),
-            'cake':   model.cakes.getCurrentCake(),
-            'cities': model.cities.getCities()
-        });
+            var cake = model.cakes.createCampaingCake(args.weight, args.image);
+            model.orders.updateCampaignOrder(args.campaign, cake, args.price);
+        }
+
+        this._container.applyData(model.orders.getOrder());
     };
 
     tuna.view.registerController(new OrderController('order_step'));

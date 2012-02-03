@@ -1,21 +1,26 @@
-<?php $app = $this->session->get('app') ?>
+<script type="text/javascript" src="/js/src/rest/social/ok/users/get-current.js"></script>
 
-<script type="text/javascript" src="/js/src/rest/ok/ok-method-factory.js"></script>
+<script type="text/javascript" src="/js/src/ui/modules/social/ok/friends-popup.js"></script>
 
-<script type="text/javascript" src="/js/src/rest/ok/friends/get-list.js"></script>
-
-<script type="text/javascript" src="/js/src/rest/ok/wall/post.js"></script>
-
-<!--script src="<?php echo $app['api_server'] ?>js/fapi.js" type="text/javascript"></script-->
+<script src="<?php echo $this->request->get('api_server') ?>js/fapi.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+    FAPI.init(
+        '<?php echo $this->request->get('api_server') ?>',
+        '<?php echo $this->request->get('apiconnection') ?>',
+        function() {
+            main(<?php echo json_encode($this->request->get()) ?>);
+            FAPI.Client.initialize();
 
-    //FAPI.init(
-     //   '<?php echo $app['api_server'] ?>',
-    //    '<?php echo $app['apiconnection'] ?>',
-    //    function() {
-    //        FAPI.Client.initialize();
-            main();
-    //    }
-    //);
+            var args = tuna.utils.сonfig.get('custom_args')
+            if (args !== null) {
+                var url = args.split('ok_cake_url=').pop().split('&').shift();
+                ui.Popup.alert(
+                    '<img src="http://files.fotonatorte.ru/ok-image/' +
+                            url + '" alt="Мой тортик!" />'
+                )
+            }
+        }
+    );
+
 </script>

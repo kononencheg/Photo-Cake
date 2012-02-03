@@ -5,9 +5,9 @@
             (this, 'data-image-copy', 'img.j-data-image-copy');
     };
 
-    tuna.extend(DataImageCopy, tuna.ui.modules.Module);
+    tuna.utils.extend(DataImageCopy, tuna.ui.modules.Module);
 
-    DataImageCopy.prototype._initInstance = function(target) {
+    DataImageCopy.prototype.initInstance = function(target) {
         var imageSelector = target.getAttribute('data-image-selector');
         if (imageSelector !== null) {
             var currentImage = target;

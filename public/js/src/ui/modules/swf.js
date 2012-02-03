@@ -4,11 +4,11 @@
         tuna.ui.modules.Module.call(this, 'swf', '.j-swf');
     };
 
-    tuna.extend(SWF, tuna.ui.modules.Module);
+    tuna.utils.extend(SWF, tuna.ui.modules.Module);
 
     SWF.ID_PREFIX = "movie_";
 
-    SWF.prototype._initInstance = function(target, container, options) {
+    SWF.prototype.initInstance = function(target, container, options) {
         var flashvars = null;
         var params = null;
         var width = null;

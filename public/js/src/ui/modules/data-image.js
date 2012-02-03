@@ -4,9 +4,9 @@
         tuna.ui.modules.Module.call(this, 'data-image', 'img.j-data-image');
     };
 
-    tuna.extend(DataImage, tuna.ui.modules.Module);
+    tuna.utils.extend(DataImage, tuna.ui.modules.Module);
 
-    DataImage.prototype._initInstance = function(target, container, options) {
+    DataImage.prototype.initInstance = function(target, container, options) {
         return ui.DataImage.create(target);
     };
 

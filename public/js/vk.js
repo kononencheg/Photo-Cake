@@ -1,34 +1,12 @@
 (function() {
 
-    tuna.namespace('rest.vk');
-
-    var VKMethodFactory = function() {};
-
-    tuna.implement(VKMethodFactory, tuna.rest.IMethodFactory);
-
-    VKMethodFactory.prototype.createMethod = function(name) {
-        switch (name) {
-            case 'social.friends.get': return new rest.vk.friends.GetList();
-            case 'social.wall.post': return new rest.vk.wall.Post();
-        }
-
-        return null;
-    };
-
-    rest.vk.VKMethodFactory = VKMethodFactory;
-
-})();
-(function() {
-
-    tuna.namespace('rest.vk');
-
     var VKMethod = function(name) {
-        tuna.rest.RemoteMethod.call(this, name);
+        tuna.rest.Method.call(this, name);
 
-        this._handleResponse = tuna.bind(this._handleResponse, this);
+        this._handleResponse = tuna.utils.bind(this._handleResponse, this);
     };
 
-    tuna.extend(VKMethod, tuna.rest.RemoteMethod);
+    tuna.utils.extend(VKMethod, tuna.rest.Method);
 
     VKMethod.prototype.call = function(args) {
         VK.api(this._name, this._completeArguments(args), this._handleResponse);
@@ -50,18 +28,66 @@
         return null;
     };
 
-    rest.vk.VKMethod = VKMethod;
+    rest.social.vk.VKMethod = VKMethod;
 
 })();
 (function() {
 
-    tuna.namespace('rest.vk.friends');
+    var GetCurrent = function() {
+        rest.social.vk.VKMethod.call(this, 'getProfiles');
 
-    var GetList = function() {
-        rest.vk.VKMethod.call(this, 'friends.get');
+        this.__user = null;
+
+        this.__handleCity = tuna.utils.bind(this.__handleCity, this);
     };
 
-    tuna.extend(GetList, rest.vk.VKMethod);
+    tuna.utils.extend(GetCurrent, rest.social.vk.VKMethod);
+
+    GetCurrent.prototype._completeArguments = function(args) {
+        return {
+            'fields': 'uid,first_name,last_name,city',
+            'uid': tuna.utils.сonfig.get('viewer_id')
+        };
+    };
+
+    GetCurrent.prototype._handleResponse = function(data) {
+        if (data.response !== undefined) {
+            var value = data.response[0];
+
+            this.__user = new model.records.User();
+            this.__user.id = value.uid;
+            this.__user.name = value.first_name + ' ' + value.last_name;
+            this.__user.userpicUrl = value.photo;
+            this.__user.network = 'vk';
+
+            VK.api('places.getCityById', {
+                'cids': value.city
+            }, this.__handleCity);
+
+        } else {
+            this.dispatch('error', data);
+        }
+    };
+
+    GetCurrent.prototype.__handleCity = function(data) {
+        if (data.response !== undefined) {
+            this.__user.city = data.response[0].name;
+            this.dispatch('result', this.__user);
+        } else {
+            this.dispatch('error', data);
+        }
+    };
+
+    tuna.rest.factory.addMethod('social.users.getCurrent', new GetCurrent())
+
+})();
+(function() {
+
+    var GetList = function() {
+        rest.social.vk.VKMethod.call(this, 'friends.get');
+    };
+
+    tuna.utils.extend(GetList, rest.social.vk.VKMethod);
 
     GetList.prototype._completeArguments = function(args) {
         return { 'fields': 'uid,first_name,last_name,photo' };
@@ -70,25 +96,32 @@
     GetList.prototype._mapResponse = function(response) {
         var result = [];
 
+        var i = 0,
+            l = response.length;
+
         var value = null;
-        for (var i in response) {
+        var user = null;
+        while (i < l) {
             value = response[i];
-            result.push({
-                'id': value.uid,
-                'name': value.first_name + ' ' + value.last_name,
-                'userpic': value.photo
-            });
+
+            user = new model.records.User();
+            user.id = value.uid;
+            user.name = value.first_name + ' ' + value.last_name;
+            user.userpicUrl = value.photo;
+
+            result.push(user);
+
+            i++;
         }
+
 
         return result;
     };
 
-    rest.vk.friends.GetList = GetList;
+    tuna.rest.factory.addMethod('social.friends.get', new GetList())
 
 })();
 (function() {
-
-    tuna.namespace('rest.vk.wall');
 
     var Post = function() {
         rest.CommonMethod.call(this, 'social.vk.uploadImage');
@@ -96,17 +129,17 @@
         this.__userID = null;
         this.__imageData = null;
 
-        this.__handleSavePhoto = tuna.bind(this.__handleSavePhoto, this);
-        this.__handleWallPost  = tuna.bind(this.__handleWallPost, this);
-        this.__handleUploadURL = tuna.bind(this.__handleUploadURL, this);
+        this.__handleSavePhoto = tuna.utils.bind(this.__handleSavePhoto, this);
+        this.__handleWallPost  = tuna.utils.bind(this.__handleWallPost, this);
+        this.__handleUploadURL = tuna.utils.bind(this.__handleUploadURL, this);
     };
 
-    tuna.extend(Post, rest.CommonMethod);
+    tuna.utils.extend(Post, rest.CommonMethod);
 
     Post.prototype.call = function(args) {
         if (args !== undefined) {
             this.__userID = args.user_id || null;
-            this.__imageData = args.image_data || null;
+            this.__imageData = args.image || null;
         }
 
         var params = {};
@@ -167,6 +200,6 @@
         }
     };
 
-    rest.vk.wall.Post = Post;
+    tuna.rest.factory.addMethod('social.wall.post', new Post())
 
 })();

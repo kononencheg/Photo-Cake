@@ -1,9 +1,7 @@
 (function() {
 
-    tuna.namespace('rest');
-
     var CommonMethod = function(name) {
-        tuna.rest.RemoteMethod.call(this, name);
+        tuna.rest.Method.call(this, name);
 
         this.__request = new tuna.net.Request();
         this.__request.method = 'POST';
@@ -16,7 +14,7 @@
         });
     };
 
-    tuna.extend(CommonMethod, tuna.rest.RemoteMethod);
+    tuna.utils.extend(CommonMethod, tuna.rest.Method);
 
     CommonMethod.prototype.call = function(args) {
         this.__request.setData(args);

@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('ui.forms');
 
     var FormInput = function(target) {
         this.__target = target;

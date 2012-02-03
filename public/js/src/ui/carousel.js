@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('ui');
 
     /*var Carousel = function(listElement, overflowElement, itemSelector, targetSelector) {
         tuna.ui.ItemSelector.call(this, listElement, itemSelector);
@@ -7,7 +6,7 @@
         this.__overflow = overflowElement;
     };
 
-    tuna.extend(Carousel, tuna.ui.ItemSelector);
+    tuna.utils.extend(Carousel, tuna.ui.ItemSelector);
 
     Carousel.prototype._selectAt = function(i) {
         tuna.ui.ItemSelector.prototype._selectAt.call(this, i);

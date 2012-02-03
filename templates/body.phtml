@@ -6,12 +6,12 @@
                      alt="Фото на торте!" />
 
                 <small>
-                    <q class="main-subtitle">Торты на заказ:</q>
-                    <q class="main-subtitle">Ваш дизайн - наше исполнение!</q>
+                    <q class="main-subtitle">Дизайнерские сладости на</q>
+                    <q class="main-subtitle">День святого Валентина!</q>
                 </small>
             </h1>
 
-            <?php if ($this->session->get('network') === NULL) {?>
+            <?php if ($this->request->get('network') === NULL) {?>
                 <script type="text/javascript" src="http://yandex.st/share/share.js"></script>
                 <div id="share" class="share-block">
                     <div class="share-title">Поделитесь с друзьями:</div>
@@ -29,7 +29,16 @@
              class="j-navigation-page j-transform-container row step current">
 
             <div class="span12">
-                <?php $this->render('steps/title') ?>
+
+                <?php switch ($this->request->get('campaign')) {
+                    case 'vkval':
+                    case 'yaval': {
+                        $this->render('steps/campaign/title');
+                        break;
+                    }
+                    default: { $this->render('steps/title'); }
+                } ?>
+
             </div>
         </div>
 
@@ -58,6 +67,12 @@
 
             <?php $this->render('steps/order') ?>
         </div>
+
+        <div id="result_step" data-init-event="ui-navigate"
+             class="j-navigation-page j-transform-container row step">
+
+            <?php $this->render('steps/result') ?>
+        </div>
     </div>
 </div>
 
@@ -76,17 +91,17 @@
      </div>
  </div>
 
-
-
 <div class="hidden">
     <select>
         <option id="option_renderer" class="t-option"></option>
     </select>
 
     <ul>
-        <li id="friend_item_renderer" class="j-autocomplete-item">
-            <img class="t-userpic userpic" alt="Фото друга"/>
+        <li id="friend_item_renderer">
+            <img class="t-userpic userpic" alt="Фото друга"
+                 width="50" height="50"/>
             <span class="t-user-name"></span>
+            <a class="t-user-id j-send-button send-cake-button pull-right">Отправить</a>
         </li>
         <li id="recipe_renderer">
             <a class="recipe-tile">
@@ -100,7 +115,14 @@
                 </label>
             </a>
         </li>
+        <li id="city_item_renderer" class="j-autocomplete-item">
+           <a class="t-name"></a>
+        </li>
     </ul>
 </div>
 
 
+<?php switch ($this->request->get('campaign')) {
+   case 'vkval':{ $this->render('counters/vkval'); break; }
+   case 'yaval': { $this->render('counters/yaval'); break; }
+} ?>

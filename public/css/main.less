@@ -3,6 +3,7 @@
  */
 
 .page-header {
+    margin-bottom: 0px;
     background: #eeeeee;
     height: 120px;
     border: 0;
@@ -42,7 +43,7 @@
     overflow: hidden;
     left: -1px;
 
-    height: 665px;
+    height: 775px;
     width: 1px;
 
     &.current {
@@ -61,7 +62,13 @@
     overflow: hidden;
 
     h3 {
+        display: inline;
         margin-left: 40px;
+    }
+
+    h4 {
+        display: inline;
+        margin-left: 150px;
     }
 }
 
@@ -126,7 +133,7 @@
 
 
 .application-intro {
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .title-image {
@@ -175,11 +182,6 @@
     padding: 5px;
 }
 
-.share-menu .download-button {
-    font-family: "Times New Roman";
-    width: auto;
-}
-
 .friend-list-overlay {
     height: 205px;
     overflow: auto;
@@ -187,6 +189,7 @@
 
 .friend-list li {
     color: #000000;
+    height: 60px;
 
     img {
         padding: 5px;
@@ -202,11 +205,12 @@
 }
 
 .friends-popup-title {
+    padding-top: 6px;
     float: left;
 }
 
 .friends-search {
-    padding-left: 150px;
+    padding-left: 85px;
 }
 
 .userpic {
@@ -254,7 +258,7 @@
 }
 
 .next-btn {
-    margin-right: 30px;
+    margin-right: 20px;
 }
 
 /**
@@ -352,7 +356,7 @@ i {
 
 .share-block {
     float: right;
-    margin: 30px;
+    margin: 25px;
 }
 
 #share .b-share-icon {
@@ -382,6 +386,156 @@ i {
 }
 
 .share-title {
-    font-size: large;
+    width: 210px;
     margin-left: 5px;
+
+    color: @header-color;
+
+    font-size: large;
+    font-style: italic;
+    font-weight: normal;
+
+    line-height: 27px;
 }
+
+.modal-body .clearfix {
+    .clearfix();
+}
+
+#city_selection_popup ul {
+    width: 245px;
+    border: 1px solid #ccc;
+
+    .current {
+        background-color: #750000;
+        
+        a { color: @white; }
+    }
+
+    a {
+        display: block;
+        width: 100%;
+        color: @black;
+
+        &:hover {
+            background-color: @linkColor;
+            color: @white;
+            text-decoration: none;
+        }
+    }
+}
+
+.cake-price {
+    padding-top: 10px;
+
+    table {
+        margin-top: 5px;
+
+        width: 200px;
+
+        border: none;
+
+        th {
+            border: none;
+        }
+
+        td {
+            border: none;
+            color: @dynamic-color;
+        }
+    }
+}
+
+.cake-weight h3 {
+    display: inline;
+}
+
+.order-navigation {
+    padding-top: 150px;
+    padding-right: 5px;
+}
+
+input.btn {
+    font-family: "Times New Roman";
+    width: auto;
+}
+
+.send-cake-button {
+    padding-top: 16px;
+    cursor: pointer;
+}
+
+#cake_image_popup .modal-body {
+    height: 350px;
+    overflow: hidden;
+
+    .image-container {
+        width: 10000px;
+        overflow: hidden;
+        height: 350px;
+    }
+
+    img {
+        height: 100%;
+        display: block;
+        float: left;
+    }
+
+}
+
+#alert_popup .modal-body {
+    text-align: center;
+}
+
+.detailed-comment {
+    color: @header-color;
+    font-style: italic;
+    padding: 0;
+}
+
+.campaign-list {
+    margin-top: 30px;
+
+    .cake-info {
+        vertical-align: middle;
+        line-height: 30px;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .cake {
+        display: block;
+        .square(110px);
+        
+        img {
+            position: absolute;
+        }
+
+
+    }
+
+    .cake-price {
+        display: none;
+        position: absolute;
+        padding: 0;
+
+        background-color: @black;
+        .square(110px);
+        .opacity(50);
+
+        color: @white;
+        font-size: large;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 110px;
+    }
+
+    li:hover .cake-price {
+        display: block;
+    }
+}
+
+.intro.span4 {
+    margin-left: 40px;
+}
+
