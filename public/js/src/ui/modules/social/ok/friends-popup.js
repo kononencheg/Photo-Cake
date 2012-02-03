@@ -115,6 +115,9 @@
     FriendsPopup.prototype.__post = function(photo) {
         var url = photo ? this.__parsePhotoUrl(photo.standard_url) : 'url';
         var request = {
+            'application_key': FAPI.Client.applicationKey,
+            'session_key': FAPI.Client.sessionKey,
+            'format': FAPI.Client.format,
             'method' : 'stream.publish',
             'message': 'Смотрите какой у меня получился торт!',
             'attachment': JSON.stringify({
@@ -124,13 +127,15 @@
             'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': 'action=create' }])
         };
 
-        var sig = FAPI.Util.calcSignature(request);
+        var sig = FAPI.Util.calcSignature(request, FAPI.Client.sessionSecretKey);
 
         window.API_callback = function(method, status, resig) {
             if(status == 'ok') {
                 FAPI.Client.call(request, function(status, data, error) {
                     if (status === 'ok') {
                         ui.Popup.alert('Торт успешно опубликован!');
+                    } else {
+                        ui.Popup.alert(JSON.stringify(error));
                     }
                 }, resig);
             }

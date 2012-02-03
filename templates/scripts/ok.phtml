@@ -23,40 +23,4 @@
         }
     );
 
-    function API_callback(status, method, attr) {
-        StreamPublish(attr);
-    }
-
-    var spMethodParams;
-    function StreamPublish(resig){
-        var params = spMethodParams || {};
-
-        FAPI.Client.call(params, function(status, data, error) {
-            if (status=="ok"){
-                alert("Published successfully");
-            } else{
-                alert("ERROR : " + error.error_msg + "(" + error.error_code + ")");
-            }
-        }, resig);
-    }
-
-    function PrepareStreamPublish(){
-        spMethodParams = {
-            "method":"stream.publish",
-            "message":"Sample post!"
-        };
-
-
-        var params = spMethodParams || {};
-        params["application_key"] = FAPI.Client.applicationKey;
-        params["session_key"] = FAPI.Client.sessionKey;
-        params["format"] = FAPI.Client.format;
-
-        return FAPI.Util.calcSignature(params, FAPI.Client.sessionSecretKey);
-    }
-
-
 </script>
-
-<input type="button" onclick="FAPI.UI.showConfirmation('stream.publish','Application will submit news feed', PrepareStreamPublish());" value="Stream Publish">
-
