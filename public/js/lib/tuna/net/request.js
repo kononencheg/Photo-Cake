@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.net');
 
     var Request = function(url) {
         tuna.events.EventDispatcher.call(this);
@@ -53,8 +52,8 @@
         this.__request = null;
     };
 
-    tuna.implement(Request, tuna.net.IRequest);
-    tuna.extend(Request, tuna.events.EventDispatcher);
+    tuna.utils.implement(Request, tuna.net.IRequest);
+    tuna.utils.extend(Request, tuna.events.EventDispatcher);
 
     Request.prototype.setData = function(data) {
         this.__data = data;
@@ -90,7 +89,7 @@
         }
 
         //Инициализируем запрос.
-        var request = !tuna.IS_IE ?
+        var request = !tuna.utils.IS_IE ?
                         new XMLHttpRequest() :
                         new ActiveXObject('Microsoft.XMLHTTP');
 

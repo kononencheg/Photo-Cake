@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.ui.selection');
 
     var ISelectionGroup = function() {};
 

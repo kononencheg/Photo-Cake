@@ -7,10 +7,8 @@
 
 (function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var Template = function(rootTemplate) {
-        tuna.tmpl.unit.CompiledUnit.call(this, rootTemplate || this);
+        tuna.tmpl.units.CompiledUnit.call(this, rootTemplate || this);
 
         this.__items = [];
 
@@ -20,7 +18,7 @@
         this.__target = null;
     };
 
-    tuna.extend(Template, tuna.tmpl.unit.CompiledUnit);
+    tuna.utils.extend(Template, tuna.tmpl.units.CompiledUnit);
 
     Template.prototype.setTarget = function(element) {
         this.__target = element;
@@ -69,5 +67,5 @@
         this.getRootTemplate().registerChildRemoval(this.__target);
     };
 
-    tuna.tmpl.unit.Template = Template;
+    tuna.tmpl.units.Template = Template;
 })();

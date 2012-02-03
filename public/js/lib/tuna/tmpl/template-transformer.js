@@ -7,8 +7,6 @@
 
 (function() {
 
-    tuna.namespace('tuna.tmpl');
-
     /**
      * Template transformer binded to concrete HTML element.
      *
@@ -24,7 +22,7 @@
          * Compiled template.
          *
          * @private
-         * @type {tuna.tmpl.unit.Template}
+         * @type {tuna.tmpl.units.Template}
          */
         this.__core = null;
 
@@ -43,7 +41,7 @@
         this.__transformHandler = null;
     };
 
-    tuna.implement(TemplateTransformer, tuna.tmpl.ITransformer);
+    tuna.utils.implement(TemplateTransformer, tuna.tmpl.ITransformer);
 
     /**
      * Transform method.

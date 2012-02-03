@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.ui.container');
 
     var Container = function(target, parent) {
         this._target = target;
@@ -104,7 +103,7 @@
     };
 
     Container.prototype.__requireOneModule = function() {
-        var args = tuna.toArray(arguments);
+        var args = tuna.utils.toArray(arguments);
         var name = args.shift();
 
         if (this.__moduleArgs[name] === undefined) {

@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('tuna.ui.selection');
-
     var SelectionGroup = function(target, isMultiple, indexAttribute,
                                   itemSelector, selectedClass) {
 
@@ -32,7 +30,7 @@
         this._selectionRule.setSelectionView(this._selectionView);
     };
 
-    tuna.extend(SelectionGroup, tuna.ui.selection.AbstractSelectionGroup);
+    tuna.utils.extend(SelectionGroup, tuna.ui.selection.AbstractSelectionGroup);
 
     SelectionGroup.prototype.init = function() {
         this._selectionView.update();

@@ -1,10 +1,8 @@
 (function() {
 
-    tuna.namespace('tuna.tmpl.compile');
-
     var SpotCompiler = function() {};
 
-    tuna.implement(SpotCompiler, tuna.tmpl.compile.IItemCompiler);
+    tuna.utils.implement(SpotCompiler, tuna.tmpl.compilers.IItemCompiler);
 
     SpotCompiler.prototype.compile = function(element, settings, template) {
         var root = template.getRootTemplate();
@@ -29,7 +27,7 @@
     };
 
     SpotCompiler.prototype._createItem = function(rootTemplate) {
-        return new tuna.tmpl.unit.Spot(rootTemplate);
+        return new tuna.tmpl.units.Spot(rootTemplate);
     };
 
     SpotCompiler.prototype._compileItem = function(element, settings, item) {
@@ -43,5 +41,5 @@
         }
     };
 
-    tuna.tmpl.compile.SpotCompiler = SpotCompiler;
+    tuna.tmpl.compilers.SpotCompiler = SpotCompiler;
 })();

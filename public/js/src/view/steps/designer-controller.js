@@ -7,7 +7,7 @@
         this.__movie = null;
     };
 
-    tuna.extend(DesignerController, tuna.view.PageViewController);
+    tuna.utils.extend(DesignerController, tuna.view.PageViewController);
 
     var DECO_DATA = '{"weightsList":[1,1.5,2,2.5,3,3.5,4,4.5,5],\
                       "ratiosList":[0.6,0.55,0.5,0.45,0.4,0.38,0.32,0.3,0.25],\
@@ -108,8 +108,8 @@
 
     var controller = new DesignerController('designer_step');
 
-    window.onFlashReady = tuna.bind(controller.onFlashReady, controller);
-    window.confirmShapeChange = tuna.bind(controller.confirmShapeChange, controller);
+    window.onFlashReady = tuna.utils.bind(controller.onFlashReady, controller);
+    window.confirmShapeChange = tuna.utils.bind(controller.confirmShapeChange, controller);
     window.openMessageBox = function(message) { ui.Popup.alert(message); };
 
     tuna.view.registerController(controller);

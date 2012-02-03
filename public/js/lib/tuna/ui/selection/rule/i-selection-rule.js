@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.ui.selection.rule');
 
     var ISelectionRule = function() {};
 

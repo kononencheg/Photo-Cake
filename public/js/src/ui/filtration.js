@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('ui');
 
     var Filtration = function(input, transformer) {
         tuna.events.EventDispatcher.call(this, null);
@@ -17,7 +16,7 @@
         };
     };
 
-    tuna.extend(Filtration, tuna.events.EventDispatcher);
+    tuna.utils.extend(Filtration, tuna.events.EventDispatcher);
 
     Filtration.prototype.setFilterCallback = function(callback) {
         this._filterCallback = callback;

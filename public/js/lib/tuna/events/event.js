@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.events');
 
     var Event = function(type, isBubbling) {
         this._target = null;

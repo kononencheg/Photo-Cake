@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('tuna.ui.rule.selection');
-
     var Event = tuna.events.Event;
     var AbstractSelectionRule = tuna.ui.selection.rule.AbstractSelectionRule;
 
@@ -11,7 +9,7 @@
         this.__currentIndex = -1;
     };
 
-    tuna.extend(SingleSelectionRule, AbstractSelectionRule);
+    tuna.utils.extend(SingleSelectionRule, AbstractSelectionRule);
 
     SingleSelectionRule.prototype.getSelectedIndexes = function() {
         if (this.__currentIndex !== -1) {

@@ -7,7 +7,7 @@
         this.__cakeImage = null;
     };
 
-    tuna.extend(OrderController, tuna.view.PageViewController);
+    tuna.utils.extend(OrderController, tuna.view.PageViewController);
 
     OrderController.prototype._requireModules = function() {
         this._container.requireModule('data-image-copy');

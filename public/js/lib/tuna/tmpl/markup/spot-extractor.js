@@ -1,16 +1,14 @@
 (function() {
 
-    tuna.namespace('tuna.tmpl.markup');
-
     var SpotExtractor = function() {
         this._tagName = 'spot';
         this._ns = 'tuna:';
     };
 
-    tuna.implement(SpotExtractor, tuna.tmpl.markup.IMarkupExtractor);
+    tuna.utils.implement(SpotExtractor, tuna.tmpl.markup.IMarkupExtractor);
 
     SpotExtractor.prototype.extract = function(element, template) {
-        var tagName = tuna.IS_IE ? this._tagName : (this._ns + this._tagName);
+        var tagName = tuna.utils.IS_IE ? this._tagName : (this._ns + this._tagName);
         var elements = element.getElementsByTagName(tagName);
 
         var i = 0,

@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('model.records');
-
     var Order = function() {
         this.user = null;
         this.cake = null;
@@ -14,7 +12,7 @@
         this.campaign = '';
     };
 
-    tuna.extend(Order, tuna.model.Record);
+    tuna.utils.extend(Order, tuna.model.Record);
 
     model.records.Order = Order;
 

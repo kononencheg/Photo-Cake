@@ -1,22 +1,20 @@
 (function() {
 
-    tuna.namespace('tuna.ui.selection.rule');
-
     var MultipleSelectionRule = function() {
         tuna.ui.selection.rule.AbstractSelectionRule.call(this);
 
         this.__selectedIndexes = [];
     };
 
-    tuna.extend(MultipleSelectionRule, tuna.ui.selection.rule.AbstractSelectionRule);
+    tuna.utils.extend(MultipleSelectionRule, tuna.ui.selection.rule.AbstractSelectionRule);
 
     MultipleSelectionRule.prototype.getSelectedIndexes = function() {
-        return tuna.cloneArray(this.__selectedIndexes);
+        return tuna.utils.cloneArray(this.__selectedIndexes);
     };
 
     MultipleSelectionRule.prototype.selectIndex = function(index) {
         if (this._selectionGroup.isIndexEnabled(index)) {
-            var indexPosition = tuna.indexOf(index, this.__selectedIndexes);
+            var indexPosition = tuna.utils.indexOf(index, this.__selectedIndexes);
             if (indexPosition === -1) {
                 if (this._eventDispatcher.dispatch
                         (new tuna.events.Event('select'), index)) {
@@ -36,7 +34,7 @@
     };
 
     MultipleSelectionRule.prototype.isSelected = function(index) {
-        return tuna.indexOf(index, this.__selectedIndexes) !== -1;
+        return tuna.utils.indexOf(index, this.__selectedIndexes) !== -1;
     };
 
     MultipleSelectionRule.prototype.clearSelection = function() {

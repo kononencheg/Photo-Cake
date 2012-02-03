@@ -6,10 +6,10 @@
             = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
 
         this.__templateCompiler
-            = new tuna.tmpl.compile.TemplateCompiler(document);
+            = new tuna.tmpl.compilers.TemplateCompiler(document);
     };
 
-    tuna.extend(Filtration, tuna.ui.modules.Module);
+    tuna.utils.extend(Filtration, tuna.ui.modules.Module);
 
     Filtration.prototype.initInstance = function(target) {
         var transformer = this._initTransformer(target);

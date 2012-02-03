@@ -1,14 +1,12 @@
 (function() {
 
-    tuna.namespace('rest.social.vk');
-
     var VKMethod = function(name) {
-        tuna.rest.RemoteMethod.call(this, name);
+        tuna.rest.Method.call(this, name);
 
-        this._handleResponse = tuna.bind(this._handleResponse, this);
+        this._handleResponse = tuna.utils.bind(this._handleResponse, this);
     };
 
-    tuna.extend(VKMethod, tuna.rest.RemoteMethod);
+    tuna.utils.extend(VKMethod, tuna.rest.Method);
 
     VKMethod.prototype.call = function(args) {
         VK.api(this._name, this._completeArguments(args), this._handleResponse);
@@ -40,15 +38,15 @@
 
         this.__user = null;
 
-        this.__handleCity = tuna.bind(this.__handleCity, this);
+        this.__handleCity = tuna.utils.bind(this.__handleCity, this);
     };
 
-    tuna.extend(GetCurrent, rest.social.vk.VKMethod);
+    tuna.utils.extend(GetCurrent, rest.social.vk.VKMethod);
 
     GetCurrent.prototype._completeArguments = function(args) {
         return {
             'fields': 'uid,first_name,last_name,city',
-            'uid': tuna.config.get('viewer_id')
+            'uid': tuna.utils.сonfig.get('viewer_id')
         };
     };
 
@@ -89,7 +87,7 @@
         rest.social.vk.VKMethod.call(this, 'friends.get');
     };
 
-    tuna.extend(GetList, rest.social.vk.VKMethod);
+    tuna.utils.extend(GetList, rest.social.vk.VKMethod);
 
     GetList.prototype._completeArguments = function(args) {
         return { 'fields': 'uid,first_name,last_name,photo' };
@@ -131,12 +129,12 @@
         this.__userID = null;
         this.__imageData = null;
 
-        this.__handleSavePhoto = tuna.bind(this.__handleSavePhoto, this);
-        this.__handleWallPost  = tuna.bind(this.__handleWallPost, this);
-        this.__handleUploadURL = tuna.bind(this.__handleUploadURL, this);
+        this.__handleSavePhoto = tuna.utils.bind(this.__handleSavePhoto, this);
+        this.__handleWallPost  = tuna.utils.bind(this.__handleWallPost, this);
+        this.__handleUploadURL = tuna.utils.bind(this.__handleUploadURL, this);
     };
 
-    tuna.extend(Post, rest.CommonMethod);
+    tuna.utils.extend(Post, rest.CommonMethod);
 
     Post.prototype.call = function(args) {
         if (args !== undefined) {

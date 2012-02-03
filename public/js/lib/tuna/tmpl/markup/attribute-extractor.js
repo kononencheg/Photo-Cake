@@ -1,14 +1,12 @@
 (function() {
 
-    tuna.namespace('tuna.tmpl.markup');
-
     var AttributeExtractor = function() {
         tuna.tmpl.markup.SpotExtractor.call(this);
 
         this._tagName = 'attr';
     };
 
-    tuna.extend(AttributeExtractor, tuna.tmpl.markup.SpotExtractor);
+    tuna.utils.extend(AttributeExtractor, tuna.tmpl.markup.SpotExtractor);
 
     AttributeExtractor.prototype._createItem = function() {
         return new tuna.tmpl.settings.Attribute();

@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.view');
 
     var NavigationViewController = function(targetID) {
         tuna.view.ViewController.call(this, targetID);
@@ -9,12 +8,12 @@
 
         this.__currentPage = null;
 
-        this._testClose = tuna.bind(this._testClose, this);
-        this._closePage = tuna.bind(this._closePage, this);
-        this._openPage = tuna.bind(this._openPage, this);
+        this._testClose = tuna.utils.bind(this._testClose, this);
+        this._closePage = tuna.utils.bind(this._closePage, this);
+        this._openPage = tuna.utils.bind(this._openPage, this);
     };
 
-    tuna.extend(NavigationViewController, tuna.view.ViewController);
+    tuna.utils.extend(NavigationViewController, tuna.view.ViewController);
 
     NavigationViewController.prototype._requireModules = function() {
         this._container.requireModule('transform-container');
@@ -85,4 +84,5 @@
     NavigationViewController.prototype._handlePageOpen = function(page, oldPage) {};
 
     tuna.view.NavigationViewController = NavigationViewController;
+
 })();

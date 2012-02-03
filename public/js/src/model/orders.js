@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('model');
-
     var Orders = function() {
         this.__order = null;
     };

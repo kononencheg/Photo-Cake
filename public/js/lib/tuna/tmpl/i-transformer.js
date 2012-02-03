@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('tuna.tmpl');
-
     var ITransformer = function() {};
 
     ITransformer.prototype.applyTransform = function(data) {};

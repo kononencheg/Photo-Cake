@@ -10,12 +10,12 @@
             = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
 
         this.__templateCompiler 
-            = new tuna.tmpl.compile.TemplateCompiler(document);
+            = new tuna.tmpl.compilers.TemplateCompiler(document);
 
         this.__templatesTable = {};
     };
 
-    tuna.extend(TransformContainer, tuna.ui.modules.Module);
+    tuna.utils.extend(TransformContainer, tuna.ui.modules.Module);
 
     TransformContainer.prototype._findTargets = function(context) {
         return tuna.dom.select(this._selector, context);

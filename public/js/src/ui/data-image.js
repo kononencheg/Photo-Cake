@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('ui');
 
     var DataImage = function(target) {
         tuna.events.EventDispatcher.call(this);
@@ -7,7 +6,7 @@
         this.__targetImage = target;
     };
 
-    tuna.extend(DataImage, tuna.events.EventDispatcher);
+    tuna.utils.extend(DataImage, tuna.events.EventDispatcher);
 
     DataImage.prototype.getTarget = function() {
         return this.__targetImage;
@@ -18,7 +17,7 @@
             type = 'image/jpeg';
         }
 
-        if (!tuna.IS_IE) {
+        if (!tuna.utils.IS_IE) {
             this.__targetImage.src = 'data:' + type + ';base64,' + data;
             this.dispatch('loaded', this.__targetImage);
         } else {

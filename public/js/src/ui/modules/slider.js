@@ -4,7 +4,7 @@
         tuna.ui.modules.Module.call(this, 'slider', '.j-horizontal-slider, .j-vertical-slider');
     };
 
-    tuna.extend(Slider, tuna.ui.modules.Module);
+    tuna.utils.extend(Slider, tuna.ui.modules.Module);
 
     Slider.prototype.initInstance = function(target) {
         var $this = $(target);

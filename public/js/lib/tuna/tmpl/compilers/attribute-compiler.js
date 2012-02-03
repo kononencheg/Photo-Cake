@@ -1,12 +1,10 @@
 (function() {
 
-    tuna.namespace('tuna.tmpl.compile');
-
     var AttributeCompiler = function() {
-        tuna.tmpl.compile.SpotCompiler.call(this);
+        tuna.tmpl.compilers.SpotCompiler.call(this);
     };
 
-    tuna.extend(AttributeCompiler, tuna.tmpl.compile.SpotCompiler);
+    tuna.utils.extend(AttributeCompiler, tuna.tmpl.compilers.SpotCompiler);
 
 
     AttributeCompiler.prototype._getItemsSettings = function(settings) {
@@ -14,17 +12,17 @@
     };
 
     AttributeCompiler.prototype._createItem = function(rootTemplate) {
-        return new tuna.tmpl.unit.Attribute(rootTemplate);
+        return new tuna.tmpl.units.Attribute(rootTemplate);
     };
 
     AttributeCompiler.prototype._compileItem = function(element, settings, item) {
-        tuna.tmpl.compile.SpotCompiler.prototype._compileItem.call
+        tuna.tmpl.compilers.SpotCompiler.prototype._compileItem.call
                                         (this, element, settings, item);
 
         item.setAttributeName(settings.getAttributeName());
         item.setEvent(settings.hasEvent());
     };
     
-    tuna.tmpl.compile.AttributeCompiler = AttributeCompiler;
+    tuna.tmpl.compilers.AttributeCompiler = AttributeCompiler;
     
 })();

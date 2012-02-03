@@ -1,13 +1,13 @@
 (function() {
 
     var GetList = function() {
-        tuna.rest.RemoteMethod.call(this);
+        tuna.rest.Method.call(this);
 
-        this.__handleFriendsList = tuna.bind(this.__handleFriendsList, this);
-        this.__handleFriendsData = tuna.bind(this.__handleFriendsData, this);
+        this.__handleFriendsList = tuna.utils.bind(this.__handleFriendsList, this);
+        this.__handleFriendsData = tuna.utils.bind(this.__handleFriendsData, this);
     };
 
-    tuna.extend(GetList, tuna.rest.RemoteMethod);
+    tuna.utils.extend(GetList, tuna.rest.Method);
 
     GetList.prototype.call = function(args) {
         var self = this;

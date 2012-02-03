@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('ui');
 
     var Popup = function(target) {
         tuna.events.EventDispatcher.call(this);
@@ -26,7 +25,7 @@
         );
     };
 
-    tuna.extend(Popup, tuna.events.EventDispatcher);
+    tuna.utils.extend(Popup, tuna.events.EventDispatcher);
 
     Popup.prototype.getTarget = function() {
         return this.__target;

@@ -4,7 +4,7 @@
         tuna.ui.modules.Module.call(this, 'datepicker', 'input.j-datepicker');
     };
 
-    tuna.extend(Datepicker, tuna.ui.modules.Module);
+    tuna.utils.extend(Datepicker, tuna.ui.modules.Module);
 
     Datepicker.prototype.initInstance = function(target) {
         var minTime = (new Date().getTime() + 3*24*60*60*1000);

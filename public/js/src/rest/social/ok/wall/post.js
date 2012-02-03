@@ -1,12 +1,10 @@
 (function() {
 
-    tuna.namespace('rest.ok.wall');
-
     var Post = function(name) {
-        tuna.rest.RemoteMethod.call(this, name);
+        tuna.rest.Method.call(this, name);
     };
 
-    tuna.extend(Post, tuna.rest.RemoteMethod);
+    tuna.utils.extend(Post, tuna.rest.Method);
 
     Post.prototype.call = function(args) {
         if (args.user_id === undefined) {

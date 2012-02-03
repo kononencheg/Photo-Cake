@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.view');
 
     var StateViewController = function(targetID) {
         tuna.view.ViewController.call(this, targetID);
@@ -7,7 +6,7 @@
         this.__currentState = null;
     };
 
-    tuna.extend(StateViewController, tuna.view.ViewController);
+    tuna.utils.extend(StateViewController, tuna.view.ViewController);
 
     StateViewController.prototype._setCurrentState = function(state) {
         this.__currentState = state;

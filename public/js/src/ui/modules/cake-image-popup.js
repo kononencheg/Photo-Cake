@@ -3,11 +3,11 @@
         tuna.ui.modules.Module.call
             (this, 'cake-image-popup', '.j-cake-image-popup');
 
-        this.__handleMouseMove = tuna.bind(this.__handleMouseMove, this);
+        this.__handleMouseMove = tuna.utils.bind(this.__handleMouseMove, this);
         this.__lastIndex = -1;
     };
 
-    tuna.extend(CakeImagePopup, tuna.ui.modules.Module);
+    tuna.utils.extend(CakeImagePopup, tuna.ui.modules.Module);
 
     CakeImagePopup.prototype.initInstance = function(target) {
         var self = this;

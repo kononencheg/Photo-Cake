@@ -1,13 +1,11 @@
 (function() {
 
-    tuna.namespace('tuna.tmpl.compile');
-
     var ListCompiler = function(document, compiler) {
         this.__doc = document;
         this.__templateCompiler = compiler;
     };
 
-    tuna.implement(ListCompiler, tuna.tmpl.compile.IItemCompiler);
+    tuna.utils.implement(ListCompiler, tuna.tmpl.compilers.IItemCompiler);
 
     ListCompiler.prototype.compile = function(element, settings, template) {
         var itemsSettings = settings.getLists();
@@ -45,7 +43,7 @@
     };
 
     ListCompiler.prototype.__createList = function(element, settings, root) {
-        var list = new tuna.tmpl.unit.List(root);
+        var list = new tuna.tmpl.units.List(root);
 
         list.setCompiler(this.__templateCompiler);
         list.setItemRenderer(this.__doc.getElementById(settings.getItemRendererID()));
@@ -53,7 +51,7 @@
         list.setKeyPath(settings.getItemKeyDataPath());
         list.setPath(settings.getDataPath());
         
-        list.setListNodeRouter(new tuna.tmpl.unit.ListContainerRouter(element));
+        list.setListNodeRouter(new tuna.tmpl.units.ListContainerRouter(element));
 
         return list;
     };
@@ -100,6 +98,6 @@
     };
      */
 
-    tuna.tmpl.compile.ListCompiler = ListCompiler;
+    tuna.tmpl.compilers.ListCompiler = ListCompiler;
     
 })();

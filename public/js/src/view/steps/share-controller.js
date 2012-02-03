@@ -7,7 +7,7 @@
         this.__imageData = null;
     };
 
-    tuna.extend(ShareController, tuna.view.PageViewController);
+    tuna.utils.extend(ShareController, tuna.view.PageViewController);
 
     ShareController.prototype.open = function() {
         var currentCake = model.cakes.getCurrentCake();

@@ -1,9 +1,7 @@
 (function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var Attribute = function(rootTemplate) {
-        tuna.tmpl.unit.Spot.call(this, rootTemplate);
+        tuna.tmpl.units.Spot.call(this, rootTemplate);
 
         this.__attributeName = null;
         this.__eventName = null;
@@ -11,7 +9,7 @@
         this.__hasEvent = false;
     };
 
-    tuna.extend(Attribute, tuna.tmpl.unit.Spot);
+    tuna.utils.extend(Attribute, tuna.tmpl.units.Spot);
 
     Attribute.prototype.setAttributeName = function(attributeName) {
         this.__attributeName = attributeName;
@@ -62,5 +60,5 @@
         }
     };
 
-    tuna.tmpl.unit.Attribute = Attribute;
+    tuna.tmpl.units.Attribute = Attribute;
 })();

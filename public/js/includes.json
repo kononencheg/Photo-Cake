@@ -7,7 +7,10 @@
     ],
 
     "common": [
-        "lib/tuna.js",
+        "lib/tuna/tuna.js",
+
+        "lib/tuna/utils/utils.js",
+        "lib/tuna/utils/config.js",
 
         "lib/tuna/events/i-event-dispatcher.js",
         "lib/tuna/events/event-dispatcher.js",
@@ -16,14 +19,13 @@
         "lib/tuna/net/i-request.js",
         "lib/tuna/net/request.js",
 
-        "lib/tuna/rest/i-response-parser.js",
-        "lib/tuna/rest/i-remote-method.js",
-        "lib/tuna/rest/remote-method.js",
-        "lib/tuna/rest/i-method-factory.js",
+        "lib/tuna/rest/rest.js",
+        "lib/tuna/rest/i-method.js",
+        "lib/tuna/rest/method.js",
+        "lib/tuna/rest/i-factory.js",
         "lib/tuna/rest/factory.js",
 
-        "lib/tuna/dom.js",
-        "lib/tuna/config.js",
+        "lib/tuna/dom/dom.js",
 
         "lib/tuna/tmpl/data/data-node.js",
         "lib/tuna/tmpl/data/path-evaluator.js",
@@ -41,21 +43,21 @@
         "lib/tuna/tmpl/markup/condition-extractor.js",
         "lib/tuna/tmpl/markup/markup-template-builder.js",
 
-        "lib/tuna/tmpl/unit/i-list-item-router.js",
-        "lib/tuna/tmpl/unit/list-container-router.js",
-        "lib/tuna/tmpl/unit/compiled-unit.js",
-        "lib/tuna/tmpl/unit/spot.js",
-        "lib/tuna/tmpl/unit/attribute.js",
-        "lib/tuna/tmpl/unit/condition.js",
-        "lib/tuna/tmpl/unit/list.js",
-        "lib/tuna/tmpl/unit/template.js",
+        "lib/tuna/tmpl/units/i-list-item-router.js",
+        "lib/tuna/tmpl/units/list-container-router.js",
+        "lib/tuna/tmpl/units/compiled-unit.js",
+        "lib/tuna/tmpl/units/spot.js",
+        "lib/tuna/tmpl/units/attribute.js",
+        "lib/tuna/tmpl/units/condition.js",
+        "lib/tuna/tmpl/units/list.js",
+        "lib/tuna/tmpl/units/template.js",
 
-        "lib/tuna/tmpl/compile/i-item-compiler.js",
-        "lib/tuna/tmpl/compile/template-compiler.js",
-        "lib/tuna/tmpl/compile/spot-compiler.js",
-        "lib/tuna/tmpl/compile/attribute-compiler.js",
-        "lib/tuna/tmpl/compile/condition-compiler.js",
-        "lib/tuna/tmpl/compile/list-compiler.js",
+        "lib/tuna/tmpl/compilers/i-item-compiler.js",
+        "lib/tuna/tmpl/compilers/template-compiler.js",
+        "lib/tuna/tmpl/compilers/spot-compiler.js",
+        "lib/tuna/tmpl/compilers/attribute-compiler.js",
+        "lib/tuna/tmpl/compilers/condition-compiler.js",
+        "lib/tuna/tmpl/compilers/list-compiler.js",
 
         "lib/tuna/tmpl/i-transform-handler.js",
         "lib/tuna/tmpl/i-transformer.js",
@@ -82,7 +84,7 @@
         "lib/tuna/ui/selection/selection-group.js",
         "lib/tuna/ui/selection/navigation.js",
 
-        "lib/tuna/ui/modules.js",
+        "lib/tuna/ui/modules/modules.js",
         "lib/tuna/ui/modules/module.js",
         "lib/tuna/ui/modules/transform-container.js",
         "lib/tuna/ui/modules/navigation.js",
@@ -90,7 +92,6 @@
 
         "lib/tuna/model/record.js",
 
-        "lib/tuna/view/origin.js",
         "lib/tuna/view/i-view-state.js",
         "lib/tuna/view/view-controller.js",
         "lib/tuna/view/state-view-controller.js",
@@ -106,6 +107,8 @@
 
         "lib/json.js",
         "lib/swfobject.js",
+
+        "src/main.js",
 
         "src/ui/forms/form-response-parser.js",
         "src/ui/forms/form-input.js",
@@ -133,6 +136,7 @@
         "src/ui/modules/social/common/friends-popup.js",
 
         "src/rest/common-method.js",
+        "src/rest/factory.js",
 
         "src/model/cakes.js",
         "src/model/orders.js",

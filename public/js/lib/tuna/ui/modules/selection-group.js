@@ -4,7 +4,7 @@
         tuna.ui.modules.Module.call(this, 'selection-group', '.j-selection-group');
     };
 
-    tuna.extend(SelectionGroup, tuna.ui.modules.Module);
+    tuna.utils.extend(SelectionGroup, tuna.ui.modules.Module);
 
     SelectionGroup.prototype.initInstance = function(target) {
         var isMultiple = target.getAttribute('data-is-multiple') === 'true';

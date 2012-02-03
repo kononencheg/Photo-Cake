@@ -3,7 +3,7 @@
         tuna.ui.modules.Module.call(this, 'image-popup', 'img.j-image-popup');
     };
 
-    tuna.extend(ImagePopup, tuna.ui.modules.Module);
+    tuna.utils.extend(ImagePopup, tuna.ui.modules.Module);
 
     ImagePopup.prototype.initInstance = function(target) {
         var popupElement = tuna.dom.selectOne('#image_popup');

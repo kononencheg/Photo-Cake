@@ -4,7 +4,7 @@
         tuna.ui.modules.Module.call(this, 'navigation', '.j-navigation');
     };
 
-    tuna.extend(Navigation, tuna.ui.modules.Module);
+    tuna.utils.extend(Navigation, tuna.ui.modules.Module);
 
     Navigation.prototype.initInstance = function(target) {
         var navigation = new tuna.ui.selection.Navigation(target);

@@ -1,10 +1,8 @@
 (function() {
 
-    tuna.namespace('tuna.net');
-
     var IRequest = function() {};
 
-    tuna.extend(IRequest, tuna.events.IEventDispatcher);
+    tuna.utils.extend(IRequest, tuna.events.IEventDispatcher);
 
     IRequest.prototype.send = function(url) {};
     IRequest.prototype.abort = function() {};

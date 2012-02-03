@@ -1,12 +1,4 @@
-/**
- * TUNA FRAMEWORK
- *
- * @file config.js
- * @author Kononenko Sergey <kononenheg@gmail.com>
- */
 (function() {
-
-    tuna.namespace('tuna');
 
     var Config = function() {
         this.__data = null;
@@ -24,9 +16,6 @@
         return null;
     };
 
-    Config.prototype.set = function(key, value) {
-        this.__data[key] = value;
-    };
-
-    tuna.config = new Config();
+    tuna.utils.сonfig = new Config();
+    
 })();

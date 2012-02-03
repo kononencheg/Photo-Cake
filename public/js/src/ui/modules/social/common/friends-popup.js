@@ -3,7 +3,7 @@
         tuna.ui.modules.Module.call(this, 'friends-popup', '.j-friends-popup');
     };
 
-    tuna.extend(FriendsPopup, tuna.ui.modules.Module);
+    tuna.utils.extend(FriendsPopup, tuna.ui.modules.Module);
 
     FriendsPopup.prototype.initInstance = function(target) {
         var popupModule = tuna.ui.modules.getModule('popup');

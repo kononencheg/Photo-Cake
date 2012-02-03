@@ -7,8 +7,6 @@
 
 (function() {
 
-    tuna.namespace('tuna.tmpl.settings');
-
     var Condition = function() {
         tuna.tmpl.settings.Spot.call(this);
 
@@ -19,7 +17,7 @@
         this.__operatorData = null;
     };
 
-    tuna.extend(Condition, tuna.tmpl.settings.Spot);
+    tuna.utils.extend(Condition, tuna.tmpl.settings.Spot);
 
     Condition.prototype.setOperator = function(type, data) {
         this.__operatorType = type;

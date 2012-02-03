@@ -1,10 +1,10 @@
 (function() {
 
     var GetCurrent = function() {
-        tuna.rest.RemoteMethod.call(this, null);
+        tuna.rest.Method.call(this, null);
     };
 
-    tuna.extend(GetCurrent, tuna.rest.RemoteMethod);
+    tuna.utils.extend(GetCurrent, tuna.rest.Method);
 
     GetCurrent.prototype.call = function(args) {
         var self = this;

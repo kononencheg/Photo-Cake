@@ -7,8 +7,6 @@
 
 (function() {
 
-    tuna.namespace('tuna.tmpl.compile');
-
 
     /**
      * @public
@@ -25,16 +23,16 @@
     };
 
     TemplateCompiler.prototype.__registerItemCompilers = function() {
-        this.__itemCompilers.push(new tuna.tmpl.compile.SpotCompiler());
-        this.__itemCompilers.push(new tuna.tmpl.compile.AttributeCompiler());
-        this.__itemCompilers.push(new tuna.tmpl.compile.ConditionCompiler());
-        this.__itemCompilers.push(new tuna.tmpl.compile.ListCompiler(this.__doc, this));
+        this.__itemCompilers.push(new tuna.tmpl.compilers.SpotCompiler());
+        this.__itemCompilers.push(new tuna.tmpl.compilers.AttributeCompiler());
+        this.__itemCompilers.push(new tuna.tmpl.compilers.ConditionCompiler());
+        this.__itemCompilers.push(new tuna.tmpl.compilers.ListCompiler(this.__doc, this));
     };
 
     /**
      * Compiling template with target DOM element.
      *
-     * @param {tuna.tmpl.settings.Template} template Template to compile.
+     * @param {tuna.tmpl.settings.Template} template Template to compilers.
      * @param {Element} element Target DOM element.
      * @return {tuna.tmpl.ITransformer} New template transformer.
      */
@@ -49,7 +47,7 @@
     };
 
     TemplateCompiler.prototype.compileTemplate = function(settings, element, root) {
-        var template = new tuna.tmpl.unit.Template(root);
+        var template = new tuna.tmpl.units.Template(root);
         template.setTarget(element);
 
         var i = 0,
@@ -63,6 +61,6 @@
         return template;
     };
 
-    tuna.tmpl.compile.TemplateCompiler = TemplateCompiler;
+    tuna.tmpl.compilers.TemplateCompiler = TemplateCompiler;
 
 })();

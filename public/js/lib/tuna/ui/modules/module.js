@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.ui.module');
 
     var Module = function(name, selector) {
         this._name = name;

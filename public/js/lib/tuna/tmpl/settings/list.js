@@ -7,8 +7,6 @@
 
 (function() {
 
-    tuna.namespace('tuna.tmpl.settings');
-
     var List = function() {
         tuna.tmpl.settings.Spot.call(this);
 
@@ -19,7 +17,7 @@
         this.__itemTemplate = null;
     };
 
-    tuna.extend(List, tuna.tmpl.settings.Spot);
+    tuna.utils.extend(List, tuna.tmpl.settings.Spot);
 
     List.prototype.setItemKeyDataPath = function(path) {
         this.__keyPath = path;

@@ -1,12 +1,11 @@
 (function() {
-    tuna.namespace('tuna.ui.selection.items');
 
     var NamedElementsCollection = function(indexAttribute) {
         this.__indexAttribute = indexAttribute;
         this.__items = {};
     };
 
-    tuna.implement(NamedElementsCollection, tuna.ui.selection.items.IItemsCollection);
+    tuna.utils.implement(NamedElementsCollection, tuna.ui.selection.items.IItemsCollection);
 
     NamedElementsCollection.prototype.addItem = function(item) {
         var index = item.getAttribute(this.__indexAttribute);

@@ -6,8 +6,6 @@
  */
 (function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var CompiledUnit = function(rootTemplate) {
         this.__rootTemplate = rootTemplate;
     };
@@ -18,5 +16,5 @@
 
     CompiledUnit.prototype.destroy = function() {};
 
-    tuna.tmpl.unit.CompiledUnit = CompiledUnit;
+    tuna.tmpl.units.CompiledUnit = CompiledUnit;
 })();

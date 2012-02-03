@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('ui');
 
     var Autocomplete = function(input, transformer, selectionGroup) {
         ui.Filtration.call(this, input, transformer);
@@ -8,7 +7,7 @@
         this.__selectedData = null;
     };
 
-    tuna.extend(Autocomplete, ui.Filtration);
+    tuna.utils.extend(Autocomplete, ui.Filtration);
 
     Autocomplete.prototype.getSelectedData = function() {
         return this.__selectedData;

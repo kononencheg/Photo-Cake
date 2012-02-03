@@ -4,7 +4,7 @@
         rest.social.vk.VKMethod.call(this, 'friends.get');
     };
 
-    tuna.extend(GetList, rest.social.vk.VKMethod);
+    tuna.utils.extend(GetList, rest.social.vk.VKMethod);
 
     GetList.prototype._completeArguments = function(args) {
         return { 'fields': 'uid,first_name,last_name,photo' };

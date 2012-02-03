@@ -1,12 +1,11 @@
 (function() {
-    tuna.namespace('tuna.ui.selection.view');
 
     var AbstractSelectionView = function() {
         this._itemsCollection = null;
         this._selectionGroup = null;
     };
 
-    tuna.implement(AbstractSelectionView, tuna.ui.selection.view.ISelectionView);
+    tuna.utils.implement(AbstractSelectionView, tuna.ui.selection.view.ISelectionView);
 
     AbstractSelectionView.prototype.setSelectionGroup = function(group) {
         this._selectionGroup = group;
@@ -18,7 +17,7 @@
 
     /*AbstractSelectionView.prototype.getItemIndex = function(item) {
         if (this._items instanceof Array) {
-            return tuna.indexOf(item, this._items);
+            return tuna.utils.indexOf(item, this._items);
         } else {
             for (var i in this._items) {
                 if (this._items.hasOwnProperty(i) && this._items[i] === item) {

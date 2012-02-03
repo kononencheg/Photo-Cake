@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.ui.selection.items');
 
     var IItemsCollection = function() {};
 

@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('model.records');
-
     var Cake = function() {
         this.imageUrl = '';
 
@@ -15,7 +13,7 @@
         this.personsCount = 0;
     };
 
-    tuna.extend(Cake, tuna.model.Record);
+    tuna.utils.extend(Cake, tuna.model.Record);
 
     model.records.Cake = Cake;
 

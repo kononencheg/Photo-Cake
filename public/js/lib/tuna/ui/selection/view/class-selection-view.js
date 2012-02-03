@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.ui.selection.view');
 
     var ClassSelectionView = function(target) {
         tuna.ui.selection.view.AbstractSelectionView.call(this);
@@ -12,7 +11,7 @@
         this._disabledClass = 'disabled';
     };
 
-    tuna.extend(ClassSelectionView, tuna.ui.selection.view.AbstractSelectionView);
+    tuna.utils.extend(ClassSelectionView, tuna.ui.selection.view.AbstractSelectionView);
 
     ClassSelectionView.prototype.setItemSelector = function(selector) {
         this._itemSelector = selector;

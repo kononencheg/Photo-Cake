@@ -1,14 +1,12 @@
 (function() {
 
-    tuna.namespace('rest.social.vk');
-
     var VKMethod = function(name) {
-        tuna.rest.RemoteMethod.call(this, name);
+        tuna.rest.Method.call(this, name);
 
-        this._handleResponse = tuna.bind(this._handleResponse, this);
+        this._handleResponse = tuna.utils.bind(this._handleResponse, this);
     };
 
-    tuna.extend(VKMethod, tuna.rest.RemoteMethod);
+    tuna.utils.extend(VKMethod, tuna.rest.Method);
 
     VKMethod.prototype.call = function(args) {
         VK.api(this._name, this._completeArguments(args), this._handleResponse);

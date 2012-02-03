@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.ui.modules');
 
     var modulesTable = {};
     var isolators = [];
@@ -23,7 +22,5 @@
     tuna.ui.modules.getIsolators = function() {
         return isolators;
     };
-
-
 
 })();

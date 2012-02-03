@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('model.records');
-
     var User = function() {
         this.id = '';
         this.name = '';
@@ -10,7 +8,7 @@
         this.network = ''
     };
 
-    tuna.extend(User, tuna.model.Record);
+    tuna.utils.extend(User, tuna.model.Record);
 
     model.records.User = User;
 

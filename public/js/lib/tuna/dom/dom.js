@@ -6,8 +6,6 @@
  */
 (function() {
 
-    tuna.namespace('tuna.dom');
-
     function addCustomIEListener(element, type, handler) {
         if (element.__customListener == undefined) {
             element.__customListener = function(event) {

@@ -1,16 +1,14 @@
 (function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var ListContainerRouter = function(containerElement) {
         this._container = containerElement;
     };
 
-    tuna.implement(ListContainerRouter, tuna.tmpl.unit.IListItemRouter);
+    tuna.utils.implement(ListContainerRouter, tuna.tmpl.units.IListItemRouter);
 
     ListContainerRouter.prototype.append = function(node) {
         this._container.appendChild(node);
     };
 
-    tuna.tmpl.unit.ListContainerRouter = ListContainerRouter;
+    tuna.tmpl.units.ListContainerRouter = ListContainerRouter;
 })();

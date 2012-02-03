@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.events');
 
     var EventDispatcher = function(parent) {
         this._propagationParent = null;
@@ -11,7 +10,7 @@
         }
     };
 
-    tuna.implement(EventDispatcher, tuna.events.IEventDispatcher);
+    tuna.utils.implement(EventDispatcher, tuna.events.IEventDispatcher);
 
     EventDispatcher.prototype.dispatch = function(event, data) {
         if (!(event instanceof tuna.events.Event)) {
@@ -58,7 +57,8 @@
 
     EventDispatcher.prototype.removeEventListener = function(type, listener) {
         if (this._listeners[type] !== undefined) {
-            var listenerIndex = tuna.indexOf(listener, this._listeners[type]);
+            var listenerIndex
+                = tuna.utils.indexOf(listener, this._listeners[type]);
 
             if (listenerIndex !== -1) {
                 this._listeners[type].splice(listenerIndex, 1);
@@ -68,7 +68,7 @@
 
     EventDispatcher.prototype.hasEventListener = function(type, listener) {
         if (this._listeners[type] !== undefined) {
-            return tuna.indexOf(listener, this._listeners[type]) !== -1;
+            return tuna.utils.indexOf(listener, this._listeners[type]) !== -1;
         }
 
         return false;

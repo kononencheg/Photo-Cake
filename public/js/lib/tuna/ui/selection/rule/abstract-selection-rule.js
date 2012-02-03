@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('tuna.ui.selection.rule');
-
     var AbstractSelectionRule = function() {
         this._selectionGroup = null;
         this._selectionView = null;
@@ -9,7 +7,7 @@
         this._eventDispatcher = null;
     };
 
-    tuna.implement(AbstractSelectionRule, tuna.ui.selection.rule.ISelectionRule);
+    tuna.utils.implement(AbstractSelectionRule, tuna.ui.selection.rule.ISelectionRule);
 
     AbstractSelectionRule.prototype.setSelectionGroup = function(group) {
         this._selectionGroup = group;

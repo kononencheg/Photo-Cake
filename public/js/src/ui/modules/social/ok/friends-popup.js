@@ -4,11 +4,11 @@
 
         this.__albumId = null;
 
-        this.__showFriendsPopup = tuna.bind(this.__showFriendsPopup, this);
-        this.__post = tuna.bind(this.__post, this);
+        this.__showFriendsPopup = tuna.utils.bind(this.__showFriendsPopup, this);
+        this.__post = tuna.utils.bind(this.__post, this);
     };
 
-    tuna.extend(FriendsPopup, tuna.ui.modules.Module);
+    tuna.utils.extend(FriendsPopup, tuna.ui.modules.Module);
 
     FriendsPopup.prototype.initInstance = function(target) {
         var self = this;

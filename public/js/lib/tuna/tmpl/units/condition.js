@@ -6,16 +6,14 @@
  */
 (function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var Condition = function(rootTemplate) {
-        tuna.tmpl.unit.Spot.call(this, rootTemplate);
+        tuna.tmpl.units.Spot.call(this, rootTemplate);
 
         this.__action = null;
         this.__operator = null;
     };
 
-    tuna.extend(Condition, tuna.tmpl.unit.Spot);
+    tuna.utils.extend(Condition, tuna.tmpl.units.Spot);
 
     Condition.prototype.setAction = function(action) {
         this.__action = action;
@@ -36,5 +34,5 @@
     };
 
 
-    tuna.tmpl.unit.Condition = Condition;
+    tuna.tmpl.units.Condition = Condition;
 })();

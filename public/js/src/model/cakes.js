@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('model');
-
     var Cakes = function() {
         this.__currentCake = null;
     };

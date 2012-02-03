@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('tuna.tmpl.markup');
-
     var ConditionExtractor = function() {
         tuna.tmpl.markup.SpotExtractor.call(this);
 
@@ -11,7 +9,7 @@
         this.__actionAttrs = ['class'];
     };
 
-    tuna.extend(ConditionExtractor, tuna.tmpl.markup.SpotExtractor);
+    tuna.utils.extend(ConditionExtractor, tuna.tmpl.markup.SpotExtractor);
 
     ConditionExtractor.prototype._createItem = function() {
         return new tuna.tmpl.settings.Condition();

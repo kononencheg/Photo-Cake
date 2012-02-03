@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('ui.forms');
 
     var Form = function(target) {
         tuna.events.EventDispatcher.call(this);
@@ -21,7 +20,7 @@
 
     Form.CALLBACK_PREFIX = 'form_callback';
 
-    tuna.extend(Form, tuna.events.EventDispatcher);
+    tuna.utils.extend(Form, tuna.events.EventDispatcher);
 
     Form.prototype.setResultParser = function(parser) {
         this.__resultParser = parser;
@@ -53,7 +52,7 @@
 
     Form.prototype.__initListeners = function() {
         tuna.dom.addEventListener
-            (this.__target, 'submit', tuna.bind(this.__prepareToSubmit, this));
+            (this.__target, 'submit', tuna.utils.bind(this.__prepareToSubmit, this));
     };
 
     Form.prototype.__prepareToSubmit = function(event) {

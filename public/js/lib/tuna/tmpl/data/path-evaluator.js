@@ -6,7 +6,6 @@
  */
 
 (function() {
-    tuna.namespace('tuna.tmpl.data');
 
     var PathEvaluator = function() {
         this.__parsedPath = null;

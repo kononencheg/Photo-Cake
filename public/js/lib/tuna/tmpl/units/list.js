@@ -6,10 +6,8 @@
  */
 (function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var List = function(rootTemplate) {
-        tuna.tmpl.unit.CompiledUnit.call(this, rootTemplate);
+        tuna.tmpl.units.CompiledUnit.call(this, rootTemplate);
 
         this.__compiler = null;
 
@@ -23,7 +21,7 @@
         this.__listNodeRouter = null;
     };
 
-    tuna.extend(List, tuna.tmpl.unit.CompiledUnit);
+    tuna.utils.extend(List, tuna.tmpl.units.CompiledUnit);
 
     List.prototype.setListNodeRouter = function(router) {
         this.__listNodeRouter = router;
@@ -113,6 +111,6 @@
         return template;
     };
 
-    tuna.tmpl.unit.List = List;
+    tuna.tmpl.units.List = List;
     
 })();

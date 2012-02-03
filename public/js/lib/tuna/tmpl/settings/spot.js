@@ -7,8 +7,6 @@
 
 (function() {
 
-    tuna.namespace('tuna.tmpl.settings');
-
     /**
      * Template spot data class.
      *

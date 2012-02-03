@@ -3,7 +3,7 @@
         tuna.ui.modules.Module.call(this, 'carousel', '.j-carousel');
     };
 
-    tuna.extend(Carousel, tuna.ui.modules.Module);
+    tuna.utils.extend(Carousel, tuna.ui.modules.Module);
 
     Carousel.prototype.initInstance = function(target) {
         var carouselBody = tuna.dom.selectOne('.j-carousel-body', target );

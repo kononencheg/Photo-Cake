@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('tuna.ui.selection');
-
     var AbstractSelectionGroup = function(parent) {
         tuna.events.EventDispatcher.call(this, parent);
 
@@ -13,13 +11,13 @@
         this._disabledIndexes = [];
     };
 
-    tuna.implement(AbstractSelectionGroup, tuna.ui.selection.ISelectionGroup);
-    tuna.extend(AbstractSelectionGroup, tuna.events.EventDispatcher);
+    tuna.utils.implement(AbstractSelectionGroup, tuna.ui.selection.ISelectionGroup);
+    tuna.utils.extend(AbstractSelectionGroup, tuna.events.EventDispatcher);
 
     AbstractSelectionGroup.prototype.setIndexEnabled
         = function(index, isEnabled) {
 
-        var indexPosition = tuna.indexOf(index, this._disabledIndexes);
+        var indexPosition = tuna.utils.indexOf(index, this._disabledIndexes);
         if (isEnabled) {
             if (indexPosition !== -1) {
                 this._selectionView.enableItemAt(index);
@@ -32,7 +30,7 @@
     };
 
     AbstractSelectionGroup.prototype.isIndexEnabled = function(index) {
-        return tuna.indexOf(index, this._disabledIndexes) === -1;
+        return tuna.utils.indexOf(index, this._disabledIndexes) === -1;
     };
 
     AbstractSelectionGroup.prototype.updateView = function() {

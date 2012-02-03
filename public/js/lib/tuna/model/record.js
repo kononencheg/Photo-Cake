@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('tuna.model');
-
     var Record = function() {};
 
     Record.prototype.clone = function() {

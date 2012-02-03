@@ -1,5 +1,4 @@
 (function() {
-    tuna.namespace('tuna.view');
 
     var ViewController = function(targetID) {
         this.__targetID = targetID;
@@ -10,7 +9,7 @@
         this._modules = null;
     };
 
-    tuna.implement(ViewController, tuna.tmpl.ITransformHandler);
+    tuna.utils.implement(ViewController, tuna.tmpl.ITransformHandler);
 
     ViewController.prototype.getTargetID = function() {
         return this.__targetID;

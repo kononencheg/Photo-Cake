@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('tuna.ui.selection');
-
     var Navigation = function(target) {
         tuna.ui.selection.SelectionGroup.call
             (this, target, false, 'id', '.j-navigation-page', 'current');
@@ -11,7 +9,7 @@
         this.__history = [];
     };
 
-    tuna.extend(Navigation, tuna.ui.selection.SelectionGroup);
+    tuna.utils.extend(Navigation, tuna.ui.selection.SelectionGroup);
 
     Navigation.prototype.init = function() {
         var self = this;

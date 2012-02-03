@@ -6,12 +6,12 @@
         this.__userID = null;
         this.__imageData = null;
 
-        this.__handleSavePhoto = tuna.bind(this.__handleSavePhoto, this);
-        this.__handleWallPost  = tuna.bind(this.__handleWallPost, this);
-        this.__handleUploadURL = tuna.bind(this.__handleUploadURL, this);
+        this.__handleSavePhoto = tuna.utils.bind(this.__handleSavePhoto, this);
+        this.__handleWallPost  = tuna.utils.bind(this.__handleWallPost, this);
+        this.__handleUploadURL = tuna.utils.bind(this.__handleUploadURL, this);
     };
 
-    tuna.extend(Post, rest.CommonMethod);
+    tuna.utils.extend(Post, rest.CommonMethod);
 
     Post.prototype.call = function(args) {
         if (args !== undefined) {

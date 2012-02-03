@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('tuna.ui.container');
-
     var TransformContainer = function(target, parent) {
         tuna.ui.container.Container.call(this, target, parent);
 
@@ -9,7 +7,7 @@
         this.__transformer = null;
     };
 
-    tuna.extend(TransformContainer, tuna.ui.container.Container);
+    tuna.utils.extend(TransformContainer, tuna.ui.container.Container);
 
     TransformContainer.prototype.setTransformer = function(transformer) {
         this.__transformer = transformer;

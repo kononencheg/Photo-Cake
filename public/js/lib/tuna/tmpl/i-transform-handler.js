@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('tuna.tmpl');
-
     var ITransformHandler = function() {};
 
     ITransformHandler.prototype.handleTransformStart

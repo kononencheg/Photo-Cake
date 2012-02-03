@@ -6,16 +6,14 @@
  */
 (function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var Spot = function(rootTemplate) {
-        tuna.tmpl.unit.CompiledUnit.call(this, rootTemplate);
+        tuna.tmpl.units.CompiledUnit.call(this, rootTemplate);
 
         this.__pathEvaluator = new tuna.tmpl.data.PathEvaluator();
         this._nodes = [];
     };
 
-    tuna.extend(Spot, tuna.tmpl.unit.CompiledUnit);
+    tuna.utils.extend(Spot, tuna.tmpl.units.CompiledUnit);
 
     Spot.prototype.setPath = function(path) {
         this.__pathEvaluator.setPath(path);
@@ -46,5 +44,5 @@
         }
     };
 
-    tuna.tmpl.unit.Spot = Spot;
+    tuna.tmpl.units.Spot = Spot;
 })();

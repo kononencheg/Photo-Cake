@@ -10,7 +10,7 @@
         this.__cityAutocomplete = null;
     };
 
-    tuna.extend(RecipeController, tuna.view.PageViewController);
+    tuna.utils.extend(RecipeController, tuna.view.PageViewController);
 
     RecipeController.prototype.canClose = function(index) {
         var order = model.orders.getOrder();

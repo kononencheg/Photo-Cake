@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('model.records');
-
     var Recipe = function() {
         this.id = '';
         this.name = '';
@@ -12,7 +10,7 @@
         this.imageUrl = '';
     };
 
-    tuna.extend(Recipe, tuna.model.Record);
+    tuna.utils.extend(Recipe, tuna.model.Record);
 
     model.records.Recipe = Recipe;
 

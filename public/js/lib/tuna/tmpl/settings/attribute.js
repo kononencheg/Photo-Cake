@@ -7,8 +7,6 @@
 
 (function() {
 
-    tuna.namespace('tuna.tmpl.settings');
-
 
     var Attribute = function() {
         tuna.tmpl.settings.Spot.call(this);
@@ -18,7 +16,7 @@
         this.__hasEvent = false;
     };
 
-    tuna.extend(Attribute, tuna.tmpl.settings.Spot);
+    tuna.utils.extend(Attribute, tuna.tmpl.settings.Spot);
 
     Attribute.prototype.setEvent = function(hasEvent) {
         this.__hasEvent = hasEvent;

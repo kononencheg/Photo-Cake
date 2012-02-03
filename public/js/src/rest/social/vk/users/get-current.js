@@ -5,15 +5,15 @@
 
         this.__user = null;
 
-        this.__handleCity = tuna.bind(this.__handleCity, this);
+        this.__handleCity = tuna.utils.bind(this.__handleCity, this);
     };
 
-    tuna.extend(GetCurrent, rest.social.vk.VKMethod);
+    tuna.utils.extend(GetCurrent, rest.social.vk.VKMethod);
 
     GetCurrent.prototype._completeArguments = function(args) {
         return {
             'fields': 'uid,first_name,last_name,city',
-            'uid': tuna.config.get('viewer_id')
+            'uid': tuna.utils.сonfig.get('viewer_id')
         };
     };
 

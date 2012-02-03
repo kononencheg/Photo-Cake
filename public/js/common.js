@@ -1,230 +1,332 @@
 /**
  * TUNA FRAMEWORK
  * 
- * @file tuna.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 
 /**
- * Основная область имен.
- *
- * @namespace
+ * @namespace Глобальная область имен.
  */
 var tuna = {};
 
 /**
  * Версия библиотеки.
  *
- * @public 
- * @static
  * @const
  * @type string
  */
 tuna.VERSION = '3.2.70';
 
 /**
- * Является ли текущий браузер IE.
- *
- * @public 
- * @static
- * @const
- * @type boolean
+ * @namespace
  */
-tuna.IS_IE = '\v' == 'v';
+tuna.dom = {};
 
 /**
- * Convert array-like object to array.
- *
- * @param {Object} list Array-like object.
- * @return {Array} Converted array.
+ * @namespace
  */
-tuna.toArray = function(list) {
-    return Array.prototype.slice.call(list);
-};
+tuna.events = {};
 
 /**
- * Объявление реализации интерфейса.
- *
- * Добавление либо замена (уже существующих) методов прототипа класса 
- * 'интерфейса', неоходимое для оповещения о не реализованных методах.
- *
- * При объявлении интерфейса в каждом объявленном методе следует генерировать 
- * ошибку типа <code>InterfaceMethodError</code>.
- *
- * Данную функцию следует вызывать перез вызовом функции 
- * <code>tuna.extend</code>.
- *
- * @public
- * @static
- * @param {!Object} Class Класс который должен реализовать интерфейс.
- * @param {!Object} Interface Класс "интерфейс" для реализации.
+ * @namespace
  */
-tuna.implement = function(Class, Interface) {
-    for (var method in Interface.prototype) {
-        if (typeof Interface.prototype[method] === 'function') {
-            Class.prototype[method] = Interface.prototype[method];
+tuna.model = {};
+
+/**
+ * @namespace
+ */
+tuna.net = {};
+
+/**
+ * @namespace
+ */
+tuna.rest = {};
+
+/**
+ * @namespace
+ */
+tuna.tmpl = {};
+
+/**
+ * @namespace
+ */
+tuna.tmpl.compilers = {};
+
+/**
+ * @namespace
+ */
+tuna.tmpl.data = {};
+
+/**
+ * @namespace
+ */
+tuna.tmpl.markup = {};
+
+/**
+ * @namespace
+ */
+tuna.tmpl.settings = {};
+
+/**
+ * @namespace
+ */
+tuna.tmpl.units = {};
+
+/**
+ * @namespace
+ */
+tuna.ui = {};
+
+/**
+ * @namespace
+ */
+tuna.ui.container = {};
+
+/**
+ * @namespace
+ */
+tuna.ui.modules = {};
+
+/**
+ * @namespace
+ */
+tuna.ui.selection = {};
+
+/**
+ * @namespace
+ */
+tuna.ui.selection.items = {};
+
+/**
+ * @namespace
+ */
+tuna.ui.selection.rule = {};
+
+/**
+ * @namespace
+ */
+tuna.ui.selection.view = {};
+
+/**
+ * @namespace
+ */
+tuna.utils = {};
+
+/**
+ * @namespace
+ */
+tuna.view = {};
+
+
+
+
+
+(function() {
+
+    /**
+     * Является ли текущий браузер IE.
+     *
+     * @const
+     * @type boolean
+     */
+    tuna.utils.IS_IE = '\v' == 'v';
+
+
+    /**
+     * Convert array-like object to array.
+     *
+     * @param {Object} list Array-like object.
+     * @return {Array} Converted array.
+     */
+    tuna.utils.toArray = function(list) {
+        return Array.prototype.slice.call(list);
+    };
+
+    /**
+     * Объявление реализации интерфейса.
+     *
+     * Добавление либо замена (уже существующих) методов прототипа класса
+     * 'интерфейса', неоходимое для оповещения о не реализованных методах.
+     *
+     * При объявлении интерфейса в каждом объявленном методе следует
+     * генерировать ошибку типа <code>InterfaceMethodError</code>.
+     *
+     * Данную функцию следует вызывать перез вызовом функции
+     * <code>tuna.utils.extend</code>.
+     *
+     * @param {!Function} Class Класс который должен реализовать интерфейс.
+     * @param {!Function} Interface Класс "интерфейс" для реализации.
+     */
+    tuna.utils.implement = function(Class, Interface) {
+        for (var method in Interface.prototype) {
+            if (typeof Interface.prototype[method] === 'function') {
+                Class.prototype[method] = Interface.prototype[method];
+            }
         }
-    }
-};
+    };
 
-/**
- * Наследование типа.
- *
- * Передает прототип родительского класса дочернему классу без ссылки на него, 
- * сохраняя конструктор, а также создает глобальное свойчтво дочернего класса 
- * <code>_super</code> содержащее прототип родительского класса.
- * 
- * Свойство <code>_super</code> необходимо для вызова исходных методов и 
- * конструктора родительского класса.
- * 
- * Пример использования:
- * <code>
- *         Class._super.constructor.call(this, argument);
- * </code>
- *
- * @public
- * @static
- * @param {!Object} Class Класс который должен наследовать тип.
- * @param {!Object} Parent Родительский класс.
- */
-tuna.extend = function(Class, Parent) {
-    var Link = function() {};
-    Link.prototype = Parent.prototype;
+    /**
+     * Наследование типа.
+     *
+     * Передает прототип родительского класса дочернему классу без ссылки на
+     * него, сохраняя конструктор.
+     *
+     * @param {!Function} Class Класс который должен наследовать тип.
+     * @param {!Function} Parent Родительский класс.
+     */
+    tuna.utils.extend = function(Class, Parent) {
+        /**
+         * @constructor
+         */
+        var Link = function() {};
+        Link.prototype = Parent.prototype;
 
-    Class.prototype = new Link();
-    Class.prototype.constructor = Class;
-    Class.prototype._super = Parent.prototype;
-};
+        Class.prototype = new Link();
+        Class.prototype.constructor = Class;
+    };
 
-/**
- * Создание сслыки на объект в глобальной области видимости.
- *
- * @public
- * @static
- * @param {!Object} object Объект с полным путем.
- * @param {!string} name Имя переменной в глобальной области видимости.
- */
-tuna.typedef = function(object, name) {
-    window[name] = object;
-};
+    /**
+     * Функция выполнения строки JavaScript кода в глобальной области имен.
+     *
+     * Не следует использовать нигде в логике приложенния.
+     *
+     * @param {!string} code Строка кода.
+     * @return {*} Результат выполнения.
+     * @deprecated
+     */
+    tuna.utils.eval = function(code) {
+        return (window.execScript !== undefined) ?
+                window.execScript(code) : window.eval(code);
+    };
 
-/**
- * Безопасное объявление области имен.
- *
- * @public
- * @static
- * @param {!string} path Полное имя области имен.
- * @return {Object} Ссылка на область имен.
- */
-tuna.namespace = function(path) {
-
-    var pathHash = path.split('.');
-    var scope = window, next;
-
-    while(pathHash.length > 0) {
-        next = pathHash.shift();
-
-        if (scope[next] === undefined) {
-            scope[next] = {};
-        }
-
-        scope = scope[next];
-    }
-
-    return scope;
-};
-
-
-/**
- * Функция выполнения строки JavaScript кода в глобальной области имен.
- *
- * Не следует использовать нигде(!) в логике приложенния.
- *
- * @public
- * @static
- * @param {!string} code Строка кода.
- * @return {Object} Результат выполнения.
- * @throws Error
- * @deprecated
- */
-tuna.eval = function(code) {
-    return (window.execScript !== undefined) ?
-            window.execScript(code) : window.eval(code);
-};
-
-tuna.bind = function(fn, context) {
-    if (fn.bind !== undefined) {
-        return fn.bind(context);
-    } else {
-        var args = Array.prototype.slice.call(arguments, 2);
-
-        return function() {
-            return fn.apply(context, args.concat(tuna.toArray(arguments)));
-        };
-    }
-};
-
-tuna.nextTick = function(callback) {
-    setTimeout(callback, 0);
-};
-
-tuna.clone = function(object, clones) {
-    if (object instanceof Array) {
-        return tuna.cloneArray(object);
-    } else if (object instanceof Date) {
-        return tuna.cloneDate(object);
-    } else if (object instanceof Object) {
-        if (clones === undefined) {
-            clones = [object];
+    /**
+     * Привязывание определенного контекста к функции или методу.
+     *
+     * @param {!Function} func
+     * @param {Object} context
+     */
+    tuna.utils.bind = function(func, context) {
+        if (func.bind !== undefined) {
+            return func.bind(context);
         } else {
-            clones.push(object);
-        }
+            var args = Array.prototype.slice.call(arguments, 2);
 
-        var result = {};
-        for (var key in object) {
-            if (object.hasOwnProperty(key)) {
-                if (tuna.indexOf(object[key], clones) === -1) {
-                    result[key] = tuna.clone(object[key]);
-                } else {
-                    throw new TypeError('Cloning circular structure');
+            return function() {
+                return func.apply
+                    (context, args.concat(tuna.utils.toArray(arguments)));
+            };
+        }
+    };
+
+    /**
+     * Отложенное выполнение метода. Д
+     *
+     * @param {!Function} callback
+     */
+    tuna.utils.nextTick = function(callback) {
+        setTimeout(callback, 0);
+    };
+
+    /**
+     * Клонирование объекта.
+     *
+     * @param {*} object
+     * @param {Array=} clones
+     */
+    tuna.utils.clone = function(object, clones) {
+        if (object instanceof Array) {
+            return tuna.utils.cloneArray(object);
+        } else if (object instanceof Date) {
+            return tuna.utils.cloneDate(object);
+        } else if (object instanceof Object) {
+            if (clones === undefined) {
+                clones = [object];
+            } else {
+                clones.push(object);
+            }
+
+            var result = {};
+            for (var key in object) {
+                if (object.hasOwnProperty(key)) {
+                    if (tuna.utils.indexOf(object[key], clones) === -1) {
+                        result[key] = tuna.utils.clone(object[key]);
+                    } else {
+                        throw new TypeError('Cloning circular structure');
+                    }
                 }
             }
+
+            return result;
         }
 
-        return result;
-    }
+        return object;
+    };
 
-    return object;
-};
+    /**
+     * Клонирование даты.
+     *
+     * @param {Date} date
+     */
+    tuna.utils.cloneDate = function(date) {
+        return new Date(date.getTime());
+    };
 
-tuna.cloneDate = function(date) {
-    return new Date(date.getTime());
-};
+    /**
+     * Клонирование массива.
+     *
+     * @param {Array} array
+     */
+    tuna.utils.cloneArray = function(array) {
+        return array.slice(0);
+    };
 
-tuna.cloneArray = function(array) {
-    return array.slice(0);
-};
+    /**
+     * Поиск индекса объекта в массиве.
+     *
+     * @param {*} element
+     * @param {Array} array
+     */
+    tuna.utils.indexOf = function(element, array) {
+        if (array.indexOf !== undefined) {
+            return array.indexOf(element);
+        } else {
+            var i = 0,
+                l = array.length;
 
-tuna.indexOf = function(element, array) {
-    if (array.indexOf !== undefined) {
-        return array.indexOf(element);
-    } else {
-        var i = 0,
-            l = array.length;
+            while (i < l) {
+                if (array[i] === element) {
+                    return i;
+                }
 
-        while (i < l) {
-            if (array[i] === element) {
-                return i;
+                i++;
             }
-
-            i++;
         }
-    }
 
-    return -1;
-};(function() {
+        return -1;
+    };
+
+})();(function() {
+
+    var Config = function() {
+        this.__data = null;
+    };
+
+    Config.prototype.init = function(data) {
+        this.__data = data;
+    };
+
+    Config.prototype.get = function(key) {
+        if (this.__data[key] !== undefined) {
+            return this.__data[key];
+        }
+
+        return null;
+    };
+
+    tuna.utils.сonfig = new Config();
     
-    tuna.namespace('tuna.events');
+})();
+(function() {
 
     var IEventDispatcher = function() {};
 
@@ -239,7 +341,6 @@ tuna.indexOf = function(element, array) {
     tuna.events.IEventDispatcher = IEventDispatcher;
 
 })();(function() {
-    tuna.namespace('tuna.events');
 
     var EventDispatcher = function(parent) {
         this._propagationParent = null;
@@ -251,7 +352,7 @@ tuna.indexOf = function(element, array) {
         }
     };
 
-    tuna.implement(EventDispatcher, tuna.events.IEventDispatcher);
+    tuna.utils.implement(EventDispatcher, tuna.events.IEventDispatcher);
 
     EventDispatcher.prototype.dispatch = function(event, data) {
         if (!(event instanceof tuna.events.Event)) {
@@ -298,7 +399,8 @@ tuna.indexOf = function(element, array) {
 
     EventDispatcher.prototype.removeEventListener = function(type, listener) {
         if (this._listeners[type] !== undefined) {
-            var listenerIndex = tuna.indexOf(listener, this._listeners[type]);
+            var listenerIndex
+                = tuna.utils.indexOf(listener, this._listeners[type]);
 
             if (listenerIndex !== -1) {
                 this._listeners[type].splice(listenerIndex, 1);
@@ -308,7 +410,7 @@ tuna.indexOf = function(element, array) {
 
     EventDispatcher.prototype.hasEventListener = function(type, listener) {
         if (this._listeners[type] !== undefined) {
-            return tuna.indexOf(listener, this._listeners[type]) !== -1;
+            return tuna.utils.indexOf(listener, this._listeners[type]) !== -1;
         }
 
         return false;
@@ -317,7 +419,6 @@ tuna.indexOf = function(element, array) {
     tuna.events.EventDispatcher = EventDispatcher;
 
 })();(function() {
-    tuna.namespace('tuna.events');
 
     var Event = function(type, isBubbling) {
         this._target = null;
@@ -378,11 +479,9 @@ tuna.indexOf = function(element, array) {
     tuna.events.Event = Event;
 })();(function() {
 
-    tuna.namespace('tuna.net');
-
     var IRequest = function() {};
 
-    tuna.extend(IRequest, tuna.events.IEventDispatcher);
+    tuna.utils.extend(IRequest, tuna.events.IEventDispatcher);
 
     IRequest.prototype.send = function(url) {};
     IRequest.prototype.abort = function() {};
@@ -391,7 +490,6 @@ tuna.indexOf = function(element, array) {
 
 })();
 (function() {
-    tuna.namespace('tuna.net');
 
     var Request = function(url) {
         tuna.events.EventDispatcher.call(this);
@@ -445,8 +543,8 @@ tuna.indexOf = function(element, array) {
         this.__request = null;
     };
 
-    tuna.implement(Request, tuna.net.IRequest);
-    tuna.extend(Request, tuna.events.EventDispatcher);
+    tuna.utils.implement(Request, tuna.net.IRequest);
+    tuna.utils.extend(Request, tuna.events.EventDispatcher);
 
     Request.prototype.setData = function(data) {
         this.__data = data;
@@ -482,7 +580,7 @@ tuna.indexOf = function(element, array) {
         }
 
         //Инициализируем запрос.
-        var request = !tuna.IS_IE ?
+        var request = !tuna.utils.IS_IE ?
                         new XMLHttpRequest() :
                         new ActiveXObject('Microsoft.XMLHTTP');
 
@@ -593,92 +691,6 @@ tuna.indexOf = function(element, array) {
 })();
 (function() {
 
-    tuna.namespace('tuna.rest');
-
-    var IResponseParser = function() {};
-
-    IResponseParser.prototype.parse = function(response) {};
-    
-    IResponseParser.prototype.getErrors = function() {};
-
-    tuna.rest.IResponseParser = IResponseParser;
-
-})();
-(function() {
-
-    tuna.namespace('tuna.rest');
-
-    var IRemoteMethod = function() {};
-    
-    IRemoteMethod.prototype.call = function(args) {};
-    IRemoteMethod.prototype.clone = function() {};
-
-    tuna.rest.IRemoteMethod = IRemoteMethod;
-
-})();
-(function() {
-
-    tuna.namespace('tuna.rest');
-
-    var RemoteMethod = function(name) {
-        tuna.events.EventDispatcher.call(this);
-
-        this._name = name || null;
-    };
-
-    tuna.implement(RemoteMethod, tuna.rest.IRemoteMethod);
-    tuna.extend(RemoteMethod, tuna.events.EventDispatcher);
-
-    RemoteMethod.prototype.call = function(args) {};
-
-    RemoteMethod.prototype.clone = function() {
-        return new this.constructor(this._name);
-    };
-
-    tuna.rest.RemoteMethod = RemoteMethod;
-
-})();
-(function() {
-
-    tuna.namespace('tuna.rest');
-
-    var IMethodFactory = function() {};
-    IMethodFactory.prototype.createMethod = function(name) {};
-
-    tuna.rest.IMethodFactory = IMethodFactory;
-
-})();
-(function() {
-
-    tuna.namespace('tuna.rest.factory');
-
-    var Factory = function() {
-        this.__methods = {};
-        this.__factory = null;
-    };
-
-    tuna.implement(Factory, tuna.rest.IMethodFactory);
-
-    Factory.prototype.setCommonFactory = function(factory) {
-        this.__factory = factory;
-    };
-
-    Factory.prototype.createMethod = function(name) {
-        if (this.__methods[name] !== undefined) {
-            return this.__methods[name].clone();
-        } else if (this.__factory !== null) {
-            return this.__factory.createMethod(name);
-        }
-
-        return null;
-    };
-
-    Factory.prototype.addMethod = function(name, method) {
-        this.__methods[name] = method;
-    };
-
-    tuna.rest.factory = new Factory();
-
     tuna.rest.call = function(name, args, callback) {
         if (typeof args === 'function') {
             callback = args;
@@ -698,6 +710,74 @@ tuna.indexOf = function(element, array) {
     };
 
 })();
+(function() {
+
+    var IMethod = function() {};
+    
+    IMethod.prototype.call = function(args) {};
+    IMethod.prototype.clone = function() {};
+
+    tuna.rest.IMethod = IMethod;
+
+})();
+(function() {
+
+    var Method = function(name) {
+        tuna.events.EventDispatcher.call(this);
+
+        this._name = name || null;
+    };
+
+    tuna.utils.implement(Method, tuna.rest.IMethod);
+    tuna.utils.extend(Method, tuna.events.EventDispatcher);
+
+    Method.prototype.call = function(args) {};
+
+    Method.prototype.clone = function() {
+        return new this.constructor(this._name);
+    };
+
+    tuna.rest.Method = Method;
+
+})();
+(function() {
+
+    var IFactory = function() {};
+    IFactory.prototype.createMethod = function(name) {};
+
+    tuna.rest.IFactory = IFactory;
+
+})();
+(function() {
+
+    var Factory = function() {
+        this.__methods = {};
+        this.__factory = null;
+    };
+
+    tuna.utils.implement(Factory, tuna.rest.IFactory);
+
+    Factory.prototype.setDefaultFactory = function(factory) {
+        this.__factory = factory;
+    };
+
+    Factory.prototype.createMethod = function(name) {
+        if (this.__methods[name] !== undefined) {
+            return this.__methods[name].clone();
+        } else if (this.__factory !== null) {
+            return this.__factory.createMethod(name);
+        }
+
+        return null;
+    };
+
+    Factory.prototype.addMethod = function(name, method) {
+        this.__methods[name] = method;
+    };
+
+    tuna.rest.factory = new Factory();
+
+})();
 /**
  * TUNA FRAMEWORK
  *
@@ -705,8 +785,6 @@ tuna.indexOf = function(element, array) {
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 (function() {
-
-    tuna.namespace('tuna.dom');
 
     function addCustomIEListener(element, type, handler) {
         if (element.__customListener == undefined) {
@@ -1011,44 +1089,11 @@ tuna.indexOf = function(element, array) {
 
 })();/**
  * TUNA FRAMEWORK
- *
- * @file config.js
- * @author Kononenko Sergey <kononenheg@gmail.com>
- */
-(function() {
-
-    tuna.namespace('tuna');
-
-    var Config = function() {
-        this.__data = null;
-    };
-
-    Config.prototype.init = function(data) {
-        this.__data = data;
-    };
-
-    Config.prototype.get = function(key) {
-        if (this.__data[key] !== undefined) {
-            return this.__data[key];
-        }
-
-        return null;
-    };
-
-    Config.prototype.set = function(key, value) {
-        this.__data[key] = value;
-    };
-
-    tuna.config = new Config();
-})();/**
- * TUNA FRAMEWORK
  * 
  * @file data-node.js
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 (function() {
-
-    tuna.namespace('tuna.tmpl.data');
 
     var DataNode = function(value, parent, key) {
         this.__value = null;
@@ -1114,7 +1159,6 @@ tuna.indexOf = function(element, array) {
  */
 
 (function() {
-    tuna.namespace('tuna.tmpl.data');
 
     var PathEvaluator = function() {
         this.__parsedPath = null;
@@ -1192,8 +1236,6 @@ tuna.indexOf = function(element, array) {
  */
 
 (function() {
-
-    tuna.namespace('tuna.tmpl.settings');
 
     /**
      * Template spot data class.
@@ -1273,8 +1315,6 @@ tuna.indexOf = function(element, array) {
 
 (function() {
 
-    tuna.namespace('tuna.tmpl.settings');
-
 
     var Attribute = function() {
         tuna.tmpl.settings.Spot.call(this);
@@ -1284,7 +1324,7 @@ tuna.indexOf = function(element, array) {
         this.__hasEvent = false;
     };
 
-    tuna.extend(Attribute, tuna.tmpl.settings.Spot);
+    tuna.utils.extend(Attribute, tuna.tmpl.settings.Spot);
 
     Attribute.prototype.setEvent = function(hasEvent) {
         this.__hasEvent = hasEvent;
@@ -1312,8 +1352,6 @@ tuna.indexOf = function(element, array) {
 
 (function() {
 
-    tuna.namespace('tuna.tmpl.settings');
-
     var Condition = function() {
         tuna.tmpl.settings.Spot.call(this);
 
@@ -1324,7 +1362,7 @@ tuna.indexOf = function(element, array) {
         this.__operatorData = null;
     };
 
-    tuna.extend(Condition, tuna.tmpl.settings.Spot);
+    tuna.utils.extend(Condition, tuna.tmpl.settings.Spot);
 
     Condition.prototype.setOperator = function(type, data) {
         this.__operatorType = type;
@@ -1365,8 +1403,6 @@ tuna.indexOf = function(element, array) {
 
 (function() {
 
-    tuna.namespace('tuna.tmpl.settings');
-
     var List = function() {
         tuna.tmpl.settings.Spot.call(this);
 
@@ -1377,7 +1413,7 @@ tuna.indexOf = function(element, array) {
         this.__itemTemplate = null;
     };
 
-    tuna.extend(List, tuna.tmpl.settings.Spot);
+    tuna.utils.extend(List, tuna.tmpl.settings.Spot);
 
     List.prototype.setItemKeyDataPath = function(path) {
         this.__keyPath = path;
@@ -1417,8 +1453,6 @@ tuna.indexOf = function(element, array) {
  */
 
 (function() {
-
-    tuna.namespace('tuna.tmpl.settings');
 
 
     /**
@@ -1475,8 +1509,6 @@ tuna.indexOf = function(element, array) {
 })();
 (function() {
 
-    tuna.namespace('tuna.tmpl.markup');
-
     var IMarkupExtractor = function() {};
 
     IMarkupExtractor.prototype.extract = function(element, template) {};
@@ -1484,17 +1516,15 @@ tuna.indexOf = function(element, array) {
     tuna.tmpl.markup.IMarkupExtractor = IMarkupExtractor;
 })();(function() {
 
-    tuna.namespace('tuna.tmpl.markup');
-
     var SpotExtractor = function() {
         this._tagName = 'spot';
         this._ns = 'tuna:';
     };
 
-    tuna.implement(SpotExtractor, tuna.tmpl.markup.IMarkupExtractor);
+    tuna.utils.implement(SpotExtractor, tuna.tmpl.markup.IMarkupExtractor);
 
     SpotExtractor.prototype.extract = function(element, template) {
-        var tagName = tuna.IS_IE ? this._tagName : (this._ns + this._tagName);
+        var tagName = tuna.utils.IS_IE ? this._tagName : (this._ns + this._tagName);
         var elements = element.getElementsByTagName(tagName);
 
         var i = 0,
@@ -1527,8 +1557,6 @@ tuna.indexOf = function(element, array) {
     tuna.tmpl.markup.SpotExtractor = SpotExtractor;
 })();(function() {
 
-    tuna.namespace('tuna.tmpl.markup');
-
     var ListExtractor = function(templateBuilder) {
         tuna.tmpl.markup.SpotExtractor.call(this);
 
@@ -1537,7 +1565,7 @@ tuna.indexOf = function(element, array) {
         this.__templateBuilder = templateBuilder
     };
 
-    tuna.extend(ListExtractor, tuna.tmpl.markup.SpotExtractor);
+    tuna.utils.extend(ListExtractor, tuna.tmpl.markup.SpotExtractor);
 
     ListExtractor.prototype._createItem = function() {
         return new tuna.tmpl.settings.List();
@@ -1562,15 +1590,13 @@ tuna.indexOf = function(element, array) {
     tuna.tmpl.markup.ListExtractor = ListExtractor;
 })();(function() {
 
-    tuna.namespace('tuna.tmpl.markup');
-
     var AttributeExtractor = function() {
         tuna.tmpl.markup.SpotExtractor.call(this);
 
         this._tagName = 'attr';
     };
 
-    tuna.extend(AttributeExtractor, tuna.tmpl.markup.SpotExtractor);
+    tuna.utils.extend(AttributeExtractor, tuna.tmpl.markup.SpotExtractor);
 
     AttributeExtractor.prototype._createItem = function() {
         return new tuna.tmpl.settings.Attribute();
@@ -1590,8 +1616,6 @@ tuna.indexOf = function(element, array) {
     tuna.tmpl.markup.AttributeExtractor = AttributeExtractor;
 })();(function() {
 
-    tuna.namespace('tuna.tmpl.markup');
-
     var ConditionExtractor = function() {
         tuna.tmpl.markup.SpotExtractor.call(this);
 
@@ -1601,7 +1625,7 @@ tuna.indexOf = function(element, array) {
         this.__actionAttrs = ['class'];
     };
 
-    tuna.extend(ConditionExtractor, tuna.tmpl.markup.SpotExtractor);
+    tuna.utils.extend(ConditionExtractor, tuna.tmpl.markup.SpotExtractor);
 
     ConditionExtractor.prototype._createItem = function() {
         return new tuna.tmpl.settings.Condition();
@@ -1665,8 +1689,6 @@ tuna.indexOf = function(element, array) {
  */
 (function() {
 
-    tuna.namespace('tuna.tmpl.markup');
-
     /**
      * Template transformer compiler from markup source.
      *
@@ -1728,28 +1750,24 @@ tuna.indexOf = function(element, array) {
 })();
 (function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var IListItemRouter = function() {};
     
     IListItemRouter.prototype.append = function(element) {};
 
-    tuna.tmpl.unit.IListItemRouter = IListItemRouter;
+    tuna.tmpl.units.IListItemRouter = IListItemRouter;
 })();(function() {
-
-    tuna.namespace('tuna.tmpl.unit');
 
     var ListContainerRouter = function(containerElement) {
         this._container = containerElement;
     };
 
-    tuna.implement(ListContainerRouter, tuna.tmpl.unit.IListItemRouter);
+    tuna.utils.implement(ListContainerRouter, tuna.tmpl.units.IListItemRouter);
 
     ListContainerRouter.prototype.append = function(node) {
         this._container.appendChild(node);
     };
 
-    tuna.tmpl.unit.ListContainerRouter = ListContainerRouter;
+    tuna.tmpl.units.ListContainerRouter = ListContainerRouter;
 })();/**
  * TUNA FRAMEWORK
  * 
@@ -1757,8 +1775,6 @@ tuna.indexOf = function(element, array) {
  * @author Kononenko Sergey <kononenheg@gmail.com>
  */
 (function() {
-
-    tuna.namespace('tuna.tmpl.unit');
 
     var CompiledUnit = function(rootTemplate) {
         this.__rootTemplate = rootTemplate;
@@ -1770,7 +1786,7 @@ tuna.indexOf = function(element, array) {
 
     CompiledUnit.prototype.destroy = function() {};
 
-    tuna.tmpl.unit.CompiledUnit = CompiledUnit;
+    tuna.tmpl.units.CompiledUnit = CompiledUnit;
 })();/**
  * TUNA FRAMEWORK
  * 
@@ -1779,16 +1795,14 @@ tuna.indexOf = function(element, array) {
  */
 (function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var Spot = function(rootTemplate) {
-        tuna.tmpl.unit.CompiledUnit.call(this, rootTemplate);
+        tuna.tmpl.units.CompiledUnit.call(this, rootTemplate);
 
         this.__pathEvaluator = new tuna.tmpl.data.PathEvaluator();
         this._nodes = [];
     };
 
-    tuna.extend(Spot, tuna.tmpl.unit.CompiledUnit);
+    tuna.utils.extend(Spot, tuna.tmpl.units.CompiledUnit);
 
     Spot.prototype.setPath = function(path) {
         this.__pathEvaluator.setPath(path);
@@ -1819,13 +1833,11 @@ tuna.indexOf = function(element, array) {
         }
     };
 
-    tuna.tmpl.unit.Spot = Spot;
+    tuna.tmpl.units.Spot = Spot;
 })();(function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var Attribute = function(rootTemplate) {
-        tuna.tmpl.unit.Spot.call(this, rootTemplate);
+        tuna.tmpl.units.Spot.call(this, rootTemplate);
 
         this.__attributeName = null;
         this.__eventName = null;
@@ -1833,7 +1845,7 @@ tuna.indexOf = function(element, array) {
         this.__hasEvent = false;
     };
 
-    tuna.extend(Attribute, tuna.tmpl.unit.Spot);
+    tuna.utils.extend(Attribute, tuna.tmpl.units.Spot);
 
     Attribute.prototype.setAttributeName = function(attributeName) {
         this.__attributeName = attributeName;
@@ -1884,7 +1896,7 @@ tuna.indexOf = function(element, array) {
         }
     };
 
-    tuna.tmpl.unit.Attribute = Attribute;
+    tuna.tmpl.units.Attribute = Attribute;
 })();/**
  * TUNA FRAMEWORK
  * 
@@ -1893,16 +1905,14 @@ tuna.indexOf = function(element, array) {
  */
 (function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var Condition = function(rootTemplate) {
-        tuna.tmpl.unit.Spot.call(this, rootTemplate);
+        tuna.tmpl.units.Spot.call(this, rootTemplate);
 
         this.__action = null;
         this.__operator = null;
     };
 
-    tuna.extend(Condition, tuna.tmpl.unit.Spot);
+    tuna.utils.extend(Condition, tuna.tmpl.units.Spot);
 
     Condition.prototype.setAction = function(action) {
         this.__action = action;
@@ -1923,7 +1933,7 @@ tuna.indexOf = function(element, array) {
     };
 
 
-    tuna.tmpl.unit.Condition = Condition;
+    tuna.tmpl.units.Condition = Condition;
 })();/**
  * TUNA FRAMEWORK
  * 
@@ -1932,10 +1942,8 @@ tuna.indexOf = function(element, array) {
  */
 (function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var List = function(rootTemplate) {
-        tuna.tmpl.unit.CompiledUnit.call(this, rootTemplate);
+        tuna.tmpl.units.CompiledUnit.call(this, rootTemplate);
 
         this.__compiler = null;
 
@@ -1949,7 +1957,7 @@ tuna.indexOf = function(element, array) {
         this.__listNodeRouter = null;
     };
 
-    tuna.extend(List, tuna.tmpl.unit.CompiledUnit);
+    tuna.utils.extend(List, tuna.tmpl.units.CompiledUnit);
 
     List.prototype.setListNodeRouter = function(router) {
         this.__listNodeRouter = router;
@@ -2039,7 +2047,7 @@ tuna.indexOf = function(element, array) {
         return template;
     };
 
-    tuna.tmpl.unit.List = List;
+    tuna.tmpl.units.List = List;
     
 })();/**
  * TUNA FRAMEWORK
@@ -2050,10 +2058,8 @@ tuna.indexOf = function(element, array) {
 
 (function() {
 
-    tuna.namespace('tuna.tmpl.unit');
-
     var Template = function(rootTemplate) {
-        tuna.tmpl.unit.CompiledUnit.call(this, rootTemplate || this);
+        tuna.tmpl.units.CompiledUnit.call(this, rootTemplate || this);
 
         this.__items = [];
 
@@ -2063,7 +2069,7 @@ tuna.indexOf = function(element, array) {
         this.__target = null;
     };
 
-    tuna.extend(Template, tuna.tmpl.unit.CompiledUnit);
+    tuna.utils.extend(Template, tuna.tmpl.units.CompiledUnit);
 
     Template.prototype.setTarget = function(element) {
         this.__target = element;
@@ -2112,17 +2118,15 @@ tuna.indexOf = function(element, array) {
         this.getRootTemplate().registerChildRemoval(this.__target);
     };
 
-    tuna.tmpl.unit.Template = Template;
+    tuna.tmpl.units.Template = Template;
 })();(function() {
-
-    tuna.namespace('tuna.tmpl.compile');
 
     var IItemCompiler = function() {};
 
     IItemCompiler.prototype.compile
         = function(element, templateSettings, template) {};
 
-    tuna.tmpl.compile.IItemCompiler = IItemCompiler;
+    tuna.tmpl.compilers.IItemCompiler = IItemCompiler;
 })();/**
  * TUNA FRAMEWORK
  * 
@@ -2131,8 +2135,6 @@ tuna.indexOf = function(element, array) {
  */
 
 (function() {
-
-    tuna.namespace('tuna.tmpl.compile');
 
 
     /**
@@ -2150,16 +2152,16 @@ tuna.indexOf = function(element, array) {
     };
 
     TemplateCompiler.prototype.__registerItemCompilers = function() {
-        this.__itemCompilers.push(new tuna.tmpl.compile.SpotCompiler());
-        this.__itemCompilers.push(new tuna.tmpl.compile.AttributeCompiler());
-        this.__itemCompilers.push(new tuna.tmpl.compile.ConditionCompiler());
-        this.__itemCompilers.push(new tuna.tmpl.compile.ListCompiler(this.__doc, this));
+        this.__itemCompilers.push(new tuna.tmpl.compilers.SpotCompiler());
+        this.__itemCompilers.push(new tuna.tmpl.compilers.AttributeCompiler());
+        this.__itemCompilers.push(new tuna.tmpl.compilers.ConditionCompiler());
+        this.__itemCompilers.push(new tuna.tmpl.compilers.ListCompiler(this.__doc, this));
     };
 
     /**
      * Compiling template with target DOM element.
      *
-     * @param {tuna.tmpl.settings.Template} template Template to compile.
+     * @param {tuna.tmpl.settings.Template} template Template to compilers.
      * @param {Element} element Target DOM element.
      * @return {tuna.tmpl.ITransformer} New template transformer.
      */
@@ -2174,7 +2176,7 @@ tuna.indexOf = function(element, array) {
     };
 
     TemplateCompiler.prototype.compileTemplate = function(settings, element, root) {
-        var template = new tuna.tmpl.unit.Template(root);
+        var template = new tuna.tmpl.units.Template(root);
         template.setTarget(element);
 
         var i = 0,
@@ -2188,16 +2190,14 @@ tuna.indexOf = function(element, array) {
         return template;
     };
 
-    tuna.tmpl.compile.TemplateCompiler = TemplateCompiler;
+    tuna.tmpl.compilers.TemplateCompiler = TemplateCompiler;
 
 })();
 (function() {
 
-    tuna.namespace('tuna.tmpl.compile');
-
     var SpotCompiler = function() {};
 
-    tuna.implement(SpotCompiler, tuna.tmpl.compile.IItemCompiler);
+    tuna.utils.implement(SpotCompiler, tuna.tmpl.compilers.IItemCompiler);
 
     SpotCompiler.prototype.compile = function(element, settings, template) {
         var root = template.getRootTemplate();
@@ -2222,7 +2222,7 @@ tuna.indexOf = function(element, array) {
     };
 
     SpotCompiler.prototype._createItem = function(rootTemplate) {
-        return new tuna.tmpl.unit.Spot(rootTemplate);
+        return new tuna.tmpl.units.Spot(rootTemplate);
     };
 
     SpotCompiler.prototype._compileItem = function(element, settings, item) {
@@ -2236,16 +2236,14 @@ tuna.indexOf = function(element, array) {
         }
     };
 
-    tuna.tmpl.compile.SpotCompiler = SpotCompiler;
+    tuna.tmpl.compilers.SpotCompiler = SpotCompiler;
 })();(function() {
 
-    tuna.namespace('tuna.tmpl.compile');
-
     var AttributeCompiler = function() {
-        tuna.tmpl.compile.SpotCompiler.call(this);
+        tuna.tmpl.compilers.SpotCompiler.call(this);
     };
 
-    tuna.extend(AttributeCompiler, tuna.tmpl.compile.SpotCompiler);
+    tuna.utils.extend(AttributeCompiler, tuna.tmpl.compilers.SpotCompiler);
 
 
     AttributeCompiler.prototype._getItemsSettings = function(settings) {
@@ -2253,39 +2251,37 @@ tuna.indexOf = function(element, array) {
     };
 
     AttributeCompiler.prototype._createItem = function(rootTemplate) {
-        return new tuna.tmpl.unit.Attribute(rootTemplate);
+        return new tuna.tmpl.units.Attribute(rootTemplate);
     };
 
     AttributeCompiler.prototype._compileItem = function(element, settings, item) {
-        tuna.tmpl.compile.SpotCompiler.prototype._compileItem.call
+        tuna.tmpl.compilers.SpotCompiler.prototype._compileItem.call
                                         (this, element, settings, item);
 
         item.setAttributeName(settings.getAttributeName());
         item.setEvent(settings.hasEvent());
     };
     
-    tuna.tmpl.compile.AttributeCompiler = AttributeCompiler;
+    tuna.tmpl.compilers.AttributeCompiler = AttributeCompiler;
     
 })();(function() {
 
-    tuna.namespace('tuna.tmpl.compile');
-
     var ConditionCompiler = function() {
-        tuna.tmpl.compile.SpotCompiler.call(this);
+        tuna.tmpl.compilers.SpotCompiler.call(this);
     };
 
-    tuna.extend(ConditionCompiler, tuna.tmpl.compile.SpotCompiler);
+    tuna.utils.extend(ConditionCompiler, tuna.tmpl.compilers.SpotCompiler);
 
     ConditionCompiler.prototype._getItemsSettings = function(settings) {
         return settings.getConditions();
     };
 
     ConditionCompiler.prototype._createItem = function(rootTemplate) {
-        return new tuna.tmpl.unit.Condition(rootTemplate);
+        return new tuna.tmpl.units.Condition(rootTemplate);
     };
 
     ConditionCompiler.prototype._compileItem = function(element, settings, item) {
-        tuna.tmpl.compile.SpotCompiler.prototype._compileItem.call
+        tuna.tmpl.compilers.SpotCompiler.prototype._compileItem.call
                                         (this, element, settings, item);
 
         var action = this.__createAction
@@ -2317,7 +2313,7 @@ tuna.indexOf = function(element, array) {
         return null;
     };
 
-    tuna.tmpl.compile.ConditionCompiler = ConditionCompiler;
+    tuna.tmpl.compilers.ConditionCompiler = ConditionCompiler;
 
     ///////////////////////////////////////////////////////////////////////////
     //
@@ -2336,7 +2332,7 @@ tuna.indexOf = function(element, array) {
         ConditionOperator.call(this);
     };
 
-    tuna.extend(IsSetOperator, ConditionOperator);
+    tuna.utils.extend(IsSetOperator, ConditionOperator);
 
     IsSetOperator.prototype.test = function(value) {
         return value !== undefined;
@@ -2347,7 +2343,7 @@ tuna.indexOf = function(element, array) {
         ConditionOperator.call(this, data);
     };
 
-    tuna.extend(EqualsOperator, ConditionOperator);
+    tuna.utils.extend(EqualsOperator, ConditionOperator);
 
     EqualsOperator.prototype.test = function(value) {
         return value == this._data || String(value) == this._data;
@@ -2358,7 +2354,7 @@ tuna.indexOf = function(element, array) {
         ConditionOperator.call(this, data);
     };
 
-    tuna.extend(NotEqualsOperator, ConditionOperator);
+    tuna.utils.extend(NotEqualsOperator, ConditionOperator);
 
     NotEqualsOperator.prototype.test = function(value) {
         return !(value == this._data || String(value) == this._data);
@@ -2383,7 +2379,7 @@ tuna.indexOf = function(element, array) {
         this.__lastName = null;
     };
 
-    tuna.extend(ClassAction, ConditionAction);
+    tuna.utils.extend(ClassAction, ConditionAction);
 
     ClassAction.prototype.apply = function(node, testResult, value) {
         var className = this._data;
@@ -2409,14 +2405,12 @@ tuna.indexOf = function(element, array) {
 
 })();(function() {
 
-    tuna.namespace('tuna.tmpl.compile');
-
     var ListCompiler = function(document, compiler) {
         this.__doc = document;
         this.__templateCompiler = compiler;
     };
 
-    tuna.implement(ListCompiler, tuna.tmpl.compile.IItemCompiler);
+    tuna.utils.implement(ListCompiler, tuna.tmpl.compilers.IItemCompiler);
 
     ListCompiler.prototype.compile = function(element, settings, template) {
         var itemsSettings = settings.getLists();
@@ -2454,7 +2448,7 @@ tuna.indexOf = function(element, array) {
     };
 
     ListCompiler.prototype.__createList = function(element, settings, root) {
-        var list = new tuna.tmpl.unit.List(root);
+        var list = new tuna.tmpl.units.List(root);
 
         list.setCompiler(this.__templateCompiler);
         list.setItemRenderer(this.__doc.getElementById(settings.getItemRendererID()));
@@ -2462,7 +2456,7 @@ tuna.indexOf = function(element, array) {
         list.setKeyPath(settings.getItemKeyDataPath());
         list.setPath(settings.getDataPath());
         
-        list.setListNodeRouter(new tuna.tmpl.unit.ListContainerRouter(element));
+        list.setListNodeRouter(new tuna.tmpl.units.ListContainerRouter(element));
 
         return list;
     };
@@ -2509,11 +2503,9 @@ tuna.indexOf = function(element, array) {
     };
      */
 
-    tuna.tmpl.compile.ListCompiler = ListCompiler;
+    tuna.tmpl.compilers.ListCompiler = ListCompiler;
     
 })();(function() {
-
-    tuna.namespace('tuna.tmpl');
 
     var ITransformHandler = function() {};
 
@@ -2529,8 +2521,6 @@ tuna.indexOf = function(element, array) {
     tuna.tmpl.ITransformHandler = ITransformHandler;
 
 })();(function() {
-
-    tuna.namespace('tuna.tmpl');
 
     var ITransformer = function() {};
 
@@ -2549,8 +2539,6 @@ tuna.indexOf = function(element, array) {
 
 (function() {
 
-    tuna.namespace('tuna.tmpl');
-
     /**
      * Template transformer binded to concrete HTML element.
      *
@@ -2566,7 +2554,7 @@ tuna.indexOf = function(element, array) {
          * Compiled template.
          *
          * @private
-         * @type {tuna.tmpl.unit.Template}
+         * @type {tuna.tmpl.units.Template}
          */
         this.__core = null;
 
@@ -2585,7 +2573,7 @@ tuna.indexOf = function(element, array) {
         this.__transformHandler = null;
     };
 
-    tuna.implement(TemplateTransformer, tuna.tmpl.ITransformer);
+    tuna.utils.implement(TemplateTransformer, tuna.tmpl.ITransformer);
 
     /**
      * Transform method.
@@ -2642,7 +2630,6 @@ tuna.indexOf = function(element, array) {
     tuna.tmpl.TemplateTransformer = TemplateTransformer;
     
 })();(function() {
-    tuna.namespace('tuna.ui.container');
 
     var Container = function(target, parent) {
         this._target = target;
@@ -2747,7 +2734,7 @@ tuna.indexOf = function(element, array) {
     };
 
     Container.prototype.__requireOneModule = function() {
-        var args = tuna.toArray(arguments);
+        var args = tuna.utils.toArray(arguments);
         var name = args.shift();
 
         if (this.__moduleArgs[name] === undefined) {
@@ -2765,8 +2752,6 @@ tuna.indexOf = function(element, array) {
 
 })();(function() {
 
-    tuna.namespace('tuna.ui.container');
-
     var TransformContainer = function(target, parent) {
         tuna.ui.container.Container.call(this, target, parent);
 
@@ -2774,7 +2759,7 @@ tuna.indexOf = function(element, array) {
         this.__transformer = null;
     };
 
-    tuna.extend(TransformContainer, tuna.ui.container.Container);
+    tuna.utils.extend(TransformContainer, tuna.ui.container.Container);
 
     TransformContainer.prototype.setTransformer = function(transformer) {
         this.__transformer = transformer;
@@ -2817,7 +2802,6 @@ tuna.indexOf = function(element, array) {
     tuna.ui.container.TransformContainer = TransformContainer;
 
 })();(function() {
-    tuna.namespace('tuna.ui.selection.items');
 
     var IItemsCollection = function() {};
 
@@ -2835,20 +2819,19 @@ tuna.indexOf = function(element, array) {
 
     tuna.ui.selection.items.IItemsCollection = IItemsCollection;
 })();(function() {
-    tuna.namespace('tuna.ui.selection.items');
 
     var ElementsCollection = function() {
         this.__items = [];
     };
 
-    tuna.implement(ElementsCollection, tuna.ui.selection.items.IItemsCollection);
+    tuna.utils.implement(ElementsCollection, tuna.ui.selection.items.IItemsCollection);
 
     ElementsCollection.prototype.addItem = function(item) {
         return this.__items.push(item) - 1;
     };
 
     ElementsCollection.prototype.getItemIndex = function(item) {
-        return tuna.indexOf(item, this.__items);
+        return tuna.utils.indexOf(item, this.__items);
     };
 
     ElementsCollection.prototype.getItemAt = function(index) {
@@ -2872,14 +2855,13 @@ tuna.indexOf = function(element, array) {
 
     tuna.ui.selection.items.ElementsCollection = ElementsCollection;
 })();(function() {
-    tuna.namespace('tuna.ui.selection.items');
 
     var NamedElementsCollection = function(indexAttribute) {
         this.__indexAttribute = indexAttribute;
         this.__items = {};
     };
 
-    tuna.implement(NamedElementsCollection, tuna.ui.selection.items.IItemsCollection);
+    tuna.utils.implement(NamedElementsCollection, tuna.ui.selection.items.IItemsCollection);
 
     NamedElementsCollection.prototype.addItem = function(item) {
         var index = item.getAttribute(this.__indexAttribute);
@@ -2917,7 +2899,6 @@ tuna.indexOf = function(element, array) {
 
     tuna.ui.selection.items.NamedElementsCollection = NamedElementsCollection;
 })();(function() {
-    tuna.namespace('tuna.ui.selection.rule');
 
     var ISelectionRule = function() {};
 
@@ -2934,8 +2915,6 @@ tuna.indexOf = function(element, array) {
     tuna.ui.selection.rule.ISelectionRule = ISelectionRule;
 })();(function() {
 
-    tuna.namespace('tuna.ui.selection.rule');
-
     var AbstractSelectionRule = function() {
         this._selectionGroup = null;
         this._selectionView = null;
@@ -2943,7 +2922,7 @@ tuna.indexOf = function(element, array) {
         this._eventDispatcher = null;
     };
 
-    tuna.implement(AbstractSelectionRule, tuna.ui.selection.rule.ISelectionRule);
+    tuna.utils.implement(AbstractSelectionRule, tuna.ui.selection.rule.ISelectionRule);
 
     AbstractSelectionRule.prototype.setSelectionGroup = function(group) {
         this._selectionGroup = group;
@@ -2960,8 +2939,6 @@ tuna.indexOf = function(element, array) {
     tuna.ui.selection.rule.AbstractSelectionRule = AbstractSelectionRule;
 })();(function() {
 
-    tuna.namespace('tuna.ui.rule.selection');
-
     var Event = tuna.events.Event;
     var AbstractSelectionRule = tuna.ui.selection.rule.AbstractSelectionRule;
 
@@ -2971,7 +2948,7 @@ tuna.indexOf = function(element, array) {
         this.__currentIndex = -1;
     };
 
-    tuna.extend(SingleSelectionRule, AbstractSelectionRule);
+    tuna.utils.extend(SingleSelectionRule, AbstractSelectionRule);
 
     SingleSelectionRule.prototype.getSelectedIndexes = function() {
         if (this.__currentIndex !== -1) {
@@ -3028,23 +3005,21 @@ tuna.indexOf = function(element, array) {
 
 })();(function() {
 
-    tuna.namespace('tuna.ui.selection.rule');
-
     var MultipleSelectionRule = function() {
         tuna.ui.selection.rule.AbstractSelectionRule.call(this);
 
         this.__selectedIndexes = [];
     };
 
-    tuna.extend(MultipleSelectionRule, tuna.ui.selection.rule.AbstractSelectionRule);
+    tuna.utils.extend(MultipleSelectionRule, tuna.ui.selection.rule.AbstractSelectionRule);
 
     MultipleSelectionRule.prototype.getSelectedIndexes = function() {
-        return tuna.cloneArray(this.__selectedIndexes);
+        return tuna.utils.cloneArray(this.__selectedIndexes);
     };
 
     MultipleSelectionRule.prototype.selectIndex = function(index) {
         if (this._selectionGroup.isIndexEnabled(index)) {
-            var indexPosition = tuna.indexOf(index, this.__selectedIndexes);
+            var indexPosition = tuna.utils.indexOf(index, this.__selectedIndexes);
             if (indexPosition === -1) {
                 if (this._eventDispatcher.dispatch
                         (new tuna.events.Event('select'), index)) {
@@ -3064,7 +3039,7 @@ tuna.indexOf = function(element, array) {
     };
 
     MultipleSelectionRule.prototype.isSelected = function(index) {
-        return tuna.indexOf(index, this.__selectedIndexes) !== -1;
+        return tuna.utils.indexOf(index, this.__selectedIndexes) !== -1;
     };
 
     MultipleSelectionRule.prototype.clearSelection = function() {
@@ -3078,7 +3053,6 @@ tuna.indexOf = function(element, array) {
     tuna.ui.selection.rule.MultipleSelectionRule = MultipleSelectionRule;
 
 })();(function() {
-    tuna.namespace('tuna.ui.selection.view');
 
     var ISelectionView = function() {};
 
@@ -3097,14 +3071,13 @@ tuna.indexOf = function(element, array) {
 
     tuna.ui.selection.view.ISelectionView = ISelectionView;
 })();(function() {
-    tuna.namespace('tuna.ui.selection.view');
 
     var AbstractSelectionView = function() {
         this._itemsCollection = null;
         this._selectionGroup = null;
     };
 
-    tuna.implement(AbstractSelectionView, tuna.ui.selection.view.ISelectionView);
+    tuna.utils.implement(AbstractSelectionView, tuna.ui.selection.view.ISelectionView);
 
     AbstractSelectionView.prototype.setSelectionGroup = function(group) {
         this._selectionGroup = group;
@@ -3116,7 +3089,7 @@ tuna.indexOf = function(element, array) {
 
     /*AbstractSelectionView.prototype.getItemIndex = function(item) {
         if (this._items instanceof Array) {
-            return tuna.indexOf(item, this._items);
+            return tuna.utils.indexOf(item, this._items);
         } else {
             for (var i in this._items) {
                 if (this._items.hasOwnProperty(i) && this._items[i] === item) {
@@ -3138,7 +3111,6 @@ tuna.indexOf = function(element, array) {
 
     tuna.ui.selection.view.AbstractSelectionView = AbstractSelectionView;
 })();(function() {
-    tuna.namespace('tuna.ui.selection.view');
 
     var ClassSelectionView = function(target) {
         tuna.ui.selection.view.AbstractSelectionView.call(this);
@@ -3151,7 +3123,7 @@ tuna.indexOf = function(element, array) {
         this._disabledClass = 'disabled';
     };
 
-    tuna.extend(ClassSelectionView, tuna.ui.selection.view.AbstractSelectionView);
+    tuna.utils.extend(ClassSelectionView, tuna.ui.selection.view.AbstractSelectionView);
 
     ClassSelectionView.prototype.setItemSelector = function(selector) {
         this._itemSelector = selector;
@@ -3220,7 +3192,6 @@ tuna.indexOf = function(element, array) {
 
     tuna.ui.selection.view.ClassSelectionView = ClassSelectionView;
 })();(function() {
-    tuna.namespace('tuna.ui.selection');
 
     var ISelectionGroup = function() {};
 
@@ -3253,8 +3224,6 @@ tuna.indexOf = function(element, array) {
     tuna.ui.selection.ISelectionGroup = ISelectionGroup;
 })();(function() {
 
-    tuna.namespace('tuna.ui.selection');
-
     var AbstractSelectionGroup = function(parent) {
         tuna.events.EventDispatcher.call(this, parent);
 
@@ -3266,13 +3235,13 @@ tuna.indexOf = function(element, array) {
         this._disabledIndexes = [];
     };
 
-    tuna.implement(AbstractSelectionGroup, tuna.ui.selection.ISelectionGroup);
-    tuna.extend(AbstractSelectionGroup, tuna.events.EventDispatcher);
+    tuna.utils.implement(AbstractSelectionGroup, tuna.ui.selection.ISelectionGroup);
+    tuna.utils.extend(AbstractSelectionGroup, tuna.events.EventDispatcher);
 
     AbstractSelectionGroup.prototype.setIndexEnabled
         = function(index, isEnabled) {
 
-        var indexPosition = tuna.indexOf(index, this._disabledIndexes);
+        var indexPosition = tuna.utils.indexOf(index, this._disabledIndexes);
         if (isEnabled) {
             if (indexPosition !== -1) {
                 this._selectionView.enableItemAt(index);
@@ -3285,7 +3254,7 @@ tuna.indexOf = function(element, array) {
     };
 
     AbstractSelectionGroup.prototype.isIndexEnabled = function(index) {
-        return tuna.indexOf(index, this._disabledIndexes) === -1;
+        return tuna.utils.indexOf(index, this._disabledIndexes) === -1;
     };
 
     AbstractSelectionGroup.prototype.updateView = function() {
@@ -3333,8 +3302,6 @@ tuna.indexOf = function(element, array) {
     tuna.ui.selection.AbstractSelectionGroup = AbstractSelectionGroup;
 })();(function() {
 
-    tuna.namespace('tuna.ui.selection');
-
     var SelectionGroup = function(target, isMultiple, indexAttribute,
                                   itemSelector, selectedClass) {
 
@@ -3365,7 +3332,7 @@ tuna.indexOf = function(element, array) {
         this._selectionRule.setSelectionView(this._selectionView);
     };
 
-    tuna.extend(SelectionGroup, tuna.ui.selection.AbstractSelectionGroup);
+    tuna.utils.extend(SelectionGroup, tuna.ui.selection.AbstractSelectionGroup);
 
     SelectionGroup.prototype.init = function() {
         this._selectionView.update();
@@ -3378,8 +3345,6 @@ tuna.indexOf = function(element, array) {
     tuna.ui.selection.SelectionGroup = SelectionGroup;
 })();(function() {
 
-    tuna.namespace('tuna.ui.selection');
-
     var Navigation = function(target) {
         tuna.ui.selection.SelectionGroup.call
             (this, target, false, 'id', '.j-navigation-page', 'current');
@@ -3389,7 +3354,7 @@ tuna.indexOf = function(element, array) {
         this.__history = [];
     };
 
-    tuna.extend(Navigation, tuna.ui.selection.SelectionGroup);
+    tuna.utils.extend(Navigation, tuna.ui.selection.SelectionGroup);
 
     Navigation.prototype.init = function() {
         var self = this;
@@ -3424,7 +3389,6 @@ tuna.indexOf = function(element, array) {
 
     tuna.ui.selection.Navigation = Navigation;
 })();(function() {
-    tuna.namespace('tuna.ui.modules');
 
     var modulesTable = {};
     var isolators = [];
@@ -3449,10 +3413,7 @@ tuna.indexOf = function(element, array) {
         return isolators;
     };
 
-
-
 })();(function() {
-    tuna.namespace('tuna.ui.module');
 
     var Module = function(name, selector) {
         this._name = name;
@@ -3546,12 +3507,12 @@ tuna.indexOf = function(element, array) {
             = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
 
         this.__templateCompiler 
-            = new tuna.tmpl.compile.TemplateCompiler(document);
+            = new tuna.tmpl.compilers.TemplateCompiler(document);
 
         this.__templatesTable = {};
     };
 
-    tuna.extend(TransformContainer, tuna.ui.modules.Module);
+    tuna.utils.extend(TransformContainer, tuna.ui.modules.Module);
 
     TransformContainer.prototype._findTargets = function(context) {
         return tuna.dom.select(this._selector, context);
@@ -3605,7 +3566,7 @@ tuna.indexOf = function(element, array) {
         tuna.ui.modules.Module.call(this, 'navigation', '.j-navigation');
     };
 
-    tuna.extend(Navigation, tuna.ui.modules.Module);
+    tuna.utils.extend(Navigation, tuna.ui.modules.Module);
 
     Navigation.prototype.initInstance = function(target) {
         var navigation = new tuna.ui.selection.Navigation(target);
@@ -3643,7 +3604,7 @@ tuna.indexOf = function(element, array) {
         tuna.ui.modules.Module.call(this, 'selection-group', '.j-selection-group');
     };
 
-    tuna.extend(SelectionGroup, tuna.ui.modules.Module);
+    tuna.utils.extend(SelectionGroup, tuna.ui.modules.Module);
 
     SelectionGroup.prototype.initInstance = function(target) {
         var isMultiple = target.getAttribute('data-is-multiple') === 'true';
@@ -3686,8 +3647,6 @@ tuna.indexOf = function(element, array) {
 
 })();(function() {
 
-    tuna.namespace('tuna.model');
-
     var Record = function() {};
 
     Record.prototype.clone = function() {
@@ -3705,44 +3664,6 @@ tuna.indexOf = function(element, array) {
 
 })();
 (function() {
-    tuna.namespace('tuna.view');
-
-    var ContentOrigin = function() {
-        this.__doc = document;
-        this.__requestBuilder = null;
-    };
-
-    ContentOrigin.prototype.setRequestBuilder = function(builder) {
-        this.__requestBuilder = builder;
-    };
-
-    ContentOrigin.prototype.__buildRequest = function(name) {
-        var result = null;
-
-        if (this.__requestBuilder) {
-            result = this.__requestBuilder.build(name);
-        }
-        
-        return result;
-    };
-
-    ContentOrigin.prototype.load = function(name, callback) {
-        var self = this;
-
-        var request = this.__buildRequest(name);
-        request.subscribe('complete', function(type, response) {
-            if (callback) {
-                callback(tuna.dom.createFragment(response, self.__doc));
-            }
-        });
-
-        request.send();
-    };
-
-    tuna.view.contentOrigin = new ContentOrigin();
-})();(function() {
-
-    tuna.namespace('tuna.view');
 
     var IViewState = function() {};
 
@@ -3753,7 +3674,6 @@ tuna.indexOf = function(element, array) {
     tuna.view.IViewState = IViewState;
 
 })();(function() {
-    tuna.namespace('tuna.view');
 
     var ViewController = function(targetID) {
         this.__targetID = targetID;
@@ -3764,7 +3684,7 @@ tuna.indexOf = function(element, array) {
         this._modules = null;
     };
 
-    tuna.implement(ViewController, tuna.tmpl.ITransformHandler);
+    tuna.utils.implement(ViewController, tuna.tmpl.ITransformHandler);
 
     ViewController.prototype.getTargetID = function() {
         return this.__targetID;
@@ -3838,7 +3758,6 @@ tuna.indexOf = function(element, array) {
     };
 
 })();(function() {
-    tuna.namespace('tuna.view');
 
     var StateViewController = function(targetID) {
         tuna.view.ViewController.call(this, targetID);
@@ -3846,7 +3765,7 @@ tuna.indexOf = function(element, array) {
         this.__currentState = null;
     };
 
-    tuna.extend(StateViewController, tuna.view.ViewController);
+    tuna.utils.extend(StateViewController, tuna.view.ViewController);
 
     StateViewController.prototype._setCurrentState = function(state) {
         this.__currentState = state;
@@ -3862,7 +3781,6 @@ tuna.indexOf = function(element, array) {
 
     tuna.view.StateViewController = StateViewController;
 })();(function() {
-    tuna.namespace('tuna.view');
 
     var NavigationViewController = function(targetID) {
         tuna.view.ViewController.call(this, targetID);
@@ -3872,12 +3790,12 @@ tuna.indexOf = function(element, array) {
 
         this.__currentPage = null;
 
-        this._testClose = tuna.bind(this._testClose, this);
-        this._closePage = tuna.bind(this._closePage, this);
-        this._openPage = tuna.bind(this._openPage, this);
+        this._testClose = tuna.utils.bind(this._testClose, this);
+        this._closePage = tuna.utils.bind(this._closePage, this);
+        this._openPage = tuna.utils.bind(this._openPage, this);
     };
 
-    tuna.extend(NavigationViewController, tuna.view.ViewController);
+    tuna.utils.extend(NavigationViewController, tuna.view.ViewController);
 
     NavigationViewController.prototype._requireModules = function() {
         this._container.requireModule('transform-container');
@@ -3948,8 +3866,8 @@ tuna.indexOf = function(element, array) {
     NavigationViewController.prototype._handlePageOpen = function(page, oldPage) {};
 
     tuna.view.NavigationViewController = NavigationViewController;
+
 })();(function() {
-    tuna.namespace('tuna.view');
 
     var PageViewController = function(targetID) {
         tuna.view.ViewController.call(this, targetID);
@@ -3957,7 +3875,7 @@ tuna.indexOf = function(element, array) {
         this._navigation = null;
     };
 
-    tuna.extend(PageViewController, tuna.view.ViewController);
+    tuna.utils.extend(PageViewController, tuna.view.ViewController);
 
     PageViewController.prototype.setNavigation = function(navigation) {
         this._navigation = navigation;
@@ -4460,7 +4378,7 @@ jQuery.extend({
 		}
 	},
 
-	// See test/unit/core.js for details concerning isFunction.
+	// See test/units/core.js for details concerning isFunction.
 	// Since version 1.3, DOM methods and functions like alert
 	// aren't supported. They return false on IE (#2968).
 	isFunction: function( obj ) {
@@ -15856,7 +15774,7 @@ if (!JSON) {
                         .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
                         .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
 
-// In the third stage we use the eval function to compile the text into a
+// In the third stage we use the eval function to compilers the text into a
 // JavaScript structure. The '{' operator is subject to a syntactic ambiguity
 // in JavaScript: it can begin a block or an object literal. We wrap the text
 // in parens to eliminate the ambiguity.
@@ -16653,14 +16571,51 @@ var swfobject = function() {
 		}
 	};
 }();
-(function() {
-    tuna.namespace('ui.forms');
+/**
+ * @namespace
+ */
+var model = {};
+
+/**
+ * @namespace
+ */
+model.records = {};
+
+/**
+ * @namespace
+ */
+var rest = {};
+
+/**
+ * @namespace
+ */
+var ui = {};
+
+/**
+ * @namespace
+ */
+ui.forms = {};
+
+/**
+ * Точка входа в приложение
+ *
+ * @param {!Object} args
+ */
+function main(args) {
+    tuna.utils.сonfig.init(args);
+
+    tuna.dom.setSelectorEngine(jQuery.find);
+
+    ui.Popup.registerAlertElement(tuna.dom.selectOne('#alert_popup'));
+    ui.Popup.registerConfirmElement(tuna.dom.selectOne('#confirm_popup'));
+
+    var container = new tuna.ui.container.TransformContainer(document.body);
+    container.init();
+}(function() {
 
     var FormResponseParser = function() {
         this.__errors = null;
     };
-
-    tuna.implement(FormResponseParser, tuna.rest.IResponseParser)
 
     FormResponseParser.prototype.parse = function(data) {
         if (data.response !== undefined) {
@@ -16679,7 +16634,6 @@ var swfobject = function() {
     ui.forms.FormResponseParser = FormResponseParser;
 
 })();(function() {
-    tuna.namespace('ui.forms');
 
     var FormInput = function(target) {
         this.__target = target;
@@ -16713,7 +16667,6 @@ var swfobject = function() {
 
     ui.forms.FormInput = FormInput;
 })();(function() {
-    tuna.namespace('ui.forms');
 
     var Form = function(target) {
         tuna.events.EventDispatcher.call(this);
@@ -16735,7 +16688,7 @@ var swfobject = function() {
 
     Form.CALLBACK_PREFIX = 'form_callback';
 
-    tuna.extend(Form, tuna.events.EventDispatcher);
+    tuna.utils.extend(Form, tuna.events.EventDispatcher);
 
     Form.prototype.setResultParser = function(parser) {
         this.__resultParser = parser;
@@ -16767,7 +16720,7 @@ var swfobject = function() {
 
     Form.prototype.__initListeners = function() {
         tuna.dom.addEventListener
-            (this.__target, 'submit', tuna.bind(this.__prepareToSubmit, this));
+            (this.__target, 'submit', tuna.utils.bind(this.__prepareToSubmit, this));
     };
 
     Form.prototype.__prepareToSubmit = function(event) {
@@ -16871,7 +16824,6 @@ var swfobject = function() {
 
     ui.forms.Form = Form;
 })();(function() {
-    tuna.namespace('ui');
 
     var Filtration = function(input, transformer) {
         tuna.events.EventDispatcher.call(this, null);
@@ -16889,7 +16841,7 @@ var swfobject = function() {
         };
     };
 
-    tuna.extend(Filtration, tuna.events.EventDispatcher);
+    tuna.utils.extend(Filtration, tuna.events.EventDispatcher);
 
     Filtration.prototype.setFilterCallback = function(callback) {
         this._filterCallback = callback;
@@ -16959,7 +16911,6 @@ var swfobject = function() {
 
     ui.Filtration = Filtration;
 })();(function() {
-    tuna.namespace('ui');
 
     var Autocomplete = function(input, transformer, selectionGroup) {
         ui.Filtration.call(this, input, transformer);
@@ -16968,7 +16919,7 @@ var swfobject = function() {
         this.__selectedData = null;
     };
 
-    tuna.extend(Autocomplete, ui.Filtration);
+    tuna.utils.extend(Autocomplete, ui.Filtration);
 
     Autocomplete.prototype.getSelectedData = function() {
         return this.__selectedData;
@@ -17013,7 +16964,6 @@ var swfobject = function() {
 
     ui.Autocomplete = Autocomplete;
 })();(function() {
-    tuna.namespace('ui');
 
     var DataImage = function(target) {
         tuna.events.EventDispatcher.call(this);
@@ -17021,7 +16971,7 @@ var swfobject = function() {
         this.__targetImage = target;
     };
 
-    tuna.extend(DataImage, tuna.events.EventDispatcher);
+    tuna.utils.extend(DataImage, tuna.events.EventDispatcher);
 
     DataImage.prototype.getTarget = function() {
         return this.__targetImage;
@@ -17032,7 +16982,7 @@ var swfobject = function() {
             type = 'image/jpeg';
         }
 
-        if (!tuna.IS_IE) {
+        if (!tuna.utils.IS_IE) {
             this.__targetImage.src = 'data:' + type + ';base64,' + data;
             this.dispatch('loaded', this.__targetImage);
         } else {
@@ -17102,7 +17052,6 @@ var swfobject = function() {
 
     ui.DataImage = DataImage;
 })();(function() {
-    tuna.namespace('ui');
 
     var Popup = function(target) {
         tuna.events.EventDispatcher.call(this);
@@ -17129,7 +17078,7 @@ var swfobject = function() {
         );
     };
 
-    tuna.extend(Popup, tuna.events.EventDispatcher);
+    tuna.utils.extend(Popup, tuna.events.EventDispatcher);
 
     Popup.prototype.getTarget = function() {
         return this.__target;
@@ -17253,7 +17202,6 @@ var swfobject = function() {
 
     ui.Popup = Popup;
 })();(function() {
-    tuna.namespace('ui');
 
     /*var Carousel = function(listElement, overflowElement, itemSelector, targetSelector) {
         tuna.ui.ItemSelector.call(this, listElement, itemSelector);
@@ -17261,7 +17209,7 @@ var swfobject = function() {
         this.__overflow = overflowElement;
     };
 
-    tuna.extend(Carousel, tuna.ui.ItemSelector);
+    tuna.utils.extend(Carousel, tuna.ui.ItemSelector);
 
     Carousel.prototype._selectAt = function(i) {
         tuna.ui.ItemSelector.prototype._selectAt.call(this, i);
@@ -17288,10 +17236,10 @@ var swfobject = function() {
             = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
 
         this.__templateCompiler
-            = new tuna.tmpl.compile.TemplateCompiler(document);
+            = new tuna.tmpl.compilers.TemplateCompiler(document);
     };
 
-    tuna.extend(Filtration, tuna.ui.modules.Module);
+    tuna.utils.extend(Filtration, tuna.ui.modules.Module);
 
     Filtration.prototype.initInstance = function(target) {
         var transformer = this._initTransformer(target);
@@ -17322,10 +17270,10 @@ var swfobject = function() {
             = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
 
         this.__templateCompiler
-            = new tuna.tmpl.compile.TemplateCompiler(document);
+            = new tuna.tmpl.compilers.TemplateCompiler(document);
     };
 
-    tuna.extend(Autocomplete, tuna.ui.modules.Module);
+    tuna.utils.extend(Autocomplete, tuna.ui.modules.Module);
 
     Autocomplete.prototype.initInstance = function(target) {
         var transformer = this._initTransformer(target);
@@ -17402,7 +17350,7 @@ var swfobject = function() {
         tuna.ui.modules.Module.call(this, 'swf', '.j-swf');
     };
 
-    tuna.extend(SWF, tuna.ui.modules.Module);
+    tuna.utils.extend(SWF, tuna.ui.modules.Module);
 
     SWF.ID_PREFIX = "movie_";
 
@@ -17441,7 +17389,7 @@ var swfobject = function() {
         tuna.ui.modules.Module.call(this, 'popup', '.j-popup');
     };
 
-    tuna.extend(Popup, tuna.ui.modules.Module);
+    tuna.utils.extend(Popup, tuna.ui.modules.Module);
 
     Popup.prototype.initInstance = function(target) {
         var popupElement =
@@ -17462,7 +17410,7 @@ var swfobject = function() {
         tuna.ui.modules.Module.call(this, 'image-popup', 'img.j-image-popup');
     };
 
-    tuna.extend(ImagePopup, tuna.ui.modules.Module);
+    tuna.utils.extend(ImagePopup, tuna.ui.modules.Module);
 
     ImagePopup.prototype.initInstance = function(target) {
         var popupElement = tuna.dom.selectOne('#image_popup');
@@ -17490,11 +17438,11 @@ var swfobject = function() {
         tuna.ui.modules.Module.call
             (this, 'cake-image-popup', '.j-cake-image-popup');
 
-        this.__handleMouseMove = tuna.bind(this.__handleMouseMove, this);
+        this.__handleMouseMove = tuna.utils.bind(this.__handleMouseMove, this);
         this.__lastIndex = -1;
     };
 
-    tuna.extend(CakeImagePopup, tuna.ui.modules.Module);
+    tuna.utils.extend(CakeImagePopup, tuna.ui.modules.Module);
 
     CakeImagePopup.prototype.initInstance = function(target) {
         var self = this;
@@ -17562,7 +17510,7 @@ var swfobject = function() {
         tuna.ui.modules.Module.call(this, 'slider', '.j-horizontal-slider, .j-vertical-slider');
     };
 
-    tuna.extend(Slider, tuna.ui.modules.Module);
+    tuna.utils.extend(Slider, tuna.ui.modules.Module);
 
     Slider.prototype.initInstance = function(target) {
         var $this = $(target);
@@ -17596,7 +17544,7 @@ var swfobject = function() {
         tuna.ui.modules.Module.call(this, 'carousel', '.j-carousel');
     };
 
-    tuna.extend(Carousel, tuna.ui.modules.Module);
+    tuna.utils.extend(Carousel, tuna.ui.modules.Module);
 
     Carousel.prototype.initInstance = function(target) {
         var carouselBody = tuna.dom.selectOne('.j-carousel-body', target );
@@ -17616,7 +17564,7 @@ var swfobject = function() {
         tuna.ui.modules.Module.call(this, 'form', 'form.j-form');
     };
 
-    tuna.extend(Form, tuna.ui.modules.Module);
+    tuna.utils.extend(Form, tuna.ui.modules.Module);
 
     Form.prototype.initInstance = function(target) {
         return new ui.forms.Form(target);
@@ -17630,7 +17578,7 @@ var swfobject = function() {
         tuna.ui.modules.Module.call(this, 'datepicker', 'input.j-datepicker');
     };
 
-    tuna.extend(Datepicker, tuna.ui.modules.Module);
+    tuna.utils.extend(Datepicker, tuna.ui.modules.Module);
 
     Datepicker.prototype.initInstance = function(target) {
         var minTime = (new Date().getTime() + 3*24*60*60*1000);
@@ -17649,7 +17597,7 @@ var swfobject = function() {
         tuna.ui.modules.Module.call(this, 'data-image', 'img.j-data-image');
     };
 
-    tuna.extend(DataImage, tuna.ui.modules.Module);
+    tuna.utils.extend(DataImage, tuna.ui.modules.Module);
 
     DataImage.prototype.initInstance = function(target, container, options) {
         return ui.DataImage.create(target);
@@ -17664,7 +17612,7 @@ var swfobject = function() {
             (this, 'data-image-copy', 'img.j-data-image-copy');
     };
 
-    tuna.extend(DataImageCopy, tuna.ui.modules.Module);
+    tuna.utils.extend(DataImageCopy, tuna.ui.modules.Module);
 
     DataImageCopy.prototype.initInstance = function(target) {
         var imageSelector = target.getAttribute('data-image-selector');
@@ -17704,7 +17652,7 @@ var swfobject = function() {
         tuna.ui.modules.Module.call(this, 'friends-popup', '.j-friends-popup');
     };
 
-    tuna.extend(FriendsPopup, tuna.ui.modules.Module);
+    tuna.utils.extend(FriendsPopup, tuna.ui.modules.Module);
 
     FriendsPopup.prototype.initInstance = function(target) {
         var popupModule = tuna.ui.modules.getModule('popup');
@@ -17745,10 +17693,8 @@ var swfobject = function() {
 
 })();(function() {
 
-    tuna.namespace('rest');
-
     var CommonMethod = function(name) {
-        tuna.rest.RemoteMethod.call(this, name);
+        tuna.rest.Method.call(this, name);
 
         this.__request = new tuna.net.Request();
         this.__request.method = 'POST';
@@ -17761,7 +17707,7 @@ var swfobject = function() {
         });
     };
 
-    tuna.extend(CommonMethod, tuna.rest.RemoteMethod);
+    tuna.utils.extend(CommonMethod, tuna.rest.Method);
 
     CommonMethod.prototype.call = function(args) {
         this.__request.setData(args);
@@ -17789,20 +17735,20 @@ var swfobject = function() {
 
     rest.CommonMethod = CommonMethod;
 
+})();
+(function() {
+
     var MethodFactory = function() {};
 
-    tuna.implement(MethodFactory, tuna.rest.IMethodFactory);
+    tuna.utils.implement(MethodFactory, tuna.rest.IFactory);
 
     MethodFactory.prototype.createMethod = function(name) {
         return new rest.CommonMethod(name);
     };
 
-    tuna.rest.factory.setCommonFactory(new MethodFactory());
+    tuna.rest.factory.setDefaultFactory(new MethodFactory());
 
-})();
-(function() {
-
-    tuna.namespace('model');
+})();(function() {
 
     var Cakes = function() {
         this.__currentCake = null;
@@ -17846,8 +17792,6 @@ var swfobject = function() {
 
 })();
 (function() {
-
-    tuna.namespace('model');
 
     var Orders = function() {
         this.__order = null;
@@ -17983,8 +17927,6 @@ var swfobject = function() {
 })();
 (function() {
 
-    tuna.namespace('model');
-
     var Recipes = function() {
         this.__list = [];
     };
@@ -18010,8 +17952,6 @@ var swfobject = function() {
 })();
 (function() {
 
-    tuna.namespace('model');
-
     var Bakeries = function() {
         this.__list = []
     };
@@ -18033,8 +17973,6 @@ var swfobject = function() {
 })();
 (function() {
 
-    tuna.namespace('model');
-
     var Users = function() {
         this.__currentUser = null;
     };
@@ -18052,21 +17990,17 @@ var swfobject = function() {
 })();
 (function() {
 
-    tuna.namespace('model.records');
-
     var Bakery = function() {
         this.id = '';
         this.city = '';
         this.deliveryPrice = 0;
     };
 
-    tuna.extend(Bakery, tuna.model.Record);
+    tuna.utils.extend(Bakery, tuna.model.Record);
 
     model.records.Bakery = Bakery;
 
 })();(function() {
-
-    tuna.namespace('model.records');
 
     var Cake = function() {
         this.imageUrl = '';
@@ -18081,13 +18015,11 @@ var swfobject = function() {
         this.personsCount = 0;
     };
 
-    tuna.extend(Cake, tuna.model.Record);
+    tuna.utils.extend(Cake, tuna.model.Record);
 
     model.records.Cake = Cake;
 
 })();(function() {
-
-    tuna.namespace('model.records');
 
     var Order = function() {
         this.user = null;
@@ -18101,13 +18033,11 @@ var swfobject = function() {
         this.campaign = '';
     };
 
-    tuna.extend(Order, tuna.model.Record);
+    tuna.utils.extend(Order, tuna.model.Record);
 
     model.records.Order = Order;
 
 })();(function() {
-
-    tuna.namespace('model.records');
 
     var Payment = function() {
         this.decoPrice = 0;
@@ -18117,13 +18047,11 @@ var swfobject = function() {
         this.totalPrice = 0;
     };
 
-    tuna.extend(Payment, tuna.model.Record);
+    tuna.utils.extend(Payment, tuna.model.Record);
 
     model.records.Payment = Payment;
 
 })();(function() {
-
-    tuna.namespace('model.records');
 
     var Recipe = function() {
         this.id = '';
@@ -18135,13 +18063,11 @@ var swfobject = function() {
         this.imageUrl = '';
     };
 
-    tuna.extend(Recipe, tuna.model.Record);
+    tuna.utils.extend(Recipe, tuna.model.Record);
 
     model.records.Recipe = Recipe;
 
 })();(function() {
-
-    tuna.namespace('model.records');
 
     var User = function() {
         this.id = '';
@@ -18151,7 +18077,7 @@ var swfobject = function() {
         this.network = ''
     };
 
-    tuna.extend(User, tuna.model.Record);
+    tuna.utils.extend(User, tuna.model.Record);
 
     model.records.User = User;
 
@@ -18161,7 +18087,7 @@ var swfobject = function() {
         tuna.view.NavigationViewController.call(this, null);
     };
 
-    tuna.extend(MainController, tuna.view.NavigationViewController);
+    tuna.utils.extend(MainController, tuna.view.NavigationViewController);
 
     MainController.prototype._initActions = function() {
         tuna.view.NavigationViewController.prototype._initActions.call(this);
@@ -18180,7 +18106,7 @@ var swfobject = function() {
         tuna.view.PageViewController.call(this, id);
     };
 
-    tuna.extend(TitleController, tuna.view.PageViewController);
+    tuna.utils.extend(TitleController, tuna.view.PageViewController);
 
     TitleController.prototype._requireModules = function() {
         this._container.requireModule('selection-group');
@@ -18199,7 +18125,7 @@ var swfobject = function() {
         this.__movie = null;
     };
 
-    tuna.extend(DesignerController, tuna.view.PageViewController);
+    tuna.utils.extend(DesignerController, tuna.view.PageViewController);
 
     var DECO_DATA = '{"weightsList":[1,1.5,2,2.5,3,3.5,4,4.5,5],\
                       "ratiosList":[0.6,0.55,0.5,0.45,0.4,0.38,0.32,0.3,0.25],\
@@ -18300,8 +18226,8 @@ var swfobject = function() {
 
     var controller = new DesignerController('designer_step');
 
-    window.onFlashReady = tuna.bind(controller.onFlashReady, controller);
-    window.confirmShapeChange = tuna.bind(controller.confirmShapeChange, controller);
+    window.onFlashReady = tuna.utils.bind(controller.onFlashReady, controller);
+    window.confirmShapeChange = tuna.utils.bind(controller.confirmShapeChange, controller);
     window.openMessageBox = function(message) { ui.Popup.alert(message); };
 
     tuna.view.registerController(controller);
@@ -18315,7 +18241,7 @@ var swfobject = function() {
         this.__imageData = null;
     };
 
-    tuna.extend(ShareController, tuna.view.PageViewController);
+    tuna.utils.extend(ShareController, tuna.view.PageViewController);
 
     ShareController.prototype.open = function() {
         var currentCake = model.cakes.getCurrentCake();
@@ -18354,7 +18280,7 @@ var swfobject = function() {
         this.__cityAutocomplete = null;
     };
 
-    tuna.extend(RecipeController, tuna.view.PageViewController);
+    tuna.utils.extend(RecipeController, tuna.view.PageViewController);
 
     RecipeController.prototype.canClose = function(index) {
         var order = model.orders.getOrder();
@@ -18566,7 +18492,7 @@ var swfobject = function() {
         this.__cakeImage = null;
     };
 
-    tuna.extend(OrderController, tuna.view.PageViewController);
+    tuna.utils.extend(OrderController, tuna.view.PageViewController);
 
     OrderController.prototype._requireModules = function() {
         this._container.requireModule('data-image-copy');
@@ -18626,7 +18552,7 @@ var swfobject = function() {
         tuna.view.PageViewController.call(this, id);
     };
 
-    tuna.extend(ResultController, tuna.view.PageViewController);
+    tuna.utils.extend(ResultController, tuna.view.PageViewController);
 
     ResultController.prototype._requireModules = function() {
         this._container.requireModule('data-image-copy');

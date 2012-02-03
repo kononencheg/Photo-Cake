@@ -4,7 +4,7 @@
         tuna.ui.modules.Module.call(this, 'swf', '.j-swf');
     };
 
-    tuna.extend(SWF, tuna.ui.modules.Module);
+    tuna.utils.extend(SWF, tuna.ui.modules.Module);
 
     SWF.ID_PREFIX = "movie_";
 

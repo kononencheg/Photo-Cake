@@ -3,7 +3,7 @@
         tuna.ui.modules.Module.call(this, 'popup', '.j-popup');
     };
 
-    tuna.extend(Popup, tuna.ui.modules.Module);
+    tuna.utils.extend(Popup, tuna.ui.modules.Module);
 
     Popup.prototype.initInstance = function(target) {
         var popupElement =

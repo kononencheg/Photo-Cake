@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('tuna.tmpl.markup');
-
     var ListExtractor = function(templateBuilder) {
         tuna.tmpl.markup.SpotExtractor.call(this);
 
@@ -10,7 +8,7 @@
         this.__templateBuilder = templateBuilder
     };
 
-    tuna.extend(ListExtractor, tuna.tmpl.markup.SpotExtractor);
+    tuna.utils.extend(ListExtractor, tuna.tmpl.markup.SpotExtractor);
 
     ListExtractor.prototype._createItem = function() {
         return new tuna.tmpl.settings.List();

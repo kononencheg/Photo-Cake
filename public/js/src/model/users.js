@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('model');
-
     var Users = function() {
         this.__currentUser = null;
     };

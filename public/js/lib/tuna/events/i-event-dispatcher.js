@@ -1,6 +1,4 @@
 (function() {
-    
-    tuna.namespace('tuna.events');
 
     var IEventDispatcher = function() {};
 

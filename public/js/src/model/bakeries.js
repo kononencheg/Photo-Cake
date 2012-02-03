@@ -1,7 +1,5 @@
 (function() {
 
-    tuna.namespace('model');
-
     var Bakeries = function() {
         this.__list = []
     };
