@@ -423,7 +423,7 @@ i{display:inline-block;*zoom:1;*display:inline;font-size:0;}
 .order-navigation{padding-top:150px;padding-right:5px;}
 input.btn{font-family:"Times New Roman";width:auto;}
 .send-cake-button{padding-top:16px;cursor:pointer;}
-#cake_image_popup .modal-body{height:350px;overflow:hidden;}#cake_image_popup .modal-body .image-container{width:10000px;overflow:hidden;}
+#cake_image_popup .modal-body{height:350px;overflow:hidden;}#cake_image_popup .modal-body .image-container{width:10000px;overflow:hidden;height:350px;}
 #cake_image_popup .modal-body img{height:100%;display:block;float:left;}
 #alert_popup .modal-body{text-align:center;}
 .detailed-comment{color:#750000;font-style:italic;padding:0;}
