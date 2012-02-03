@@ -7,6 +7,14 @@
     ],
 
     "common": [
+        "lib/jquery/jquery.js",
+
+        "lib/jquery/ui/jquery.ui.js",
+        "lib/jquery/ui/i18n/jquery.ui.datepicker-ru.js",
+
+        "lib/json.js",
+        "lib/swfobject.js",
+
         "lib/tuna/tuna.js",
 
         "lib/tuna/utils/utils.js",
@@ -97,16 +105,6 @@
         "lib/tuna/view/state-view-controller.js",
         "lib/tuna/view/navigation-view-controller.js",
         "lib/tuna/view/page-view-controller.js",
-
-        "lib/jquery/jquery-1.7.1.js",
-
-        "lib/jquery/ui/jquery.ui.core.js",
-        "lib/jquery/ui/jquery.ui.datepicker.js",
-
-        "lib/jquery/ui/i18n/jquery.ui.datepicker-ru.js",
-
-        "lib/json.js",
-        "lib/swfobject.js",
 
         "src/main.js",
 
