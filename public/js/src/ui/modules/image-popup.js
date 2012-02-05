@@ -1,13 +1,13 @@
 (function() {
     var ImagePopup = function() {
-        tuna.ui.modules.Module.call(this, 'image-popup', 'img.j-image-popup');
+        tuna.ui.Module.call(this, 'img.j-image-popup');
     };
 
-    tuna.utils.extend(ImagePopup, tuna.ui.modules.Module);
+    tuna.utils.extend(ImagePopup, tuna.ui.Module);
 
     ImagePopup.prototype.initInstance = function(target) {
         var popupElement = tuna.dom.selectOne('#image_popup');
-        var popup = ui.Popup.create(popupElement);
+        var popup = tuna.ui.popups.create(popupElement);
 
         tuna.dom.addEventListener(target, 'click', function(event) {
             tuna.dom.preventDefault(event);
@@ -24,6 +24,6 @@
         return popup;
     };
 
-    tuna.ui.modules.register(new ImagePopup());
+    tuna.ui.modules.register('image-popup', new ImagePopup());
     
 })();

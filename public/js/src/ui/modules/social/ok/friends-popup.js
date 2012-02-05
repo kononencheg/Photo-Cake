@@ -1,6 +1,6 @@
 (function() {
     var FriendsPopup = function() {
-        tuna.ui.modules.Module.call(this, 'friends-popup', '.j-friends-popup');
+        tuna.ui.Module.call(this, '.j-friends-popup');
 
         this.__albumId = null;
 
@@ -8,7 +8,7 @@
         this.__post = tuna.utils.bind(this.__post, this);
     };
 
-    tuna.utils.extend(FriendsPopup, tuna.ui.modules.Module);
+    tuna.utils.extend(FriendsPopup, tuna.ui.Module);
 
     FriendsPopup.prototype.initInstance = function(target) {
         var self = this;
@@ -133,9 +133,9 @@
             if(status == 'ok') {
                 FAPI.Client.call(request, function(status, data, error) {
                     if (status === 'ok') {
-                        ui.Popup.alert('Торт успешно опубликован!');
+                        tuna.ui.popups.alert('Торт успешно опубликован!');
                     } else {
-                        ui.Popup.alert(JSON.stringify(error));
+                        tuna.ui.popups.alert(JSON.stringify(error));
                     }
                 }, resig);
             }
@@ -153,6 +153,6 @@
         return server + '/' + id;
     };
 
-    tuna.ui.modules.register(new FriendsPopup());
+    tuna.ui.modules.register('friends-popup', new FriendsPopup());
 
 })();

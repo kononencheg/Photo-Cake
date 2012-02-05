@@ -6,7 +6,7 @@
 <form class="j-form" action="/api/" method="POST" target="support_frame">
     <div class="row">
         <div class="span7">
-            <div class="j-form-message alert-message hidden"></div>
+            <div class="j-form-message alert-message hide"></div>
 
             <input type="hidden" name="method" value="orders.submit" />
             <input type="hidden" name="format" value="frame-callback" />
@@ -169,7 +169,7 @@ e-input clearfix">
     </div>
 </form>
 
-<div class="hidden">
+<div class="hide">
     <tuna:template id="order_template">
         <tuna:attr tuna:name="value" tuna:target="t-image" tuna:path="cake/imageBase64" />
         <tuna:attr tuna:name="value" tuna:target="t-photo" tuna:path="cake/photoBase64" />

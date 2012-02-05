@@ -1,7 +1,7 @@
 (function() {
 
-    var OrderController = function(id) {
-        tuna.view.PageViewController.call(this, id);
+    var OrderController = function() {
+        tuna.view.PageViewController.call(this);
 
         this.__form = null;
         this.__cakeImage = null;
@@ -34,11 +34,13 @@
             if (!isConfirmed) {
                 event.preventDefault();
 
-                ui.Popup.confirm(
+                tuna.ui.popups.confirm(
                     'Вы уверены что правильно заполнили все поля?',
-                    function() {
-                        isConfirmed = true;
-                        self.__form.submit();
+                    function(result) {
+                        isConfirmed = result;
+                        if (isConfirmed) {
+                            self.__form.submit();
+                        }
                     }
                 );
             }
@@ -59,5 +61,5 @@
         this._container.applyData(model.orders.getOrder());
     };
 
-    tuna.view.registerController(new OrderController('order_step'));
+    tuna.view.registerController('order_step', new OrderController());
 })();

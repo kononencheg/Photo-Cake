@@ -1,7 +1,7 @@
 (function() {
 
-    var ResultController = function(id) {
-        tuna.view.PageViewController.call(this, id);
+    var ResultController = function() {
+        tuna.view.PageViewController.call(this);
     };
 
     tuna.utils.extend(ResultController, tuna.view.PageViewController);
@@ -15,5 +15,5 @@
         image.src = args.image_url;
     };
 
-    tuna.view.registerController(new ResultController('result_step'));
+    tuna.view.registerController('result_step', new ResultController());
 })();

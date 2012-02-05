@@ -1,6 +1,6 @@
 (function() {
     var Filtration = function() {
-        tuna.ui.modules.Module.call(this, 'filtration', '.j-filtration');
+        tuna.ui.Module.call(this, '.j-filtration');
 
         this.__templateBuilder
             = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
@@ -9,7 +9,7 @@
             = new tuna.tmpl.compilers.TemplateCompiler(document);
     };
 
-    tuna.utils.extend(Filtration, tuna.ui.modules.Module);
+    tuna.utils.extend(Filtration, tuna.ui.Module);
 
     Filtration.prototype.initInstance = function(target) {
         var transformer = this._initTransformer(target);
@@ -25,11 +25,11 @@
 
     Filtration.prototype._initTransformer = function(target) {
         var templateId  = target.getAttribute('data-template-id');
-        var template = this.__templateBuilder.buildTemplate(templateId);
+        var settings = this.__templateBuilder.buildSettings(templateId);
 
-        return this.__templateCompiler.makeTransformer(template, target);
+        return this.__templateCompiler.makeTransformer(settings, target);
     };
 
-    tuna.ui.modules.register(new Filtration());
+    tuna.ui.modules.register('filtration', new Filtration());
 
 })();

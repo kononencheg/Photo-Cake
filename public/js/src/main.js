@@ -16,12 +16,43 @@ var rest = {};
 /**
  * @namespace
  */
-var ui = {};
+rest.social = {};
 
 /**
  * @namespace
  */
-ui.forms = {};
+rest.social.vk = {};
+
+/**
+ * @namespace
+ */
+rest.social.vk.friends = {};
+
+/**
+ * @namespace
+ */
+rest.social.vk.users = {};
+
+/**
+ * @namespace
+ */
+rest.social.vk.wall = {};
+
+/**
+ * @namespace
+ */
+rest.social.ok = {};
+
+/**
+ * @namespace
+ */
+rest.social.ok.users = {};
+
+/**
+ * @namespace
+ */
+var ui = {};
+
 
 /**
  * Точка входа в приложение
@@ -33,9 +64,9 @@ function main(args) {
 
     tuna.dom.setSelectorEngine(jQuery.find);
 
-    ui.Popup.registerAlertElement(tuna.dom.selectOne('#alert_popup'));
-    ui.Popup.registerConfirmElement(tuna.dom.selectOne('#confirm_popup'));
+    tuna.ui.popups.registerAlert(tuna.dom.selectOne('#alert_popup'));
+    tuna.ui.popups.registerConfirm(tuna.dom.selectOne('#confirm_popup'));
 
-    var container = new tuna.ui.container.TransformContainer(document.body);
+    var container = new tuna.ui.containers.TransformContainer(document.body);
     container.init();
 }

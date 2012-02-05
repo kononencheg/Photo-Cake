@@ -1,7 +1,7 @@
 (function() {
 
-    var DesignerController = function(id) {
-        tuna.view.PageViewController.call(this, id);
+    var DesignerController = function() {
+        tuna.view.PageViewController.call(this);
 
         this.__movieID = null;
         this.__movie = null;
@@ -82,10 +82,12 @@
     DesignerController.prototype.confirmShapeChange = function(shape) {
         var self = this;
 
-        ui.Popup.confirm(
+        tuna.ui.popups.confirm(
             'При изменении формы торта, все оформление будет утеряно!',
-            function() {
-                self.__movie.changeShape(shape);
+            function(result) {
+                if (result) {
+                    self.__movie.changeShape(shape);
+                }
             }
         );
     };
@@ -106,11 +108,11 @@
         model.cakes.setCurrentCake(cake);
     };
 
-    var controller = new DesignerController('designer_step');
+    var controller = new DesignerController();
 
     window.onFlashReady = tuna.utils.bind(controller.onFlashReady, controller);
     window.confirmShapeChange = tuna.utils.bind(controller.confirmShapeChange, controller);
-    window.openMessageBox = function(message) { ui.Popup.alert(message); };
+    window.openMessageBox = function(message) { tuna.ui.popups.alert(message); };
 
-    tuna.view.registerController(controller);
+    tuna.view.registerController('designer_step', controller);
 })();

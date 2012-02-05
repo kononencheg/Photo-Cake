@@ -46,7 +46,7 @@
     height: 775px;
     width: 1px;
 
-    &.current {
+    &.active {
         width: 100%;
         left: 20px;
         
@@ -116,7 +116,7 @@
         }
     }
 
-    li.current {
+    li.active {
         .expand-item {
             position: inherit;
 
@@ -196,7 +196,7 @@
     }
 }
 
-.friend-list li.current {
+.friend-list li.active {
     background: #750000;
 }
 
@@ -298,6 +298,10 @@
         background: @black;
 
         .opacity(50);
+    }
+
+    &.show {
+        display: block;
     }
 }
 
@@ -406,7 +410,7 @@ i {
     width: 245px;
     border: 1px solid #ccc;
 
-    .current {
+    .active {
         background-color: #750000;
         
         a { color: @white; }

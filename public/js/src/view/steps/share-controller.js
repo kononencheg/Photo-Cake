@@ -1,7 +1,7 @@
 (function() {
 
-    var ShareController = function(id) {
-        tuna.view.PageViewController.call(this, id);
+    var ShareController = function() {
+        tuna.view.PageViewController.call(this);
 
         this.__wallPostMethod = null;
         this.__imageData = null;
@@ -33,5 +33,5 @@
         );
     };
 
-    tuna.view.registerController(new ShareController('share_step'));
+    tuna.view.registerController('share_step', new ShareController());
 })();

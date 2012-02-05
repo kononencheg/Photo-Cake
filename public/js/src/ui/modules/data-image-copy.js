@@ -1,11 +1,11 @@
 (function() {
 
     var DataImageCopy = function() {
-        tuna.ui.modules.Module.call
-            (this, 'data-image-copy', 'img.j-data-image-copy');
+        tuna.ui.Module.call
+            (this, 'img.j-data-image-copy');
     };
 
-    tuna.utils.extend(DataImageCopy, tuna.ui.modules.Module);
+    tuna.utils.extend(DataImageCopy, tuna.ui.Module);
 
     DataImageCopy.prototype.initInstance = function(target) {
         var imageSelector = target.getAttribute('data-image-selector');
@@ -38,5 +38,5 @@
         return null;
     };
 
-    tuna.ui.modules.register(new DataImageCopy());
+    tuna.ui.modules.register('data-image-copy', new DataImageCopy());
 })();

@@ -1,13 +1,12 @@
 (function() {
     var CakeImagePopup = function() {
-        tuna.ui.modules.Module.call
-            (this, 'cake-image-popup', '.j-cake-image-popup');
+        tuna.ui.Module.call(this, '.j-cake-image-popup');
 
         this.__handleMouseMove = tuna.utils.bind(this.__handleMouseMove, this);
         this.__lastIndex = -1;
     };
 
-    tuna.utils.extend(CakeImagePopup, tuna.ui.modules.Module);
+    tuna.utils.extend(CakeImagePopup, tuna.ui.Module);
 
     CakeImagePopup.prototype.initInstance = function(target) {
         var self = this;
@@ -15,7 +14,7 @@
         var cakeIndex = target.getAttribute('data-cake-index');
 
         var popupTarget = tuna.dom.selectOne('#cake_image_popup');
-        var popup = ui.Popup.create(popupTarget);
+        var popup = tuna.ui.popups.create(popupTarget);
 
         var photoImage = tuna.dom.selectOne('img.j-cake-image-photo', popupTarget);
         var beforeImage = tuna.dom.selectOne('img.j-cake-image-before', popupTarget);
@@ -67,6 +66,6 @@
 
     };
 
-    tuna.ui.modules.register(new CakeImagePopup());
+    tuna.ui.modules.register('cake-image-popup', new CakeImagePopup());
     
 })();

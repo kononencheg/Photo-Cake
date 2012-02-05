@@ -1,7 +1,7 @@
 (function() {
 
-    var TitleController = function(id) {
-        tuna.view.PageViewController.call(this, id);
+    var TitleController = function() {
+        tuna.view.PageViewController.call(this);
     };
 
     tuna.utils.extend(TitleController, tuna.view.PageViewController);
@@ -11,6 +11,6 @@
         this._container.requireModule('cake-image-popup');
     };
 
-    tuna.view.registerController(new TitleController('title_step'));
+    tuna.view.registerController('title_step', new TitleController());
 
 })();

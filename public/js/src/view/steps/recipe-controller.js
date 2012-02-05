@@ -1,7 +1,7 @@
 (function() {
 
-    var RecipeController = function(id) {
-        tuna.view.PageViewController.call(this, id);
+    var RecipeController = function() {
+        tuna.view.PageViewController.call(this);
 
         this.__popupRecipe = null;
         this.__popupIndex = -1;
@@ -70,7 +70,7 @@
         });
 
         this.__cityPopup
-            = ui.Popup.create(tuna.dom.selectOne('#city_selection_popup'));
+            = tuna.ui.popups.create(tuna.dom.selectOne('#city_selection_popup'));
 
         var bakery = null;
 
@@ -95,7 +95,7 @@
     };
 
     RecipeController.prototype.__initDescriptionPopup = function() {
-        var descriptionPopup = ui.Popup.create
+        var descriptionPopup = tuna.ui.popups.create
                             (tuna.dom.selectOne('#recipe_description_popup'));
 
         var self = this;
@@ -106,9 +106,10 @@
 
     RecipeController.prototype.__initRecipeSelection = function() {
         var self = this;
+        var target = this._container.getTarget();
 
         tuna.dom.addChildEventListener(
-            this._target, '.j-recipe-image', 'click', function(event) {
+            target, '.j-recipe-image', 'click', function(event) {
                 var index = this.getAttribute('data-index');
 
                 self.__popupRecipe = model.recipes.getRecipeAt(index);
@@ -119,7 +120,7 @@
         );
 
         tuna.dom.addChildEventListener(
-            this._target, 'input.j-recipe-radio', 'click',
+            target, 'input.j-recipe-radio', 'click',
             function(event) {
                 var recipe = model.recipes.getRecipeAt(this.value);
                 model.orders.setOrderRecipe(recipe);
@@ -211,6 +212,6 @@
         });
     };
 
-    tuna.view.registerController(new RecipeController('recipe_step'));
+    tuna.view.registerController('recipe_step', new RecipeController());
 
 })();

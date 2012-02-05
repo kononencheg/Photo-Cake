@@ -22,7 +22,7 @@
 
         "lib/tuna/events/i-event-dispatcher.js",
         "lib/tuna/events/event-dispatcher.js",
-        "lib/tuna/events/event.js",
+        "lib/tuna/events/basic-event.js",
 
         "lib/tuna/net/i-request.js",
         "lib/tuna/net/request.js",
@@ -38,11 +38,11 @@
         "lib/tuna/tmpl/data/data-node.js",
         "lib/tuna/tmpl/data/path-evaluator.js",
 
-        "lib/tuna/tmpl/settings/spot.js",
-        "lib/tuna/tmpl/settings/attribute.js",
-        "lib/tuna/tmpl/settings/condition.js",
-        "lib/tuna/tmpl/settings/list.js",
-        "lib/tuna/tmpl/settings/template.js",
+        "lib/tuna/tmpl/settings/spot-settings.js",
+        "lib/tuna/tmpl/settings/attribute-settings.js",
+        "lib/tuna/tmpl/settings/condition-settings.js",
+        "lib/tuna/tmpl/settings/list-settings.js",
+        "lib/tuna/tmpl/settings/template-settings.js",
 
         "lib/tuna/tmpl/markup/i-markup-extractor.js",
         "lib/tuna/tmpl/markup/spot-extractor.js",
@@ -71,8 +71,17 @@
         "lib/tuna/tmpl/i-transformer.js",
         "lib/tuna/tmpl/template-transformer.js",
 
-        "lib/tuna/ui/container/container.js",
-        "lib/tuna/ui/container/transform-container.js",
+        "lib/tuna/ui/module.js",
+        "lib/tuna/ui/module-instance.js",
+
+        "lib/tuna/ui/containers/container.js",
+        "lib/tuna/ui/containers/transform-container.js",
+
+        "lib/tuna/ui/forms/form.js",
+        "lib/tuna/ui/forms/form-input.js",
+
+        "lib/tuna/ui/popups/popups.js",
+        "lib/tuna/ui/popups/popup.js",
 
         "lib/tuna/ui/selection/items/i-items-collection.js",
         "lib/tuna/ui/selection/items/elements-collection.js",
@@ -93,13 +102,15 @@
         "lib/tuna/ui/selection/navigation.js",
 
         "lib/tuna/ui/modules/modules.js",
-        "lib/tuna/ui/modules/module.js",
         "lib/tuna/ui/modules/transform-container.js",
         "lib/tuna/ui/modules/navigation.js",
         "lib/tuna/ui/modules/selection-group.js",
+        "lib/tuna/ui/modules/form.js",
+        "lib/tuna/ui/modules/popup.js",
 
         "lib/tuna/model/record.js",
 
+        "lib/tuna/view/view.js",
         "lib/tuna/view/i-view-state.js",
         "lib/tuna/view/view-controller.js",
         "lib/tuna/view/state-view-controller.js",
@@ -108,25 +119,16 @@
 
         "src/main.js",
 
-        "src/ui/forms/form-response-parser.js",
-        "src/ui/forms/form-input.js",
-        "src/ui/forms/form.js",
-
         "src/ui/filtration.js",
-        "src/ui/autocomplete.js",
         "src/ui/data-image.js",
-        "src/ui/popup.js",
-        "src/ui/carousel.js",
+        "src/ui/autocomplete.js",
 
         "src/ui/modules/filtration.js",
         "src/ui/modules/autocomplete.js",
         "src/ui/modules/swf.js",
-        "src/ui/modules/popup.js",
         "src/ui/modules/image-popup.js",
         "src/ui/modules/cake-image-popup.js",
         "src/ui/modules/slider.js",
-        "src/ui/modules/carousel.js",
-        "src/ui/modules/form.js",
         "src/ui/modules/datepicker.js",
         "src/ui/modules/data-image.js",
         "src/ui/modules/data-image-copy.js",

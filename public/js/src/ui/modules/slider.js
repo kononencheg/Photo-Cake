@@ -1,10 +1,10 @@
 (function() {
 
     var Slider = function() {
-        tuna.ui.modules.Module.call(this, 'slider', '.j-horizontal-slider, .j-vertical-slider');
+        tuna.ui.Module.call(this, '.j-horizontal-slider, .j-vertical-slider');
     };
 
-    tuna.utils.extend(Slider, tuna.ui.modules.Module);
+    tuna.utils.extend(Slider, tuna.ui.Module);
 
     Slider.prototype.initInstance = function(target) {
         var $this = $(target);
@@ -31,6 +31,6 @@
         return $this;
     };
 
-    tuna.ui.modules.register(new Slider());
+    tuna.ui.modules.register('slider', new Slider());
 
 })();

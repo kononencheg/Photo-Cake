@@ -1,10 +1,10 @@
 (function() {
 
     var SWF = function() {
-        tuna.ui.modules.Module.call(this, 'swf', '.j-swf');
+        tuna.ui.Module.call(this, '.j-swf');
     };
 
-    tuna.utils.extend(SWF, tuna.ui.modules.Module);
+    tuna.utils.extend(SWF, tuna.ui.Module);
 
     SWF.ID_PREFIX = "movie_";
 
@@ -36,5 +36,5 @@
         return target.id;
     };
 
-    tuna.ui.modules.register(new SWF());
+    tuna.ui.modules.register('swf', new SWF());
 })();

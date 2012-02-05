@@ -1,6 +1,6 @@
 (function() {
     var Autocomplete = function() {
-        tuna.ui.modules.Module.call(this, 'autocomplete', '.j-autocomplete');
+        tuna.ui.Module.call(this, '.j-autocomplete');
 
         this.__templateBuilder
             = new tuna.tmpl.markup.MarkupTemplateBuilder(document);
@@ -9,7 +9,7 @@
             = new tuna.tmpl.compilers.TemplateCompiler(document);
     };
 
-    tuna.utils.extend(Autocomplete, tuna.ui.modules.Module);
+    tuna.utils.extend(Autocomplete, tuna.ui.Module);
 
     Autocomplete.prototype.initInstance = function(target) {
         var transformer = this._initTransformer(target);
@@ -31,12 +31,12 @@
                             autocomplete.clear();
                         }
 
-                        tuna.dom.addClass(body, 'hidden');
+                        tuna.dom.addClass(body, 'hide');
                         isOpen = false;
                     }
                 );
 
-                tuna.dom.removeClass(body, 'hidden');
+                tuna.dom.removeClass(body, 'hide');
 
                 isOpen = true;
             }
@@ -57,27 +57,24 @@
             }
         );
 
-        autocomplete.init();
-
         return autocomplete;
     };
 
     Autocomplete.prototype._initTransformer = function(target) {
         var templateId  = target.getAttribute('data-template-id');
-        var template = this.__templateBuilder.buildTemplate(templateId);
+        var settings = this.__templateBuilder.buildSettings(templateId);
 
-        return this.__templateCompiler.makeTransformer(template, target);
+        return this.__templateCompiler.makeTransformer(settings, target);
     };
 
     Autocomplete.prototype._initSelectionGroup = function(target) {
-        var isMultiple = target.getAttribute('data-is-multiple') === 'true';
-
-        var selectionGroup = new tuna.ui.selection.SelectionGroup
-                (target, isMultiple, null, '.j-autocomplete-item', 'current');
+        var selectionGroup = new tuna.ui.selection.SelectionGroup(target, null);
+        selectionGroup.setOption('item-selector', '.j-autocomplete-item');
+        selectionGroup.init();
 
         return selectionGroup;
     };
 
-    tuna.ui.modules.register(new Autocomplete());
+    tuna.ui.modules.register('autocomplete', new Autocomplete());
 
 })();

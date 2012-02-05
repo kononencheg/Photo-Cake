@@ -1,9 +1,9 @@
 (function() {
     var FriendsPopup = function() {
-        tuna.ui.modules.Module.call(this, 'friends-popup', '.j-friends-popup');
+        tuna.ui.Module.call(this, '.j-friends-popup');
     };
 
-    tuna.utils.extend(FriendsPopup, tuna.ui.modules.Module);
+    tuna.utils.extend(FriendsPopup, tuna.ui.Module);
 
     FriendsPopup.prototype.initInstance = function(target) {
         var popupModule = tuna.ui.modules.getModule('popup');
@@ -36,10 +36,10 @@
             'image': currentCake.imageBase64,
             'user_id': userId
         }, function() {
-            ui.Popup.alert('Торт успешно опубликован!');
+            tuna.ui.popups.alert('Торт успешно опубликован!');
         });
     };
 
-    tuna.ui.modules.register(new FriendsPopup());
+    tuna.ui.modules.register('friends-popup', new FriendsPopup());
 
 })();
