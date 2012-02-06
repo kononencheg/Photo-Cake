@@ -69,9 +69,11 @@
             'ext_perm': 'PHOTO CONTENT'
         }, function(status, data, error) {
             if (!data) {
-
                 window.API_callback = function(method, status, resig) {
-                    debugger;
+                    if (status === 'ok' && method === 'showPermissions') {
+                        getAlbums();
+                    }
+
                     window.API_callback = null;
                 };
 
