@@ -7636,7 +7636,6 @@ function main(args) {
         selectionGroup.init();
 
         return selectionGroup;
-
     };
 
     tuna.ui.modules.register('autocomplete', new Autocomplete());
@@ -7929,7 +7928,7 @@ function main(args) {
             'image': currentCake.imageBase64,
             'user_id': userId
         }, function() {
-            ui.Popup.alert('Торт успешно опубликован!');
+            tuna.ui.popups.alert('Торт успешно опубликован!');
         });
     };
 
@@ -8718,8 +8717,6 @@ function main(args) {
 
                 i++;
             }
-
-            debugger;
 
             self.__cityAutocomplete.setData(model.bakeries.getList());
 

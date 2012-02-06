@@ -119,12 +119,15 @@
             'session_key': FAPI.Client.sessionKey,
             'format': FAPI.Client.format,
             'method' : 'stream.publish',
-            'message': 'Смотрите какой у меня получился торт!',
+            'message': 'сделала торт!',
             'attachment': JSON.stringify({
                 'caption': 'Попробуйте сделать свой тортик! Закажите настоящий или отправьте друзьям!',
                 'media': [{ 'href': 'link', 'src': url, 'type': 'image' }]
             }),
-            'action_links': JSON.stringify([{'text': 'Сделать тортик', 'href': 'action=create' }])
+            'action_links': JSON.stringify([
+                {'text': 'Посмотреть тортик!', 'href': 'ok_cake_url=' + url },
+                {'text': 'Сделать свой!', 'href': ''},
+            ])
         };
 
         var sig = FAPI.Util.calcSignature(request, FAPI.Client.sessionSecretKey);
