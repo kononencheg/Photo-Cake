@@ -69,6 +69,12 @@
             'ext_perm': 'PHOTO CONTENT'
         }, function(status, data, error) {
             if (!data) {
+                
+                window.API_callback = function(method, status, resig) {
+                    debugger;
+                    window.API_callback = null;
+                };
+
                 FAPI.UI.showPermissions('["PHOTO CONTENT"]');
             } else {
                 getAlbums();
