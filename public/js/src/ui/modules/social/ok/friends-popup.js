@@ -37,43 +37,41 @@
     FriendsPopup.prototype.__getAlbum = function(callback) {
         var self = this;
 
+        var getAlbums = function() {
+            FAPI.Client.call({
+                'method': 'photos.getAlbums'
+            }, function(status, data, error) {
+                if (status === 'ok') {
+                    self.__fetchAlbumId(data.albums);
+
+                    if (self.__albumId === null) {
+                        FAPI.Client.call({
+                            'method': 'photos.createAlbum',
+                            'title': 'Мои тортики',
+                            'description': 'Из приложения "Фото На Торте"',
+                            'type': 'friends'
+                        }, function(status, aid, error) {
+                            if (status === 'ok') {
+                                self.__albumId = aid;
+                                self.__uploadPhoto(callback);
+                            }
+                        });
+                    } else {
+                        self.__uploadPhoto(callback);
+                    }
+
+                }
+            });
+        };
+
         FAPI.Client.call({
             'method': 'users.hasAppPermission',
             'ext_perm': 'PHOTO CONTENT'
         }, function(status, data, error) {
-            if (data) {
-                debugger;
-                window.API_callback = function(method, status, attrs) {
-                    debugger;
-                    window.API_callback = null;
-                };
-
+            if (!data) {
                 FAPI.UI.showPermissions('["PHOTO CONTENT"]');
-            }
-        });
-
-        FAPI.Client.call({
-            'method': 'photos.getAlbums'
-        }, function(status, data, error) {
-            if (status === 'ok') {
-                self.__fetchAlbumId(data.albums);
-
-                if (self.__albumId === null) {
-                    FAPI.Client.call({
-                        'method': 'photos.createAlbum',
-                        'title': 'Мои тортики',
-                        'description': 'Из приложения "Фото На Торте"',
-                        'type': 'friends'
-                    }, function(status, aid, error) {
-                        if (status === 'ok') {
-                            self.__albumId = aid;
-                            self.__uploadPhoto(callback);
-                        }
-                    });
-                } else {
-                    self.__uploadPhoto(callback);
-                }
-
+            } else {
+                getAlbums();
             }
         });
     };
