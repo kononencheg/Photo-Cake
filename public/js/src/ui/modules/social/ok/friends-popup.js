@@ -126,7 +126,7 @@
             }),
             'action_links': JSON.stringify([
                 {'text': 'Посмотреть тортик!', 'href': 'ok_cake_url=' + url },
-                {'text': 'Сделать свой!', 'href': ''},
+                {'text': 'Сделать свой!', 'href': 'action=create'}
             ])
         };
 
