@@ -12,8 +12,8 @@
             main(<?php echo json_encode($this->request->get()) ?>);
             FAPI.Client.initialize();
 
-            var args = tuna.utils.сonfig.get('custom_args')
-            if (args !== null) {
+            var args = tuna.utils.сonfig.get('custom_args');
+            if (args !== null && args.indexOf('ok_cake_url=') !== -1) {
                 var url = args.split('ok_cake_url=').pop().split('&').shift();
                 ui.Popup.alert(
                     '<img src="http://files.fotonatorte.ru/ok-image/' +
