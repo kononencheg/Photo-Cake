@@ -38,6 +38,21 @@
         var self = this;
 
         FAPI.Client.call({
+            'method': 'users.hasAppPermission',
+            'ext_perm': 'PHOTO CONTENT'
+        }, function(status, data, error) {
+            if (data) {
+                debugger;
+                window.API_callback = function(method, status, attrs) {
+                    debugger;
+                    window.API_callback = null;
+                };
+
+                FAPI.UI.showPermissions('["PHOTO CONTENT"]');
+            }
+        });
+
+        FAPI.Client.call({
             'method': 'photos.getAlbums'
         }, function(status, data, error) {
             if (status === 'ok') {
