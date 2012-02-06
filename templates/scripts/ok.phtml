@@ -5,21 +5,23 @@
 <script src="<?php echo $this->request->get('api_server') ?>js/fapi.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+    
+    main(<?php echo json_encode($this->request->get()) ?>);
+
+    var args = tuna.utils.сonfig.get('custom_args');
+    if (args !== null && args.indexOf('ok_cake_url=') !== -1) {
+        var url = args.split('ok_cake_url=').pop().split('&').shift();
+        tuna.ui.popups.alert(
+            '<img src="http://files.fotonatorte.ru/ok-image/' +
+                    url + '" alt="Мой тортик!" />'
+        )
+    }
+
     FAPI.init(
         '<?php echo $this->request->get('api_server') ?>',
         '<?php echo $this->request->get('apiconnection') ?>',
         function() {
-            main(<?php echo json_encode($this->request->get()) ?>);
             FAPI.Client.initialize();
-
-            var args = tuna.utils.сonfig.get('custom_args');
-            if (args !== null && args.indexOf('ok_cake_url=') !== -1) {
-                var url = args.split('ok_cake_url=').pop().split('&').shift();
-                tuna.ui.popups.alert(
-                    '<img src="http://files.fotonatorte.ru/ok-image/' +
-                            url + '" alt="Мой тортик!" />'
-                )
-            }
         }
     );
 
