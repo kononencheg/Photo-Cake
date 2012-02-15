@@ -29,16 +29,7 @@
              class="j-navigation-page j-transform-container row step active">
 
             <div class="span12">
-
-                <?php switch ($this->request->get('campaign')) {
-                    case 'vkval':
-                    case 'yaval': {
-                        $this->render('steps/campaign/title');
-                        break;
-                    }
-                    default: { $this->render('steps/title'); }
-                } ?>
-
+                <?php $this->render('steps/title'); ?>
             </div>
         </div>
 
