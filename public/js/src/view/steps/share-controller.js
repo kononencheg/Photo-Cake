@@ -24,13 +24,15 @@
 
     ShareController.prototype._initActions = function() {
         var friendsPopup = this._container.getOneModuleInstance('friends-popup');
-
-        tuna.dom.addEventListener(
-            tuna.dom.selectOne('#wall_post_link'), 'click', function(event) {
-                tuna.dom.preventDefault(event);
-                friendsPopup.postImage();
-            }
-        );
+        var postLink = tuna.dom.selectOne('#wall_post_link');
+        if (postLink !== null) {
+            tuna.dom.addEventListener(
+                postLink, 'click', function(event) {
+                    tuna.dom.preventDefault(event);
+                    friendsPopup.postImage();
+                }
+            );
+        }
     };
 
     tuna.view.registerController('share_step', new ShareController());

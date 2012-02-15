@@ -3,17 +3,21 @@
        <img class="j-data-image-copy" alt="Загрузка тортика..."
             data-image-selector="#base_cake_image" width="317" height="317" />
     </li>
-    <li>
-       <a id="wall_post_link" class="btn primary large">
-           Запостить в ленту
-       </a>
-    </li>
-    <li>
-        <a class="j-friends-popup j-popup btn primary large"
-           data-popup-selector="#friend_list_popup">
-            Послать другу
-        </a>
-    </li>
+
+    <?php if ($this->request->get('network')) {?>
+        <li>
+           <a id="wall_post_link" class="btn primary large">
+               Запостить в ленту
+           </a>
+        </li>
+        <li>
+            <a class="j-friends-popup j-popup btn primary large"
+               data-popup-selector="#friend_list_popup">
+                Послать другу
+            </a>
+        </li>
+    <?php } ?>
+
     <li>
         <form action="/api/" target="_blank" method="POST">
             <input type="hidden" name="method" value="utils.base64Echo" />
