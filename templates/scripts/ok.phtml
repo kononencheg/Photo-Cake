@@ -8,7 +8,7 @@
     
     main(<?php echo json_encode($this->request->get()) ?>);
 
-    var args = tuna.utils.сonfig.get('custom_args');
+    var args = tuna.utils.config.get('custom_args');
     if (args !== null && args.indexOf('ok_cake_url=') !== -1) {
         var url = args.split('ok_cake_url=').pop().split('&').shift();
         tuna.ui.popups.alert(

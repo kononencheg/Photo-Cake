@@ -35,6 +35,6 @@
         return result;
     };
 
-    tuna.rest.factory.addMethod('social.friends.get', new GetList())
+    tuna.rest.methodFactory.registerMethod('social.friends.get', new GetList())
 
 })();

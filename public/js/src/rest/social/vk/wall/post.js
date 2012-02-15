@@ -77,6 +77,6 @@
         }
     };
 
-    tuna.rest.factory.addMethod('social.wall.post', new Post())
+    tuna.rest.methodFactory.registerMethod('social.wall.post', new Post())
 
 })();

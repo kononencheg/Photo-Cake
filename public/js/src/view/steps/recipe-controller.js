@@ -56,7 +56,7 @@
         this.__cityAutocomplete
             = this._container.getOneModuleInstance('autocomplete');
 
-        this.__cityAutocomplete.setFilterCallback(function(bakery) {
+        this.__cityAutocomplete.setItemSerializeCallback(function(bakery) {
             return bakery.city;
         });
 
@@ -184,7 +184,7 @@
 
     RecipeController.prototype.__loadBakeries = function() {
         var self = this;
-        tuna.rest.call('bakeries.getList', function(result) {
+        tuna.rest.call('bakeries.getList', null, function(result) {
             var i = 0,
                 l = result.length;
 

@@ -1,74 +1,57 @@
-<div class="j-navigation container">
-    <div class="content">
-        <div class="page-header">
-            <h1 class="main-title">
-                <img class="main-logo" src="/img/logo.png"
-                     alt="Фото на торте!" />
+<div class="j-navigation container-fluid">
+        <div class="row-fluid page-header">
+            <div class="span6">
+                <h1 class="main-title">
+                    <img class="main-logo" src="/img/logo.png" alt="Фото на торте!" />
 
-                <small>
-                    <q class="main-subtitle">Дизайнерские сладости на</q>
-                    <q class="main-subtitle">День защитника Отечетва!</q>
-                </small>
-            </h1>
+                    <small>
+                        <q class="main-subtitle">
+                            Дизайнерские сладости на <br />
+                            День защитника Отечетва!
+                        </q>
+                    </small>
+                </h1>
+            </div>
 
-            <?php if ($this->request->get('network') === NULL) {?>
-                <script type="text/javascript" src="http://yandex.st/share/share.js"></script>
-                <div id="share" class="share-block">
-                    <div class="share-title">Поделитесь с друзьями:</div>
-                    <div class="yashare-auto-init"
-                         data-yashareL10n="ru"
-                         data-yashareType="none"
-                         data-yashareQuickServices="facebook,lj,odnoklassniki,vkontakte,yaru"></div>
-                </div>
-            <?php } ?>
+            <div class="span6">
+                <?php if ($this->request->get('network') === NULL) {?>
+                    <script type="text/javascript" src="http://yandex.st/share/share.js"></script>
 
-        </div>
-
-
-        <div id="title_step" data-init-event="ui-navigate"
-             class="j-navigation-page j-transform-container row step active">
-
-            <div class="span12">
-                <?php $this->render('steps/title'); ?>
+                    <div id="share" class="share-block">
+                        <div class="yashare-auto-init"
+                             data-yashareL10n="ru"
+                             data-yashareType="none"
+                             data-yashareQuickServices="facebook,lj,odnoklassniki,vkontakte,yaru"></div>
+                        <div class="share-title"> +7 (812) 323-52-18 </div>
+                    </div>
+                <?php } ?>
             </div>
         </div>
 
-        <div id="designer_step" data-init-event="ui-navigate"
-             class="j-navigation-page j-transform-container row step">
-
-             <?php $this->render('steps/designer') ?>
-        </div>
-
-        <div id="share_step" data-init-event="ui-navigate"
-             class="j-navigation-page j-transform-container row step">
-
-            <?php $this->render('steps/share') ?>
-        </div>
-
-        <div id="recipe_step" data-init-event="ui-navigate"
-             data-template-id="recipe_template"
-             class="j-navigation-page j-transform-container row step">
-
-            <?php $this->render('steps/recipe') ?>
-        </div>
+        <?php $this->render('steps/title'); ?>
+        <?php $this->render('steps/designer') ?>
+        <?php $this->render('steps/share') ?>
+        <?php $this->render('steps/recipe') ?>
 
         <div id="order_step" data-init-event="ui-navigate"
              data-template-id="order_template"
-             class="j-navigation-page j-transform-container row step">
+             class="j-navigation-page j-control-container step">
 
-            <?php $this->render('steps/order') ?>
+            <?php //$this->render('steps/order') ?>
         </div>
 
         <div id="result_step" data-init-event="ui-navigate"
-             class="j-navigation-page j-transform-container row step">
+             class="j-navigation-page j-control-container step">
 
-            <?php $this->render('steps/result') ?>
+            <?php //$this->render('steps/result') ?>
         </div>
-    </div>
+
+
 </div>
 
-<div id="image_popup" class="popup">
-     <div class="overlay"></div>
+
+<div id="image_popup" class="hide">
+     <div class="modal-backdrop"></div>
      <div class="modal">
          <div class="modal-header">
             <h3 class="j-alt-text"></h3>
@@ -89,10 +72,14 @@
 
     <ul>
         <li id="friend_item_renderer">
-            <img class="t-userpic userpic" alt="Фото друга"
-                 width="50" height="50"/>
+            <img class="t-userpic userpic" alt="Друг" width="50" height="50"/>
+
             <span class="t-user-name"></span>
-            <a class="t-user-id j-send-button send-cake-button pull-right">Отправить</a>
+
+            <a href="#"
+               class="t-user-id j-send-button send-cake-button pull-right">
+                Отправить
+            </a>
         </li>
         <li id="recipe_renderer">
             <a class="recipe-tile">

@@ -6,25 +6,34 @@
     tuna.utils.extend(FriendsPopup, tuna.ui.Module);
 
     FriendsPopup.prototype.initInstance = function(target) {
-        var popupModule = tuna.ui.modules.getModule('popup');
-        var filtrationModule = tuna.ui.modules.getModule('filtration');
-
-        var popup = popupModule.initInstance(target);
-        var popupContainer = popup.getTarget();
-
-        var friendsFiltration = filtrationModule.initInstance(popupContainer);
-
-        tuna.rest.call('social.friends.get', function(result) {
-            friendsFiltration.setData(result);
-        });
-
+        var popup = null;
         var self = this;
 
+        var popupElement =
+                tuna.dom.selectOne(target.getAttribute('data-popup-selector'));
+
+        var inputFilter = new tuna.ui.forms.InputFilter(popupElement);
+
+        if (popupElement !== null) {
+            popup = tuna.ui.popups.create(popupElement);
+
+            tuna.dom.addEventListener(target, 'click', function(event) {
+                popup.open();
+            });
+        }
+
+        tuna.rest.call('social.friends.get', null, function(result) {
+            inputFilter.setData(result);
+        });
+
+
         tuna.dom.addChildEventListener(
-            popupContainer, '.j-send-button', 'click', function() {
+            popupElement, '.j-send-button', 'click', function() {
                 self.postImage(this.getAttribute('data-user-id'));
             }
         );
+
+        inputFilter.init();
 
         return this;
     };

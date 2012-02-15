@@ -26,14 +26,14 @@
                                                      $(afterImage).width() + 15);
         }
 
+        photoImage.onload =
+            beforeImage.onload =
+                afterImage.onload = syncWidth;
+
         tuna.dom.addEventListener(target, 'click', function(event) {
             tuna.dom.preventDefault(event);
 
             if (self.__lastIndex !== cakeIndex) {
-                photoImage.onload =
-                    beforeImage.onload =
-                        afterImage.onload = syncWidth;
-
                 photoImage.src = '/img/title/photo_' + cakeIndex + '.jpg';
                 beforeImage.src = '/img/title/before_' + cakeIndex + '.jpg';
                 afterImage.src = '/img/title/after_' + cakeIndex + '.jpg';
@@ -63,7 +63,6 @@
         } else {
             $target.stop().animate({ 'scrollLeft': '+=50' }, 'fast');
         }
-
     };
 
     tuna.ui.modules.register('cake-image-popup', new CakeImagePopup());

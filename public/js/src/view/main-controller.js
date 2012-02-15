@@ -9,7 +9,7 @@
     MainController.prototype._initActions = function() {
         tuna.view.NavigationViewController.prototype._initActions.call(this);
 
-        tuna.rest.call('social.users.getCurrent', function(user) {
+        tuna.rest.call('social.users.getCurrent', null, function(user) {
             model.users.setCurrentUser(user);
         });
     };

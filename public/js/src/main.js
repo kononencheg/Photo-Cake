@@ -53,20 +53,18 @@ rest.social.ok.users = {};
  */
 var ui = {};
 
-
 /**
  * Точка входа в приложение
  *
  * @param {!Object} args
  */
 function main(args) {
-    tuna.utils.сonfig.init(args);
+    tuna.utils.config.init(args);
 
     tuna.dom.setSelectorEngine(jQuery.find);
 
     tuna.ui.popups.registerAlert(tuna.dom.selectOne('#alert_popup'));
     tuna.ui.popups.registerConfirm(tuna.dom.selectOne('#confirm_popup'));
 
-    var container = new tuna.ui.containers.TransformContainer(document.body);
-    container.init();
+    tuna.view.init();
 }

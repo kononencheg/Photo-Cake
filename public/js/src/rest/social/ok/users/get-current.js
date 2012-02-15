@@ -30,6 +30,6 @@
         });
     };
 
-    tuna.rest.factory.addMethod('social.users.getCurrent', new GetCurrent())
+    tuna.rest.methodFactory.registerMethod('social.users.getCurrent', new GetCurrent())
 
 })();

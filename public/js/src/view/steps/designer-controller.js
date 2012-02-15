@@ -3,8 +3,11 @@
     var DesignerController = function() {
         tuna.view.PageViewController.call(this);
 
-        this.__movieID = null;
-        this.__movie = null;
+        /**
+         * @private
+         * @type {tuna.ui.flash.SWF}
+         */
+        this.__designerSWF = null;
     };
 
     tuna.utils.extend(DesignerController, tuna.view.PageViewController);
@@ -58,25 +61,15 @@
 
     DesignerController.prototype._requireModules = function() {
        this._container.requireModule('data-image');
-       this._container.requireModule('swf', {
-           'width': 650,
-           'height': 630,
-           'params': {
-               'wmode': 'opaque',
-               'allowfullscreen': false,
-               'allowscriptaccess': 'always',
-               'menu': false
-           }
-        });
+       this._container.requireModule('swf');
     };
 
     DesignerController.prototype._initActions = function() {
-        this.__movieID = this._container.getOneModuleInstance('swf');
+        this.__designerSWF = this._container.getOneModuleInstance('swf');
     };
 
     DesignerController.prototype.onFlashReady = function() {
-        this.__movie = swfobject.getObjectById(this.__movieID);
-        this.__movie.initialize(DECO_DATA, 'round', 1);
+        this.__designerSWF.getMovie().initialize(DECO_DATA, 'round', 1);
     };
 
     DesignerController.prototype.confirmShapeChange = function(shape) {
@@ -86,18 +79,18 @@
             'При изменении формы торта, все оформление будет утеряно!',
             function(result) {
                 if (result) {
-                    self.__movie.changeShape(shape);
+                    self.__designerSWF.getMovie().changeShape(shape);
                 }
             }
         );
     };
 
     DesignerController.prototype.canClose = function() {
-        return this.__movie !== null;
+        return this.__designerSWF.getMovie() !== null;
     };
 
     DesignerController.prototype.close = function() {
-        var data = this.__movie.getCakeData();
+        var data = this.__designerSWF.getMovie().getCakeData();
 
         var cake = model.cakes.createCake
             (data.shift(), data.shift(), data.shift());

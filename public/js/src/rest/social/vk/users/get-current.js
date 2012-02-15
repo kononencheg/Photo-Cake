@@ -13,7 +13,7 @@
     GetCurrent.prototype._completeArguments = function(args) {
         return {
             'fields': 'uid,first_name,last_name,city',
-            'uid': tuna.utils.сonfig.get('viewer_id')
+            'uid': tuna.utils.config.get('viewer_id')
         };
     };
 
@@ -45,6 +45,6 @@
         }
     };
 
-    tuna.rest.factory.addMethod('social.users.getCurrent', new GetCurrent())
+    tuna.rest.methodFactory.registerMethod('social.users.getCurrent', new GetCurrent())
 
 })();
