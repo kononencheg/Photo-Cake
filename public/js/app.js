@@ -2087,7 +2087,7 @@ var InputFilter = function(target) {
 };
 tuna.utils.extend(InputFilter, tuna.ui.ModuleInstance);
 InputFilter.prototype.init = function() {
-  this._input = tuna.dom.selectOne("input.j-filtration");
+  this._input = tuna.dom.selectOne("input.j-filtration", this._target);
   if(this._input !== null) {
     var self = this;
     var lastValue = null;
@@ -2105,10 +2105,13 @@ InputFilter.prototype.setItemSerializeCallback = function(callback) {
 };
 InputFilter.prototype.setData = function(data) {
   this._currentData = this._data = data;
-  this._transformer.applyTransform(data)
+  this.update()
 };
 InputFilter.prototype.filter = function(term) {
   this._currentData = this._filterData(term);
+  this.update()
+};
+InputFilter.prototype.update = function() {
   this._transformer.applyTransform(this._currentData)
 };
 InputFilter.prototype.clear = function() {
@@ -2170,6 +2173,7 @@ Autocomplete.prototype.init = function() {
   tuna.dom.addEventListener(this._input, "click", function(event) {
     tuna.dom.stopPropagation(event)
   });
+  this.__selectionGroup.setOption("item-selector", ".j-autocomplete-item");
   this.__selectionGroup.init()
 };
 Autocomplete.prototype.getSelectedData = function() {
@@ -2186,7 +2190,7 @@ Autocomplete.prototype.selectValue = function(value) {
 Autocomplete.prototype.selectIndex = function(index) {
   if(this._currentData.length > 0) {
     this.__selectedData = this._currentData[index];
-    this._input.value = this._filterCallback(this.__selectedData);
+    this._input.value = this._itemSerializeCallback(this.__selectedData);
     this.dispatch("change")
   }
 };
@@ -2197,11 +2201,8 @@ Autocomplete.prototype.clearSelection = function() {
   }
 };
 Autocomplete.prototype.update = function() {
-  ui.Filtration.prototype.update.call(this);
-  this.__selectionGroup.updateView()
-};
-Autocomplete.prototype._handleKeyup = function(event) {
-  ui.Filtration.prototype._handleKeyup.call(this, event);
+  tuna.ui.forms.InputFilter.prototype.update.call(this);
+  this.__selectionGroup.updateView();
   this.clearSelection()
 };
 tuna.ui.forms.Autocomplete = Autocomplete;
@@ -8691,29 +8692,25 @@ tuna.rest.methodFactory.setDefaultFactory(new CommonFactory);
     this.__popupRecipe = null;
     this.__popupIndex = -1;
     this.__cityPopup = null;
-    this.__cityAutocomplete = null
+    this.__cityAutocomplete = null;
+    this.__transformer = null
   };
   tuna.utils.extend(RecipeController, tuna.view.PageViewController);
-  RecipeController.prototype.canClose = function(index) {
-    var order = model.orders.getOrder();
-    if(index === "order_step" && order.recipe === null) {
-      ui.Popup.alert("\u0414\u043b\u044f \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0435\u043d\u0438\u044f \u043d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e \u0432\u044b\u0431\u0440\u0430\u0442\u044c \u0440\u0435\u0446\u0435\u043f\u0442!");
-      return false
-    }
-    return true
-  };
   RecipeController.prototype.open = function() {
     model.orders.updateOrder();
     this.__cityPopup.open();
     this.__updateView()
   };
   RecipeController.prototype._requireModules = function() {
+    this._container.requireModule("template-transformer");
     this._container.requireModule("data-image-copy");
     this._container.requireModule("autocomplete");
-    this._container.requireModule("popup")
+    this._container.requireModule("popup-button")
   };
   RecipeController.prototype._initActions = function() {
     model.orders.updateOrder();
+    this.__transformer = this._container.getOneModuleInstance("template-transformer");
+    this.__transformer.setTransformHandler(this);
     this.__initCityPopup();
     this.__loadBakeries();
     this.__initRecipeSelection();
@@ -8775,7 +8772,7 @@ tuna.rest.methodFactory.setDefaultFactory(new CommonFactory);
     })
   };
   RecipeController.prototype.__updateView = function() {
-    this._container.applyData({"order":model.orders.getOrder(), "recipes":model.recipes.getList(), "popup_recipe":this.__popupRecipe})
+    this.__transformer.applyTransform({"order":model.orders.getOrder(), "recipes":model.recipes.getList(), "popup_recipe":this.__popupRecipe})
   };
   RecipeController.prototype.__selectRecipeAt = function(index) {
     var input = tuna.dom.selectOne("input[value=" + index + "].j-recipe-radio");
@@ -8807,7 +8804,7 @@ tuna.rest.methodFactory.setDefaultFactory(new CommonFactory);
   };
   RecipeController.prototype.__loadBakeries = function() {
     var self = this;
-    tuna.rest.call("bakeries.getList", null, function(result) {
+    var listener = function(result) {
       var i = 0, l = result.length;
       var value = null;
       var bakery = null;
@@ -8825,7 +8822,8 @@ tuna.rest.methodFactory.setDefaultFactory(new CommonFactory);
       if(user !== null) {
         self.__cityAutocomplete.selectValue(user.city)
       }
-    })
+    };
+    tuna.rest.call("bakeries.getList", null, listener)
   };
   tuna.view.registerController("recipe_step", new RecipeController)
 })();
@@ -8833,10 +8831,12 @@ tuna.rest.methodFactory.setDefaultFactory(new CommonFactory);
   var OrderController = function() {
     tuna.view.PageViewController.call(this);
     this.__form = null;
-    this.__cakeImage = null
+    this.__cakeImage = null;
+    this.__transformer = null
   };
   tuna.utils.extend(OrderController, tuna.view.PageViewController);
   OrderController.prototype._requireModules = function() {
+    this._container.requireModule("template-transformer");
     this._container.requireModule("data-image-copy");
     this._container.requireModule("datepicker");
     this._container.requireModule("form")
@@ -8844,6 +8844,8 @@ tuna.rest.methodFactory.setDefaultFactory(new CommonFactory);
   OrderController.prototype._initActions = function() {
     var self = this;
     var isConfirmed = false;
+    this.__transformer = this._container.getOneModuleInstance("template-transformer");
+    this.__transformer.setTransformHandler(this);
     this.__form = this._container.getOneModuleInstance("form");
     this.__form.addEventListener("result", function(event, result) {
       self._navigation.navigate("result_step", result.cake);
@@ -8871,7 +8873,7 @@ tuna.rest.methodFactory.setDefaultFactory(new CommonFactory);
       var cake = model.cakes.createCampaingCake(args.weight, args.image);
       model.orders.updateCampaignOrder(args.campaign, cake, args.price)
     }
-    this._container.applyData(model.orders.getOrder())
+    this.__transformer.applyTransform(model.orders.getOrder())
   };
   tuna.view.registerController("order_step", new OrderController)
 })();

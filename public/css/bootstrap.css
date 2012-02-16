@@ -2717,23 +2717,23 @@ button.btn.small, input[type="submit"].btn.small {
 .pager li {
   display: inline;
 }
-.pager a {
+.pager a,
+.pager input {
   display: inline-block;
   padding: 5px 14px;
   background-color: #fff;
   border: 1px solid #ddd;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
 }
 .pager a:hover {
   text-decoration: none;
   background-color: #f5f5f5;
 }
-.pager .next a {
+.pager .next a,
+.pager .next input {
   float: right;
 }
-.pager .previous a {
+.pager .previous a,
+.pager .previous input {
   float: left;
 }
 .modal-open .dropdown-menu {

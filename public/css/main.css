@@ -1,92 +1,8 @@
 
 
 /**
- * Header
- */
-
-
-
-
-
-
-.head-button {
-    margin: 40px 50px 0 0;
-}
-
-/**
- * Wizard
- */
-.container {
-    width: 700px;
-}
-
-
-/**
- * Title
- */
-
-
-/**
- * Cake designer
- */
-
-.cake-designer-swf {
-    width: 650px;
-    height: 630px;
-}
-
-
-/**
- * Recipe list
- */
-
-.cake-info {
-    margin-left: 10px;
-}
-
-.cake-image {
-    text-align: center;
-    img {
-        width: 240px;
-        height: 240px;
-    }
-}
-
-.cake-weight {
-    line-height: 32px;
-}
-
-.recipe-tile {
-    width: 100px;
-
-    img {
-        margin-top: 5px;
-        margin-left: 5px;
-        margin-right: 5px;
-    }
-
-    label {
-        margin-left: 5px;
-        margin-right: 5px;
-
-        color: inherit;
-        text-align: left;
-
-
-    }
-}
-
-.next-btn {
-    margin-right: 20px;
-}
-
-/**
  * Misc
  */
-
-.micro {
-    width: 50px;
-}
 
 img {
     &.horizontal {
@@ -106,40 +22,9 @@ img {
     vertical-align:middle;
 }
 
-.media-grid li a:hover {
-    text-decoration: none;
-    border-color: #ddd;
-}
 
 
-/**
- * Icons
- */
 
-i {
-    display: inline-block;
-    *zoom: 1;
-    *display: inline;
-    font-size: 0;
-}
-
-.ico {
-    position: relative;
-    vertical-align: text-bottom;
-    background-repeat: no-repeat;
-}
-
-.ico-persons {
-    width: 15px;
-    height: 15px;
-    background: no-repeat url(/img/persons.png);
-}
-
-.ico-super {
-    color: @header-color;
-    font-style: italic;
-    vertical-align: super;
-}
 
 
 
@@ -170,36 +55,6 @@ i {
     }
 }
 
-.cake-price {
-    padding-top: 10px;
-
-    table {
-        margin-top: 5px;
-
-        width: 200px;
-
-        border: none;
-
-        th {
-            border: none;
-        }
-
-        td {
-            border: none;
-            color: @dynamic-color;
-        }
-    }
-}
-
-.cake-weight h3 {
-    display: inline;
-}
-
-.order-navigation {
-    padding-top: 150px;
-    padding-right: 5px;
-}
-
 
 
 .send-cake-button {
@@ -210,11 +65,4 @@ i {
 
 #alert_popup .modal-body {
     text-align: center;
-}
-
-.input-small-rest,
-input.small-rest,
-textarea.small-rest,
-select.small-rest {
-  width: 117px;
 }

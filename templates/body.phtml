@@ -1,4 +1,10 @@
 <div class="j-navigation container-fluid">
+    <?php if ($this->request->get('network') === NULL) { ?>
+        <div class="site-core">
+    <?php } else { ?>
+        <div class="app-core">
+    <?php }?>
+
         <div class="row-fluid page-header">
             <div class="span6">
                 <h1 class="main-title">
@@ -32,21 +38,10 @@
         <?php $this->render('steps/designer') ?>
         <?php $this->render('steps/share') ?>
         <?php $this->render('steps/recipe') ?>
+        <?php $this->render('steps/order') ?>
+        <?php $this->render('steps/result') ?>
 
-        <div id="order_step" data-init-event="ui-navigate"
-             data-template-id="order_template"
-             class="j-navigation-page j-control-container step">
-
-            <?php //$this->render('steps/order') ?>
-        </div>
-
-        <div id="result_step" data-init-event="ui-navigate"
-             class="j-navigation-page j-control-container step">
-
-            <?php //$this->render('steps/result') ?>
-        </div>
-
-
+    </div>
 </div>
 
 
@@ -82,8 +77,8 @@
             </a>
         </li>
         <li id="recipe_renderer">
-            <a class="recipe-tile">
-                <img class="t-recipe-img t-recipe-index j-popup j-recipe-image"
+            <div class="recipe-tile thumbnail">
+                <img class="t-recipe-img t-recipe-index j-popup-button j-recipe-image"
                      alt="Рецепт" width="90" height="90"
                      data-popup-selector="#recipe_description_popup"/>
 
@@ -91,10 +86,10 @@
                     <input class="t-recipe-input j-recipe-radio" type="radio" name="recipe_id" />
                     <span class="t-recipe-name"></span>
                 </label>
-            </a>
+            </div>
         </li>
         <li id="city_item_renderer" class="j-autocomplete-item">
-           <a class="t-name"></a>
+           <a class="t-name" href="#"></a>
         </li>
     </ul>
 </div>

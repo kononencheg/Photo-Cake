@@ -5,11 +5,14 @@
 
         this.__form = null;
         this.__cakeImage = null;
+
+        this.__transformer = null;
     };
 
     tuna.utils.extend(OrderController, tuna.view.PageViewController);
 
     OrderController.prototype._requireModules = function() {
+        this._container.requireModule('template-transformer');
         this._container.requireModule('data-image-copy');
         this._container.requireModule('datepicker');
         this._container.requireModule('form');
@@ -18,6 +21,10 @@
     OrderController.prototype._initActions = function() {
         var self = this;
         var isConfirmed = false;
+
+        this.__transformer
+            = this._container.getOneModuleInstance('template-transformer');
+        this.__transformer.setTransformHandler(this);
 
         this.__form = this._container.getOneModuleInstance('form');
         this.__form.addEventListener('result', function(event, result) {
@@ -58,7 +65,7 @@
             model.orders.updateCampaignOrder(args.campaign, cake, args.price);
         }
 
-        this._container.applyData(model.orders.getOrder());
+        this.__transformer.applyTransform(model.orders.getOrder());
     };
 
     tuna.view.registerController('order_step', new OrderController());

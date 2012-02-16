@@ -8,19 +8,11 @@
 
         this.__cityPopup = null;
         this.__cityAutocomplete = null;
+
+        this.__transformer = null;
     };
 
     tuna.utils.extend(RecipeController, tuna.view.PageViewController);
-
-    RecipeController.prototype.canClose = function(index) {
-        var order = model.orders.getOrder();
-        if (index === 'order_step' && order.recipe === null) {
-            ui.Popup.alert('Для продолжения необходимо выбрать рецепт!');
-            return false;
-        }
-
-        return true;
-    };
 
     RecipeController.prototype.open = function() {
         model.orders.updateOrder();
@@ -31,13 +23,18 @@
     };
 
     RecipeController.prototype._requireModules = function() {
+        this._container.requireModule('template-transformer');
         this._container.requireModule('data-image-copy');
         this._container.requireModule('autocomplete');
-        this._container.requireModule('popup');
+        this._container.requireModule('popup-button');
     };
 
     RecipeController.prototype._initActions = function() {
         model.orders.updateOrder();
+
+        this.__transformer
+            = this._container.getOneModuleInstance('template-transformer');
+        this.__transformer.setTransformHandler(this);
 
         this.__initCityPopup();
 
@@ -131,7 +128,7 @@
     };
 
     RecipeController.prototype.__updateView = function() {
-        this._container.applyData({
+        this.__transformer.applyTransform({
             'order': model.orders.getOrder(),
             'recipes': model.recipes.getList(),
             'popup_recipe': this.__popupRecipe
@@ -184,7 +181,7 @@
 
     RecipeController.prototype.__loadBakeries = function() {
         var self = this;
-        tuna.rest.call('bakeries.getList', null, function(result) {
+        var listener = function(result) {
             var i = 0,
                 l = result.length;
 
@@ -209,7 +206,9 @@
             if (user !== null) {
                 self.__cityAutocomplete.selectValue(user.city);
             }
-        });
+        };
+
+        tuna.rest.call('bakeries.getList', null, listener);
     };
 
     tuna.view.registerController('recipe_step', new RecipeController());

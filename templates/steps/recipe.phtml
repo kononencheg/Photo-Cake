@@ -1,71 +1,65 @@
-
 <div id="recipe_step" data-init-event="ui-navigate"
      data-template-id="recipe_template"
-     class="j-navigation-page j-control-container step">
+     class="j-navigation-page j-control-container j-template-transformer row-fluid step">
 
-    <div class="row-fluid">
-        <div class="span12">
-            <h2>Выбор рецепта</h2>
-        </div>
+    <div class="span12">
+        <h2>Выбор рецепта</h2>
     </div>
 
-    <div class="row-fluid">
-        <div class="span5">
-            <div class="cake-info">
-                <div class="cake-weight">
-                    <h3>Вес торта: <small><span class="t-cake-weight">0</span> кг</small></h3>
-                    <span class="pull-right">
-                        <i class="ico ico-persons"></i>
-                        <span class="t-cake-persons ico-super">10</span>
-                    </span>
-                </div>
+    <div class="span12 row-fluid">
+        <div class="span5 cake-info">
+            <div class="cake-weight">
+                <h3>Вес торта: <small><span class="t-cake-weight">0</span> кг</small></h3>
 
-                <div class="cake-image">
-                    <img class="j-data-image-copy" alt="Загрузка тортика..."
-                         data-image-selector="#base_cake_image" />
-                </div>
+                <span class="pull-right">
+                    <i class="ico ico-persons"></i>
+                    <span class="t-cake-persons ico-super">10</span>
+                </span>
+            </div>
 
-                <div class="recipe-description">
-                    Чтобы заказать торт необходимо, для начала, выбрать начинку!
-                </div>
+            <div class="cake-image">
+                <img class="j-data-image-copy" alt="Загрузка тортика..."
+                     data-image-selector="#base_cake_image" />
+            </div>
 
-                <div class="cake-price">
-                    <h3>Цена</h3>
+            <div class="cake-price">
+                <h3>Цена</h3>
 
-                    <table class="condensed-table">
-                        <tr>
-                            <th>Оформление: </th>
-                            <td><span class="t-deco-price">0</span> рублей</td>
-                        </tr>
-                        <tr>
-                            <th>Рецепт: </th>
-                            <td><span class="t-recipe-price">0</span> рублей</td>
-                        </tr>
-                        <tr>
-                            <th>Доставка: </th>
-                            <td><span class="t-delivery-price">0</span> рублей</td>
-                        </tr>
-                        <tr>
-                            <th>Итого: </th>
-                            <td><span class="t-total-price">0</span> рублей</td>
-                        </tr>
-                    </table>
-                </div>
+                <table class="table table-condensed">
+                    <tr>
+                        <th>Оформление: </th>
+                        <td><span class="t-deco-price">0</span> рублей</td>
+                    </tr>
+                    <tr>
+                        <th>Рецепт: </th>
+                        <td><span class="t-recipe-price">0</span> рублей</td>
+                    </tr>
+                    <tr>
+                        <th>Доставка: </th>
+                        <td><span class="t-delivery-price">0</span> рублей</td>
+                    </tr>
+                    <tr>
+                        <th>Итого: </th>
+                        <td><span class="t-total-price">0</span> рублей</td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="span7">
-            <ul class="t-recipes-list media-grid"></ul>
+            <ul class="t-recipes-list recipes-list thumbnails"></ul>
 
-            <a class="j-navigation-link next-btn btn primary large pull-right"
-               data-href="order_step">
-                Далее &raquo;
-            </a>
-            <a class="j-navigation-link next-btn btn primary large pull-right"
-               data-action="back">
-                &laquo; Назад
-            </a>
+            <div class="recipe-navigation">
+              <a class="j-navigation-link btn primary large"
+                 data-action="back">
+                  &laquo; Назад
+              </a>
+              <a class="j-navigation-link btn primary large pull-right"
+                 data-href="order_step">
+                  Далее &raquo;
+              </a>
+            </div>
         </div>
-    </div>
+</div>
 
     <div id="city_selection_popup" class="j-autocomplete hide"
          data-template-id="city_autocomplete_template">
@@ -79,7 +73,7 @@
                 <div class="input clearfix">
                     <div class="input-append ">
                         <input id="city_search" type="text"
-                               class="j-autocomplete-input" />
+                               class="j-filtration" />
 
                         <label for="city_search" class="add-on btn">v</label>
                     </div>

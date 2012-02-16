@@ -6,8 +6,7 @@ body {
 
 .container-fluid {
     padding: 0;
-    max-width: 940px;
-    margin: auto;
+    height: 900px;
 }
 
 .alert {
@@ -19,12 +18,18 @@ body {
     margin-right: 7px;
 }
 
+.alert-info {
+    color: #000;
+    background-color: #FFF;
+    border-color: #CCC;
+}
+
 .alert h3 {
     margin-bottom: 2px;
     padding-bottom: 0;
 }
 
-.btn.primary{
+.btn.primary {
     color: #FFF;
     background-color: #750000;
     background-repeat: repeat-x;
@@ -40,13 +45,13 @@ body {
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 }
 
-.btn.primary.large{
+.btn.primary.large {
     padding: 9px 12px 9px;
     font-size: 24px;
 }
 
 .step {
-    position: relative;
+    position: absolute;
 
     float:left;
     overflow: hidden;
@@ -59,7 +64,9 @@ body {
 }
 
 .step.active {
-    width: 99.7%;
+    position: relative;
+
+    width: 100%;
     left: 0;
 
     opacity: 1;
@@ -74,16 +81,19 @@ body {
     width: 530px;
 }
 
+.pager a:hover {
+    background-color: #750000;
+}
+
 /* Typo */
 
 h1,
 h2,
 h3,
+legend,
 p {
     font-family:"Times New Roman", Times, serif;
-    margin-left: 5%;
     padding-bottom: 5px;
-    margin-bottom: 10px;
 }
 
 h1 {
@@ -103,12 +113,14 @@ p {
     font-size: 14px;
 }
 
+form p {
+    margin-left: auto;
+}
 
 h2 {
     color: #750000;
     font-style: italic;
     font-weight: normal;
-    margin: 20px;
 }
 
 h3 {
@@ -132,7 +144,7 @@ h4 small {
 /* Header */
 
 .page-header {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     margin-top: 0px;
 
     height: 100px;
@@ -158,7 +170,13 @@ h4 small {
 /* Title */
 
 .site-core {
-    min-width: 940px;
+    margin: auto;
+    width: 940px;
+}
+
+.app-core {
+    margin: auto;
+    width: 700px;
 }
 
 
@@ -174,11 +192,14 @@ h4 small {
 .cake-info {
     vertical-align: middle;
     line-height: 30px;
-    margin-top: 5px;
     display: block;
 }
 
-.cake-price {
+.cake-info h3 {
+    margin-left: 0;
+}
+
+.cake-image-box .cake-price {
     padding: 0;
 
     display: none;
@@ -349,4 +370,128 @@ input.btn {
     height: 100%;
     display: block;
     float: left;
+}
+
+/**
+ * Recipes
+ */
+
+.recipe-tile {
+    width: 100px;
+    height: 130px;
+    overflow: hidden;
+}
+
+.recipe-tile img {
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 90px;
+    height: 90px;
+}
+
+.recipe-label {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+
+    width: 90px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.recipe-label span {
+    margin: 5px;
+    line-height: 19px;
+    vertical-align: middle;
+}
+
+.recipe-label input {
+    float: left;
+}
+
+/**
+ * Recipes
+ */
+
+.cake-info {
+    margin-left: 10px;
+}
+
+.cake-image {
+    padding-top: 20px;
+    width: 190px;
+    margin: auto;
+}
+
+.cake-image img {
+    width: 190px;
+    height: 190px;
+}
+
+.cake-weight {
+    width: 280px;
+    margin: auto;
+    line-height: 32px;
+}
+
+.cake-weight h3 {
+    display: inline;
+}
+
+.cake-info .cake-price {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: auto;
+    width: 200px;
+}
+
+/**
+ * Icons
+ */
+
+i {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    font-size: 0;
+}
+
+.ico {
+    position: relative;
+    vertical-align: text-bottom;
+    background-repeat: no-repeat;
+}
+
+.ico-persons {
+    width: 15px;
+    height: 15px;
+    background: no-repeat url(/img/persons.png);
+}
+
+.ico-super {
+    color: #750000;
+    font-style: italic;
+    vertical-align: super;
+}
+
+.input-small-rest,
+input.small-rest,
+textarea.small-rest,
+select.small-rest {
+  width: 103px;
+}
+
+.thumbnails li {
+    margin-left: 17px;
+}
+
+.order-navigation {
+    width: 240px;
+    margin: auto;
+}
+
+.recipe-navigation {
+    width: 91%;
 }
