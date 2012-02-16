@@ -2446,6 +2446,42 @@ Navigation.prototype.back = function() {
   this.selectIndex(this.__history.pop())
 };
 tuna.ui.selection.Navigation = Navigation;
+var Carousel = function(target) {
+  tuna.ui.selection.SelectionGroup.call(this, target, null);
+  this.__shiftIndex = -1;
+  this._setDefaultOption("item-selector", ".j-carousel-item");
+  this._setDefaultOption("next-button-selector", ".j-carousel-next");
+  this._setDefaultOption("back-button-selector", ".j-carousel-back")
+};
+tuna.utils.extend(Carousel, tuna.ui.selection.SelectionGroup);
+Carousel.prototype.init = function() {
+  tuna.ui.selection.SelectionGroup.prototype.init.call(this);
+  var self = this;
+  this.__shiftIndex = this.getLastSelectedIndex();
+  tuna.dom.addChildEventListener(this._target, this.getOption("next-button-selector"), "click", function(event) {
+    tuna.dom.preventDefault(event);
+    self.next()
+  });
+  tuna.dom.addChildEventListener(this._target, this.getOption("back-button-selector"), "click", function(event) {
+    tuna.dom.preventDefault(event);
+    self.back()
+  })
+};
+Carousel.prototype.next = function() {
+  this.__shiftIndex++;
+  if(this.getItemAt(this.__shiftIndex) === null) {
+    this.__shiftIndex = 0
+  }
+  this.selectIndex(this.__shiftIndex)
+};
+Carousel.prototype.back = function() {
+  this.__shiftIndex--;
+  if(this.getItemAt(this.__shiftIndex) === null) {
+    this.__shiftIndex = this._itemsCollection.getItemsCount() - 1
+  }
+  this.selectIndex(this.__shiftIndex)
+};
+tuna.ui.selection.Carousel = Carousel;
 var IItemsCollection = function() {
 };
 IItemsCollection.prototype.addItem = function(item) {
@@ -2457,6 +2493,8 @@ IItemsCollection.prototype.getItemAt = function(index) {
 IItemsCollection.prototype.mapItems = function(callback) {
 };
 IItemsCollection.prototype.clear = function() {
+};
+IItemsCollection.prototype.getItemsCount = function() {
 };
 tuna.ui.selection.items.IItemsCollection = IItemsCollection;
 var ElementsCollection = function() {
@@ -2481,6 +2519,9 @@ ElementsCollection.prototype.mapItems = function(callback) {
     callback(i, this.__items[i]);
     i++
   }
+};
+ElementsCollection.prototype.getItemsCount = function() {
+  return this.__items.length
 };
 tuna.ui.selection.items.ElementsCollection = ElementsCollection;
 var NamedElementsCollection = function(indexAttribute) {
@@ -2510,10 +2551,15 @@ NamedElementsCollection.prototype.clear = function() {
 };
 NamedElementsCollection.prototype.mapItems = function(callback) {
   for(var index in this.__items) {
-    if(this.__items.hasOwnProperty(index)) {
-      callback(index, this.__items[index])
-    }
+    callback(index, this.__items[index])
   }
+};
+ElementsCollection.prototype.getItemsCount = function() {
+  var i = 0;
+  for(var index in this.__items) {
+    i++
+  }
+  return i
 };
 tuna.ui.selection.items.NamedElementsCollection = NamedElementsCollection;
 var ISelectionRule = function() {
@@ -2830,6 +2876,14 @@ AutocompleteModule.prototype.initInstance = function(target) {
   return new tuna.ui.forms.Autocomplete(target)
 };
 tuna.ui.modules.register("autocomplete", new AutocompleteModule);
+var CarouselModule = function() {
+  tuna.ui.Module.call(this, ".j-carousel")
+};
+tuna.utils.extend(CarouselModule, tuna.ui.Module);
+CarouselModule.prototype.initInstance = function(target) {
+  return new tuna.ui.selection.Carousel(target)
+};
+tuna.ui.modules.register("carousel", new CarouselModule);
 tuna.view.__idTable = {};
 tuna.view.__mainController = null;
 tuna.view.setMainController = function(controller) {
@@ -8609,7 +8663,9 @@ tuna.rest.methodFactory.setDefaultFactory(new CommonFactory);
   };
   tuna.utils.extend(TitleController, tuna.view.PageViewController);
   TitleController.prototype._requireModules = function() {
-    this._container.requireModule("selection-group")
+    this._container.requireModule("selection-group");
+    this._container.requireModule("carousel");
+    this._container.requireModule("popup-button")
   };
   tuna.view.registerController("title_step", new TitleController)
 })();

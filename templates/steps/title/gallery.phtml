@@ -4,20 +4,20 @@
     </div>
     <div class="span6">
         <h3 class="pull-right">
-            <a href="#" class="j-cake-image-popup" data-cake-index="4">
+            <a href="#" class="j-popup-button"
+               data-popup-selector="#howto_popup">
                 Как мы это делаем?
             </a>
         </h3>
     </div>
 </div>
 
-<div class="row-fluid">
-    <div class="span12 carousel cake-gallery">
-        <ul class="j-selection-group thumbnails cake-gallery-body"
-            data-selection-event="mouseover">
+<div class="j-selection-group row-fluid"
+     data-selection-event="mouseover">
 
-            <li class="j-selection-item active j-cake-image-popup"
-                data-cake-index="1">
+    <div class="span12 carousel cake-gallery">
+        <ul class="thumbnails cake-gallery-body">
+            <li class="j-selection-item j-cake-image-popup active" data-cake-index="1">
 
                 <div class="thumbnail">
                     <span class="expand-item">
@@ -40,7 +40,6 @@
                     </span>
                 </div>
             </li>
-
             <li class="j-selection-item j-cake-image-popup" data-cake-index="2">
                 <div class="thumbnail">
                     <span class="expand-item">
@@ -63,7 +62,6 @@
                     </span>
                 </div>
             </li>
-
             <li class="j-selection-item j-cake-image-popup" data-cake-index="3">
                 <div class="thumbnail">
                     <span class="expand-item">
@@ -86,7 +84,21 @@
                     </span>
                 </div>
             </li>
-
         </ul>
+    </div>
+</div>
+
+<div id="howto_popup" class="hide">
+    <div class="modal-backdrop"></div>
+    <div class="howto-popup modal">
+        <div class="modal-header">
+            <h3>Как мы это делаем?</h3>
+        </div>
+        <div class="modal-body">
+            <img src="img/info.jpg" alt="Как мы это делаем?" width="1200" height="1000" />
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="j-popup-close btn">Закрыть</a>
+        </div>
     </div>
 </div>

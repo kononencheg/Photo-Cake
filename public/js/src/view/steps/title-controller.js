@@ -8,6 +8,8 @@
 
     TitleController.prototype._requireModules = function() {
         this._container.requireModule('selection-group');
+        this._container.requireModule('carousel');
+        this._container.requireModule('popup-button');
         //this._container.requireModule('cake-image-popup');
     };
 

@@ -40,3 +40,32 @@
     text-align: right;
     font-style: italic;
 }
+
+.carousel-item {
+    display: none;
+}
+
+.carousel-item.active {
+    display: block;
+}
+
+.howto-popup {
+    top: 30px;
+
+    width: 700px;
+    margin: auto;
+
+    margin-left: -350px;
+
+    max-height: 940px;
+}
+
+.howto-popup .modal-body{
+    height: 600px;
+}
+
+.howto-popup .modal-body img {
+    max-width: 700px;
+    width: 700px;
+    height: 583px;
+}

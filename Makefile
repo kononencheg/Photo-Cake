@@ -97,6 +97,7 @@ LIB_TUNA_FILES = tuna.js \
 			  	 ui/selection/abstract-selection-group.js \
 			  	 ui/selection/selection-group.js \
 			  	 ui/selection/navigation.js \
+			  	 ui/selection/carousel.js \
 			  	 \
  				 ui/selection/items/i-items-collection.js \
 				 ui/selection/items/elements-collection.js \
@@ -122,6 +123,7 @@ LIB_TUNA_FILES = tuna.js \
 				 ui/modules/swf.js \
 				 ui/modules/input-filter.js \
 				 ui/modules/autocomplete.js \
+				 ui/modules/carousel.js \
 				 \
 				 view/view.js \
 				 view/view-controller.js \

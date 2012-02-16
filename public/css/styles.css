@@ -118,14 +118,18 @@ body {
     height: 110px;
 
     background-color: #000;
-    opacity: 0.5;
-    filter: alpha(opacity=50);
+    opacity: 0.8;
+    filter: alpha(opacity=80);
 
     color: #FFF;
     font-size: large;
     text-align: center;
     vertical-align: middle;
-    line-height: 110px;
+}
+
+.cake-image-box .cake-price span {
+    display: block;
+    margin-top: 30px;
 }
 
 li:hover .cake-price {
