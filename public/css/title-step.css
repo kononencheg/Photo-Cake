@@ -1,3 +1,7 @@
+#app_container .intro  {
+    margin-left: 10px;
+}
+
 .intro-title {
     padding-bottom: 15px;
     line-height: normal;

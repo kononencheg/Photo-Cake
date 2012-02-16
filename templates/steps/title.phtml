@@ -10,24 +10,28 @@
             <div class="span7">
                 <?php $this->render('steps/title/cake-list'); ?>
             </div>
+            <?php $this->render('steps/title/gallery'); ?>
+
         <?php } else { ?>
-            <div class="span3">
-                <?php $this->render('steps/title/intro'); ?>
-            </div>
-            <div class="span9 row-fluid">
-                <div class="span7">
+            <div class="span8 row-fluid">
+                <div class="span4">
+                    <?php $this->render('steps/title/intro'); ?>
+                </div>
+                <div class="span8">
                     <?php $this->render('steps/title/cake-list'); ?>
                 </div>
-                <div class="span5">
-                    <?php $this->render('steps/title/comments'); ?>
-                </div>
+
+                <?php $this->render('steps/title/gallery'); ?>
             </div>
+            <div class="span4">
+                <?php $this->render('steps/title/comments'); ?>
+            </div>
+
         <?php } ?>
     </div>
 
     <hr />
 
-    <?php $this->render('steps/title/gallery'); ?>
 
     <div id="cake_image_popup" class="hide">
          <div class="modal-backdrop"></div>

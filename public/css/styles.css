@@ -155,10 +155,9 @@ li:hover .cake-price {
 }
 
 .cake-gallery-body {
-    padding: 10px 40px 40px 40px;
-
-    margin-bottom: -10px;
-    margin-top: 10px;
+    padding-top: 40px;
+    margin: auto;
+    width: 660px;
 }
 
 .cake-gallery-body .image-box {

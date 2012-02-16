@@ -1,10 +1,10 @@
 
-.site-container {
+#site_container {
     margin: auto;
     width: 940px;
 }
 
-.app-container {
+#app_container {
     margin: auto;
     width: 700px;
 }
