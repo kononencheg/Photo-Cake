@@ -2,41 +2,42 @@
     float: right;
     margin: 25px;
 }
-#share .yashare-auto-init {
+
+.share-block .yashare-auto-init {
     height: 40px;
 }
 
-#share .b-share-icon {
+.share-block .b-share-icon {
     width: 32px;
     height: 32px;
     background: url(/img/social-ico.png);
 }
 
-#share .b-share-icon_facebook {
+.share-block .b-share-icon_facebook {
     background-position: 0 0;
 }
 
-#share .b-share-icon_yaru {
+.share-block .b-share-icon_yaru {
     background-position: 32px 0;
 }
 
-#share .b-share-icon_vkontakte {
+.share-block .b-share-icon_vkontakte {
     background-position: 71px 0;
 }
 
-#share .b-share-icon_odnoklassniki {
+.share-block .b-share-icon_odnoklassniki {
     background-position: 110px 0;
 }
 
-#share .b-share-icon_lj {
+.share-block .b-share-icon_lj {
     background-position: 149px 0;
 }
 
-.share-title {
+.share-block-text {
     margin-left: 20px;
     width: 210px;
 
-    color: #750000;
+    color: #000;
 
     font-size: large;
     font-weight: normal;

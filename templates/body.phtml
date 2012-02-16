@@ -1,45 +1,40 @@
 <div class="j-navigation container-fluid">
+
     <?php if ($this->request->get('network') === NULL) { ?>
-        <div class="site-core">
+        <div class="site-container">
     <?php } else { ?>
-        <div class="app-core">
+        <div class="app-container">
     <?php }?>
 
-        <div class="row-fluid page-header">
-            <div class="span6">
-                <h1 class="main-title">
-                    <img class="main-logo" src="/img/logo.png" alt="Фото на торте!" />
+        <div class="page-header">
+            <h1 class="page-header-title">
+                <img class="page-header-logo" src="/img/logo.png" alt="Фото на торте!" />
 
-                    <small>
-                        <q class="main-subtitle">
-                            Дизайнерские сладости на <br />
-                            День защитника Отечетва!
-                        </q>
-                    </small>
-                </h1>
-            </div>
+                <small class="page-header-subtitle">
+                    Дизайнерские сладости на <br />
+                    День защитника Отечетва!
+                </small>
+            </h1>
 
-            <div class="span6">
-                <?php if ($this->request->get('network') === NULL) {?>
-                    <script type="text/javascript" src="http://yandex.st/share/share.js"></script>
+            <?php if ($this->request->get('network') === NULL) {?>
+                <script type="text/javascript" src="http://yandex.st/share/share.js"></script>
 
-                    <div id="share" class="share-block">
-                        <div class="yashare-auto-init"
-                             data-yashareL10n="ru"
-                             data-yashareType="none"
-                             data-yashareQuickServices="facebook,lj,odnoklassniki,vkontakte,yaru"></div>
-                        <div class="share-title"> +7 (812) 323-52-18 </div>
-                    </div>
-                <?php } ?>
-            </div>
+                <div class="share-block">
+                    <div class="yashare-auto-init"
+                         data-yashareL10n="ru"
+                         data-yashareType="none"
+                         data-yashareQuickServices="facebook,lj,odnoklassniki,vkontakte,yaru"></div>
+                    <div class="share-block-text"> +7 (812) 323-52-18 </div>
+                </div>
+            <?php } ?>
         </div>
 
-        <?php $this->render('steps/title'); ?>
+        <?php $this->render('steps/title')    ?>
+        <?php $this->render('steps/share')    ?>
+        <?php $this->render('steps/order')    ?>
+        <?php $this->render('steps/result')   ?>
+        <?php $this->render('steps/recipe')   ?>
         <?php $this->render('steps/designer') ?>
-        <?php $this->render('steps/share') ?>
-        <?php $this->render('steps/recipe') ?>
-        <?php $this->render('steps/order') ?>
-        <?php $this->render('steps/result') ?>
 
     </div>
 </div>
@@ -52,7 +47,7 @@
             <h3 class="j-alt-text"></h3>
          </div>
          <div class="modal-body">
-             <img class="j-popup-image" alt="" />
+             <img alt src class="j-popup-image" />
          </div>
          <div class="modal-footer">
              <a href="#" class="j-popup-close btn">Закрыть</a>

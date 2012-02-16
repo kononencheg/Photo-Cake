@@ -1,17 +1,16 @@
-<div id="title_step" data-init-event="ui-navigate"
-     class="j-navigation-page j-control-container row-fluid step active">
+<div id="title_step" class="j-navigation-page
+                            j-control-container
+                            row-fluid step active">
 
-    <?php if ($this->request->get('network') !== NULL) {?>
-        <div class="span12 row-fluid">
+    <div class="span12 row-fluid">
+        <?php if ($this->request->get('network') !== NULL) {?>
             <div class="span5">
                 <?php $this->render('steps/title/intro'); ?>
             </div>
             <div class="span7">
                 <?php $this->render('steps/title/cake-list'); ?>
             </div>
-        </div>
-    <?php } else { ?>
-        <div class="span12 row-fluid">
+        <?php } else { ?>
             <div class="span3">
                 <?php $this->render('steps/title/intro'); ?>
             </div>
@@ -23,8 +22,8 @@
                     <?php $this->render('steps/title/comments'); ?>
                 </div>
             </div>
-        </div>
-    <?php } ?>
+        <?php } ?>
+    </div>
 
     <hr />
 

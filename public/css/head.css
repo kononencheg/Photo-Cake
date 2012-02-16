@@ -1,0 +1,28 @@
+.page-header {
+    margin-top: 0;
+
+    height: 100px;
+
+    background: #EEE;
+}
+
+.page-header-title {
+    padding: 20px 0 0 30px;
+
+    float: left;
+}
+
+.page-header-logo {
+    display: block;
+}
+
+.page-header-subtitle {
+    display: block;
+
+    margin: 0 0 0 20px;
+
+    color: #750000;
+    font-weight: normal;
+    font-style: italic;
+    font-size: medium;
+}

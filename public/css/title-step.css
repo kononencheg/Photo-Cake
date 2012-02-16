@@ -1,0 +1,38 @@
+.intro-title {
+    padding-bottom: 15px;
+    line-height: normal;
+}
+
+.intro-important-text {
+    color: #750000;
+    font-style: italic;
+}
+
+.alert-comment {
+    padding-right: 14px;
+
+    color: #000;
+    background-color: #FFF;
+    border-color: #CCC;
+}
+
+.alert-comment img {
+    float: left;
+    margin-right: 7px;
+}
+
+.alert-comment h3 {
+    margin-bottom: 5px;
+    line-height: normal;
+    color: #000;
+}
+
+.alert-comment blockquote {
+    margin-bottom: 5px;
+}
+
+.alert-comment address {
+    margin-bottom: 0;
+    text-align: right;
+    font-style: italic;
+}
