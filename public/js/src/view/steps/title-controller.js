@@ -8,7 +8,7 @@
 
     TitleController.prototype._requireModules = function() {
         this._container.requireModule('selection-group');
-        this._container.requireModule('cake-image-popup');
+        //this._container.requireModule('cake-image-popup');
     };
 
     tuna.view.registerController('title_step', new TitleController());
