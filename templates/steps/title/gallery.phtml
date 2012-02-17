@@ -12,80 +12,51 @@
     </div>
 </div>
 
-<div class="j-selection-group row-fluid"
-     data-selection-event="mouseover">
-
+<div class="j-carousel row-fluid">
     <div class="span12 carousel cake-gallery">
-        <ul class="thumbnails cake-gallery-body">
-            <li class="j-selection-item j-cake-image-popup active" data-cake-index="1">
 
-                <div class="thumbnail">
-                    <span class="expand-item">
-                        <span class="image-box image-center">
-                            <img class="expanded-image vertical" alt="Фото"
-                                 src="/img/title/photo_small_1.jpg" />
-                        </span>
-                    </span>
-                    <span class="expand-item second">
-                        <span class="image-box image-center">
-                            <img class="expanded-image vertical" alt="До"
-                                 src="/img/title/before_small_1.jpg" />
-                        </span>
-                    </span>
-                    <span class="expand-item third">
-                        <span class="image-box image-center">
-                            <img class="expanded-image horizontal" alt="После"
-                                 src="/img/title/after_small_1.jpg" />
-                        </span>
-                    </span>
-                </div>
-            </li>
-            <li class="j-selection-item j-cake-image-popup" data-cake-index="2">
-                <div class="thumbnail">
-                    <span class="expand-item">
-                        <span class="image-box image-center">
-                            <img class="expanded-image horizontal" alt="Фото"
-                                 src="/img/title/photo_small_2.jpg" />
-                        </span>
-                    </span>
-                    <span class="expand-item second">
-                        <span class="image-box image-center">
-                            <img class="expanded-image vertical" alt="До"
-                                 src="/img/title/before_small_2.jpg" />
-                        </span>
-                    </span>
-                    <span class="expand-item third">
-                        <span class="image-box image-center">
-                            <img class="expanded-image horizontal" alt="После"
-                                 src="/img/title/after_small_2.jpg"  />
-                        </span>
-                    </span>
-                </div>
-            </li>
-            <li class="j-selection-item j-cake-image-popup" data-cake-index="3">
-                <div class="thumbnail">
-                    <span class="expand-item">
-                        <span class="image-box image-center">
-                            <img class="expanded-image vertical" alt="Фото"
-                                 src="/img/title/photo_small_3.jpg" />
-                        </span>
-                    </span>
-                    <span class="expand-item second">
-                        <span class="image-box image-center">
-                            <img class="expanded-image horizontal" alt="До"
-                                 src="/img/title/before_small_3.jpg" />
-                        </span>
-                    </span>
-                    <span class="expand-item third">
-                        <span class="image-box image-center">
-                            <img class="expanded-image vertical" alt="После"
-                                 src="/img/title/after_small_3.jpg" />
-                        </span>
-                    </span>
-                </div>
-            </li>
-        </ul>
+        <?php for ($i = 0; $i < 2; $i++) { ?>
+            <ul class="j-carousel-item carousel-item <?php if ($i === 0) echo 'active' ?>
+                       j-selection-group thumbnails cake-gallery-body"
+                data-selection-event="mouseover">
+                <?php for ($j = 1; $j < 4; $j++) { ?>
+                    <li class="j-selection-item <?php if ($j === 1) echo 'active' ?>">
+                        <div class="thumbnail">
+                            <span class="expand-item">
+                                <span class="image-box image-center">
+                                    <img class="expanded-image vertical" alt="Фото"
+                                         src="/img/title/photo_small_<?php echo ($i * 3 + $j) ?>.jpg" />
+                                </span>
+                            </span>
+                            <span class="expand-item second">
+                                <span class="image-box image-center">
+                                    <img class="expanded-image vertical" alt="До"
+                                         src="/img/title/before_small_<?php echo ($i * 3 + $j) ?>.jpg" />
+                                </span>
+                            </span>
+                            <span class="expand-item third">
+                                <span class="image-box image-center">
+                                    <img class="expanded-image horizontal" alt="После"
+                                         src="/img/title/after_small_<?php echo ($i * 3 + $j) ?>.jpg" />
+                                </span>
+                            </span>
+                        </div>
+                    </li>
+                <?php } ?>
+            </ul>
+        <?php } ?>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <a href="#" class="j-carousel-next pull-left">&laquo; Назад</a>
+            </div>
+            <div class="span6">
+                <a href="#" class="j-carousel-next pull-right">Вперед &raquo;</a>
+            </div>
+        </div>
+
     </div>
+
 </div>
 
 <div id="howto_popup" class="hide">
