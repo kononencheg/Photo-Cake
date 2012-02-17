@@ -51,21 +51,37 @@
 
 .howto-popup {
     top: 30px;
+    bottom: 30px;
 
     width: 700px;
     margin: auto;
 
     margin-left: -350px;
 
-    max-height: 940px;
+    max-height: 700px;
 }
 
-.howto-popup .modal-body{
-    height: 600px;
+.howto-popup .modal-body {
+    position: absolute;
+    bottom: 58px;
+    top: 46px;
+    width: 100%;
+    padding: 0;
+}
+
+.howto-popup .modal-footer {
+    height: 28px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .howto-popup .modal-body img {
-    max-width: 700px;
-    width: 700px;
-    height: 583px;
+    height: 100%;
+    width: auto;
+    margin: auto;
+
+    display: inline;
+    text-align: center;
 }
