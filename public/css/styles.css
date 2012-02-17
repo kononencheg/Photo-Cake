@@ -206,6 +206,16 @@ li:hover .cake-price {
     width: auto;
 }
 
+.cake-gallery-controls {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.cake-gallery-title {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 /**
  * Designer
  */
