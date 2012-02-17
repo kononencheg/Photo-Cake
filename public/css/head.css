@@ -26,3 +26,36 @@
     font-style: italic;
     font-size: medium;
 }
+
+.page-header-info-block {
+    width: 360px;
+    float: left;
+
+    margin-left: 60px;
+    margin-top: 30px;
+}
+
+.page-header-info-block h3 {
+    line-height: normal;
+
+    color: #750000;
+
+    font-weight: normal;
+    font-style: italic;
+    font-size: medium;
+}
+
+.page-header-quality-block {
+    width: 160px;
+    float: left;
+}
+
+.page-header-delivery-block {
+    width: 160px;
+    float: right;
+}
+
+.page-header-delivery-block h3 {
+    line-height: 57px;
+    vertical-align: middle;
+}
