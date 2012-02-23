@@ -11,36 +11,42 @@
 <div class="j-carousel row-fluid">
     <div class="span12 carousel cake-gallery">
 
-        <?php for ($i = 0; $i < 2; $i++) { ?>
-            <ul class="j-carousel-item carousel-item <?php if ($i === 0) echo 'active' ?>
+        {{#slides}}
+
+            <ul class="j-carousel-item carousel-item {{#active}}active{{/active}}
                        j-selection-group thumbnails cake-gallery-body"
                 data-selection-event="mouseover">
-                <?php for ($j = 1; $j < 4; $j++) { ?>
-                    <li class="j-selection-item <?php if ($j === 1) echo 'active' ?>">
+
+                {{#block}}
+
+                    <li class="j-selection-item {{#active}}active{{/active}}">
                         <div class="thumbnail">
                             <span class="expand-item">
                                 <span class="image-box image-center">
                                     <img class="expanded-image vertical" alt="Фото"
-                                         src="/img/title/photo_small_<?php echo ($i * 3 + $j) ?>.jpg" />
+                                         src="{{photo_src}}" />
                                 </span>
                             </span>
                             <span class="expand-item second">
                                 <span class="image-box image-center">
                                     <img class="expanded-image vertical" alt="До"
-                                         src="/img/title/before_small_<?php echo ($i * 3 + $j) ?>.jpg" />
+                                         src="{{before_src}}" />
                                 </span>
                             </span>
                             <span class="expand-item third">
                                 <span class="image-box image-center">
                                     <img class="expanded-image horizontal" alt="После"
-                                         src="/img/title/after_small_<?php echo ($i * 3 + $j) ?>.jpg" />
+                                         src="{{after_src}}" />
                                 </span>
                             </span>
                         </div>
                     </li>
-                <?php } ?>
+
+                {{/block}}
             </ul>
-        <?php } ?>
+
+        {{/slides}}
+
 
         <div class="cake-gallery-controls">
             <a href="#" class="j-carousel-next pull-left">&laquo; Назад</a>

@@ -1,7 +1,0 @@
-<script type="text/javascript" src="/js/app.js"></script>
-
-<?php switch ($this->request->get('network')) {
-    case 'vk': { $this->render('scripts/vk'); break; }
-    case 'ok': { $this->render('scripts/ok'); break; }
-    default: ?> <script type="text/javascript">main(<?php echo json_encode($this->request->get()) ?>);</script> <?php
-} ?>

@@ -1,0 +1,81 @@
+---
+slides:
+  - block:
+    - photo_src: /img/title/photo_small_1.jpg
+      before_src: /img/title/before_small_1.jpg
+      after_src: /img/title/after_small_1.jpg
+      active: true
+
+    - photo_src: /img/title/photo_small_2.jpg
+      before_src: /img/title/before_small_2.jpg
+      after_src: /img/title/after_small_2.jpg
+
+    - photo_src: /img/title/photo_small_3.jpg
+      before_src: /img/title/before_small_3.jpg
+      after_src: /img/title/after_small_3.jpg
+
+    active: true
+
+  - block:
+    - photo_src: /img/title/photo_small_4.jpg
+      before_src: /img/title/before_small_4.jpg
+      after_src: /img/title/after_small_4.jpg
+      active: true
+
+    - photo_src: /img/title/photo_small_5.jpg
+      before_src: /img/title/before_small_5.jpg
+      after_src: /img/title/after_small_5.jpg
+
+    - photo_src: /img/title/photo_small_6.jpg
+      before_src: /img/title/before_small_6.jpg
+      after_src: /img/title/after_small_6.jpg
+
+cake_list:
+
+  - src: http://files.fotonatorte.ru/cake_image_4f3b568ed2e26.jpg
+    price: 990
+    price_was: 1700
+    weight: 1
+
+  - src: http://files.fotonatorte.ru/cake_image_4f2be1b0f23b5.jpg
+    price: 990
+    price_was: 1700
+    weight: 1
+
+  - src: http://files.fotonatorte.ru/cake_image_4f3b575be99ba.jpg
+    price: 990
+    price_was: 1700
+    weight: 1
+
+
+  - src: http://files.fotonatorte.ru/cake_image_4f3b5bafbd4cd.jpg
+    price: 990
+    price_was: 1700
+    weight: 1
+
+  - src: http://files.fotonatorte.ru/cake_image_4f3b5c6750e99.jpg
+    price: 990
+    price_was: 1700
+    weight: 1
+
+  - src: http://files.fotonatorte.ru/cake_image_4f3b5cfe290ef.jpg
+    price: 990
+    price_was: 1700
+    weight: 1
+
+
+  - src: http://files.fotonatorte.ru/cake_image_4f2bcf835adb9.jpg
+    price: 990
+    price_was: 1700
+    weight: 1
+
+  - src: http://files.fotonatorte.ru/cake_image_4f3b5f23e3596.jpg
+    price: 990
+    price_was: 1700
+    weight: 1
+
+  - src: http://files.fotonatorte.ru/cake_image_4f2bd57a52b6e.jpg
+    price: 1490
+    price_was: 3000
+    weight: 2
+---

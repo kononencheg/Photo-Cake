@@ -1,10 +1,12 @@
 <div class="j-navigation container-fluid">
 
-    <?php if ($this->request->get('network') === NULL) { ?>
-        <div id="site_container">
-    <?php } else { ?>
+    {{#network}}
         <div id="app_container">
-    <?php }?>
+    {{/network}}
+
+    {{^network}}
+        <div id="site_container">
+    {{/network}}
 
         <div class="page-header">
             <h1 class="page-header-title">
@@ -17,7 +19,7 @@
             </h1>
 
 
-            <?php if ($this->request->get('network') === NULL) {?>
+            {{^network}}
 
                 <div class="page-header-info-block">
                     <div class="page-header-quality-block">
@@ -35,18 +37,20 @@
                          data-yashareL10n="ru"
                          data-yashareType="none"
                          data-yashareQuickServices="facebook,lj,odnoklassniki,vkontakte,yaru"></div>
+
                     <div class="share-block-text"> +7 (812) 323-52-18 </div>
                 </div>
 
-            <?php } ?>
+            {{/network}}
+
         </div>
 
-        <?php $this->render('steps/title')    ?>
-        <?php $this->render('steps/share')    ?>
-        <?php $this->render('steps/order')    ?>
-        <?php $this->render('steps/result')   ?>
-        <?php $this->render('steps/recipe')   ?>
-        <?php $this->render('steps/designer') ?>
+        {{> template/steps/title    }}
+        {{> template/steps/designer }}
+        {{> template/steps/share    }}
+        {{> template/steps/recipe   }}
+        {{> template/steps/order    }}
+        {{> template/steps/result   }}
 
     </div>
 </div>
@@ -100,4 +104,3 @@
         </li>
     </ul>
 </div>
-

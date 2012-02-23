@@ -7,7 +7,8 @@
                 data-image-selector="#base_cake_image" width="317" height="317" />
         </li>
 
-        <?php if ($this->request->get('network')) {?>
+        {{#network}}
+
             <li>
                <a id="wall_post_link" class="btn primary large">
                    Запостить в ленту
@@ -19,7 +20,8 @@
                     Послать другу
                 </a>
             </li>
-        <?php } ?>
+
+        {{/network}}
 
         <li>
             <form action="/api/" target="_blank" method="POST">

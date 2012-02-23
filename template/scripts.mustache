@@ -1,0 +1,9 @@
+{{#network}}
+    {{#vk_network}} {{> template/scripts/vk }} {{/vk_network}}
+    {{#ok_network}} {{> template/scripts/ok }} {{/ok_network}}
+{{/network}}
+
+{{^network}}
+    <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript">main();</script>
+{{/network}}

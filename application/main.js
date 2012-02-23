@@ -58,7 +58,11 @@ var ui = {};
  *
  * @param {!Object} args
  */
-function main(args) {
+function main() {
+
+    // TODO: Parse get arguments!
+    var args = {};
+
     tuna.utils.config.init(args);
 
     tuna.dom.setSelectorEngine(jQuery.find);

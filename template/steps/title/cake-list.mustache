@@ -1,0 +1,32 @@
+<ul class="thumbnails">
+
+    {{#cake_list}}
+        <li>
+            <div class="thumbnail">
+                <div class="cake-image-box">
+                    <img src="{{src}}" alt="Тортик" width="110" height="110" />
+
+                    <div class="cake-price">
+                        <span>
+                            <del>{{price_was}} руб.</del> <br /> {{price}} руб.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="cake-info">
+                    <span class="">{{weight}} кг.</span>
+                    <span class="j-navigation-link btn small pull-right primary"
+                          data-href="order_step"
+                          data-weight="{{weight}}"
+                          data-price="{{price}}"
+                          data-image="{{src}}">
+
+                        Хочу!
+                    </span>
+                </div>
+            </div>
+        </li>
+
+    {{/cake_list}}
+
+</ul>

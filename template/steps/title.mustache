@@ -3,35 +3,35 @@
                             row-fluid step active">
 
     <div class="span12 row-fluid">
-        <?php if ($this->request->get('network') !== NULL) {?>
+
+        {{#network}}
             <div class="span5">
-                <?php $this->render('steps/title/intro'); ?>
+                {{> template/steps/title/intro }}
             </div>
             <div class="span7">
-                <?php $this->render('steps/title/cake-list'); ?>
+                {{> template/steps/title/cake-list }}
             </div>
-            <?php $this->render('steps/title/gallery'); ?>
+            {{> template/steps/title/gallery }}
+        {{/network}}
 
-        <?php } else { ?>
+        {{^network}}
             <div class="span8 row-fluid">
                 <div class="span4">
-                    <?php $this->render('steps/title/intro'); ?>
+                    {{> template/steps/title/intro }}
                 </div>
                 <div class="span8">
-                    <?php $this->render('steps/title/cake-list'); ?>
+                    {{> template/steps/title/cake-list }}
                 </div>
 
-                <?php $this->render('steps/title/gallery'); ?>
+                {{> template/steps/title/gallery }}
             </div>
             <div class="span4">
-                <?php $this->render('steps/title/comments'); ?>
+                {{> template/steps/title/comments }}
             </div>
-
-        <?php } ?>
+        {{/network}}
     </div>
 
     <hr />
-
 
     <div id="cake_image_popup" class="hide">
          <div class="modal-backdrop"></div>
