@@ -7,6 +7,17 @@ include config/make/*.mk
 
 all: app vk ok
 
+minify: 
+	$(JS_COMPRESSOR) public/js/app.js; \
+	$(JS_COMPRESSOR) public/js/vk.js; \
+	$(JS_COMPRESSOR) public/js/ok.js; \
+	\
+	$(HTML_COMPRESSOR) -o public/index.html public/index.html ; \
+	$(HTML_COMPRESSOR) -o public/vk.html public/vk.html ; \
+	$(HTML_COMPRESSOR) -o public/ok.html public/ok.html ; \
+
+
+
 #
 #   VK application
 #

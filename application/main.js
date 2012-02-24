@@ -55,19 +55,12 @@ var ui = {};
 
 /**
  * Точка входа в приложение
- *
- * @param {!Object} args
  */
 function main() {
-
-    // TODO: Parse get arguments!
-    var args = {};
-
-    tuna.utils.config.init(args);
+    tuna.utils.config.init(tuna.utils.decodeSearch(location.search));
 
     tuna.dom.setSelectorEngine(jQuery.find);
 
-    tuna.ui.popups.registerAlert(tuna.dom.selectOne('#alert_popup'));
     tuna.ui.popups.registerConfirm(tuna.dom.selectOne('#confirm_popup'));
 
     tuna.view.init();

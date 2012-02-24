@@ -1,5 +1,7 @@
 JS_COMBINER = node utils/combiner.js \
-			  #--minify
+
+JS_COMPRESSOR = uglifyjs --overwrite --max-line-len 32K --lift-vars --no-copyright
+
 			  
 JS_COMPILER = java -jar utils/compiler.jar \
 			  --warning_level VERBOSE \
@@ -185,7 +187,7 @@ JS_SITE = $(addprefix $(LIBRARY_DIR), $(LIBRARY_FILES)) \
 		  $(addprefix $(LIBRARY_DIR)tuna/, $(TUNA_FILES)) \
 		  $(addprefix $(APPLICATION_DIR), $(APPLICATION_FILES))
 
-JS_VK = $(JS_SITE) $(addprefix $(APPLICATION_DIR), $(SRC_VK_FILES))
-JS_OK = $(JS_SITE) $(addprefix $(APPLICATION_DIR), $(SRC_VK_FILES))
+JS_VK = $(JS_SITE) $(addprefix $(APPLICATION_DIR), $(VK_FILES))
+JS_OK = $(JS_SITE) $(addprefix $(APPLICATION_DIR), $(OK_FILES))
 
 JS_PUBLIC_DIR = public/js/

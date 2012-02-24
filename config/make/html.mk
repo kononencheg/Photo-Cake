@@ -1,3 +1,5 @@
+HTML_COMPRESSOR = java -jar utils/htmlcompressor.jar --type html
+
 LAYOUT_TEMPLATE = $(addprefix $(TEMPLATE_DIR), layout.mustache)
 
 YAML_SITE = config/template/site.yaml
