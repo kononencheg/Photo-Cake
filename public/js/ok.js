@@ -4091,19 +4091,19 @@ length,e=null,f=null,g=null,h=null
 ;while(c<d){e=b[c].split("="),f=e
 .shift().split(tuna.utils.__DECODE_PATH_SEP
 ),h=i;while(f.length>0)g=f.shift(
-),f.length===0?h[g]=e.shift():h[g
-]===undefined&&(h[g]={}),h=h[g];c++
-}return i},Config=function(){this
-.__data=null},Config.prototype.init=
-function(a){this.__data=a},Config
-.prototype.get=function(a){return this
-.__data[a]!==undefined?this.__data
-[a]:null},tuna.utils.config=new Config
-,tuna.dom.__addCustomIEListener=function(
-a,b,c){a.__customListener==undefined&&
-(a.__customListener=function(b){var c
-,d,e;if(b.__type!==undefined){c=b
-.__type,delete b.__type,d=a["__"+
+),f.length===0?h[g]=decodeURIComponent
+(e.shift()):h[g]===undefined&&(h[
+g]={}),h=h[g];c++}return i},Config=
+function(){this.__data=null},Config
+.prototype.init=function(a){this.
+__data=a},Config.prototype.get=function(
+a){return this.__data[a]!==undefined?
+this.__data[a]:null},tuna.utils.config=new 
+Config,tuna.dom.__addCustomIEListener=
+function(a,b,c){a.__customListener==
+undefined&&(a.__customListener=function(
+b){var c,d,e;if(b.__type!==undefined
+){c=b.__type,delete b.__type,d=a["__"+
 c];for(e in d)d[e].call(a,b)}},a.
 attachEvent("onhelp",a.__customListener
 )),a["__"+b]===undefined&&(a["__"+
