@@ -1,6 +1,6 @@
 JS_COMBINER = node utils/combiner.js \
 
-JS_COMPRESSOR = uglifyjs --overwrite --max-line-len 32K --lift-vars --no-copyright
+JS_COMPRESSOR = uglifyjs --overwrite --max-line-len 32000 --lift-vars --no-copyright
 
 			  
 JS_COMPILER = java -jar utils/compiler.jar \
