@@ -7,7 +7,7 @@ slides:
     - photo_src: /img/title/photo_small_1.jpg
       before_src: /img/title/before_small_1.jpg
       after_src: /img/title/after_small_1.jpg
-      active: true
+      block_active: true
 
     - photo_src: /img/title/photo_small_2.jpg
       before_src: /img/title/before_small_2.jpg
@@ -23,7 +23,7 @@ slides:
     - photo_src: /img/title/photo_small_4.jpg
       before_src: /img/title/before_small_4.jpg
       after_src: /img/title/after_small_4.jpg
-      active: true
+      block_active: true
 
     - photo_src: /img/title/photo_small_5.jpg
       before_src: /img/title/before_small_5.jpg

@@ -1,31 +1,58 @@
-
 APPLICATION_DIR = application/
 TEMPLATE_DIR	= template/
 LIBRARY_DIR		= library/
+STYLE_DIR		= style/
 
 include config/make/*.mk
 
-all: all-js
+all: app vk ok
 
-html-app:
-	mustache $^
+#
+#   VK application
+#
 
-all-js: js-app js-vk js-ok
+ok: js-ok html-ok css-app
 
-js-app: $(JS_SITE)
-		$(JS_COMPILER) $(JS_COMPILE_FLAGS) \
-					   $(addprefix --js , $^) \
-					   $(addprefix --js_output_file $(JS_PUBLIC_DIR), app.js)
+html-ok: $(YAML_OK)
+		 mustache $^ $(LAYOUT_TEMPLATE) > \
+				  $(addprefix $(HTML_PUBLIC_DIR), ok.html)
+
+js-ok: $(JS_OK)
+	   $(JS_COMBINER) $(addprefix --js , $^) \
+					  $(addprefix --js_output_file $(JS_PUBLIC_DIR), ok.js)
+
+#
+#   VK application
+#
+
+vk: js-vk html-vk css-app
+
+html-vk: $(YAML_VK)
+		 mustache $^ $(LAYOUT_TEMPLATE) > \
+				  $(addprefix $(HTML_PUBLIC_DIR), vk.html)
 
 js-vk: $(JS_VK)
-	   $(JS_COMPILER) $(JS_COMPILE_FLAGS) \
-					  $(addprefix --js , $^) \
-					  $(addprefix --js_output_file $(JS_PUBLIC_DIR), vk-app.js)
+	   $(JS_COMBINER) $(addprefix --js , $^) \
+					  $(addprefix --js_output_file $(JS_PUBLIC_DIR), vk.js)
 
-js-ok: $(JS_VK)
-	   $(JS_COMPILER) $(JS_COMPILE_FLAGS) \
-					  $(addprefix --js , $^) \
-					  $(addprefix --js_output_file $(JS_PUBLIC_DIR), ok-app.js)
+#
+#   Main application
+#
+
+app: js-app html-app css-app
+
+html-app: $(YAML_SITE)
+		  mustache $^ $(LAYOUT_TEMPLATE) > \
+				   $(addprefix $(HTML_PUBLIC_DIR), index.html)
+
+js-app: $(JS_SITE)
+		$(JS_COMBINER) $(addprefix --js , $^) \
+					   $(addprefix --js_output_file $(JS_PUBLIC_DIR), app.js)
+
+css-app: $(CSS_SITE)
+		 $(CSS_COMBINER) $(addprefix --css , $^) \
+						 $(addprefix --css_output_file $(CSS_PUBLIC_DIR), styles.css)
 
 clean:
-	rm $(addprefix $(JS_PUBLIC_DIR), app.js vk-app.js ok-app.js)
+	rm $(addprefix $(JS_PUBLIC_DIR), *.js) \
+	   $(addprefix $(HTML_PUBLIC_DIR), *.html)

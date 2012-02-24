@@ -1,13 +1,17 @@
-JS_COMPILER = java -jar utils/compiler.jar
-JS_COMPILE_FLAGS = --compilation_level WHITESPACE_ONLY \
-				   --warning_level VERBOSE \
-				   --debug \
-				   #--formatting PRETTY_PRINT \
+JS_COMBINER = node utils/combiner.js \
+			  #--minify
+			  
+JS_COMPILER = java -jar utils/compiler.jar \
+			  --warning_level VERBOSE \
+			  #--compilation_level WHITESPACE_ONLY \
+			  #--debug \
+			  #--formatting PRETTY_PRINT \
 
 LIBRARY_FILES = json.js \
 				swfobject.js \
 				jquery/jquery.js \
-				jquery/ui/jquery.ui.js \
+				jquery/ui/jquery.ui.core.js \
+				jquery/ui/jquery.ui.datepicker.js \
 				jquery/ui/i18n/jquery.ui.datepicker-ru.js \
 				
 
@@ -136,7 +140,6 @@ APPLICATION_FILES = main.js \
 					ui/data-image.js \
 					\
 					ui/modules/image-popup.js \
-					ui/modules/cake-image-popup.js \
 					ui/modules/datepicker.js \
 					ui/modules/data-image.js \
 					ui/modules/data-image-copy.js \
@@ -179,7 +182,7 @@ OK_FILES = rest/social/ok/users/get-current.js \
 
 
 JS_SITE = $(addprefix $(LIBRARY_DIR), $(LIBRARY_FILES)) \
-		  $(addprefix $(LIBRARY_DIR)/tuna/, $(TUNA_FILES)) \
+		  $(addprefix $(LIBRARY_DIR)tuna/, $(TUNA_FILES)) \
 		  $(addprefix $(APPLICATION_DIR), $(APPLICATION_FILES))
 
 JS_VK = $(JS_SITE) $(addprefix $(APPLICATION_DIR), $(SRC_VK_FILES))
