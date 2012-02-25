@@ -148,7 +148,7 @@
         var self = this;
         var bakery = model.orders.getOrderBakery();
 
-        tuna.rest.call('recipes.getList', { 'bakery_id': bakery.id },
+        tuna.rest.call('recipes.get', { 'bakery_id': bakery.id },
             function(result) {
                 model.recipes.clearRecipes();
 
@@ -166,6 +166,7 @@
                     recipe.desc = value.desc;
                     recipe.price = value.price;
                     recipe.imageUrl = value.image_url;
+                    recipe.dimensionPrices = value.dimension_prices;
 
                     model.recipes.addRecipe(recipe);
 
@@ -181,7 +182,8 @@
 
     RecipeController.prototype.__loadBakeries = function() {
         var self = this;
-        var listener = function(result) {
+
+        tuna.rest.call('users.getBakeries', null, function(result) {
             var i = 0,
                 l = result.length;
 
@@ -206,9 +208,7 @@
             if (user !== null) {
                 self.__cityAutocomplete.selectValue(user.city);
             }
-        };
-
-        tuna.rest.call('bakeries.getList', null, listener);
+        });
     };
 
     tuna.view.registerController('recipe_step', new RecipeController());

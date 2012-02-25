@@ -80,7 +80,8 @@
     };
 
     Orders.prototype.__getRecipePrice = function(cake, recipe) {
-        return recipe.price * cake.weight;
+        var weightKey = (cake.weight).toString().replace('.', '_');
+        return recipe.dimensionPrices[weightKey].price;
     };
 
     Orders.prototype.__getDecorationPrice = function(cake) {
