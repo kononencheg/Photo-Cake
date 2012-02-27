@@ -5,44 +5,58 @@
 
         /**
          * @private
-         * @type {tuna.ui.flash.SWF}
+         * @type tuna.ui.flash.SWF
          */
         this.__designerSWF = null;
 
         /**
          *
-         * @type {Array.<number>}
+         * @type Array.<number>
          * @private
          */
         this.__weightsList = [];
 
         /**
          *
-         * @type {Array.<number>}
+         * @type Array.<number>
          * @private
          */
         this.__ratioList =[];
 
         /**
          *
-         * @type {Array.<number>}
+         * @type Array.<number>
          * @private
          */
         this.__personsList = [];
 
         /**
          *
-         * @type {boolean}
+         * @type boolean
          * @private
          */
         this.__isDesignerReady = false;
 
         /**
          *
-         * @type {boolean}
+         * @type boolean
          * @private
          */
         this.__isDimensionsLoaded = false;
+
+        /**
+         *
+         * @type HTMLObjectElement
+         * @private
+         */
+        this.__movie = null;
+
+        /**
+         *
+         * @type ?string
+         * @private
+         */
+        this.__cakePreset = null;
     };
 
     tuna.utils.extend(DesignerController, tuna.view.PageViewController);
@@ -136,12 +150,21 @@
     };
 
     DesignerController.prototype.__initDesigner = function() {
-        this.__designerSWF.getMovie().initialize(JSON.stringify({
+        this.__movie = this.__designerSWF.getMovie();
+
+        this.__movie.initialize(JSON.stringify({
             'weightsList': this.__weightsList,
             'ratiosList': this.__ratioList,
             'personsList': this.__personsList,
             'decoSelectors': DECO_SELECTORS
         }), 'round', 0.6);
+
+        if (this.__cakePreset !== null) {
+            var self = this;
+            setTimeout(function() {
+                self.__movie.loadCakePreset(self.__cakePreset);
+            }, 1000);
+        }
     };
 
     DesignerController.prototype.confirmShapeChange = function(shape) {
@@ -151,18 +174,31 @@
             'При изменении формы торта, все оформление будет утеряно!',
             function(result) {
                 if (result) {
-                    self.__designerSWF.getMovie().changeShape(shape);
+                    self.__movie.changeShape(shape);
                 }
             }
         );
     };
 
     DesignerController.prototype.canClose = function() {
-        return this.__designerSWF.getMovie() !== null;
+        return this.__movie !== null;
+    };
+
+    DesignerController.prototype.open = function(cake) {
+        if (cake !== null && cake.markup !== undefined) {
+            if (this.__movie === null) {
+                this.__cakePreset = cake.markup;
+            } else {
+                this.__movie.loadCakePreset(cake.markup)
+            }
+        } else {
+            this.__cakePreset = null;
+        }
+
     };
 
     DesignerController.prototype.close = function() {
-        var data = this.__designerSWF.getMovie().getCakeData();
+        var data = this.__movie.getCakeData();
 
         var cake = model.cakes.createCake
             (data.shift(), data.shift(), data.shift());

@@ -408,3 +408,7 @@ select.small-rest {
 .recipe-navigation {
     width: 91%;
 }
+
+.cake-list {
+    height: 504px;
+}

@@ -1,0 +1,40 @@
+<tuna:template id="cake_list_template">
+
+    <tuna:list tuna:target="t-cake-list" tuna:path=""
+               tuna:item-renderer-id="cake_list_item_renderer"
+               tuna:item-template-id="cake_list_item_template"
+               tuna:key-path="$key" />
+
+</tuna:template>
+
+<tuna:template id="cake_list_item_template">
+    <tuna:attr tuna:target="t-cake-image" tuna:path="image_url"
+               tuna:name="src"/>
+
+    <tuna:attr tuna:target="t-cake-id" tuna:path="id"
+               tuna:name="data-cake-id"/>
+
+    <tuna:spot tuna:target="t-cake-weight" tuna:path="dimension/weight" />
+</tuna:template>
+
+<ul>
+    <li id="cake_list_item_renderer" >
+        <div class="thumbnail">
+            <div class="cake-image-box">
+                <img class="t-cake-image" src
+                     alt="Тортик" width="110" height="110" />
+            </div>
+
+            <div class="cake-info">
+                <span class="t-cake-weight"></span> кг.
+                    <span class="t-cake-id j-button
+                                 btn small pull-right primary"
+                          data-href="order_step"
+                          data-action="buy"
+                          data-cake-id="">
+                        Хочу!
+                    </span>
+            </div>
+        </div>
+    </li>
+</ul>
