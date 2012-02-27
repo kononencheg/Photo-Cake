@@ -1,6 +1,7 @@
 (function() {
 
     var Order = function() {
+        this.id = null;
         this.user = null;
         this.cake = null;
 

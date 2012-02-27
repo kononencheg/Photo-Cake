@@ -9,7 +9,7 @@
 
         this.content = null;
 
-        this.weight = 0;
+        this.weight = '';
         this.personsCount = 0;
     };
 

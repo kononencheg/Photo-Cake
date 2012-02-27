@@ -16,41 +16,32 @@
                 <input type="hidden" name="method" value="orders.submit" />
                 <input type="hidden" name="format" value="frame-callback" />
 
-                <input class="t-image"  type="hidden" name="image" />
-                <input class="t-photo"  type="hidden" name="photo" />
-                <input class="t-markup" type="hidden" name="markup" />
+                <input class="t-order-id" type="hidden" name="order_id" />
 
-                <input class="t-recipe" type="hidden" name="recipe" />
-                <input class="t-bakery-id" type="hidden" name="bakery_id" />
+                <input class="t-user-id" type="hidden" name="client_network_id" />
+                <input class="t-user-network" type="hidden" name="client_network" />
 
-                <input class="t-campaign" type="hidden" name="campaign" />
-
-                <input class="t-cake-weight" type="hidden" name="cake_weight" />
-                <input class="t-cake-price" type="hidden" name="cake_price" />
-                <input class="t-cake-image" type="hidden" name="cake_image" />
-
-                <input class="t-user-id" type="hidden" name="user_id" />
-                <input class="t-user-network" type="hidden" name="network" />
-
+                <input type="hidden" name="payment_method" value="0" />
+                <input type="hidden" name="submit_type" value="0" />
 
                 <fieldset>
                     <legend>Личные данные</legend>
 
-                    <div class="j-name-input control-group">
-                        <label class="control-label" for="name">Имя *</label>
+                    <div class="j-client_name-input control-group">
+                        <label class="control-label" for="client_name">Имя *</label>
                         <div class="controls">
                             <div class="input">
-                                <input id="name" name="name" type="text" class="t-user-name" />
+                                <input id="client_name" name="client_name" type="text" class="t-user-name" />
                             </div>
                             <p class="j-message help-block">Ваше настоящее имя.</p>
                         </div>
                     </div>
 
-                    <div class="j-phone-input control-group">
-                        <label class="control-label" for="phone">Телефон *</label>
+                    <div class="j-client_phone-input control-group">
+                        <label class="control-label" for="client_phone">Телефон *</label>
                         <div class="controls">
                             <div class="input">
-                                <input id="phone" name="phone" type="text" />
+                                <input id="client_phone" name="client_phone" type="text" />
                             </div>
                             <p class="j-message help-block">
                                 Чтобы мы могли с вами связаться
@@ -58,11 +49,11 @@
                         </div>
                     </div>
 
-                    <div class="j-email-input control-group">
-                        <label class="control-label" for="email">Email *</label>
+                    <div class="j-client_email-input control-group">
+                        <label class="control-label" for="client_email">Email *</label>
                         <div class="controls">
                             <div class="input">
-                                <input id="email" name="email" type="text" />
+                                <input id="client_email" name="client_email" type="text" />
                             </div>
                             <p class="j-message help-block">
                                 Для подтверждения заказа
@@ -75,11 +66,11 @@
                 <fieldset>
                     <legend>Информация о доставке</legend>
 
-                    <div class="j-address-input control-group">
-                        <label class="control-label" for="address">Адрес *</label>
+                    <div class="j-delivery_address-input control-group">
+                        <label class="control-label" for="delivery_address">Адрес *</label>
                         <div class="controls">
                             <div class="input">
-                                <textarea id="address" name="address" rows="2"></textarea>
+                                <textarea id="delivery_address" name="delivery_address" rows="2"></textarea>
                             </div>
                             <p class="j-message help-block">
                                 Куда нужно везти торт.
@@ -87,13 +78,14 @@
                         </div>
                     </div>
 
-                    <div class="j-date-input j-time-input control-group">
-                        <label class="control-label" for="date">Дата *</label>
+                    <div class="j-delivery_date-input j-delivery_time-input control-group">
+                        <label class="control-label" for="delivery_date">Дата *</label>
                         <div class="controls">
                             <div class="input">
-                                <input id="date" class="j-datepicker input-mini input-small-rest" name="date" type="text"/>
+                                <input id="delivery_date" name="delivery_date" type="text"
+                                       class="j-datepicker input-mini input-small-rest" />
 
-                                <select id="time" name="time" class="small-rest">
+                                <select name="delivery_time" class="small-rest">
                                     <option value="-1">и время</option>
                                     <option value="36000">10:00-12:00</option>
                                     <option value="43200">12:00-14:00</option>
@@ -110,11 +102,11 @@
                         </div>
                     </div>
 
-                    <div class="j-comment-input control-group">
-                        <label class="control-label" for="comment">Комментарий</label>
+                    <div class="j-delivery_comment-input control-group">
+                        <label class="control-label" for="delivery_comment">Комментарий</label>
                         <div class="controls">
                             <div class="input">
-                                <textarea id="comment" name="comment" rows="2"></textarea>
+                                <textarea id="delivery_comment" name="delivery_comment" rows="2"></textarea>
                                 <p class="j-message help-block">
                                     Если вы что-то хотите добавить.
                                 </p>
@@ -122,11 +114,11 @@
                         </div>
                     </div>
 
-                    <div class="j-message-input control-group">
-                        <label class="control-label" for="message">Текст открытки</label>
+                    <div class="j-delivery_message-input control-group">
+                        <label class="control-label" for="delivery_message">Текст открытки</label>
                         <div class="controls">
                             <div class="input">
-                                <textarea id="message" name="message" rows="2"></textarea>
+                                <textarea id="delivery_message" name="delivery_message" rows="2"></textarea>
                                 <p class="j-message help-block">
                                     Записка к торту, если, например, торт в подарок.
                                 </p>
@@ -152,19 +144,31 @@
                         <table class="table table-condensed">
                             <tr>
                                 <th>Оформление: </th>
-                                <td><span class="t-deco-price">0</span> рублей</td>
+                                <td>
+                                    <span class="t-deco-price">0</span>
+                                    рублей
+                                </td>
                             </tr>
                             <tr>
                                 <th>Рецепт: </th>
-                                <td><span class="t-recipe-price">0</span> рублей</td>
+                                <td>
+                                    <span class="t-recipe-price">0</span>
+                                    рублей
+                                </td>
                             </tr>
                             <tr>
                                 <th>Доставка: </th>
-                                <td><span class="t-delivery-price">0</span> рублей</td>
+                                <td>
+                                    <span class="t-delivery-price">0</span>
+                                    рублей
+                                </td>
                             </tr>
                             <tr>
                                 <th>Итого: </th>
-                                <td><span class="t-total-price">0</span> рублей</td>
+                                <td>
+                                    <span class="t-total-price">0</span>
+                                    рублей
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -176,7 +180,8 @@
                             &laquo; Назад
                         </a>
 
-                        <input type="submit" class="btn primary large pull-right" value="Заказать!" />
+                        <input type="submit" value="Заказать!"
+                               class="btn primary large pull-right" />
                     </div>
 
                 </fieldset>
@@ -186,29 +191,28 @@
 
     <div class="hide">
         <tuna:template id="order_template">
-            <tuna:attr tuna:name="value" tuna:target="t-image" tuna:path="cake/imageBase64" />
-            <tuna:attr tuna:name="value" tuna:target="t-photo" tuna:path="cake/photoBase64" />
-            <tuna:attr tuna:name="value" tuna:target="t-markup" tuna:path="cake/markupJson" />
+            <tuna:attr tuna:name="value" tuna:target="t-order-id"
+                       tuna:path="id" />
 
-            <tuna:attr tuna:name="value" tuna:target="t-recipe" tuna:path="recipe/name" />
-            <tuna:attr tuna:name="value" tuna:target="t-bakery-id" tuna:path="bakery/id" />
+            <tuna:attr tuna:name="value" tuna:target="t-user-name"
+                       tuna:path="user/name" />
+            <tuna:attr tuna:name="value" tuna:target="t-user-id"
+                       tuna:path="user/id" />
+            <tuna:attr tuna:name="value" tuna:target="t-user-network"
+                       tuna:path="user/network" />
 
-            <tuna:attr tuna:name="value" tuna:target="t-campaign" tuna:path="campaign" />
+            <tuna:spot tuna:target="t-total-price"
+                       tuna:path="payment/totalPrice" />
 
-            <tuna:attr tuna:name="value" tuna:target="t-cake-weight" tuna:path="cake/weight" />
-            <tuna:attr tuna:name="value" tuna:target="t-cake-image" tuna:path="cake/imageUrl" />
+            <tuna:spot tuna:target="t-deco-price"
+                       tuna:path="payment/decoPrice" />
 
-            <tuna:attr tuna:name="value" tuna:target="t-cake-price" tuna:path="payment/totalPrice" />
+            <tuna:spot tuna:target="t-recipe-price"
+                       tuna:path="payment/recipePrice" />
 
-            <tuna:attr tuna:name="value" tuna:target="t-user-name" tuna:path="user/name" />
-            <tuna:attr tuna:name="value" tuna:target="t-user-id" tuna:path="user/id" />
-            <tuna:attr tuna:name="value" tuna:target="t-user-network" tuna:path="user/network" />
-
-            <tuna:spot tuna:target="t-total-price"    tuna:path="payment/totalPrice" />
-            <tuna:spot tuna:target="t-deco-price"     tuna:path="payment/decoPrice" />
-            <tuna:spot tuna:target="t-recipe-price"   tuna:path="payment/recipePrice" />
-            <tuna:spot tuna:target="t-delivery-price" tuna:path="payment/deliveryPrice" />
+            <tuna:spot tuna:target="t-delivery-price"
+                       tuna:path="payment/deliveryPrice" />
 
         </tuna:template>
-</div>
+    </div>
 </div>

@@ -17,6 +17,7 @@
         cake.content = markup.content;
 
         cake.weight = markup.dimensions.mass;
+        cake.shape = markup.dimensions.shape;
         cake.personsCount = markup.dimensions.persons_count;
 
         return cake;

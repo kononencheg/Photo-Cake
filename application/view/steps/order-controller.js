@@ -7,6 +7,13 @@
         this.__cakeImage = null;
 
         this.__transformer = null;
+
+        /**
+         *
+         * @type {?string}
+         * @private
+         */
+        this.__orderId = null;
     };
 
     tuna.utils.extend(OrderController, tuna.view.PageViewController);
@@ -20,7 +27,6 @@
 
     OrderController.prototype._initActions = function() {
         var self = this;
-        var isConfirmed = false;
 
         this.__transformer
             = this._container.getOneModuleInstance('template-transformer');
@@ -29,28 +35,6 @@
         this.__form = this._container.getOneModuleInstance('form');
         this.__form.addEventListener('result', function(event, result) {
             self._navigation.navigate('result_step', result.cake);
-
-            isConfirmed = false;
-        });
-
-        this.__form.addEventListener('error', function() {
-            isConfirmed = false;
-        });
-
-        this.__form.addEventListener('submit', function(event) {
-            if (!isConfirmed) {
-                event.preventDefault();
-
-                tuna.ui.popups.confirm(
-                    'Вы уверены что правильно заполнили все поля?',
-                    function(result) {
-                        isConfirmed = result;
-                        if (isConfirmed) {
-                            self.__form.submit();
-                        }
-                    }
-                );
-            }
         });
 
         this.__cakeImage
@@ -65,7 +49,28 @@
             model.orders.updateCampaignOrder(args.campaign, cake, args.price);
         }
 
-        this.__transformer.applyTransform(model.orders.getOrder());
+        var order = model.orders.getOrder();
+
+        this.__form.setEnabled(false);
+
+        var self = this;
+        tuna.rest.call('orders.add', {
+            'bakery_id': order.bakery.id,
+            'recipe_id': order.recipe.id,
+
+            'cake_shape': order.cake.shape,
+            'cake_weight': order.cake.weight,
+            'cake_markup_json': order.cake.markupJson,
+            'cake_image_base64': order.cake.imageBase64,
+            'cake_photo_base64': order.cake.photoBase64
+        }, function(result) {
+            order.id = result.id;
+
+            self.__form.setEnabled(true);
+            self.__transformer.applyTransform(order);
+        });
+
+        this.__transformer.applyTransform(order);
     };
 
     tuna.view.registerController('order_step', new OrderController());
