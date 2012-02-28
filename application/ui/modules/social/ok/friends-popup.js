@@ -141,11 +141,11 @@
             'format': FAPI.Client.format,
             'method' : 'stream.publish',
             'message': 'сделала торт!',
-            'attachment': JSON.stringify({
+            'attachment': JSON.Stringify({
                 'caption': 'Попробуйте сделать свой тортик! Закажите настоящий или отправьте друзьям!',
                 'media': [{ 'href': 'link', 'src': url, 'type': 'image' }]
             }),
-            'action_links': JSON.stringify([
+            'action_links': JSON.Stringify([
                 {'text': 'Посмотреть тортик!', 'href': 'ok_cake_url=' + url },
                 {'text': 'Сделать свой!', 'href': 'action=create'}
             ])
@@ -159,7 +159,7 @@
                     if (status === 'ok') {
                         tuna.ui.popups.alert('Торт успешно опубликован!');
                     } else {
-                        tuna.ui.popups.alert(JSON.stringify(error));
+                        tuna.ui.popups.alert(JSON.Stringify(error));
                     }
                 }, resig);
             }

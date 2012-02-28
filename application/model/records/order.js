@@ -1,20 +1,45 @@
-(function() {
+/**
+ * @extends {tuna.model.Record}
+ * @constructor
+ */
+var Order = function() {
 
-    var Order = function() {
-        this.id = null;
-        this.user = null;
-        this.cake = null;
+    /**
+     * @type {string}
+     */
+    this.id = '';
 
-        this.bakery = null;
-        this.recipe = null;
+    /**
+     * @type {model.records.User|tuna.model.Record}
+     */
+    this.user = null;
 
-        this.payment = null;
+    /**
+     * @type {model.records.Cake}
+     */
+    this.cake = null;
 
-        this.campaign = '';
-    };
+    /**
+     * @type {model.records.Bakery}
+     */
+    this.bakery = null;
 
-    tuna.utils.extend(Order, tuna.model.Record);
+    /**
+     * @type {model.records.Recipe}
+     */
+    this.recipe = null;
 
-    model.records.Order = Order;
 
-})();
+    /**
+     * @type {model.records.Payment}
+     */
+    this.payment = null;
+};
+
+tuna.utils.extend(Order, tuna.model.Record);
+
+/**
+ * @extends {Order}
+ * @constructor
+ */
+model.records.Order = Order;

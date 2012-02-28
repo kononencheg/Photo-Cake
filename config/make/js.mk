@@ -2,20 +2,13 @@ JS_COMBINER = node utils/combiner.js \
 
 JS_COMPRESSOR = uglifyjs --overwrite --max-line-len 32000 --lift-vars --no-copyright
 
-			  
 JS_COMPILER = java -jar utils/compiler.jar \
 			  --warning_level VERBOSE \
-			  #--compilation_level WHITESPACE_ONLY \
+			  --compilation_level ADVANCED_OPTIMIZATIONS \
+			  --externs library/externs.js \
 			  #--debug \
 			  #--formatting PRETTY_PRINT \
 
-LIBRARY_FILES = json.js \
-				swfobject.js \
-				jquery/jquery.js \
-				jquery/ui/jquery.ui.core.js \
-				jquery/ui/jquery.ui.datepicker.js \
-				jquery/ui/i18n/jquery.ui.datepicker-ru.js \
-				
 
 TUNA_FILES = tuna.js \
 			 \
@@ -141,11 +134,9 @@ APPLICATION_FILES = main.js \
 					\
 					ui/data-image.js \
 					\
-					ui/modules/image-popup.js \
 					ui/modules/datepicker.js \
 					ui/modules/data-image.js \
 					ui/modules/data-image-copy.js \
-					ui/modules/social/common/friends-popup.js \
 					\
 					rest/common-method.js \
 					rest/common-factory.js \
@@ -167,10 +158,12 @@ APPLICATION_FILES = main.js \
 					\
 					view/steps/title-controller.js \
 					view/steps/designer-controller.js \
-					view/steps/share-controller.js \
 					view/steps/recipe-controller.js \
 					view/steps/order-controller.js \
 					view/steps/result-controller.js	\
+
+
+SITE_FILES = view/steps/social/share-controller.js \
 
 
 VK_FILES = rest/social/vk/vk-method.js \
@@ -183,11 +176,12 @@ OK_FILES = rest/social/ok/users/get-current.js \
 		   ui/modules/social/ok/friends-popup.js \
 
 
-JS_SITE = $(addprefix $(LIBRARY_DIR), $(LIBRARY_FILES)) \
-		  $(addprefix $(LIBRARY_DIR)tuna/, $(TUNA_FILES)) \
-		  $(addprefix $(APPLICATION_DIR), $(APPLICATION_FILES))
+JS_APP = $(addprefix $(LIBRARY_DIR)tuna/, $(TUNA_FILES)) \
+		 $(addprefix $(APPLICATION_DIR), $(APPLICATION_FILES))
 
-JS_VK = $(JS_SITE) $(addprefix $(APPLICATION_DIR), $(VK_FILES))
-JS_OK = $(JS_SITE) $(addprefix $(APPLICATION_DIR), $(OK_FILES))
+JS_SITE = $(JS_APP) $(addprefix $(APPLICATION_DIR), $(SITE_FILES))
+JS_VK = $(JS_APP) $(addprefix $(APPLICATION_DIR), $(VK_FILES))
+JS_OK = $(JS_APP) $(addprefix $(APPLICATION_DIR), $(OK_FILES))
+
 
 JS_PUBLIC_DIR = public/js/

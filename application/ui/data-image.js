@@ -1,89 +1,106 @@
-(function() {
+/**
+ * @extends {tuna.ui.ModuleInstance}
+ * @param {!Node} target
+ * @constructor
+ */
+var DataImage = function(target) {
+    tuna.ui.ModuleInstance.call(this, target);
+};
 
-    var DataImage = function(target) {
-        tuna.events.EventDispatcher.call(this);
-        
-        this.__targetImage = target;
-    };
+tuna.utils.extend(DataImage, tuna.events.EventDispatcher);
 
-    tuna.utils.extend(DataImage, tuna.events.EventDispatcher);
+/**
+ * @param {string} data
+ * @param {string} type
+ */
+DataImage.prototype.setData = function(data, type) {
+    if (type === undefined) {
+        type = 'image/jpeg';
+    }
 
-    DataImage.prototype.getTarget = function() {
-        return this.__targetImage;
-    };
+    if (!tuna.IS_IE) {
+        this._target.src = 'data:' + type + ';base64,' + data;
+        this.dispatch('loaded', this._target);
+    } else {
+        var self = this;
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.target = 'support_frame';
+        form.action = '/api/?method=utils.base64Echo&type=' + type;
 
-    DataImage.prototype.setData = function(data, type) {
-        if (type === undefined) {
-            type = 'image/jpeg';
-        }
+        var dataInput = document.createElement('input');
+        dataInput.type = 'hidden';
+        dataInput.name = 'data';
+        dataInput.value = data;
 
-        if (!tuna.utils.IS_IE) {
-            this.__targetImage.src = 'data:' + type + ';base64,' + data;
-            this.dispatch('loaded', this.__targetImage);
-        } else {
-            var self = this;
-            var form = document.createElement('form');
-            form.method = 'POST';
-            form.target = 'support_frame';
-            form.action = '/api/?method=utils.base64Echo&type=' + type;
+        form.appendChild(dataInput);
 
-            var dataInput = document.createElement('input');
-            dataInput.type = 'hidden';
-            dataInput.name = 'data';
-            dataInput.value = data;
+        document.body.appendChild(form);
 
-            form.appendChild(dataInput);
-            
-            document.body.appendChild(form);
+        var frame = tuna.dom.selectOne('#support_frame');
+        tuna.dom.addOneEventListener(frame, 'load', function() {
+            var image = tuna.dom.selectOne
+                ('img', frame.contentWindow.document.body);
 
-            var frame = tuna.dom.selectOne('#support_frame');
-            tuna.dom.addOneEventListener(frame, 'load', function() {
-                var image = tuna.dom.selectOne
-                    ('img', frame.contentWindow.document.body);
-
-                if (image !== null) {
-                    self.__replaceTarget(image);
-                } else {
-                    self.dispatch('error');
-                }
-
-                document.body.removeChild(form);
-            });
-
-            form.submit();
-        }
-    };
-
-    DataImage.prototype.__replaceTarget = function(image) {
-        var parent = this.__targetImage.parentNode;
-        if (parent !== null) {
-            parent.replaceChild(image, this.__targetImage);
-
-            if (this.__targetImage.id !== null) {
-                image.id = this.__targetImage.id;
+            if (image !== null) {
+                self.__replaceTarget(image);
+            } else {
+                self.dispatch('error');
             }
 
-            this.__targetImage = image;
+            document.body.removeChild(form);
+        });
 
-            this.dispatch('loaded', this.__targetImage);
-        } else {
-            this.dispatch('error');
+        form.submit();
+    }
+};
+
+/**
+ * @param {!Node} image
+ * @private
+ */
+DataImage.prototype.__replaceTarget = function(image) {
+    var parent = this._target.parentNode;
+    if (parent !== null) {
+        parent.replaceChild(image, this._target);
+
+        if (this._target.id !== null) {
+            image.id = this._target.id;
         }
-    };
 
-    var idTable = {};
+        this._target = image;
 
-    DataImage.create = function(target) {
-        if (target.id !== null) {
-            if (idTable[target.id] === undefined) {
-                idTable[target.id] = new DataImage(target);
-            }
+        this.dispatch('loaded', this._target);
+    } else {
+        this.dispatch('error');
+    }
+};
 
-            return idTable[target.id];
+/**
+ *
+ * @type {Object.<string, ui.DataImage>}
+ * @private
+ */
+DataImage.__idTable = {};
+
+/**
+ * @param {!Node} target
+ * @return {ui.DataImage}
+ */
+DataImage.create = function(target) {
+    if (target.id !== null) {
+        if (DataImage.__idTable[target.id] === undefined) {
+            DataImage.__idTable[target.id] = new DataImage(target);
         }
 
-        return new DataImage(target);
-    };
+        return DataImage.__idTable[target.id];
+    }
 
-    ui.DataImage = DataImage;
-})();
+    return new DataImage(target);
+};
+
+/**
+ * @extends {DataImage}
+ * @constructor
+ */
+ui.DataImage = DataImage;

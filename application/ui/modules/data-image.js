@@ -1,14 +1,18 @@
-(function() {
+/**
+ * @extends {tuna.ui.Module}
+ * @constructor
+ */
+var DataImageModule = function() {
+    tuna.ui.Module.call(this, 'img.j-data-image');
+};
 
-    var DataImage = function() {
-        tuna.ui.Module.call(this, 'img.j-data-image');
-    };
+tuna.utils.extend(DataImageModule, tuna.ui.Module);
 
-    tuna.utils.extend(DataImage, tuna.ui.Module);
+/**
+ * @override
+ */
+DataImageModule.prototype.initInstance = function(target) {
+    return ui.DataImage.create(target);
+};
 
-    DataImage.prototype.initInstance = function(target, container, options) {
-        return ui.DataImage.create(target);
-    };
-
-    tuna.ui.modules.register('data-image', new DataImage());
-})();
+tuna.ui.modules.register('data-image', new DataImageModule());

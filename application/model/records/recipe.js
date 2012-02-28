@@ -1,46 +1,50 @@
-(function() {
+/**
+ * @extends {tuna.model.Record}
+ * @constructor
+ */
+var Recipe = function() {
 
-    var Recipe = function() {
+    /**
+     *
+     * @type {string}
+     */
+    this.id = '';
 
-        /**
-         *
-         * @type {String}
-         */
-        this.id = '';
+    /**
+     *
+     * @type {string}
+     */
+    this.name = '';
 
-        /**
-         *
-         * @type {String}
-         */
-        this.name = '';
+    /**
+     *
+     * @type {string}
+     */
+    this.desc = '';
 
-        /**
-         *
-         * @type {String}
-         */
-        this.desc = '';
+    /**
+     *
+     * @type {number}
+     */
+    this.price = 0;
 
-        /**
-         *
-         * @type {Number}
-         */
-        this.price = 0;
+    /**
+     *
+     * @type {string}
+     */
+    this.imageUrl = '';
 
-        /**
-         *
-         * @type {String}
-         */
-        this.imageUrl = '';
+    /**
+     *
+     * @type {Object}
+     */
+    this.dimensionPrices = {};
+};
 
-        /**
-         *
-         * @type {Object}
-         */
-        this.dimensionPrices = {};
-    };
+tuna.utils.extend(Recipe, tuna.model.Record);
 
-    tuna.utils.extend(Recipe, tuna.model.Record);
-
-    model.records.Recipe = Recipe;
-
-})();
+/**
+ * @extends {Record}
+ * @constructor
+ */
+model.records.Recipe = Recipe;

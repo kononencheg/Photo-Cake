@@ -16,7 +16,8 @@ minify:
 	$(HTML_COMPRESSOR) -o public/vk.html public/vk.html ; \
 	$(HTML_COMPRESSOR) -o public/ok.html public/ok.html ; \
 
-
+compile: app
+	$(JS_COMPILER) --js public/js/app.js --js_output_file public/js/app.min.js
 
 #
 #   VK application

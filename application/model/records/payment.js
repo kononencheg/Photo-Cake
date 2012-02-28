@@ -1,15 +1,33 @@
-(function() {
+/**
+ * @extends {tuna.model.Record}
+ * @constructor
+ */
+var Payment = function() {
+    /**
+     * @type {number}
+     */
+    this.decoPrice = 0;
 
-    var Payment = function() {
-        this.decoPrice = 0;
-        this.recipePrice = 0;
-        this.deliveryPrice = 0;
+    /**
+     * @type {number}
+     */
+    this.recipePrice = 0;
 
-        this.totalPrice = 0;
-    };
+    /**
+     * @type {number}
+     */
+    this.deliveryPrice = 0;
 
-    tuna.utils.extend(Payment, tuna.model.Record);
+    /**
+     * @type {number}
+     */
+    this.totalPrice = 0;
+};
 
-    model.records.Payment = Payment;
+tuna.utils.extend(Payment, tuna.model.Record);
 
-})();
+/**
+ * @extends {Payment}
+ * @constructor
+ */
+model.records.Payment = Payment;

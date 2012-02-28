@@ -1,13 +1,29 @@
-(function() {
+/**
+ * @extends {tuna.model.Record}
+ * @constructor
+ */
+var Bakery = function() {
 
-    var Bakery = function() {
-        this.id = '';
-        this.city = '';
-        this.deliveryPrice = 0;
-    };
+    /**
+     * @type {string}
+     */
+    this.id = '';
 
-    tuna.utils.extend(Bakery, tuna.model.Record);
+    /**
+     * @type {string}
+     */
+    this.city = '';
 
-    model.records.Bakery = Bakery;
+    /**
+     * @type {number}
+     */
+    this.deliveryPrice = 0;
+};
 
-})();
+tuna.utils.extend(Bakery, tuna.model.Record);
+
+/**
+ * @extends {Bakery}
+ * @constructor
+ */
+model.records.Bakery = Bakery;

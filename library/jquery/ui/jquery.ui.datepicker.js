@@ -97,10 +97,10 @@ function Datepicker() {
 		onSelect: null, // Define a callback function when a date is selected
 		onChangeMonthYear: null, // Define a callback function when the month or year is changed
 		onClose: null, // Define a callback function when the datepicker is closed
-		numberOfMonths: 1, // Number of months to show at a time
+		numberOfMonths: 1, // number of months to show at a time
 		showCurrentAtPos: 0, // The position in multipe months at which to show the current month (starting at 0)
-		stepMonths: 1, // Number of months to step back/forward
-		stepBigMonths: 12, // Number of months to step back/forward for the big links
+		stepMonths: 1, // number of months to step back/forward
+		stepBigMonths: 12, // number of months to step back/forward for the big links
 		altField: '', // Selector for an alternate field to store selected dates into
 		altFormat: '', // The date format to use for the alternate field
 		constrainInput: true, // The input is constrained by the current date format
@@ -601,7 +601,7 @@ $.extend(Datepicker.prototype, {
 		var inst = $.datepicker._getInst(event.target);
 		if ($.datepicker._get(inst, 'constrainInput')) {
 			var chars = $.datepicker._possibleChars($.datepicker._get(inst, 'dateFormat'));
-			var chr = String.fromCharCode(event.charCode == undefined ? event.keyCode : event.charCode);
+			var chr = string.fromCharCode(event.charCode == undefined ? event.keyCode : event.charCode);
 			return event.ctrlKey || event.metaKey || (chr < ' ' || !chars || chars.indexOf(chr) > -1);
 		}
 	},
@@ -719,7 +719,7 @@ $.extend(Datepicker.prototype, {
 			cover.css({left: -borders[0], top: -borders[1], width: inst.dpDiv.outerWidth(), height: inst.dpDiv.outerHeight()})
 		}
 		inst.dpDiv.find('.' + this._dayOverClass + ' a').mouseover();
-		var numMonths = this._getNumberOfMonths(inst);
+		var numMonths = this._getnumberOfMonths(inst);
 		var cols = numMonths[1];
 		var width = 17;
 		inst.dpDiv.removeClass('ui-datepicker-multi-2 ui-datepicker-multi-3 ui-datepicker-multi-4').width('');
@@ -1009,7 +1009,7 @@ $.extend(Datepicker.prototype, {
 			return matches;
 		};
 		// Extract a number from the string value
-		var getNumber = function(match) {
+		var getnumber = function(match) {
 			var isDoubled = lookAhead(match);
 			var size = (match == '@' ? 14 : (match == '!' ? 20 :
 				(match == 'y' && isDoubled ? 4 : (match == 'o' ? 3 : 2))));
@@ -1057,31 +1057,31 @@ $.extend(Datepicker.prototype, {
 			else
 				switch (format.charAt(iFormat)) {
 					case 'd':
-						day = getNumber('d');
+						day = getnumber('d');
 						break;
 					case 'D':
 						getName('D', dayNamesShort, dayNames);
 						break;
 					case 'o':
-						doy = getNumber('o');
+						doy = getnumber('o');
 						break;
 					case 'm':
-						month = getNumber('m');
+						month = getnumber('m');
 						break;
 					case 'M':
 						month = getName('M', monthNamesShort, monthNames);
 						break;
 					case 'y':
-						year = getNumber('y');
+						year = getnumber('y');
 						break;
 					case '@':
-						var date = new Date(getNumber('@'));
+						var date = new Date(getnumber('@'));
 						year = date.getFullYear();
 						month = date.getMonth() + 1;
 						day = date.getDate();
 						break;
 					case '!':
-						var date = new Date((getNumber('!') - this._ticksTo1970) / 10000);
+						var date = new Date((getnumber('!') - this._ticksTo1970) / 10000);
 						year = date.getFullYear();
 						month = date.getMonth() + 1;
 						day = date.getDate();
@@ -1180,7 +1180,7 @@ $.extend(Datepicker.prototype, {
 			return matches;
 		};
 		// Format a number, with leading zero if necessary
-		var formatNumber = function(match, value, len) {
+		var formatnumber = function(match, value, len) {
 			var num = '' + value;
 			if (lookAhead(match))
 				while (num.length < len)
@@ -1203,17 +1203,17 @@ $.extend(Datepicker.prototype, {
 				else
 					switch (format.charAt(iFormat)) {
 						case 'd':
-							output += formatNumber('d', date.getDate(), 2);
+							output += formatnumber('d', date.getDate(), 2);
 							break;
 						case 'D':
 							output += formatName('D', date.getDay(), dayNamesShort, dayNames);
 							break;
 						case 'o':
-							output += formatNumber('o',
+							output += formatnumber('o',
 								Math.round((new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 86400000), 3);
 							break;
 						case 'm':
-							output += formatNumber('m', date.getMonth() + 1, 2);
+							output += formatnumber('m', date.getMonth() + 1, 2);
 							break;
 						case 'M':
 							output += formatName('M', date.getMonth(), monthNamesShort, monthNames);
@@ -1413,7 +1413,7 @@ $.extend(Datepicker.prototype, {
 		var showButtonPanel = this._get(inst, 'showButtonPanel');
 		var hideIfNoPrevNext = this._get(inst, 'hideIfNoPrevNext');
 		var navigationAsDateFormat = this._get(inst, 'navigationAsDateFormat');
-		var numMonths = this._getNumberOfMonths(inst);
+		var numMonths = this._getnumberOfMonths(inst);
 		var showCurrentAtPos = this._get(inst, 'showCurrentAtPos');
 		var stepMonths = this._get(inst, 'stepMonths');
 		var isMultiMonth = (numMonths[0] != 1 || numMonths[1] != 1);
@@ -1677,7 +1677,7 @@ $.extend(Datepicker.prototype, {
 	},
 
 	/* Determine the number of months to show. */
-	_getNumberOfMonths: function(inst) {
+	_getnumberOfMonths: function(inst) {
 		var numMonths = this._get(inst, 'numberOfMonths');
 		return (numMonths == null ? [1, 1] : (typeof numMonths == 'number' ? [1, numMonths] : numMonths));
 	},
@@ -1699,7 +1699,7 @@ $.extend(Datepicker.prototype, {
 
 	/* Determines if we should allow a "next/prev" month display change. */
 	_canAdjustMonth: function(inst, offset, curYear, curMonth) {
-		var numMonths = this._getNumberOfMonths(inst);
+		var numMonths = this._getnumberOfMonths(inst);
 		var date = this._daylightSavingAdjust(new Date(curYear,
 			curMonth + (offset < 0 ? offset : numMonths[0] * numMonths[1]), 1));
 		if (offset < 0)

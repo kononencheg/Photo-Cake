@@ -1,22 +1,23 @@
-(function() {
+/**
+ * @extends {tuna.ui.Module}
+ * @constructor
+ */
+var DatepickerModule = function() {
+    tuna.ui.Module.call(this, 'input.j-datepicker');
+};
 
-    var Datepicker = function() {
-        tuna.ui.Module.call(this, 'input.j-datepicker');
-    };
+tuna.utils.extend(DatepickerModule, tuna.ui.Module);
 
-    tuna.utils.extend(Datepicker, tuna.ui.Module);
+/**
+ * @override
+ */
+DatepickerModule.prototype.initInstance = function(target) {
+    $(target).keydown(function(event){ event.preventDefault(); })
+             .datepicker({
+                 'minDate': new Date((new Date().getTime() + 3*24*60*60*1000))
+             });
 
-    Datepicker.prototype.initInstance = function(target) {
-        var minTime = (new Date().getTime() + 3*24*60*60*1000);
+    return null;
+};
 
-        $(target).keydown(function(event){ event.preventDefault(); })
-                 .datepicker({
-                     'minDate': new Date(minTime)
-                 });
-
-        return target;
-    };
-
-    tuna.ui.modules.register('datepicker', new Datepicker());
-    
-})();
+tuna.ui.modules.register('datepicker', new DatepickerModule());

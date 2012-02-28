@@ -56,12 +56,15 @@ var ui = {};
 /**
  * Точка входа в приложение
  */
-function main() {
+window['main'] = function() {
     tuna.utils.config.init(tuna.utils.decodeSearch(location.search));
 
-    tuna.dom.setSelectorEngine(jQuery.find);
+    tuna.dom.setSelectorEngine($.find);
 
-    tuna.ui.popups.registerConfirm(tuna.dom.selectOne('#confirm_popup'));
+    var confirmElement = tuna.dom.selectOne('#confirm_popup');
+    if (confirmElement !== null) {
+        tuna.ui.popups.registerConfirm(confirmElement);
+    }
 
     tuna.view.init();
-}
+};

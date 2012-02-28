@@ -1,77 +1,69 @@
-(function() {
+/**
+ * @extends {tuna.view.PageViewController}
+ * @constructor
+ */
+var OrderController = function() {
+    tuna.view.PageViewController.call(this);
 
-    var OrderController = function() {
-        tuna.view.PageViewController.call(this);
+    this.__form = null;
 
-        this.__form = null;
-        this.__cakeImage = null;
+    this.__transformer = null;
+};
 
-        this.__transformer = null;
+tuna.utils.extend(OrderController, tuna.view.PageViewController);
 
-        /**
-         *
-         * @type {?string}
-         * @private
-         */
-        this.__orderId = null;
-    };
+/**
+ * @override
+ */
+OrderController.prototype._requireModules = function() {
+    this._container.requireModule('template-transformer');
+    this._container.requireModule('data-image-copy');
+    this._container.requireModule('datepicker');
+    this._container.requireModule('form');
+};
 
-    tuna.utils.extend(OrderController, tuna.view.PageViewController);
+/**
+ * @override
+ */
+OrderController.prototype._initActions = function() {
+    var self = this;
 
-    OrderController.prototype._requireModules = function() {
-        this._container.requireModule('template-transformer');
-        this._container.requireModule('data-image-copy');
-        this._container.requireModule('datepicker');
-        this._container.requireModule('form');
-    };
+    this.__transformer
+        = this._container.getOneModuleInstance('template-transformer');
+    this.__transformer.setTransformHandler(this);
 
-    OrderController.prototype._initActions = function() {
-        var self = this;
+    this.__form = this._container.getOneModuleInstance('form');
+    this.__form.addEventListener('result', function(event, result) {
+        self._navigation.navigate('result_step', result.cake);
+    });
+};
 
-        this.__transformer
-            = this._container.getOneModuleInstance('template-transformer');
-        this.__transformer.setTransformHandler(this);
+/**
+ * @override
+ */
+OrderController.prototype.open = function() {
+    var order = model.orders.getOrder();
 
-        this.__form = this._container.getOneModuleInstance('form');
-        this.__form.addEventListener('result', function(event, result) {
-            self._navigation.navigate('result_step', result.cake);
-        });
+    this.__form.setEnabled(false);
 
-        this.__cakeImage
-            = this._container.getOneModuleInstance('data-image-copy');
-    };
+    var self = this;
+    tuna.rest.call('orders.add', {
+        'bakery_id': order.bakery.id,
+        'recipe_id': order.recipe.id,
 
-    OrderController.prototype.open = function(args) {
-        if (args.image !== undefined) {
-            this.__cakeImage.src = args.image;
+        'cake_shape': order.cake.shape,
+        'cake_weight': order.cake.weight,
+        'cake_markup_json': order.cake.markupJson,
+        'cake_image_base64': order.cake.imageBase64,
+        'cake_photo_base64': order.cake.photoBase64
+    }, function(result) {
+        order.id = result.id;
 
-            var cake = model.cakes.createCampaingCake(args.weight, args.image);
-            model.orders.updateCampaignOrder(args.campaign, cake, args.price);
-        }
+        self.__form.setEnabled(true);
+        self.__transformer.applyTransform(order);
+    });
 
-        var order = model.orders.getOrder();
+    this.__transformer.applyTransform(order);
+};
 
-        this.__form.setEnabled(false);
-
-        var self = this;
-        tuna.rest.call('orders.add', {
-            'bakery_id': order.bakery.id,
-            'recipe_id': order.recipe.id,
-
-            'cake_shape': order.cake.shape,
-            'cake_weight': order.cake.weight,
-            'cake_markup_json': order.cake.markupJson,
-            'cake_image_base64': order.cake.imageBase64,
-            'cake_photo_base64': order.cake.photoBase64
-        }, function(result) {
-            order.id = result.id;
-
-            self.__form.setEnabled(true);
-            self.__transformer.applyTransform(order);
-        });
-
-        this.__transformer.applyTransform(order);
-    };
-
-    tuna.view.registerController('order_step', new OrderController());
-})();
+tuna.view.registerController('order_step', new OrderController());

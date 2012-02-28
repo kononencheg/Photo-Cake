@@ -1,15 +1,40 @@
-(function() {
+/**
+ * @extends {tuna.model.Record}
+ * @constructor
+ */
+var User = function() {
 
-    var User = function() {
-        this.id = '';
-        this.name = '';
-        this.city = '';
-        this.userpicUrl = '';
-        this.network = ''
-    };
+    /**
+     * @type {string}
+     */
+    this.id = '';
 
-    tuna.utils.extend(User, tuna.model.Record);
+    /**
+     * @type {string}
+     */
+    this.name = '';
 
-    model.records.User = User;
+    /**
+     * @type {string}
+     */
+    this.city = '';
 
-})();
+    /**
+     * @type {string}
+     */
+    this.userpicUrl = '';
+
+    /**
+     * @type {string}
+     */
+    this.network = ''
+};
+
+tuna.utils.extend(User, tuna.model.Record);
+
+/**
+ * @extends {User}
+ * @constructor
+ */
+model.records.User = User;
+

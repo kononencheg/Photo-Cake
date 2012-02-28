@@ -1,20 +1,56 @@
-(function() {
+/**
+ * @extends {tuna.model.Record}
+ * @constructor
+ */
+var Cake = function() {
 
-    var Cake = function() {
-        this.imageUrl = '';
+    /**
+     * 
+     * @type {string}
+     */
+    this.imageUrl = '';
 
-        this.markupJson = '';
-        this.imageBase64 = '';
-        this.photoBase64 = '';
+    /**
+     * 
+     * @type {string}
+     */
+    this.markupJson = '';
 
-        this.content = null;
+    /**
+     * 
+     * @type {string}
+     */
+    this.imageBase64 = '';
 
-        this.weight = '';
-        this.personsCount = 0;
-    };
+    /**
+     * 
+     * @type {string}
+     */
+    this.photoBase64 = '';
 
-    tuna.utils.extend(Cake, tuna.model.Record);
+    /**
+     * 
+     * @type {Object}
+     */
+    this.content = null;
 
-    model.records.Cake = Cake;
+    /**
+     * 
+     * @type {number}
+     */
+    this.weight = 0;
 
-})();
+    /**
+     * 
+     * @type {number}
+     */
+    this.personsCount = 0;
+};
+
+tuna.utils.extend(Cake, tuna.model.Record);
+
+/**
+ * @extends {Cake}
+ * @constructor
+ */
+model.records.Cake = Cake;
