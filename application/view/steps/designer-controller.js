@@ -194,7 +194,6 @@
         } else {
             this.__cakePreset = null;
         }
-
     };
 
     DesignerController.prototype.close = function() {
@@ -213,7 +212,7 @@
 
     window.onFlashReady = tuna.utils.bind(controller.onFlashReady, controller);
     window.confirmShapeChange = tuna.utils.bind(controller.confirmShapeChange, controller);
-    window.openMessageBox = function(message) { tuna.ui.popups.alert(message); };
+    window.openMessageBox = tuna.ui.popups.alert;
 
     tuna.view.registerController('designer_step', controller);
 })();

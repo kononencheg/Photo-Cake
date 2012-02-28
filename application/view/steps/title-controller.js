@@ -21,17 +21,24 @@
         var cakeListTransformer = this._container.getModuleInstanceByName
                                         ('template-transformer', 'cake-list');
 
-        var wantButton = this._container.getModuleInstanceByName
+        var cakesControls = this._container.getModuleInstanceByName
                                             ('button-group', 'cake-list');
 
-        wantButton.addEventListener('buy', function(event, button) {
+        cakesControls.addEventListener('buy', function(event, button) {
             var cakeId = button.getOption('cake-id');
-            for (var i in cakes) {
+
+            var i = 0,
+                l = cakes.length;
+
+            while (i < l) {
                 if (cakes[i].id === cakeId) {
-                    self._navigation.navigate('designer_step', cakes[i]);
                     break;
                 }
+
+                i++;
             }
+
+            self._navigation.navigate('designer_step', cakes[i]);
         });
 
         tuna.rest.call('cakes.getPromoted', null, function(result) {
