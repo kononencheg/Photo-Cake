@@ -2,22 +2,44 @@
  * @constructor
  */
 var Recipes = function() {
-    this.__list = [];
+
+    /**
+     * @type {Array.<model.records.Recipe>}
+     * @private
+     */
+    this.__list = null;
 };
 
-Recipes.prototype.clearRecipes = function() {
-    this.__list.length = 0;
+/**
+ * @param {Array.<model.records.Recipe>} recipes
+ */
+Recipes.prototype.setRecipes = function(recipes) {
+    this.__list = recipes;
 };
 
-Recipes.prototype.addRecipe = function(recipe) {
-    this.__list.push(recipe);
+/**
+ * @param {string} id
+ * @return {model.records.Recipe}
+ */
+Recipes.prototype.getRecipeById = function(id) {
+    var i = 0,
+        l = this.__list.length;
+
+    while (i < l) {
+        if (this.__list[i].id === id) {
+            return this.__list[i];
+        }
+
+        i++;
+    }
+
+    return null;
 };
 
-Recipes.prototype.getRecipeAt = function(index) {
-    return this.__list[index];
-};
-
-Recipes.prototype.getList = function() {
+/**
+ * @return {Array.<model.records.Recipe>}
+ */
+Recipes.prototype.getRecipes = function() {
     return this.__list;
 };
 

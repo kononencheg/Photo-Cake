@@ -87,6 +87,7 @@ TUNA_FILES = tuna.js \
 			 ui/forms/form-input.js \
 			 ui/forms/input-filter.js \
 			 ui/forms/autocomplete.js \
+			 ui/forms/forms.js \
 			 \
 			 ui/transformers/i-transform-handler.js \
 			 ui/transformers/i-transformer.js \
@@ -137,6 +138,8 @@ APPLICATION_FILES = main.js \
 					ui/modules/datepicker.js \
 					ui/modules/data-image.js \
 					ui/modules/data-image-copy.js \
+					ui/modules/yandex-share.js \
+					ui/modules/vk-share.js \
 					\
 					rest/common-method.js \
 					rest/common-factory.js \
@@ -148,6 +151,7 @@ APPLICATION_FILES = main.js \
 					model/users.js \
 					\
 					model/records/bakery.js \
+					model/records/raw-cake.js \
 					model/records/cake.js \
 					model/records/order.js \
 					model/records/payment.js \
@@ -163,17 +167,18 @@ APPLICATION_FILES = main.js \
 					view/steps/result-controller.js	\
 
 
-SITE_FILES = view/steps/social/share-controller.js \
+SITE_FILES = view/steps/share/share-controller.js \
 
 
-VK_FILES = rest/social/vk/vk-method.js \
+VK_FILES = view/steps/share/vk-share-controller.js \
+		   rest/social/vk/vk-method.js \
 		   rest/social/vk/users/get-current.js \
 		   rest/social/vk/friends/get-list.js \
 		   rest/social/vk/wall/post.js \
 
 
-OK_FILES = rest/social/ok/users/get-current.js \
-		   ui/modules/social/ok/friends-popup.js \
+OK_FILES = view/steps/share/ok-share-controller.js \
+		   rest/social/ok/users/get-current.js \
 
 
 JS_APP = $(addprefix $(LIBRARY_DIR)tuna/, $(TUNA_FILES)) \

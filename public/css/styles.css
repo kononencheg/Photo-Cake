@@ -3732,6 +3732,7 @@ a.thumbnail:hover {
 }
 
 .page-header-logo {
+    cursor: pointer;
     display: block;
 }
 
@@ -3821,7 +3822,7 @@ h4 small {
     margin: 25px;
 }
 
-.share-block .yashare-auto-init {
+.share-block .ya-share {
     height: 40px;
 }
 

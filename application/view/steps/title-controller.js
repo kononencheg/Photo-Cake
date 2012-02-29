@@ -12,10 +12,11 @@ tuna.utils.extend(TitleController, tuna.view.PageViewController);
  * @override
  */
 TitleController.prototype._requireModules = function() {
-    this._container.requireModule('selection-group');
     this._container.requireModule('carousel');
+    this._container.requireModule('vk-share');
     this._container.requireModule('popup-button');
     this._container.requireModule('button-group');
+    this._container.requireModule('selection-group');
     this._container.requireModule('template-transformer');
 };
 
@@ -24,7 +25,7 @@ TitleController.prototype._requireModules = function() {
  */
 TitleController.prototype._initActions = function() {
     var self = this;
-    var cakes = {};
+    var cakes = [];
 
     var cakeListTransformer = this._container.getModuleInstanceByName
                                     ('template-transformer', 'cake-list');
@@ -51,8 +52,8 @@ TitleController.prototype._initActions = function() {
 
     tuna.rest.call('cakes.getPromoted', null, function(result) {
         cakes = result;
-        cakeListTransformer.applyTransform(cakes);
-    });
+        cakeListTransformer.applyTransform(tuna.model.serializeArray(cakes));
+    }, 'cake');
 };
 
 tuna.view.registerController('title_step', new TitleController());

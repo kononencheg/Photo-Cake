@@ -14,8 +14,10 @@ Orders.prototype.updateOrder = function() {
         this.__initOrder();
     }
 
-    this.__order.cake = model.cakes.getCurrentCake().clone();
+    this.__order.cake = model.cakes.getCurrentCake();
     this.__updateOrderPrice();
+
+    return this.__order;
 };
 
 Orders.prototype.__initOrder = function() {
@@ -50,39 +52,30 @@ Orders.prototype.__updateOrderPrice = function() {
         this.__order.payment = new model.records.Payment();
     }
 
-    var payment = this.__order.payment;
-
-    payment.decoPrice = this.__getDecorationPrice(this.__order.cake);
+    this.__order.payment.decoPrice
+        = this.__getDecorationPrice(this.__order.cake);
 
     if (this.__order.recipe !== null) {
-        payment.recipePrice = this.__getRecipePrice
-            (this.__order.cake, this.__order.recipe);
+        this.__order.payment.recipePrice =
+            this.__order.recipe.getWeightPrice(this.__order.cake.getWeight());
     }
 
     if (this.__order.bakery !== null) {
-        payment.deliveryPrice = this.__order.bakery.deliveryPrice;
+        this.__order.payment.deliveryPrice = this.__order.bakery.deliveryPrice;
     }
-
-    payment.totalPrice
-        = payment.decoPrice + payment.recipePrice + payment.deliveryPrice;
 };
 
-Orders.prototype.__getRecipePrice = function(cake, recipe) {
-    var weightKey = (cake.weight).toString().replace('.', '_');
-    return recipe.dimensionPrices[weightKey].price;
-};
 
 Orders.prototype.__getDecorationPrice = function(cake) {
     var price = 0;
 
-    if (cake.content.deco !== undefined) {
-        var deco = cake.content.deco;
-
+    var deco = cake.getDecorations();
+    if (deco !== null) {
         var i = 0,
             l = deco.length;
 
         while (i < l) {
-            price += this.__getDecorationItemPrice(deco[i].name);
+            price += this.__getDecorationItemPrice(deco[i]['name']);
             i++;
         }
     }

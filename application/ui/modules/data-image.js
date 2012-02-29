@@ -12,7 +12,7 @@ tuna.utils.extend(DataImageModule, tuna.ui.Module);
  * @override
  */
 DataImageModule.prototype.initInstance = function(target) {
-    return ui.DataImage.create(target);
+    return ui.createDataImage(target);
 };
 
 tuna.ui.modules.register('data-image', new DataImageModule());

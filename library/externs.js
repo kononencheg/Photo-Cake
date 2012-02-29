@@ -1,25 +1,3 @@
-var swfobject = {};
-
-/**
- *
- * @param a
- * @param b
- * @param c
- * @param d
- * @param e
- * @param f
- * @param g
- * @param h
- */
-swfobject.embedSWF = function(a,b,c,d,e,f,g,h) {};
-
-/**
- * @param {string} id
- * @return {HTMLObjectElement}
- */
-swfobject.getObjectById = function(id) {};
-
-
 var JSON = {};
 
 /**
@@ -35,6 +13,28 @@ JSON.parse = function(str) {};
  * @return {string}
  */
 JSON.stringify = function(obj) {};
+
+
+var FAPI = {};
+FAPI.UI = {};
+FAPI.Util = {};
+FAPI.Client = {};
+
+FAPI.UI.showPermissions = {};
+FAPI.UI.showNotification = {};
+FAPI.UI.showConfirmation ={};
+
+FAPI.Util.calcSignature = {};
+
+FAPI.Client.call = {};
+
+var VK = {};
+VK.api = function(a,b,c) {};
+
+var swfobject = {};
+swfobject.embedSWF = function(a,b,c,d,e,f,g,h) {};
+swfobject.getObjectById = function(id) {};
+
 
 var $ = {};
 $.find = function() {};

@@ -10,12 +10,12 @@ var Order = function() {
     this.id = '';
 
     /**
-     * @type {model.records.User|tuna.model.Record}
+     * @type {tuna.model.Record|model.records.User}
      */
     this.user = null;
 
     /**
-     * @type {model.records.Cake}
+     * @type {model.records.RawCake}
      */
     this.cake = null;
 
@@ -37,6 +37,16 @@ var Order = function() {
 };
 
 tuna.utils.extend(Order, tuna.model.Record);
+
+/**
+ * @override
+ */
+Order.prototype.serialize = function() {
+    return {
+        'id': this.id,
+        'user': this.user && this.user.serialize()
+    };
+};
 
 /**
  * @extends {Order}

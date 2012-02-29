@@ -8,6 +8,12 @@ var MainController = function() {
 
 tuna.utils.extend(MainController, tuna.view.NavigationViewController);
 
+MainController.prototype._requireModules = function() {
+    tuna.view.NavigationViewController.prototype._requireModules.call(this);
+
+    this._container.requireModule('yandex-share');
+};
+
 /**
  * @override
  */

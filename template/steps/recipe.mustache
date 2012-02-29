@@ -1,6 +1,5 @@
 <div id="recipe_step" data-init-event="ui-navigate"
-     data-template-id="recipe_template"
-     class="j-navigation-page j-control-container j-template-transformer row-fluid step">
+     class="j-navigation-page j-control-container row-fluid step">
 
     <div class="span12">
         <h2>Выбор рецепта</h2>
@@ -8,7 +7,10 @@
 
     <div class="span12 row-fluid">
         <div class="span5 cake-info">
-            <div class="cake-weight">
+            <div class="j-template-transformer cake-weight"
+                 data-name="cake-info"
+                 data-template-id="cake_template">
+
                 <h3>Вес торта: <small><span class="t-cake-weight">0</span> кг</small></h3>
 
                 <span class="pull-right">
@@ -22,7 +24,10 @@
                      data-image-selector="#base_cake_image" />
             </div>
 
-            <div class="cake-price">
+            <div class="j-template-transformer cake-price"
+                 data-name="price-info"
+                 data-template-id="price_template">
+
                 <h3>Цена</h3>
 
                 <table class="table table-condensed">
@@ -45,7 +50,10 @@
                 </table>
             </div>
         </div>
-        <div class="span7">
+        <div class="j-template-transformer j-button-group span7"
+             data-name="recipes-list"
+             data-template-id="recipe_list_template">
+
             <ul class="t-recipes-list recipes-list thumbnails"></ul>
 
             <div class="recipe-navigation">
@@ -61,7 +69,8 @@
         </div>
 </div>
 
-    <div id="city_selection_popup" class="j-autocomplete hide"
+    <div class="j-popup j-autocomplete hide"
+         data-name="city-popup"
          data-template-id="city_autocomplete_template">
 
          <div class="modal-backdrop"></div>
@@ -94,15 +103,22 @@
          </div>
      </div>
 
-    <div id="recipe_description_popup" class="hide">
+    <div class="j-template-transformer j-popup hide"
+         data-name="recipe-popup"
+         data-template-id="recipe_template">
+
+        <form class="j-popup-form">
+            <input name="recipe_id" type="hidden" class="t-recipe-input" />
+        </form>
+
         <div class="modal-backdrop"></div>
         <div class="modal">
             <div class="modal-header">
                 <a href="#" class="j-popup-close close">×</a>
-                <h3 class="t-popup-recipe-name"></h3>
+                <h3 class="t-recipe-name"></h3>
             </div>
             <div class="modal-body">
-                <p class="t-popup-recipe-desc"></p>
+                <p class="t-recipe-desc"></p>
             </div>
             <div class="modal-footer">
                 <a href="#" class="j-popup-apply btn primary">Выбрать</a>
@@ -112,44 +128,7 @@
     </div>
 
     <div class="hide">
-        <tuna:template id="recipe_template">
-            <tuna:spot tuna:target="t-cake-weight"  tuna:path="order/cake/weight" />
-            <tuna:spot tuna:target="t-cake-persons" tuna:path="order/cake/personsCount" />
 
-            <tuna:spot tuna:target="t-total-price"    tuna:path="order/payment/totalPrice" />
-            <tuna:spot tuna:target="t-deco-price"     tuna:path="order/payment/decoPrice" />
-            <tuna:spot tuna:target="t-recipe-price"   tuna:path="order/payment/recipePrice" />
-            <tuna:spot tuna:target="t-delivery-price" tuna:path="order/payment/deliveryPrice" />
-
-            <tuna:spot tuna:target="t-popup-recipe-name" tuna:path="popup_recipe/name" />
-            <tuna:spot tuna:target="t-popup-recipe-desc" tuna:path="popup_recipe/desc" />
-
-            <tuna:list tuna:target="t-recipes-list" tuna:path="recipes"
-                       tuna:item-renderer-id="recipe_renderer"
-                       tuna:item-template-id="recipe_item_template"
-                       tuna:key-path="$key" />
-        </tuna:template>
-
-        <tuna:template id="recipe_item_template">
-            <tuna:attr tuna:target="t-recipe-img" tuna:path="imageUrl" tuna:name="src"/>
-            <tuna:attr tuna:target="t-recipe-img" tuna:path="name" tuna:name="alt"/>
-
-            <tuna:attr tuna:target="t-recipe-index" tuna:path="$key" tuna:name="data-index" />
-            <tuna:attr tuna:target="t-recipe-input" tuna:path="$key" tuna:name="value" />
-
-            <tuna:spot tuna:target="t-recipe-name" tuna:path="name" />
-        </tuna:template>
-
-        <tuna:template id="city_autocomplete_template">
-            <tuna:list tuna:target="t-city-list" tuna:path=""
-                       tuna:item-renderer-id="city_item_renderer"
-                       tuna:item-template-id="city_item_template"
-                       tuna:key-path="$key" />
-        </tuna:template>
-
-        <tuna:template id="city_item_template">
-            <tuna:spot tuna:target="t-name" tuna:path="city" />
-        </tuna:template>
 
     </div>
 </div>

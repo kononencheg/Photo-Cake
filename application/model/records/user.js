@@ -32,6 +32,20 @@ var User = function() {
 
 tuna.utils.extend(User, tuna.model.Record);
 
+
+/**
+ * @override
+ */
+User.prototype.serialize = function() {
+    return {
+        'id': this.id,
+        'name': this.name,
+        'network': this.network,
+        'userpicUrl': this.userpicUrl
+    };
+};
+
+
 /**
  * @extends {User}
  * @constructor

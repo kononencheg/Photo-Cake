@@ -24,19 +24,13 @@ var Recipe = function() {
 
     /**
      *
-     * @type {number}
-     */
-    this.price = 0;
-
-    /**
-     *
      * @type {string}
      */
     this.imageUrl = '';
 
     /**
      *
-     * @type {Object}
+     * @type {Object.<string, Object.<string, number>>}
      */
     this.dimensionPrices = {};
 };
@@ -44,7 +38,41 @@ var Recipe = function() {
 tuna.utils.extend(Recipe, tuna.model.Record);
 
 /**
- * @extends {Record}
+ * @override
+ */
+Recipe.prototype.populate = function(data) {
+    this.id = data['id'];
+    this.imageUrl = data['image_url'];
+    this.desc = data['desc'];
+    this.name = data['name'];
+    this.dimensionPrices = data['dimension_prices'];
+};
+
+/**
+ * @override
+ */
+Recipe.prototype.serialize = function() {
+    return {
+        'id': this.id,
+        'imageUrl': this.imageUrl,
+        'desc': this.desc,
+        'name': this.name
+    };
+};
+
+/**
+ * @param {number} weight
+ * @return {number}
+ */
+Recipe.prototype.getWeightPrice = function(weight) {
+    var weightKey = (weight).toString().replace('.', '_');
+    return this.dimensionPrices[weightKey]['price'];
+};
+
+/**
+ * @extends {Recipe}
  * @constructor
  */
 model.records.Recipe = Recipe;
+
+tuna.model.recordFactory.registerRecord('recipe', new model.records.Recipe());

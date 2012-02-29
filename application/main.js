@@ -66,5 +66,19 @@ window['main'] = function() {
         tuna.ui.popups.registerConfirm(confirmElement);
     }
 
+    var alertElement = tuna.dom.selectOne('#alert_popup');
+    if (alertElement !== null) {
+        tuna.ui.popups.registerAlert(alertElement);
+    }
+
     tuna.view.init();
+
+    var args = tuna.utils.config.get('custom_args');
+    if (args !== null && args.indexOf('ok_cake_url=') !== -1) {
+        var url = args.split('ok_cake_url=').pop().split('&').shift();
+        tuna.ui.popups.alert(
+            '<img src="http://files.fotonatorte.ru/ok-image/' +
+                url + '" alt="Мой тортик!" />'
+        )
+    }
 };

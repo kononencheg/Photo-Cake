@@ -2,18 +2,20 @@
  * @constructor
  */
 var Bakeries = function() {
-    this.__list = []
+    this.__list = null
 };
 
-Bakeries.prototype.addBakery = function(bakery) {
-    this.__list.push(bakery);
+/**
+ * @param {Array.<model.records.Bakery>} bakeries
+ */
+Bakeries.prototype.setBakeries = function(bakeries) {
+    this.__list = bakeries;
 };
 
-Bakeries.prototype.getBakeryAt = function(index) {
-    return this.__list[index];
-};
-
-Bakeries.prototype.getList = function() {
+/**
+ * @return {Array.<model.records.Bakery>}
+ */
+Bakeries.prototype.getBakeries = function() {
     return this.__list;
 };
 

@@ -13,6 +13,7 @@
 }
 
 .page-header-logo {
+    cursor: pointer;
     display: block;
 }
 

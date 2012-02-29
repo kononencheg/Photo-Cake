@@ -137,9 +137,9 @@ DesignerController.prototype._initActions = function() {
         while (i < l) {
             dimension = result[i];
             if (dimension.shape === 'round') {
-                self.__weightsList.push(dimension.weight);
-                self.__ratioList.push(dimension.ratio);
-                self.__personsList.push(dimension.persons_count);
+                self.__weightsList.push(dimension['weight']);
+                self.__ratioList.push(dimension['ratio']);
+                self.__personsList.push(dimension['persons_count']);
             }
 
             i++;

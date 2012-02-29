@@ -1,50 +1,62 @@
-(function() {
+/**
+ * @extends {rest.social.vk.VKMethod}
+ * @constructor
+ */
+var GetCurrent = function() {
+    rest.social.vk.VKMethod.call(this, 'getProfiles');
 
-    var GetCurrent = function() {
-        rest.social.vk.VKMethod.call(this, 'getProfiles');
+    this.__user = null;
 
-        this.__user = null;
+    this.__handleCity = tuna.utils.bind(this.__handleCity, this);
+};
 
-        this.__handleCity = tuna.utils.bind(this.__handleCity, this);
+tuna.utils.extend(GetCurrent, rest.social.vk.VKMethod);
+
+/**
+ * @override
+ */
+GetCurrent.prototype._completeArguments = function(args) {
+    return {
+        'fields': 'uid,first_name,last_name,city',
+        'uid': tuna.utils.config.get('viewer_id')
     };
+};
 
-    tuna.utils.extend(GetCurrent, rest.social.vk.VKMethod);
+/**
+ * @override
+ */
+GetCurrent.prototype._handleResponse = function(data) {
+    if (data['response'] !== undefined) {
+        var value = data['response'][0];
 
-    GetCurrent.prototype._completeArguments = function(args) {
-        return {
-            'fields': 'uid,first_name,last_name,city',
-            'uid': tuna.utils.config.get('viewer_id')
-        };
-    };
+        this.__user = new model.records.User();
+        this.__user.id = value['uid'];
+        this.__user.name = value['first_name'] + ' ' + value['last_name'];
+        this.__user.userpicUrl = value['photo'];
+        this.__user.network = 'vk';
 
-    GetCurrent.prototype._handleResponse = function(data) {
-        if (data.response !== undefined) {
-            var value = data.response[0];
+        VK.api('places.getCityById', {
+            'cids': value['city']
+        }, this.__handleCity);
 
-            this.__user = new model.records.User();
-            this.__user.id = value.uid;
-            this.__user.name = value.first_name + ' ' + value.last_name;
-            this.__user.userpicUrl = value.photo;
-            this.__user.network = 'vk';
+    } else {
+        this.dispatch('error', data);
+    }
+};
 
-            VK.api('places.getCityById', {
-                'cids': value.city
-            }, this.__handleCity);
 
-        } else {
-            this.dispatch('error', data);
-        }
-    };
+/**
+ * @param {Object} data
+ * @private
+ */
+GetCurrent.prototype.__handleCity = function(data) {
+    if (data['response'] !== undefined) {
+        this.__user.city = data['response'][0]['name'];
+        this.dispatch('result', this.__user);
+    } else {
+        this.dispatch('error', data);
+    }
+};
 
-    GetCurrent.prototype.__handleCity = function(data) {
-        if (data.response !== undefined) {
-            this.__user.city = data.response[0].name;
-            this.dispatch('result', this.__user);
-        } else {
-            this.dispatch('error', data);
-        }
-    };
+tuna.rest.methodFactory.registerMethod('social.users.getCurrent', new GetCurrent());
 
-    tuna.rest.methodFactory.registerMethod('social.users.getCurrent', new GetCurrent())
-
-})();

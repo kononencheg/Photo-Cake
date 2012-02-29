@@ -7,7 +7,7 @@ var DataImage = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
 };
 
-tuna.utils.extend(DataImage, tuna.events.EventDispatcher);
+tuna.utils.extend(DataImage, tuna.ui.ModuleInstance);
 
 /**
  * @param {string} data
@@ -77,30 +77,30 @@ DataImage.prototype.__replaceTarget = function(image) {
 };
 
 /**
+ * @extends {DataImage}
+ * @constructor
+ */
+ui.DataImage = DataImage;
+
+/**
  *
  * @type {Object.<string, ui.DataImage>}
  * @private
  */
-DataImage.__idTable = {};
+ui.__idTable = {};
 
 /**
  * @param {!Node} target
  * @return {ui.DataImage}
  */
-DataImage.create = function(target) {
+ui.createDataImage = function(target) {
     if (target.id !== null) {
-        if (DataImage.__idTable[target.id] === undefined) {
-            DataImage.__idTable[target.id] = new DataImage(target);
+        if (ui.__idTable[target.id] === undefined) {
+            ui.__idTable[target.id] = new ui.DataImage(target);
         }
 
-        return DataImage.__idTable[target.id];
+        return ui.__idTable[target.id];
     }
 
-    return new DataImage(target);
+    return new ui.DataImage(target);
 };
-
-/**
- * @extends {DataImage}
- * @constructor
- */
-ui.DataImage = DataImage;

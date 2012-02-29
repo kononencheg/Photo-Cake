@@ -1,13 +1,14 @@
 <div id="order_step" data-init-event="ui-navigate"
-     class="j-navigation-page j-control-container j-template-transformer row-fluid step"
-     data-template-id="order_template">
+     class="j-navigation-page j-control-container row-fluid step">
 
     <div class="span12">
         <h2>Оформление заказа!</h2>
     </div>
 
-    <form class="j-form form-horizontal" action="/api/"
-          method="POST" target="support_frame">
+    <form class="j-template-transformer j-form form-horizontal"
+          action="/api/" method="POST" target="support_frame"
+          data-name="order-form"
+          data-template-id="order_template">
 
         <div class="row-fluid">
             <div class="span7">
@@ -137,7 +138,9 @@
                              data-image-selector="#base_cake_image" />
                     </div>
 
-                    <div class="cake-price">
+                    <div class="j-template-transformer cake-price"
+                         data-name="price-info"
+                         data-template-id="price_template">
 
                         <h3>Цена</h3>
 
@@ -188,31 +191,4 @@
             </div>
         </div>
     </form>
-
-    <div class="hide">
-        <tuna:template id="order_template">
-            <tuna:attr tuna:name="value" tuna:target="t-order-id"
-                       tuna:path="id" />
-
-            <tuna:attr tuna:name="value" tuna:target="t-user-name"
-                       tuna:path="user/name" />
-            <tuna:attr tuna:name="value" tuna:target="t-user-id"
-                       tuna:path="user/id" />
-            <tuna:attr tuna:name="value" tuna:target="t-user-network"
-                       tuna:path="user/network" />
-
-            <tuna:spot tuna:target="t-total-price"
-                       tuna:path="payment/totalPrice" />
-
-            <tuna:spot tuna:target="t-deco-price"
-                       tuna:path="payment/decoPrice" />
-
-            <tuna:spot tuna:target="t-recipe-price"
-                       tuna:path="payment/recipePrice" />
-
-            <tuna:spot tuna:target="t-delivery-price"
-                       tuna:path="payment/deliveryPrice" />
-
-        </tuna:template>
-    </div>
 </div>

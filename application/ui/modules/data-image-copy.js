@@ -15,10 +15,10 @@ DataImageCopy.prototype.initInstance = function(target) {
     var imageSelector = target.getAttribute('data-image-selector');
     if (imageSelector !== null) {
         var currentImage = target;
-        var targetImage = tuna.dom.selectOne(imageSelector)
+        var targetImage = tuna.dom.selectOne(imageSelector);
 
         if (targetImage !== null) {
-            var targetDataImage = ui.DataImage.create(targetImage);
+            var targetDataImage = ui.createDataImage(targetImage);
 
             var replaceImage = function() {
                 var image = targetDataImage.getTarget();
