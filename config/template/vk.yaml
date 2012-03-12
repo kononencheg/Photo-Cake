@@ -1,0 +1,35 @@
+---
+network: true
+vk_network: true
+
+slides:
+  - block:
+    - photo_src: /img/title/photo_small_1.jpg
+      before_src: /img/title/before_small_1.jpg
+      after_src: /img/title/after_small_1.jpg
+      block_active: true
+
+    - photo_src: /img/title/photo_small_2.jpg
+      before_src: /img/title/before_small_2.jpg
+      after_src: /img/title/after_small_2.jpg
+
+    - photo_src: /img/title/photo_small_3.jpg
+      before_src: /img/title/before_small_3.jpg
+      after_src: /img/title/after_small_3.jpg
+
+    active: true
+
+  - block:
+    - photo_src: /img/title/photo_small_4.jpg
+      before_src: /img/title/before_small_4.jpg
+      after_src: /img/title/after_small_4.jpg
+      block_active: true
+
+    - photo_src: /img/title/photo_small_5.jpg
+      before_src: /img/title/before_small_5.jpg
+      after_src: /img/title/after_small_5.jpg
+
+    - photo_src: /img/title/photo_small_6.jpg
+      before_src: /img/title/before_small_6.jpg
+      after_src: /img/title/after_small_6.jpg
+---

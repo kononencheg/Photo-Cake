@@ -1,0 +1,54 @@
+<div id="title_step" class="j-navigation-page
+                            j-control-container
+                            row-fluid step active">
+
+    <div class="span12 row-fluid">
+
+        {{#network}}
+            <div class="span5">
+                {{> template/steps/title/intro }}
+            </div>
+            <div class="span7">
+                {{> template/steps/title/cake-list }}
+            </div>
+            {{> template/steps/title/gallery }}
+        {{/network}}
+
+        {{^network}}
+            <div class="span8 row-fluid">
+                <div class="span4">
+                    {{> template/steps/title/intro }}
+                </div>
+                <div class="span8">
+                    {{> template/steps/title/cake-list }}
+                </div>
+
+                {{> template/steps/title/gallery }}
+            </div>
+            <div class="span4">
+                {{> template/steps/title/comments }}
+            </div>
+        {{/network}}
+    </div>
+
+    <hr />
+
+    <div id="cake_image_popup" class="hide">
+         <div class="modal-backdrop"></div>
+         <div class="modal">
+             <div class="modal-header">
+                <h3>Тортик до и после</h3>
+             </div>
+             <div class="modal-body">
+                 <div class="image-container">
+                     <img class="j-cake-image-photo" alt="Фото" />
+                     <img class="j-cake-image-before" alt="До" />
+                     <img class="j-cake-image-after" alt="После" />
+                 </div>
+             </div>
+             <div class="modal-footer">
+                 <a href="#" class="j-popup-close btn">Закрыть</a>
+             </div>
+         </div>
+    </div>
+</div>

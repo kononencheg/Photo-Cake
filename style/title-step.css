@@ -1,0 +1,88 @@
+#app_container .intro  {
+    margin-left: 10px;
+}
+
+.intro-title {
+    padding-bottom: 15px;
+    line-height: normal;
+}
+
+.intro-important-text {
+    color: #750000;
+    font-style: italic;
+}
+
+.alert-comment {
+    padding-right: 14px;
+
+    color: #000;
+    background-color: #FFF;
+    border-color: #CCC;
+}
+
+.alert-comment img {
+    float: left;
+    margin-right: 7px;
+}
+
+.alert-comment h3 {
+    margin-bottom: 5px;
+    line-height: normal;
+    color: #000;
+}
+
+.alert-comment blockquote {
+    margin-bottom: 5px;
+}
+
+.alert-comment address {
+    margin-bottom: 0;
+    text-align: right;
+    font-style: italic;
+}
+
+.carousel-item {
+    display: none;
+}
+
+.carousel-item.active {
+    display: block;
+}
+
+.howto-popup {
+    top: 30px;
+    bottom: 30px;
+
+    width: 700px;
+    margin: auto;
+
+    margin-left: -350px;
+
+    max-height: 700px;
+}
+
+.howto-popup .modal-body {
+    position: absolute;
+    bottom: 58px;
+    top: 46px;
+    width: 100%;
+    padding: 0;
+}
+
+.howto-popup .modal-footer {
+    height: 28px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.howto-popup .modal-body img {
+    height: 100%;
+    width: auto;
+    margin: auto;
+
+    display: inline;
+    text-align: center;
+}
+

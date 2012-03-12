@@ -1,0 +1,17 @@
+<script type="text/javascript" src="/js/ok.min.js"></script>
+
+<script src="http://api.odnoklassniki.ru/js/fapi.js"
+        type="text/javascript"></script>
+
+<script type="text/javascript">
+    main();
+
+    FAPI.init(
+        tuna.utils.config.get('api_server'),
+        tuna.utils.config.get('apiconnection'),
+        function() {
+            FAPI.Client.initialize();
+        }
+    );
+
+</script>

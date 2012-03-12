@@ -1,0 +1,73 @@
+<div class="cake-gallery-title">
+    <h3 class="pull-left">Галерея тортиков <small>(наведите мышку)</small></h3>
+    <h3 class="pull-right">
+        <a href="#" class="j-popup-button"
+           data-popup-selector="#howto_popup">
+            Как мы это делаем?
+        </a>
+    </h3>
+</div>
+
+<div class="j-carousel row-fluid">
+    <div class="span12 carousel cake-gallery">
+
+        {{#slides}}
+
+            <ul class="j-carousel-item carousel-item {{#active}}active{{/active}}
+                       j-selection-group thumbnails cake-gallery-body"
+                data-selection-event="mouseover">
+
+                {{#block}}
+
+                    <li class="j-selection-item {{#block_active}}active{{/block_active}}">
+                        <div class="thumbnail">
+                            <span class="expand-item">
+                                <span class="image-box image-center">
+                                    <img class="expanded-image vertical" alt="Фото"
+                                         src="{{photo_src}}" width="90" height="90" />
+                                </span>
+                            </span>
+                            <span class="expand-item second">
+                                <span class="image-box image-center">
+                                    <img class="expanded-image vertical" alt="До"
+                                         src="{{before_src}}" width="90" height="90" />
+                                </span>
+                            </span>
+                            <span class="expand-item third">
+                                <span class="image-box image-center">
+                                    <img class="expanded-image horizontal" alt="После"
+                                         src="{{after_src}}" width="90" height="90" />
+                                </span>
+                            </span>
+                        </div>
+                    </li>
+
+                {{/block}}
+            </ul>
+
+        {{/slides}}
+
+
+        <div class="cake-gallery-controls">
+            <a href="#" class="j-carousel-next pull-left">&laquo; Назад</a>
+            <a href="#" class="j-carousel-next pull-right">Вперед &raquo;</a>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="howto_popup" class="hide">
+    <div class="modal-backdrop"></div>
+    <div class="howto-popup modal">
+        <div class="modal-header">
+            <h3>Как мы это делаем?</h3>
+        </div>
+        <div class="modal-body">
+            <img src="img/info.jpg" alt="Как мы это делаем?" width="1200" height="1000" />
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="j-popup-close btn">Закрыть</a>
+        </div>
+    </div>
+</div>
