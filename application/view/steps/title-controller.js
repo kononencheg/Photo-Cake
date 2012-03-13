@@ -4,21 +4,15 @@
  */
 var TitleController = function() {
     tuna.view.PageViewController.call(this);
+
+    /**
+     * @override
+     */
+    this._modules = [ 'template-transformer', 'carousel', 'vk-share',
+                      'popup-button', 'button-group', 'selection-group' ];
 };
 
 tuna.utils.extend(TitleController, tuna.view.PageViewController);
-
-/**
- * @override
- */
-TitleController.prototype._requireModules = function() {
-    this._container.requireModule('carousel');
-    this._container.requireModule('vk-share');
-    this._container.requireModule('popup-button');
-    this._container.requireModule('button-group');
-    this._container.requireModule('selection-group');
-    this._container.requireModule('template-transformer');
-};
 
 /**
  * @override
@@ -47,12 +41,12 @@ TitleController.prototype._initActions = function() {
             i++;
         }
 
-        self._navigation.navigate('designer_step', cakes[i]);
+        self._navigation.navigate('designer', cakes[i]);
     });
 
     tuna.rest.call('cakes.getPromoted', null, function(result) {
         cakes = result;
-        cakeListTransformer.applyTransform(tuna.model.serializeArray(cakes));
+        cakeListTransformer.applyTransform(tuna.model.serialize(cakes));
     }, 'cake');
 };
 

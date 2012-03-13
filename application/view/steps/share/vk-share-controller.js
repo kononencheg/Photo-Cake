@@ -4,6 +4,13 @@
  */
 var VKShareController = function() {
     tuna.view.PageViewController.call(this);
+
+
+    /**
+     * @override
+     */
+    this._modules = [ 'input-filter', 'data-image-copy', 'popup-button',
+                      'button-group' ];
 };
 
 tuna.utils.extend(VKShareController, tuna.view.PageViewController);
@@ -23,21 +30,11 @@ VKShareController.prototype.open = function() {
 /**
  * @override
  */
-VKShareController.prototype._requireModules = function() {
-    this._container.requireModule('data-image-copy');
-    this._container.requireModule('button-group');
-    this._container.requireModule('popup-button');
-    this._container.requireModule('input-filter');
-};
-
-/**
- * @override
- */
 VKShareController.prototype._initActions = function() {
     var inputFilter = this._container.getOneModuleInstance('input-filter');
 
     tuna.rest.call('social.friends.get', null, function(result) {
-        inputFilter.setData(tuna.model.serializeArray(result));
+        inputFilter.setData(tuna.model.serialize(result));
     });
 
     var sendControls = this._container.getOneModuleInstance('button-group');

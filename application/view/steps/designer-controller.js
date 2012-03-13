@@ -165,11 +165,15 @@ DesignerController.prototype.__initDesigner = function() {
         'decoSelectors': DECO_SELECTORS
     }), 'round', 0.6);
 
+
+};
+
+/**
+ *
+ */
+DesignerController.prototype.onDecoElementsLoaded = function() {
     if (this.__cakePreset !== null) {
-        var self = this;
-        setTimeout(function() {
-            self.__movie['loadCakePreset'](self.__cakePreset);
-        }, 500);
+        this.__movie['loadCakePreset'](this.__cakePreset);
     }
 };
 
@@ -245,5 +249,6 @@ var controller = new DesignerController();
 window['onFlashReady'] = tuna.utils.bind(controller.onFlashReady, controller);
 window['confirmShapeChange'] = tuna.utils.bind(controller.confirmShapeChange, controller);
 window['openMessageBox'] = tuna.ui.popups.alert;
+window['onDecoElementsLoaded'] = tuna.utils.bind(controller.onDecoElementsLoaded, controller);
 
 tuna.view.registerController('designer_step', controller);

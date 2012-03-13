@@ -1,194 +1,189 @@
-<div id="order_step" data-init-event="ui-navigate"
-     class="j-navigation-page j-control-container row-fluid step">
 
-    <div class="span12">
-        <h2>Оформление заказа!</h2>
-    </div>
 
-    <form class="j-template-transformer j-form form-horizontal"
-          action="/api/" method="POST" target="support_frame"
-          data-name="order-form"
-          data-template-id="order_template">
-
-        <div class="row-fluid">
-            <div class="span7">
-                <div class="j-form-message alert alert-error hide"></div>
-
-                <input type="hidden" name="method" value="orders.submit" />
-                <input type="hidden" name="format" value="frame-callback" />
-
-                <input class="t-order-id" type="hidden" name="order_id" />
-
-                <input class="t-user-id" type="hidden" name="client_network_id" />
-                <input class="t-user-network" type="hidden" name="client_network" />
-
-                <input type="hidden" name="payment_method" value="0" />
-                <input type="hidden" name="submit_type" value="0" />
-
-                <fieldset>
-                    <legend>Личные данные</legend>
-
-                    <div class="j-client_name-input control-group">
-                        <label class="control-label" for="client_name">Имя *</label>
-                        <div class="controls">
-                            <div class="input">
-                                <input id="client_name" name="client_name" type="text" class="t-user-name" />
-                            </div>
-                            <p class="j-message help-block">Ваше настоящее имя.</p>
-                        </div>
-                    </div>
-
-                    <div class="j-client_phone-input control-group">
-                        <label class="control-label" for="client_phone">Телефон *</label>
-                        <div class="controls">
-                            <div class="input">
-                                <input id="client_phone" name="client_phone" type="text" />
-                            </div>
-                            <p class="j-message help-block">
-                                Чтобы мы могли с вами связаться
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="j-client_email-input control-group">
-                        <label class="control-label" for="client_email">Email *</label>
-                        <div class="controls">
-                            <div class="input">
-                                <input id="client_email" name="client_email" type="text" />
-                            </div>
-                            <p class="j-message help-block">
-                                Для подтверждения заказа
-                            </p>
-                        </div>
-                    </div>
-
-                </fieldset>
-
-                <fieldset>
-                    <legend>Информация о доставке</legend>
-
-                    <div class="j-delivery_address-input control-group">
-                        <label class="control-label" for="delivery_address">Адрес *</label>
-                        <div class="controls">
-                            <div class="input">
-                                <textarea id="delivery_address" name="delivery_address" rows="2"></textarea>
-                            </div>
-                            <p class="j-message help-block">
-                                Куда нужно везти торт.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="j-delivery_date-input j-delivery_time-input control-group">
-                        <label class="control-label" for="delivery_date">Дата *</label>
-                        <div class="controls">
-                            <div class="input">
-                                <input id="delivery_date" name="delivery_date" type="text"
-                                       class="j-datepicker input-mini input-small-rest" />
-
-                                <select name="delivery_time" class="small-rest">
-                                    <option value="-1">и время</option>
-                                    <option value="36000">10:00-12:00</option>
-                                    <option value="43200">12:00-14:00</option>
-                                    <option value="50400">14:00-16:00</option>
-                                    <option value="57600">16:00-18:00</option>
-                                    <option value="64800">18:00-20:00</option>
-                                    <option value="72000">20:00-22:00</option>
-                                </select>
-
-                                <p class="j-message help-block">
-                                    Когда нужно везти торт.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="j-delivery_comment-input control-group">
-                        <label class="control-label" for="delivery_comment">Комментарий</label>
-                        <div class="controls">
-                            <div class="input">
-                                <textarea id="delivery_comment" name="delivery_comment" rows="2"></textarea>
-                                <p class="j-message help-block">
-                                    Если вы что-то хотите добавить.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="j-delivery_message-input control-group">
-                        <label class="control-label" for="delivery_message">Текст открытки</label>
-                        <div class="controls">
-                            <div class="input">
-                                <textarea id="delivery_message" name="delivery_message" rows="2"></textarea>
-                                <p class="j-message help-block">
-                                    Записка к торту, если, например, торт в подарок.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                </fieldset>
-            </div>
-            <div class="span5 cake-info">
-                <fieldset>
-                    <legend>Торт</legend>
-
-                    <div class="cake-image">
-                        <img class="j-data-image-copy" alt="Загрузка тортика..."
-                             data-image-selector="#base_cake_image" />
-                    </div>
-
-                    <div class="j-template-transformer cake-price"
-                         data-name="price-info"
-                         data-template-id="price_template">
-
-                        <h3>Цена</h3>
-
-                        <table class="table table-condensed">
-                            <tr>
-                                <th>Оформление: </th>
-                                <td>
-                                    <span class="t-deco-price">0</span>
-                                    рублей
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Рецепт: </th>
-                                <td>
-                                    <span class="t-recipe-price">0</span>
-                                    рублей
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Доставка: </th>
-                                <td>
-                                    <span class="t-delivery-price">0</span>
-                                    рублей
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Итого: </th>
-                                <td>
-                                    <span class="t-total-price">0</span>
-                                    рублей
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="order-navigation">
-
-                        <a class="j-navigation-link btn primary large"
-                           data-action="back">
-                            &laquo; Назад
-                        </a>
-
-                        <input type="submit" value="Заказать!"
-                               class="btn primary large pull-right" />
-                    </div>
-
-                </fieldset>
-            </div>
-        </div>
-    </form>
+<div class="span12">
+    <h2>Оформление заказа!</h2>
 </div>
+
+<form class="j-template-transformer j-form form-horizontal"
+      action="/api/" method="POST" target="support_frame"
+      data-name="order-form"
+      data-template-id="order_template">
+
+    <div class="row-fluid">
+        <div class="span7">
+            <div class="j-form-message alert alert-error hide"></div>
+
+            <input type="hidden" name="method" value="orders.submit" />
+            <input type="hidden" name="format" value="frame-callback" />
+
+            <input class="t-order-id" type="hidden" name="order_id" />
+
+            <input class="t-user-id" type="hidden" name="client_network_id" />
+            <input class="t-user-network" type="hidden" name="client_network" />
+
+            <input type="hidden" name="payment_method" value="0" />
+            <input type="hidden" name="submit_type" value="0" />
+
+            <fieldset>
+                <legend>Личные данные</legend>
+
+                <div class="j-client_name-input control-group">
+                    <label class="control-label" for="client_name">Имя *</label>
+                    <div class="controls">
+                        <div class="input">
+                            <input id="client_name" name="client_name" type="text" class="t-user-name" />
+                        </div>
+                        <p class="j-message help-block">Ваше настоящее имя.</p>
+                    </div>
+                </div>
+
+                <div class="j-client_phone-input control-group">
+                    <label class="control-label" for="client_phone">Телефон *</label>
+                    <div class="controls">
+                        <div class="input">
+                            <input id="client_phone" name="client_phone" type="text" />
+                        </div>
+                        <p class="j-message help-block">
+                            Чтобы мы могли с вами связаться
+                        </p>
+                    </div>
+                </div>
+
+                <div class="j-client_email-input control-group">
+                    <label class="control-label" for="client_email">Email *</label>
+                    <div class="controls">
+                        <div class="input">
+                            <input id="client_email" name="client_email" type="text" />
+                        </div>
+                        <p class="j-message help-block">
+                            Для подтверждения заказа
+                        </p>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <fieldset>
+                <legend>Информация о доставке</legend>
+
+                <div class="j-delivery_address-input control-group">
+                    <label class="control-label" for="delivery_address">Адрес *</label>
+                    <div class="controls">
+                        <div class="input">
+                            <textarea id="delivery_address" name="delivery_address" rows="2"></textarea>
+                        </div>
+                        <p class="j-message help-block">
+                            Куда нужно везти торт.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="j-delivery_date-input j-delivery_time-input control-group">
+                    <label class="control-label" for="delivery_date">Дата *</label>
+                    <div class="controls">
+                        <div class="input">
+                            <input id="delivery_date" name="delivery_date" type="text"
+                                   class="j-datepicker input-mini input-small-rest" />
+
+                            <select name="delivery_time" class="small-rest">
+                                <option value="-1">и время</option>
+                                <option value="36000">10:00-12:00</option>
+                                <option value="43200">12:00-14:00</option>
+                                <option value="50400">14:00-16:00</option>
+                                <option value="57600">16:00-18:00</option>
+                                <option value="64800">18:00-20:00</option>
+                                <option value="72000">20:00-22:00</option>
+                            </select>
+
+                            <p class="j-message help-block">
+                                Когда нужно везти торт.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="j-delivery_comment-input control-group">
+                    <label class="control-label" for="delivery_comment">Комментарий</label>
+                    <div class="controls">
+                        <div class="input">
+                            <textarea id="delivery_comment" name="delivery_comment" rows="2"></textarea>
+                            <p class="j-message help-block">
+                                Если вы что-то хотите добавить.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="j-delivery_message-input control-group">
+                    <label class="control-label" for="delivery_message">Текст открытки</label>
+                    <div class="controls">
+                        <div class="input">
+                            <textarea id="delivery_message" name="delivery_message" rows="2"></textarea>
+                            <p class="j-message help-block">
+                                Записка к торту, если, например, торт в подарок.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+
+        <div class="span5 cake-info">
+            <fieldset>
+                <legend>Торт</legend>
+
+                <div class="cake-image">
+                    <img class="j-data-image-copy" alt="Загрузка тортика..."
+                         src data-image-selector="#base_cake_image" />
+                </div>
+
+                <div class="j-template-transformer cake-price"
+                     data-name="price-info"
+                     data-template-id="price_template">
+
+                    <h3>Цена</h3>
+
+                    <table class="table table-condensed">
+                        <tr>
+                            <th>Оформление: </th>
+                            <td>
+                                <span class="t-deco-price">0</span> рублей
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Рецепт: </th>
+                            <td>
+                                <span class="t-recipe-price">0</span> рублей
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Доставка: </th>
+                            <td>
+                                <span class="t-delivery-price">0</span> рублей
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Итого: </th>
+                            <td>
+                                <span class="t-total-price">0</span> рублей
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="order-navigation">
+
+                    <a class="j-navigation-link btn primary large"
+                       data-action="back">
+                        &laquo; Назад
+                    </a>
+
+                    <input type="submit" value="Заказать!"
+                           class="btn primary large pull-right" />
+                </div>
+
+            </fieldset>
+        </div>
+    </div>
+</form>

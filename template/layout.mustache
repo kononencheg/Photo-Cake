@@ -7,16 +7,37 @@
 
         <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     </head>
-    <body>
+    <body id="{{#network}}app_container{{/network}}{{^network}}site_container{{/network}}"
+          class="j-navigation container-fluid">
 
         {{> template/body }}
+
         {{> template/support }}
 
         <div class="hide">
             {{> template/templates   }}
         </div>
 
-        {{> template/scripts }}
+        <script type="text/javascript" src="/js/swfobject.js"></script>
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+
+        <!--[if IE]>-->
+        <script type="text/javascript" src="/js/json.js"></script>
+        <!--<![endif]-->
+
+        {{#network}}
+            {{#vk_network}} {{> template/scripts/vk }} {{/vk_network}}
+            {{#ok_network}} {{> template/scripts/ok }} {{/ok_network}}
+        {{/network}}
+
+        {{^network}}
+            <script type="text/javascript" src="/js/app.js"></script>
+            <script type="text/javascript">
+                main(document.body);
+            </script>
+        {{/network}}
+
 
         {{> template/counters/ya }}
         {{> template/counters/li }}

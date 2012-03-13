@@ -3971,6 +3971,7 @@ body {
     vertical-align: middle;
     line-height: 30px;
     display: block;
+    margin-top: 5px;
 }
 
 .cake-info h3 {
@@ -4142,7 +4143,7 @@ input.btn {
     font-family: "Times New Roman", Times, serif;
 }
 
-#cake_image_popup .modal-body {
+/*#cake_image_popup .modal-body {
     height: 350px;
     overflow: hidden;
 }
@@ -4157,7 +4158,7 @@ input.btn {
     height: 100%;
     display: block;
     float: left;
-}
+}*/
 
 /**
  * Recipes
@@ -4332,7 +4333,7 @@ select.small-rest {
     display: block;
 }
 
-.howto-popup {
+.how-to-popup {
     top: 30px;
     bottom: 30px;
 
@@ -4344,7 +4345,7 @@ select.small-rest {
     max-height: 700px;
 }
 
-.howto-popup .modal-body {
+.how-to-popup .modal-body {
     position: absolute;
     bottom: 58px;
     top: 46px;
@@ -4352,7 +4353,7 @@ select.small-rest {
     padding: 0;
 }
 
-.howto-popup .modal-footer {
+.how-to-popup .modal-footer {
     height: 28px;
     position: absolute;
     bottom: 0;
@@ -4360,7 +4361,7 @@ select.small-rest {
     right: 0;
 }
 
-.howto-popup .modal-body img {
+.how-to-popup .modal-body img {
     height: 100%;
     width: auto;
     margin: auto;

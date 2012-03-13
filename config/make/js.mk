@@ -22,7 +22,11 @@ TUNA_FILES = tuna.js \
 			 \
 			 net/i-request.js \
 			 net/request.js \
+			 net/net.js \
 			 \
+			 model/i-resource.js \
+			 model/list-resource.js \
+			 model/item-resource.js \
 			 model/record.js \
 			 model/model.js \
 			 \
@@ -38,6 +42,7 @@ TUNA_FILES = tuna.js \
 			 tmpl/settings/spot-settings.js \
 			 tmpl/settings/attribute-settings.js \
 			 tmpl/settings/condition-settings.js \
+			 tmpl/settings/checkbox-settings.js \
 			 tmpl/settings/list-settings.js \
 			 tmpl/settings/template-settings.js \
 			 \
@@ -46,6 +51,7 @@ TUNA_FILES = tuna.js \
 			 tmpl/markup/list-extractor.js \
 			 tmpl/markup/attribute-extractor.js \
 			 tmpl/markup/condition-extractor.js \
+			 tmpl/markup/checkbox-extractor.js \
 			 tmpl/markup/markup-template-builder.js \
 			 \
 			 tmpl/units/i-list-item-router.js \
@@ -54,6 +60,7 @@ TUNA_FILES = tuna.js \
 			 tmpl/units/spot.js \
 			 tmpl/units/attribute.js \
 			 tmpl/units/condition.js \
+			 tmpl/units/checkbox.js \
 			 tmpl/units/list.js \
 			 tmpl/units/template.js \
 			 \
@@ -62,21 +69,21 @@ TUNA_FILES = tuna.js \
 			 tmpl/compilers/spot-compiler.js \
 			 tmpl/compilers/attribute-compiler.js \
 			 tmpl/compilers/condition-compiler.js \
+			 tmpl/compilers/checkbox-compiler.js \
 			 tmpl/compilers/list-compiler.js \
 			 \
 			 tmpl/tmpl.js \
 			 \
 			 ui/module.js \
 			 ui/module-instance.js \
+			 ui/module-container.js \
 			 ui/modules/modules.js \
-			 \
-			 ui/containers/container.js \
-			 ui/containers/control-container.js \
 			 \
 			 ui/popups/popup.js \
 			 ui/popups/popups.js \
 			 \
 			 ui/buttons/button.js \
+			 ui/buttons/popup-button.js \
 			 ui/buttons/button-group.js \
 			 ui/buttons/buttons.js \
 			 \
@@ -107,6 +114,7 @@ TUNA_FILES = tuna.js \
 			 ui/selection/rule/abstract-selection-rule.js \
 			 ui/selection/rule/single-selection-rule.js \
 			 ui/selection/rule/multiple-selection-rule.js \
+			 ui/selection/rule/navigation-selection-rule.js \
 			 \
 			 ui/selection/view/i-selection-view.js \
 			 ui/selection/view/abstract-selection-view.js \
@@ -115,10 +123,10 @@ TUNA_FILES = tuna.js \
 			 ui/modules/form.js \
 			 ui/modules/navigation.js \
 			 ui/modules/popup.js \
+			 ui/modules/button.js \
 			 ui/modules/popup-button.js \
 			 ui/modules/selection-group.js \
 			 ui/modules/template-transformer.js \
-			 ui/modules/control-container.js \
 			 ui/modules/button-group.js \
 			 ui/modules/swf.js \
 			 ui/modules/input-filter.js \
@@ -127,7 +135,6 @@ TUNA_FILES = tuna.js \
 			 \
 			 view/view.js \
 			 view/view-controller.js \
-			 view/navigation-view-controller.js \
 			 view/page-view-controller.js \
 			 
 

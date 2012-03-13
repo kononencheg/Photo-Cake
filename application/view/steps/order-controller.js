@@ -18,19 +18,15 @@ var OrderController = function() {
      * @private
      */
     this.__priceTransformer = null;
+
+    /**
+     * @override
+     */
+    this._modules = [ 'template-transformer', 'data-image-copy', 'datepicker',
+                      'form' ];
 };
 
 tuna.utils.extend(OrderController, tuna.view.PageViewController);
-
-/**
- * @override
- */
-OrderController.prototype._requireModules = function() {
-    this._container.requireModule('template-transformer');
-    this._container.requireModule('data-image-copy');
-    this._container.requireModule('datepicker');
-    this._container.requireModule('form');
-};
 
 /**
  * @override

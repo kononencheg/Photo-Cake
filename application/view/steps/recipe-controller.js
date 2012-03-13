@@ -40,6 +40,12 @@ var RecipeController = function() {
      * @private
      */
     this.__priceTransformer = null;
+
+    /**
+     * @override
+     */
+    this._modules = [ 'template-transformer', 'data-image-copy', 'autocomplete',
+                      'popup', 'button-group' ];
 };
 
 tuna.utils.extend(RecipeController, tuna.view.PageViewController);
@@ -54,17 +60,6 @@ RecipeController.prototype.open = function() {
     this.__priceTransformer.applyTransform(this.__order.payment.serialize());
 
     this.__cityPopup.open();
-};
-
-/**
- * @override
- */
-RecipeController.prototype._requireModules = function() {
-    this._container.requireModule('template-transformer');
-    this._container.requireModule('data-image-copy');
-    this._container.requireModule('button-group');
-    this._container.requireModule('autocomplete');
-    this._container.requireModule('popup');
 };
 
 /**
@@ -221,8 +216,7 @@ RecipeController.prototype.__loadRecipes = function() {
     tuna.rest.call('recipes.get', { 'bakery_id': bakery.id }, function(result) {
         model.recipes.setRecipes(result);
 
-        self.__recipeTransformer.applyTransform
-            (tuna.model.serializeArray(result));
+        self.__recipeTransformer.applyTransform(tuna.model.serialize(result));
 
         self.__selectRecipeWithId(result[0].id);
     }, 'recipe');

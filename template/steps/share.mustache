@@ -1,92 +1,89 @@
-<div id="share_step" data-init-event="ui-navigate"
-     class="j-button-group j-navigation-page j-control-container step row-fluid">
+<ul class="unstyled share-menu">
+    <li>
+       <img class="j-data-image-copy" alt="Загрузка тортика..." src
+            data-image-selector="#base_cake_image"
+            width="317" height="317" />
+    </li>
 
-    <ul class="unstyled share-menu">
-        <li>
-           <img class="j-data-image-copy" alt="Загрузка тортика..."
-                data-image-selector="#base_cake_image" width="317" height="317" />
-        </li>
+    {{#network}}
 
-        {{#network}}
+        {{#vk_network}}
 
-            {{#vk_network}}
+            <li>
+                <a class="j-button btn primary large"
+                   data-action="send">
+                    Запостить на стену
+                </a>
+            </li>
+            <li>
+                <a class="j-popup-button btn primary large"
+                   data-popup-id="friend_list_popup">
+                    Послать другу
+                </a>
+            </li>
 
-                <li>
-                    <a class="j-button btn primary large"
-                       data-action="send">
-                        Запостить на стену
-                    </a>
-                </li>
-                <li>
-                    <a class="j-popup-button btn primary large"
-                       data-popup-selector="#friend_list_popup">
-                        Послать другу
-                    </a>
-                </li>
+        {{/vk_network}}
 
-            {{/vk_network}}
+        {{#ok_network}}
 
-            {{#ok_network}}
+            <li>
+                <a class="j-button btn primary large" data-action="publish">
+                    Запостить в ленту
+                </a>
+            </li>
+            <li>
+                <a class="j-button btn primary large" data-action="notify">
+                    Послать другу
+                </a>
+            </li>
 
-                <li>
-                    <a class="j-button btn primary large" data-action="publish">
-                        Запостить в ленту
-                    </a>
-                </li>
-                <li>
-                    <a class="j-button btn primary large" data-action="notify">
-                        Послать другу
-                    </a>
-                </li>
+        {{/ok_network}}
 
-            {{/ok_network}}
+    {{/network}}
 
-        {{/network}}
+    <li>
+        <form action="/api/" target="_blank" method="POST">
+            <input type="hidden" name="method" value="utils.base64Echo" />
+            <input type="hidden" name="type" value="image/jpeg" />
+            <input type="hidden" name="is_downloading" value="true" />
+            <input id="download_data_input" type="hidden" name="data" />
+            <input type="submit" class="btn primary large" value="Скачать" />
+        </form>
+    </li>
+    <li>
+        <a class="j-navigation-link btn primary large"
+           data-action="back">
+            &laquo; Назад
+        </a>
+    </li>
+</ul>
 
-        <li>
-            <form action="/api/" target="_blank" method="POST">
-                <input type="hidden" name="method" value="utils.base64Echo" />
-                <input type="hidden" name="type" value="image/jpeg" />
-                <input type="hidden" name="is_downloading" value="true" />
-                <input id="download_data_input" type="hidden" name="data" />
-                <input type="submit" class="btn primary large" value="Скачать" />
-            </form>
-        </li>
-        <li>
-            <a class="j-navigation-link btn primary large"
-               data-action="back">
-                &laquo; Назад
-            </a>
-        </li>
-    </ul>
+{{#vk_network}}
 
-    {{#vk_network}}
+    <div id="friend_list_popup" class="j-input-filter hide"
+         data-template-id="friends_autocomplete_template">
 
-        <div id="friend_list_popup" class="j-input-filter hide"
-             data-template-id="friends_autocomplete_template">
-
-            <div class="modal-backdrop"></div>
-            <div class="modal">
-                <div class="modal-header friends-popup-header row-fluid">
-                    <div class="span6">
-                        <h3>Выберите кому отослать!</h3>
-                    </div>
-
-                    <div class="span5">
-                        <input class="j-filtration pull-right"
-                               type="text" placeholder="Имя друга" />
-                    </div>
+        <div class="modal-backdrop"></div>
+        <div class="modal">
+            <div class="modal-header friends-popup-header row-fluid">
+                <div class="span6">
+                    <h3>Выберите кому отослать!</h3>
                 </div>
-                <div class="modal-body friend-list-overlay">
-                    <ul class="t-friend-list friend-list unstyled"></ul>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="j-popup-close btn">Закрыть</a>
+
+                <div class="span5">
+                    <input class="j-filtration pull-right"
+                           type="text" placeholder="Имя друга" />
                 </div>
             </div>
+            <div class="modal-body friend-list-overlay">
+                <ul class="t-friend-list friend-list unstyled"></ul>
+            </div>
+            <div class="modal-footer">
+                <a class="j-popup-close btn">Закрыть</a>
+            </div>
         </div>
+    </div>
 
-    {{/vk_network}}
+{{/vk_network}}
 
-</div>
 
