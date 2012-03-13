@@ -45,7 +45,7 @@ Recipe.prototype.populate = function(data) {
     this.imageUrl = data['image_url'];
     this.desc = data['desc'];
     this.name = data['name'];
-    this.dimensionPrices = data['dimension_prices'];
+    this.dimensionPrices = data['dimension_prices'] || null;
 };
 
 /**
@@ -66,7 +66,13 @@ Recipe.prototype.serialize = function() {
  */
 Recipe.prototype.getWeightPrice = function(weight) {
     var weightKey = (weight).toString().replace('.', '_');
-    return this.dimensionPrices[weightKey]['price'];
+
+    if (this.dimensionPrices !== null &&
+        this.dimensionPrices[weightKey] !== undefined) {
+        return this.dimensionPrices[weightKey]['price'];
+    }
+
+    return -1;
 };
 
 /**

@@ -1,52 +1,72 @@
-<div class="j-navigation container-fluid">
+<div class="page-header">
+    <h1 class="page-header-title">
+        <img class="j-navigation-link page-header-logo"
+             src="/img/logo.png" alt="Фото на торте!"
+             data-href="title"/>
 
-    {{#network}}
-        <div id="app_container">
-    {{/network}}
+        <small class="page-header-subtitle">
+            Дизайнерские сладости к <br />
+            Любому празднику!
+        </small>
+    </h1>
+
 
     {{^network}}
-        <div id="site_container">
-    {{/network}}
-
-        <div class="page-header">
-            <h1 class="page-header-title">
-                <img class="j-navigation-link page-header-logo"
-                     src="/img/logo.png" alt="Фото на торте!"
-                     data-href="title_step"/>
-
-                <small class="page-header-subtitle">
-                    Дизайнерские сладости к <br />
-                    Любому празднику!
-                </small>
-            </h1>
-
-
-            {{^network}}
-
-                <div class="page-header-info-block">
-                    <div class="page-header-quality-block">
-                        <h3>Гаратния качества профессиональной кондитерской!</h3>
-                    </div>
-                    <div class="page-header-delivery-block">
-                        <h3>Бесплатная доставка, при заказе до 4 марта!</h3>
-                    </div>
-                </div>
-
-                <div class="share-block">
-                    <div class="j-yandex-share ya-share"></div>
-                    <div class="share-block-text"> +7 (812) 323-52-18 </div>
-                </div>
-            {{/network}}
-
+        <div class="page-header-info-block">
+            <div class="page-header-quality-block">
+                <h3>Гаратния качества профессиональной кондитерской!</h3>
+            </div>
+            <div class="page-header-delivery-block">
+                <!--h3>Бесплатная доставка, при заказе до 4 марта!</h3-->
+            </div>
         </div>
 
-        {{> template/steps/title    }}
-        {{> template/steps/designer }}
-        {{> template/steps/share    }}
-        {{> template/steps/recipe   }}
-        {{> template/steps/order    }}
-        {{> template/steps/result   }}
+        <div class="share-block">
+            <div class="j-yandex-share ya-share"></div>
+            <div class="share-block-text"> +7 (812) 323-52-18 </div>
+        </div>
+    {{/network}}
 
-    </div>
 </div>
+
+<div id="title_step" class="j-navigation-page j-control-container row-fluid step active"
+     data-name="title">
+    {{> template/steps/title }}
+</div>
+
+<div id="designer_step"
+     class="j-navigation-page j-control-container row-fluid step"
+     data-name="designer">
+
+    {{> template/steps/designer }}
+</div>
+
+<div id="share_step"
+     class="j-button-group j-navigation-page j-control-container step row-fluid"
+     data-name="share">
+
+    {{> template/steps/share }}
+</div>
+
+<div id="recipe_step"
+     class="j-navigation-page j-control-container row-fluid step"
+     data-name="recipe">
+
+    {{> template/steps/recipe }}
+</div>
+
+<div id="order_step"
+     class="j-navigation-page j-control-container row-fluid step"
+     data-name="order">
+
+    {{> template/steps/order }}
+</div>
+
+<div id="result_step"
+     class="j-navigation-page j-control-container step row-fluid span12"
+     data-name="result">
+
+    {{> template/steps/result }}
+</div>
+
 

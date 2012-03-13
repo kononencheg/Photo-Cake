@@ -4,6 +4,11 @@
  */
 var ShareController = function() {
     tuna.view.PageViewController.call(this);
+
+    /**
+     * @override
+     */
+    this._modules = [ 'data-image-copy' ];
 };
 
 tuna.utils.extend(ShareController, tuna.view.PageViewController);
@@ -18,13 +23,6 @@ ShareController.prototype.open = function() {
     if (currentCake !== null && downloadDataInput !== null) {
         downloadDataInput.value = currentCake.imageBase64;
     }
-};
-
-/**
- * @override
- */
-ShareController.prototype._requireModules = function() {
-    this._container.requireModule('data-image-copy');
 };
 
 tuna.view.registerController('share_step', new ShareController());

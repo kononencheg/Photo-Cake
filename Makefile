@@ -12,15 +12,6 @@ minify:
 	$(HTML_COMPRESSOR) -o public/vk.html public/vk.html ; \
 	$(HTML_COMPRESSOR) -o public/ok.html public/ok.html ; \
 
-compile: app
-	$(JS_COMPILER) --js public/js/app.js --js_output_file public/js/app.min.js
-
-compile-vk: vk
-	$(JS_COMPILER) --js public/js/vk.js --js_output_file public/js/vk.min.js
-
-compile-ok: ok
-	$(JS_COMPILER) --js public/js/ok.js --js_output_file public/js/ok.min.js
-
 #
 #   VK application
 #
@@ -32,7 +23,7 @@ html-ok: $(YAML_OK)
 				  $(addprefix $(HTML_PUBLIC_DIR), ok.html)
 
 js-ok: $(JS_OK)
-	   $(JS_COMBINER) $(addprefix --js , $^) \
+	   $(JS_COMPILER) $(addprefix --js , $^) \
 					  $(addprefix --js_output_file $(JS_PUBLIC_DIR), ok.js)
 
 #
@@ -46,7 +37,7 @@ html-vk: $(YAML_VK)
 				  $(addprefix $(HTML_PUBLIC_DIR), vk.html)
 
 js-vk: $(JS_VK)
-	   $(JS_COMBINER) $(addprefix --js , $^) \
+	   $(JS_COMPILER) $(addprefix --js , $^) \
 					  $(addprefix --js_output_file $(JS_PUBLIC_DIR), vk.js)
 
 #
@@ -60,7 +51,7 @@ html-app: $(YAML_SITE)
 				   $(addprefix $(HTML_PUBLIC_DIR), index.html)
 
 js-app: $(JS_SITE)
-		$(JS_COMBINER) $(addprefix --js , $^) \
+		$(JS_COMPILER) $(addprefix --js , $^) \
 					   $(addprefix --js_output_file $(JS_PUBLIC_DIR), app.js)
 
 css-app: $(CSS_SITE)

@@ -54,25 +54,20 @@ rest.social.ok.users = {};
 var ui = {};
 
 /**
- * Точка входа в приложение
+ *
+ * @param {!Node} body
  */
-window['main'] = function() {
-    tuna.utils.config.init(tuna.utils.decodeSearch(location.search));
-
+window['main'] = function(body) {
+    tuna.utils.config.init(tuna.net.decode(location.search.substr(1)));
     tuna.dom.setSelectorEngine($.find);
 
-    var confirmElement = tuna.dom.selectOne('#confirm_popup');
-    if (confirmElement !== null) {
-        tuna.ui.popups.registerConfirm(confirmElement);
-    }
+    tuna.ui.modules.addIsolator('j-module-container');
+    tuna.ui.popups.registerConfirm(tuna.dom.selectOne('#confirm_popup'));
+    tuna.ui.popups.registerAlert(tuna.dom.selectOne('#alert_popup'));
 
-    var alertElement = tuna.dom.selectOne('#alert_popup');
-    if (alertElement !== null) {
-        tuna.ui.popups.registerAlert(alertElement);
-    }
+    tuna.view.init(body);
 
-    tuna.view.init();
-
+    // Fucking ok!
     var args = tuna.utils.config.get('custom_args');
     if (args !== null && args.indexOf('ok_cake_url=') !== -1) {
         var url = args.split('ok_cake_url=').pop().split('&').shift();

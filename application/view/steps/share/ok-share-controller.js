@@ -13,6 +13,11 @@ var OKShareController = function() {
 
     this.__showFriendsPopup = tuna.utils.bind(this.__showFriendsPopup, this);
     this.__post = tuna.utils.bind(this.__post, this);
+
+    /**
+     * @override
+     */
+    this._modules = [ 'data-image-copy', 'button-group' ];
 };
 
 tuna.utils.extend(OKShareController, tuna.view.PageViewController);
@@ -27,14 +32,6 @@ OKShareController.prototype.open = function() {
     if (currentCake !== null && downloadDataInput !== null) {
         downloadDataInput.value = currentCake.imageBase64;
     }
-};
-
-/**
- * @override
- */
-OKShareController.prototype._requireModules = function() {
-    this._container.requireModule('data-image-copy');
-    this._container.requireModule('button-group');
 };
 
 /**
