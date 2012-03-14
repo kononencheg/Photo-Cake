@@ -8,14 +8,25 @@
         <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     </head>
     <body id="{{#network}}app_container{{/network}}{{^network}}site_container{{/network}}"
-          class="j-navigation container-fluid">
+          class="j-template-transformer j-navigation container-fluid"
+          data-name="current-bakery"
+          data-template-id="current_bakery_template">
 
         {{> template/body }}
 
         {{> template/support }}
 
-        <div class="hide">
-            {{> template/templates   }}
+        <div class="j-control-container hide">
+            {{> template/templates }}
+
+            <tuna:template id="current_bakery_template">
+                <tuna:spot tuna:target="t-bakery-city" tuna:path="city/name" />
+
+                <tuna:if tuna:path="isNative" tuna:eq="true" tuna:class="hide"
+                         tuna:target="t-bakery-is-native"/>
+
+            </tuna:template>
+
         </div>
 
         <script type="text/javascript" src="/js/swfobject.js"></script>
@@ -39,8 +50,8 @@
         {{/network}}
 
 
-        {{> template/counters/ya }}
-        {{> template/counters/li }}
+        {{!> template/counters/ya }}
+        {{!> template/counters/li }}
 
     </body>
 </html>

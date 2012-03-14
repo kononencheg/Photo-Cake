@@ -42,7 +42,7 @@ OrderController.prototype._initActions = function() {
 
     this.__form = this._container.getOneModuleInstance('form');
     this.__form.addEventListener('result', function() {
-        self._navigation.navigate('result_step');
+        self._navigation.navigate('result');
     });
 };
 

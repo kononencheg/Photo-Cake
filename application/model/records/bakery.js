@@ -1,23 +1,41 @@
 /**
  * @extends {tuna.model.Record}
+ * @param {Object=} data
  * @constructor
  */
-var Bakery = function() {
+var Bakery = function(data) {
 
     /**
      * @type {string}
      */
-    this.id = '';
+    this.name = '';
 
     /**
-     * @type {string}
+     * @type string
      */
-    this.city = '';
+    this.email = '';
 
     /**
-     * @type {number}
+     * @type model.records.City
+     */
+    this.city = null;
+
+    /**
+     * @type number
      */
     this.deliveryPrice = 0;
+
+    /**
+     * @type {Array.<string>}
+     */
+    this.dimensionIds = null;
+
+    /**
+     * @type {boolean}
+     */
+    this.isNative = false;
+
+    tuna.model.Record.call(this, data);
 };
 
 tuna.utils.extend(Bakery, tuna.model.Record);
@@ -27,8 +45,11 @@ tuna.utils.extend(Bakery, tuna.model.Record);
  */
 Bakery.prototype.populate = function(data) {
     this.id = data['id'];
-    this.city = data['city']['name'];
+    this.name = data['name'];
+    this.email = data['email'];
+    this.city = new model.records.City(data['city']);
     this.deliveryPrice = data['delivery_price'];
+    this.dimensionIds = data['available_dimension_ids'];
 };
 
 /**
@@ -37,7 +58,8 @@ Bakery.prototype.populate = function(data) {
 Bakery.prototype.serialize = function() {
     return {
         'id': this.id,
-        'city': this.city
+        'city': this.city.serialize(),
+        'isNative': this.isNative
     };
 };
 

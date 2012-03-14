@@ -82,8 +82,8 @@ RecipeController.prototype._initActions = function() {
 
     var self = this;
 
-    tuna.rest.call('users.getBakeries', null, function(result) {
-        model.bakeries.setBakeries(result);
+    /*tuna.rest.call('users.getBakeries', null, function(result) {
+        //model.bakeries.setBakeries(result);
 
         self.__cityAutocomplete.setData(result);
 
@@ -92,7 +92,7 @@ RecipeController.prototype._initActions = function() {
             self.__cityAutocomplete.selectValue(user.city);
         }
 
-    }, 'bakery');
+    }, 'bakery');*/
 
 };
 
@@ -111,7 +111,7 @@ RecipeController.prototype.__initCityPopup = function() {
          * @return {string}
          */
         function(bakery) {
-            return bakery.city;
+            return bakery.city.name;
         }
     );
 

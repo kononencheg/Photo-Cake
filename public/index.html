@@ -8,7 +8,9 @@
         <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     </head>
     <body id="site_container"
-          class="j-navigation container-fluid">
+          class="j-template-transformer j-navigation container-fluid"
+          data-name="current-bakery"
+          data-template-id="current_bakery_template">
 
         <div class="page-header">
             <h1 class="page-header-title">
@@ -22,15 +24,25 @@
                 </small>
             </h1>
         
+            <div class="page-header-info-block"
+                 data-name="current-city"
+                 data-template-id="current_city_template">
         
-                <div class="page-header-info-block">
-                    <div class="page-header-quality-block">
-                        <h3>Гаратния качества профессиональной кондитерской!</h3>
-                    </div>
-                    <div class="page-header-delivery-block">
-                        <!--h3>Бесплатная доставка, при заказе до 4 марта!</h3-->
-                    </div>
+                <div class="page-header-quality-block">
+                    <h3>Гаратния качества профессиональной кондитерской!</h3>
                 </div>
+                <div class="page-header-delivery-block">
+                    <h3>
+                        Город:
+        
+                        <a class="t-bakery-city j-popup-button"
+                           data-name="city-popup"
+                           data-popup-id="city_popup">...</a>
+        
+                        <sup class="t-bakery-is-native">*</sup>
+                    </h3>
+                </div>
+            </div>
         
                 <div class="share-block">
                     <div class="j-yandex-share ya-share"></div>
@@ -494,40 +506,6 @@
                 </div>
             </div>
             
-            <div class="j-popup j-autocomplete hide"
-                 data-name="city-popup"
-                 data-template-id="city_autocomplete_template">
-            
-                 <div class="modal-backdrop"></div>
-                 <div class="modal">
-                     <div class="modal-header">
-                         <h3>Где вам нужен торт?</h3>
-                     </div>
-                     <div class="modal-body">
-                        <div class="input clearfix">
-                            <div class="input-append ">
-                                <input id="city_search" type="text"
-                                       class="j-filtration" />
-            
-                                <label for="city_search" class="add-on btn">v</label>
-                            </div>
-                        </div>
-            
-                        <ul class="j-autocomplete-body t-city-list unstyled hide"></ul>
-            
-                        <div class="help-block">
-                            * - если в списке нету вашего города, значит мы
-                            не можем доставить туда тортик.
-                        </div>
-                     </div>
-                     <div class="modal-footer">
-                         <a id="city_ok_button"  class="j-popup-apply btn primary disabled">ОК</a>
-                         <a  class="j-navigation-link j-popup-close btn"
-                            data-action="back">Назад</a>
-                     </div>
-                 </div>
-            </div>
-            
             <div class="j-template-transformer j-popup hide"
                  data-name="recipe-popup"
                  data-template-id="recipe_template">
@@ -771,8 +749,53 @@
             </ul>
         </div>
         
+        <div id="city_popup" class="j-autocomplete hide"
+             data-name="city-popup"
+             data-template-id="city_autocomplete_template">
         
-
+            <div class="modal-backdrop"></div>
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Где вам нужен торт?</h3>
+                </div>
+                <div class="modal-body">
+        
+                    <div class="input clearfix">
+                        <div class="input-append ">
+                            <input id="city_search" type="text"
+                                   class="j-filtration" />
+        
+                            <label for="city_search" class="add-on btn">v</label>
+                        </div>
+                    </div>
+        
+                    <ul class="j-autocomplete-body t-city-list unstyled hide"></ul>
+        
+                    <div class="help-block">
+                        * - если в списке нету вашего города, значит мы
+                        не можем доставить туда тортик.
+                    </div>
+        
+                </div>
+                <div class="modal-footer">
+                    <a class="j-popup-close btn">Отмена</a>
+                    <a class="j-popup-apply btn primary">OK</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="j-control-container hide">
+            <tuna:template id="city_autocomplete_template">
+                <tuna:list tuna:target="t-city-list" tuna:path=""
+                           tuna:item-renderer-id="city_item_renderer"
+                           tuna:item-template-id="city_item_template"
+                           tuna:key-path="$key" />
+            </tuna:template>
+        
+            <tuna:template id="city_item_template">
+                <tuna:spot tuna:target="t-name" tuna:path="name" />
+            </tuna:template>
+        </div>
         <iframe id="support_frame" name="support_frame" class="hide"
                         width="0" height="0"></iframe>
         
@@ -798,7 +821,7 @@
                 </div>
             </div>
         </div>
-        <div class="hide">
+        <div class="j-control-container hide">
             <!-- Common -->
             
             <tuna:template id="cake_template">
@@ -869,17 +892,6 @@
                            tuna:key-path="$key" />
             </tuna:template>
             
-            <tuna:template id="city_autocomplete_template">
-                <tuna:list tuna:target="t-city-list" tuna:path=""
-                           tuna:item-renderer-id="city_item_renderer"
-                           tuna:item-template-id="city_item_template"
-                           tuna:key-path="$key" />
-            </tuna:template>
-            
-            <tuna:template id="city_item_template">
-                <tuna:spot tuna:target="t-name" tuna:path="city" />
-            </tuna:template>
-            
             
             <select>
                 <option id="option_renderer" class="t-option"></option>
@@ -925,6 +937,15 @@
             
             </tuna:template>
             
+
+            <tuna:template id="current_bakery_template">
+                <tuna:spot tuna:target="t-bakery-city" tuna:path="city/name" />
+
+                <tuna:if tuna:path="isNative" tuna:eq="true" tuna:class="hide"
+                         tuna:target="t-bakery-is-native"/>
+
+            </tuna:template>
+
         </div>
 
         <script type="text/javascript" src="/js/swfobject.js"></script>
@@ -942,30 +963,6 @@
             </script>
 
 
-        <center><p><small>Виссер Ольга Петровна ОГРНИП 308470731200082</small></p></center>
-        <!-- Yandex.Metrika counter -->
-        <div style="display:none;">
-            <script type="text/javascript">
-        (function(w, c) {
-            (w[c] = w[c] || []).push(function() {
-                try {
-                    w.yaCounter12630325 = new Ya.Metrika({id:12630325, enableAll: true, webvisor:true});
-                }
-                catch(e) { }
-            });
-        })(window, "yandex_metrika_callbacks");
-        </script></div>
-        <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-        <noscript><div><img src="//mc.yandex.ru/watch/12630325" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <!-- /Yandex.Metrika counter -->        <!--LiveInternet counter--><script type="text/javascript">
-        document.write("<a class='hide' href='http://www.liveinternet.ru/click' "+
-        "target=_blank><img src='//counter.yadro.ru/hit?t44.1;r"+
-        escape(document.referrer)+((typeof(screen)=="undefined")?"":
-        ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
-        screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
-        ";"+Math.random()+
-        "' alt='' title='LiveInternet' "+
-        "border='0' width='31' height='31'><\/a>")
-        </script><!--/LiveInternet-->
+
     </body>
 </html>
