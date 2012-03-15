@@ -7,44 +7,15 @@ var DesignerController = function() {
 
     /**
      * @private
-     * @type ?tuna.ui.ModuleInstance|?tuna.ui.flash.SWF
+     * @type tuna.ui.ModuleInstance|tuna.ui.flash.SWF
      */
     this.__designerSWF = null;
 
     /**
-     *
-     * @type Array.<number>
      * @private
+     * @type ?tuna.ui.ModuleInstance|ui.DataImage
      */
-    this.__weightsList = [];
-
-    /**
-     *
-     * @type Array.<number>
-     * @private
-     */
-    this.__ratioList =[];
-
-    /**
-     *
-     * @type Array.<number>
-     * @private
-     */
-    this.__personsList = [];
-
-    /**
-     *
-     * @type boolean
-     * @private
-     */
-    this.__isDesignerReady = false;
-
-    /**
-     *
-     * @type boolean
-     * @private
-     */
-    this.__isDimensionsLoaded = false;
+    this.__cakeImage = null;
 
     /**
      *
@@ -59,6 +30,11 @@ var DesignerController = function() {
      * @private
      */
     this.__cakePreset = null;
+
+    /**
+     * @override
+     */
+    this._modules = [ 'data-image', 'swf' ];
 };
 
 tuna.utils.extend(DesignerController, tuna.view.PageViewController);
@@ -68,16 +44,16 @@ tuna.utils.extend(DesignerController, tuna.view.PageViewController);
  */
 var DECO_SELECTORS = [
     { "deco": [
-        { "url" : "/img/deco/cherry.png", "autorotate":true, "name" : "cherry", "description" : "Вишня"},
-        { "url" : "/img/deco/grape.png", "autorotate":true, "name" : "grape", "description" : "Виноград"},
-        { "url" : "/img/deco/kiwi.png", "autorotate":true, "name" : "kiwi", "description" : "Киви"},
-        { "url" : "/img/deco/raspberry.png", "autorotate":true, "name" : "raspberry", "description" : "Малина"},
-        { "url" : "/img/deco/strawberry.png", "autorotate":true, "name" : "strawberry", "description" : "Клубника"},
-        { "url" : "/img/deco/orange.png", "autorotate":true, "name" : "orange", "description" : "Апельсин"},
-        { "url" : "/img/deco/blueberry.png", "autorotate":true, "name" : "blueberry", "description" : "Черника"},
-        { "url" : "/img/deco/currant.png", "autorotate":true, "name" : "currant", "description" : "Смородина"},
-        { "url" : "/img/deco/peach.png", "autorotate":true, "name" : "peach", "description" : "Персик"},
-        { "url" : "/img/deco/lemon.png", "autorotate":true, "name" : "lemon", "description" : "Лимон"},
+        { "url" : "/img/deco/cherry.png", "autorotate":true, "name" : "cherry", "description" : "Вишня" },
+        { "url" : "/img/deco/grape.png", "autorotate":true, "name" : "grape", "description" : "Виноград" },
+        { "url" : "/img/deco/kiwi.png", "autorotate":true, "name" : "kiwi", "description" : "Киви" },
+        { "url" : "/img/deco/raspberry.png", "autorotate":true, "name" : "raspberry", "description" : "Малина" },
+        { "url" : "/img/deco/strawberry.png", "autorotate":true, "name" : "strawberry", "description" : "Клубника" },
+        { "url" : "/img/deco/orange.png", "autorotate":true, "name" : "orange", "description" : "Апельсин" },
+        { "url" : "/img/deco/blueberry.png", "autorotate":true, "name" : "blueberry", "description" : "Черника" },
+        { "url" : "/img/deco/currant.png", "autorotate":true, "name" : "currant", "description" : "Смородина" },
+        { "url" : "/img/deco/peach.png", "autorotate":true, "name" : "peach", "description" : "Персик" },
+        { "url" : "/img/deco/lemon.png", "autorotate":true, "name" : "lemon", "description" : "Лимон" },
         { "url" : "/img/deco/physalis.png", "autorotate":false, "name" : "physalis", "description" : "Физалис" }
     ]},
     { "deco": [
@@ -114,58 +90,86 @@ var DECO_SELECTORS = [
     ]}
 ];
 
-/**
- * @override
- */
-DesignerController.prototype._requireModules = function() {
-   this._container.requireModule('data-image');
-   this._container.requireModule('swf');
-};
 
 /**
  * @override
  */
 DesignerController.prototype._initActions = function() {
-    this.__designerSWF = this._container.getOneModuleInstance('swf');
-
     var self = this;
-    tuna.rest.call('dimensions.get', null, function(result) {
-        var i = 0,
-            l = result.length;
 
-        var dimension = null;
-        while (i < l) {
-            dimension = result[i];
-            if (dimension.shape === 'round') {
-                self.__weightsList.push(dimension['weight']);
-                self.__ratioList.push(dimension['ratio']);
-                self.__personsList.push(dimension['persons_count']);
-            }
+    this.__designerSWF = this._container.getModuleInstanceByName
+        ('swf', 'cake-designer');
 
-            i++;
-        }
-
-        self .__isDimensionsLoaded = true;
-        if (self.__isDesignerReady) {
-            self.__initDesigner();
-        }
+    model.currentBakery.addEventListener('update', function(event, bakery) {
+        model.dimensions.load({ 'bakery_id': bakery.id });
     });
+
+    model.dimensions.addEventListener('update', function(event, dimensions) {
+        self.__designerSWF.reset();
+    });
+
+    var bakery = model.currentBakery.get();
+    if (bakery !== null) {
+        model.dimensions.load({ 'bakery_id': bakery.id });
+    }
 };
 
 /**
  * @private
  */
 DesignerController.prototype.__initDesigner = function() {
-    this.__movie = this.__designerSWF.getMovie();
+    var weightsList = [];
+    var ratiosList  = [];
+    var personsList = [];
 
-    this.__movie['initialize'](JSON.stringify({
-        'weightsList': this.__weightsList,
-        'ratiosList': this.__ratioList,
-        'personsList': this.__personsList,
-        'decoSelectors': DECO_SELECTORS
-    }), 'round', 0.6);
+    model.dimensions.each(function(dimension) {
+        tuna.utils.indexOf(dimension.weight, weightsList) === -1 &&
+            weightsList.push(dimension.weight);
 
+        tuna.utils.indexOf(dimension.ratio, ratiosList) === -1 &&
+            ratiosList.push(dimension.ratio);
 
+        tuna.utils.indexOf(dimension.personsCount, personsList) === -1 &&
+            personsList.push(dimension.personsCount);
+    });
+
+    if (ratiosList.length > 0) {
+        this.__movie['initialize'](JSON.stringify({
+            'weightsList': weightsList,
+            'ratiosList': ratiosList,
+            'personsList': personsList,
+            'decoSelectors': DECO_SELECTORS
+        }), 'round', ratiosList[0]);
+    }
+};
+
+/**
+ *
+ * @param {string} shape
+ */
+DesignerController.prototype.confirmShapeChange = function(shape) {
+    var self = this;
+
+    debugger;
+
+    var weight = this.__movie['getCakeWeight']();
+    var dimensions = model.dimensions.find(function(dimension) {
+        return dimension.weight === weight &&
+               dimension.shape === shape;
+    });
+
+    debugger;
+
+    if (dimensions.length > 0) {
+        tuna.ui.popups.confirm(
+            'При изменении формы торта, все оформление будет утеряно!',
+            function(result) {
+                result && self.__movie['changeShape'](shape);
+            }
+        );
+    } else {
+        tuna.ui.popups.alert('Данная форма недоступна для выбранного веса!');
+    }
 };
 
 /**
@@ -181,41 +185,43 @@ DesignerController.prototype.onDecoElementsLoaded = function() {
  *
  */
 DesignerController.prototype.onFlashReady = function() {
-    this.__isDesignerReady = true;
-    if (this.__isDimensionsLoaded) {
-        this.__initDesigner();
-    }
+    this.__movie = this.__designerSWF.getMovie();
+    this.__initDesigner();
 };
 
 /**
- *
- * @param {string} shape
+ * @override
  */
-DesignerController.prototype.confirmShapeChange = function(shape) {
-    var self = this;
+DesignerController.prototype.canClose = function(nextStep) {
+    if (this.__movie !== null) {
+        var data = this.__movie['getCakeData']();
 
-    tuna.ui.popups.confirm(
-        'При изменении формы торта, все оформление будет утеряно!',
-        function(result) {
-            if (result) {
-                self.__movie['changeShape'](shape);
-            }
+        if (nextStep === 'order') {
+            tuna.rest.call('cakes.add', data, function(cake) {
+                model.currentCake.set(cake);
+            }, 'cake');
         }
-    );
+
+        if (this.__cakeImage === null) {
+            this.__cakeImage = this._container.getModuleInstanceByName
+                ('data-image', 'cake-image');
+        }
+
+        this.__cakeImage.setData(data['image']);
+
+        return true;
+    }
+
+    return false;
 };
 
 /**
  * @override
  */
-DesignerController.prototype.canClose = function() {
-    return this.__movie !== null;
-};
+DesignerController.prototype.open = function(data) {
+    var cake = model.cakes.getItemById(data['cake-id']);
 
-/**
- * @override
- */
-DesignerController.prototype.open = function(cake) {
-    if (cake !== null && cake.markup !== undefined) {
+    if (cake !== null) {
         if (this.__movie === null) {
             this.__cakePreset = cake.markup;
         } else {
@@ -230,15 +236,14 @@ DesignerController.prototype.open = function(cake) {
  * @override
  */
 DesignerController.prototype.close = function() {
-    var data = this.__movie['getCakeData']();
 
-    var cake = model.cakes.createCake
+
+    /*var cake = model.cakes.createCake
         (data.shift(), data.shift(), data.shift());
 
-    var cakeDataImage = this._container.getOneModuleInstance('data-image');
-    cakeDataImage.setData(cake.imageBase64);
 
-    model.cakes.setCurrentCake(cake);
+
+    model.cakes.setCurrentCake(cake);*/
 };
 
 /**

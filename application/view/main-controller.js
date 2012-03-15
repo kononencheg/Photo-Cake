@@ -9,7 +9,7 @@ var MainController = function() {
      * @override
      */
     this._modules = [ 'navigation', 'popup-button', 'template-transformer',
-        'autocomplete', 'yandex-share' ]
+                      'autocomplete', 'yandex-share' ]
 };
 
 tuna.utils.extend(MainController, tuna.view.ViewController);
@@ -20,9 +20,9 @@ tuna.utils.extend(MainController, tuna.view.ViewController);
 MainController.prototype._initActions = function() {
     var self = this;
 
-    tuna.rest.call('social.users.getCurrent', null, function(user) {
-        model.users.setCurrentUser(user);
-    });
+    //tuna.rest.call('social.users.getCurrent', null, function(user) {
+    //    model.users.setCurrentUser(user);
+    //});
 
     var cityAutocomplete = this._container.getModuleInstanceByName
         ('autocomplete', 'city-popup');
@@ -48,7 +48,6 @@ MainController.prototype._initActions = function() {
 
     model.currentBakery.addEventListener('update', function(event, bakery) {
         bakeryTransformer.applyTransform(tuna.model.serialize(bakery));
-        cityAutocomplete.selectValue(bakery.city.name);
     });
 
     model.cities.addEventListener('update', function(event, cities) {
@@ -56,12 +55,14 @@ MainController.prototype._initActions = function() {
     });
 
     tuna.rest.call('cities.getCurrent', null, function(city) {
+        var listener = function() {
+            model.bakeries.removeEventListener('update', listener);
 
-        model.bakeries.addEventListener('update', function() {
             var ids = [];
-            var cities = model.bakeries.map(function(bakery) {
-                var id = bakery.city.id;
+            model.cities.set(model.bakeries.map(function(bakery) {
+                bakery.isNative = bakery.city.name === city.name;
 
+                var id = bakery.city.id;
                 if (tuna.utils.indexOf(id, ids) === -1) {
                     ids.push(id);
 
@@ -69,14 +70,14 @@ MainController.prototype._initActions = function() {
                 }
 
                 return null;
-            });
-
-            model.cities.set(cities);
+            }));
 
             self.__updateCurrentBakery(city);
-        });
+        };
 
+        model.bakeries.addEventListener('update', listener);
         model.bakeries.load();
+
     }, 'city');
 };
 
@@ -87,8 +88,7 @@ MainController.prototype._initActions = function() {
  */
 MainController.prototype.__updateCurrentBakery = function(city) {
     var bakeries = model.bakeries.find(function(bakery) {
-        bakery.isNative = bakery.city.name === city.name;
-        return bakery.isNative;
+        return bakery.city.name === city.name;
     });
 
     if (bakeries.length === 0) {

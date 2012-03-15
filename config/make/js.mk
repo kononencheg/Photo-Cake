@@ -151,14 +151,9 @@ APPLICATION_FILES = main.js \
 					rest/common-method.js \
 					rest/common-factory.js \
 					\
-					model/cakes.js \
-					model/orders.js \
-					model/recipes.js \
-					model/users.js \
-					\
+					model/records/dimension.js \
 					model/records/city.js \
 					model/records/bakery.js \
-					model/records/raw-cake.js \
 					model/records/cake.js \
 					model/records/order.js \
 					model/records/payment.js \
@@ -170,9 +165,10 @@ APPLICATION_FILES = main.js \
 					\
 					view/steps/title-controller.js \
 					view/steps/designer-controller.js \
-					view/steps/recipe-controller.js \
 					view/steps/order-controller.js \
-					view/steps/result-controller.js	\
+
+					#view/steps/recipe-controller.js \
+					#view/steps/result-controller.js	\
 
 
 SITE_FILES = view/steps/share/share-controller.js \

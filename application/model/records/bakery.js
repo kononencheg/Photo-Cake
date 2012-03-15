@@ -59,7 +59,8 @@ Bakery.prototype.serialize = function() {
     return {
         'id': this.id,
         'city': this.city.serialize(),
-        'isNative': this.isNative
+        'isNative': this.isNative,
+        'deliveryPrice': this.deliveryPrice
     };
 };
 

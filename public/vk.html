@@ -8,7 +8,9 @@
         <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     </head>
     <body id="app_container"
-          class="j-navigation container-fluid">
+          class="j-template-transformer j-navigation container-fluid"
+          data-name="current-bakery"
+          data-template-id="current_bakery_template">
 
         <div class="page-header">
             <h1 class="page-header-title">
@@ -22,6 +24,25 @@
                 </small>
             </h1>
         
+            <div class="page-header-info-block"
+                 data-name="current-city"
+                 data-template-id="current_city_template">
+        
+                <div class="page-header-quality-block">
+                    <h3>Гаратния качества профессиональной кондитерской!</h3>
+                </div>
+                <div class="page-header-delivery-block">
+                    <h3>
+                        Город:
+        
+                        <a class="t-bakery-city j-popup-button"
+                           data-name="city-popup"
+                           data-popup-id="city_popup">...</a>
+        
+                        <sup class="t-bakery-is-native">*</sup>
+                    </h3>
+                </div>
+            </div>
         
         
         </div>
@@ -58,11 +79,49 @@
                     </div>                </div>
             
                 <div class="span7">
-                    <ul class="j-template-transformer j-button-group
-                               t-cake-list cake-list thumbnails"
+                    <ul class="j-template-transformer t-cake-list cake-list thumbnails"
                         data-name="cake-list"
                         data-template-id="cake_list_template"></ul>
-                </div>
+                    
+                    <div class="j-control-container hide">
+                        <tuna:template id="cake_list_template">
+                    
+                            <tuna:list tuna:target="t-cake-list" tuna:path=""
+                                       tuna:item-renderer-id="cake_list_item_renderer"
+                                       tuna:item-template-id="cake_template"
+                                       tuna:key-path="$key" />
+                    
+                        </tuna:template>
+                    
+                        <tuna:template id="cake_template">
+                            <tuna:attr tuna:target="t-cake-image" tuna:path="imageUrl" tuna:name="src"/>
+                            <tuna:attr tuna:target="t-cake-id" tuna:path="id" tuna:name="data-cake-id"/>
+                    
+                            <tuna:spot tuna:target="t-cake-weight" tuna:path="weight" />
+                            <tuna:spot tuna:target="t-cake-persons" tuna:path="personsCount" />
+                        </tuna:template>
+                    
+                        <ul>
+                            <li id="cake_list_item_renderer" >
+                                <div class="thumbnail">
+                                    <div class="cake-image-box">
+                                        <img class="j-navigation-link t-cake-image t-cake-id"
+                                             alt="Тортик" width="110" height="110"
+                                             data-href="designer" />
+                                    </div>
+                    
+                                    <div class="cake-info">
+                                        <span class="t-cake-weight"></span> кг.
+                                        <span class="j-navigation-link t-cake-id
+                                                     btn small pull-right primary"
+                                              data-href="designer">
+                                            Хочу!
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>                </div>
             
                 <div class="cake-gallery-title">
                     <h3 class="pull-left">Галерея тортиков <small>(наведите мышку)</small></h3>
@@ -270,6 +329,7 @@
             <div class="span12 row-fluid">
                 <div class="span12">
                     <div class="j-swf"
+                         data-name="cake-designer" data-not-init
                          data-width="650" data-height="630"
                          data-src="/swf/cake-designer.swf">
             
@@ -283,7 +343,7 @@
                         </a>
             
                         <a class="j-navigation-link btn primary large next-btn"
-                           data-href="recipe">
+                           data-href="order">
                             Заказать реальный тортик
                         </a>
                     </div>
@@ -291,7 +351,7 @@
             </div>
             
             <div class="hide">
-                <img id="base_cake_image" class="j-data-image" src alt />
+                <img id="base_cake_image" class="j-data-image" data-name="cake-image" />
             </div>
         </div>
         
@@ -301,7 +361,8 @@
         
             <ul class="unstyled share-menu">
                 <li>
-                   <img class="j-data-image-copy" alt="Загрузка тортика..." src
+                   <img class="j-data-image-copy" alt="Загрузка тортика..."
+                        data-name="cake-image"
                         data-image-selector="#base_cake_image"
                         width="317" height="317" />
                 </li>
@@ -370,112 +431,27 @@
             
         </div>
         
-        <div id="recipe_step"
+        <div id="order_step"
              class="j-navigation-page j-control-container row-fluid step"
-             data-name="recipe">
+             data-name="order">
         
-            <div class="span12 row-fluid">
-                <div class="span5 cake-info">
-                    <div class="j-template-transformer cake-weight"
-                         data-name="cake-info"
-                         data-template-id="cake_template">
+            <div class="j-template-transformer j-popup hide"
+                 data-name="recipes-list"
+                 data-template-id="recipe_list_template">
             
-                        <h3>
-                            Вес торта:
-                            <small>
-                                <span class="t-cake-weight">0</span> кг.
-                            </small>
-                        </h3>
-            
-                        <span class="pull-right">
-                            <i class="ico ico-persons"></i>
-                            <span class="t-cake-persons ico-super"></span>
-                        </span>
+                <div class="modal-backdrop"></div>
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3>Выбор рецепта торта</h3>
                     </div>
-            
-                    <div class="cake-image">
-                        <img class="j-data-image-copy" alt="Загрузка тортика..." src
-                             data-image-selector="#base_cake_image" />
+                    <div class="modal-body">
+                        <ul class="t-recipes-list recipes-list thumbnails"></ul>
                     </div>
-            
-                    <div class="j-template-transformer cake-price"
-                         data-name="price-info"
-                         data-template-id="price_template">
-            
-                        <h3>Цена</h3>
-            
-                        <table class="table table-condensed">
-                            <tr>
-                                <th>Оформление: </th>
-                                <td><span class="t-deco-price">0</span> рублей</td>
-                            </tr>
-                            <tr>
-                                <th>Рецепт: </th>
-                                <td><span class="t-recipe-price">0</span> рублей</td>
-                            </tr>
-                            <tr>
-                                <th>Доставка: </th>
-                                <td><span class="t-delivery-price">0</span> рублей</td>
-                            </tr>
-                            <tr>
-                                <th>Итого: </th>
-                                <td><span class="t-total-price">0</span> рублей</td>
-                            </tr>
-                        </table>
+                    <div class="modal-footer">
+                        <a  class="j-popup-apply btn primary">Выбрать</a>
+                        <a  class="j-popup-close btn">Отмена</a>
                     </div>
                 </div>
-            
-                <div class="j-template-transformer j-button-group span7"
-                     data-name="recipes-list"
-                     data-template-id="recipe_list_template">
-            
-                    <ul class="t-recipes-list recipes-list thumbnails"></ul>
-            
-                    <div class="recipe-navigation">
-                      <a class="j-navigation-link btn primary large"
-                         data-action="back">
-                          &laquo; Назад
-                      </a>
-                      <a class="j-navigation-link btn primary large pull-right"
-                         data-href="order">
-                          Далее &raquo;
-                      </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="j-popup j-autocomplete hide"
-                 data-name="city-popup"
-                 data-template-id="city_autocomplete_template">
-            
-                 <div class="modal-backdrop"></div>
-                 <div class="modal">
-                     <div class="modal-header">
-                         <h3>Где вам нужен торт?</h3>
-                     </div>
-                     <div class="modal-body">
-                        <div class="input clearfix">
-                            <div class="input-append ">
-                                <input id="city_search" type="text"
-                                       class="j-filtration" />
-            
-                                <label for="city_search" class="add-on btn">v</label>
-                            </div>
-                        </div>
-            
-                        <ul class="j-autocomplete-body t-city-list unstyled hide"></ul>
-            
-                        <div class="help-block">
-                            * - если в списке нету вашего города, значит мы
-                            не можем доставить туда тортик.
-                        </div>
-                     </div>
-                     <div class="modal-footer">
-                         <a id="city_ok_button"  class="j-popup-apply btn primary disabled">ОК</a>
-                         <a  class="j-navigation-link j-popup-close btn"
-                            data-action="back">Назад</a>
-                     </div>
-                 </div>
             </div>
             
             <div class="j-template-transformer j-popup hide"
@@ -500,17 +476,6 @@
                         <a  class="j-popup-close btn">Закрыть</a>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <div id="order_step"
-             class="j-navigation-page j-control-container row-fluid step"
-             data-name="order">
-        
-            
-            
-            <div class="span12">
-                <h2>Оформление заказа!</h2>
             </div>
             
             <form class="j-template-transformer j-form form-horizontal"
@@ -721,8 +686,53 @@
             </ul>
         </div>
         
+        <div id="city_popup" class="j-autocomplete hide"
+             data-name="city-popup"
+             data-template-id="city_autocomplete_template">
         
-
+            <div class="modal-backdrop"></div>
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Где вам нужен торт?</h3>
+                </div>
+                <div class="modal-body">
+        
+                    <div class="input clearfix">
+                        <div class="input-append ">
+                            <input id="city_search" type="text"
+                                   class="j-filtration" />
+        
+                            <label for="city_search" class="add-on btn">v</label>
+                        </div>
+                    </div>
+        
+                    <ul class="j-autocomplete-body t-city-list unstyled hide"></ul>
+        
+                    <div class="help-block">
+                        * - если в списке нету вашего города, значит мы
+                        не можем доставить туда тортик.
+                    </div>
+        
+                </div>
+                <div class="modal-footer">
+                    <a class="j-popup-close btn">Отмена</a>
+                    <a class="j-popup-apply btn primary">OK</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="j-control-container hide">
+            <tuna:template id="city_autocomplete_template">
+                <tuna:list tuna:target="t-city-list" tuna:path=""
+                           tuna:item-renderer-id="city_item_renderer"
+                           tuna:item-template-id="city_item_template"
+                           tuna:key-path="$key" />
+            </tuna:template>
+        
+            <tuna:template id="city_item_template">
+                <tuna:spot tuna:target="t-name" tuna:path="name" />
+            </tuna:template>
+        </div>
         <iframe id="support_frame" name="support_frame" class="hide"
                         width="0" height="0"></iframe>
         
@@ -748,16 +758,8 @@
                 </div>
             </div>
         </div>
-        <div class="hide">
+        <div class="j-control-container hide">
             <!-- Common -->
-            
-            <tuna:template id="cake_template">
-                <tuna:attr tuna:target="t-cake-image" tuna:path="imageUrl" tuna:name="src"/>
-                <tuna:attr tuna:target="t-cake-id" tuna:path="id" tuna:name="data-cake-id"/>
-            
-                <tuna:spot tuna:target="t-cake-weight" tuna:path="weight" />
-                <tuna:spot tuna:target="t-cake-persons" tuna:path="personsCount" />
-            </tuna:template>
             
             <tuna:template id="price_template">
                 <tuna:spot tuna:target="t-total-price"    tuna:path="totalPrice" />
@@ -780,35 +782,7 @@
             
             <!-- Title -->
             
-            <tuna:template id="cake_list_template">
             
-                <tuna:list tuna:target="t-cake-list" tuna:path=""
-                           tuna:item-renderer-id="cake_list_item_renderer"
-                           tuna:item-template-id="cake_template"
-                           tuna:key-path="$key" />
-            
-            </tuna:template>
-            
-            <ul>
-                <li id="cake_list_item_renderer" >
-                    <div class="thumbnail">
-                        <div class="cake-image-box">
-                            <img class="t-cake-image t-cake-id j-button" src
-                                 alt="Тортик" width="110" height="110"
-                                 data-action="buy" />
-                        </div>
-            
-                        <div class="cake-info">
-                            <span class="t-cake-weight"></span> кг.
-                                <span class="t-cake-id j-button
-                                             btn small pull-right primary"
-                                      data-action="buy">
-                                    Хочу!
-                                </span>
-                        </div>
-                    </div>
-                </li>
-            </ul>
             
             <!-- Recipes -->
             
@@ -817,17 +791,6 @@
                            tuna:item-renderer-id="recipe_list_item_renderer"
                            tuna:item-template-id="recipe_template"
                            tuna:key-path="$key" />
-            </tuna:template>
-            
-            <tuna:template id="city_autocomplete_template">
-                <tuna:list tuna:target="t-city-list" tuna:path=""
-                           tuna:item-renderer-id="city_item_renderer"
-                           tuna:item-template-id="city_item_template"
-                           tuna:key-path="$key" />
-            </tuna:template>
-            
-            <tuna:template id="city_item_template">
-                <tuna:spot tuna:target="t-name" tuna:path="city" />
             </tuna:template>
             
             
@@ -907,6 +870,15 @@
                     </li>
                 </ul>
             
+
+            <tuna:template id="current_bakery_template">
+                <tuna:spot tuna:target="t-bakery-city" tuna:path="city/name" />
+
+                <tuna:if tuna:path="isNative" tuna:eq="true" tuna:class="hide"
+                         tuna:target="t-bakery-is-native"/>
+
+            </tuna:template>
+
         </div>
 
         <script type="text/javascript" src="/js/swfobject.js"></script>
@@ -931,30 +903,6 @@
 
 
 
-        <center><p><small>Виссер Ольга Петровна ОГРНИП 308470731200082</small></p></center>
-        <!-- Yandex.Metrika counter -->
-        <div style="display:none;">
-            <script type="text/javascript">
-        (function(w, c) {
-            (w[c] = w[c] || []).push(function() {
-                try {
-                    w.yaCounter12630325 = new Ya.Metrika({id:12630325, enableAll: true, webvisor:true});
-                }
-                catch(e) { }
-            });
-        })(window, "yandex_metrika_callbacks");
-        </script></div>
-        <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-        <noscript><div><img src="//mc.yandex.ru/watch/12630325" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <!-- /Yandex.Metrika counter -->        <!--LiveInternet counter--><script type="text/javascript">
-        document.write("<a class='hide' href='http://www.liveinternet.ru/click' "+
-        "target=_blank><img src='//counter.yadro.ru/hit?t44.1;r"+
-        escape(document.referrer)+((typeof(screen)=="undefined")?"":
-        ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
-        screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
-        ";"+Math.random()+
-        "' alt='' title='LiveInternet' "+
-        "border='0' width='31' height='31'><\/a>")
-        </script><!--/LiveInternet-->
+
     </body>
 </html>

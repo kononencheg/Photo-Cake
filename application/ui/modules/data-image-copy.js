@@ -37,6 +37,8 @@ DataImageCopy.prototype.initInstance = function(target) {
             targetDataImage.addEventListener('loaded', replaceImage);
 
             replaceImage();
+
+            return targetDataImage;
         }
     }
 

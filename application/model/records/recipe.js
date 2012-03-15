@@ -51,16 +51,23 @@ Recipe.prototype.populate = function(data) {
 /**
  * @override
  */
-Recipe.prototype.serialize = function() {
-    return {
+Recipe.prototype.serialize = function(cake) {
+    var result = {
         'id': this.id,
         'imageUrl': this.imageUrl,
         'desc': this.desc,
         'name': this.name
     };
+
+    if (cake !== undefined) {
+        result['price'] = this.getWeightPrice(cake.dimension.weight);
+    }
+
+    return result;
 };
 
 /**
+ * @private
  * @param {number} weight
  * @return {number}
  */
@@ -72,7 +79,7 @@ Recipe.prototype.getWeightPrice = function(weight) {
         return this.dimensionPrices[weightKey]['price'];
     }
 
-    return -1;
+    return 0;
 };
 
 /**
