@@ -38,17 +38,25 @@
         <!--<![endif]-->
 
         {{#network}}
-            {{#vk_network}} {{> template/scripts/vk }} {{/vk_network}}
-            {{#ok_network}} {{> template/scripts/ok }} {{/ok_network}}
+            {{#vk_network}}
+                <script type="text/javascript" src="/js/vk.js"></script>
+
+                <script src="http://vkontakte.ru/js/api/xd_connection.js"
+                        type="text/javascript"></script>
+            {{/vk_network}}
+            {{#ok_network}}
+                <script type="text/javascript" src="/js/ok.js"></script>
+
+                <script src="http://api.odnoklassniki.ru/js/fapi.js"
+                        type="text/javascript"></script>
+            {{/ok_network}}
         {{/network}}
 
         {{^network}}
             <script type="text/javascript" src="/js/app.js"></script>
-            <script type="text/javascript">
-                main(document.body);
-            </script>
         {{/network}}
 
+        <script type="text/javascript">main(document.body);</script>
 
         {{!> template/counters/ya }}
         {{!> template/counters/li }}

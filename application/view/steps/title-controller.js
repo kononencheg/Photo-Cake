@@ -28,5 +28,12 @@ TitleController.prototype._initActions = function() {
     model.cakes.load();
 };
 
+/**
+ * @override
+ */
+TitleController.prototype.canClose = function() {
+    return model.currentBakery.get() !== null;
+};
+
 tuna.view.registerController('title_step', new TitleController());
 

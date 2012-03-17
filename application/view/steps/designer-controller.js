@@ -6,6 +6,12 @@ var DesignerController = function() {
     tuna.view.PageViewController.call(this);
 
     /**
+     * @type {function()}
+     * @private
+     */
+    this.__handleBakeryUpdate = tuna.utils.bind(this.__handleBakeryUpdate, this);
+
+    /**
      * @private
      * @type tuna.ui.ModuleInstance|tuna.ui.flash.SWF
      */
@@ -18,14 +24,12 @@ var DesignerController = function() {
     this.__cakeImage = null;
 
     /**
-     *
      * @type HTMLObjectElement
      * @private
      */
     this.__movie = null;
 
     /**
-     *
      * @type ?string
      * @private
      */
@@ -81,15 +85,14 @@ var DECO_SELECTORS = [
         { "url" : "/img/deco/bootes.png", "autorotate":false, "name" : "bootes", "description" : "Сахарная фигурка"}
     ]},
     { "deco": [
-        { "url" : "/img/deco/flower1.png", "autorotate":false, "name" : "flower1", "description" : "Сахарная фигурка" },
-        { "url" : "/img/deco/flower2.png", "autorotate":false, "name" : "flower2", "description" : "Сахарная фигурка" },
-        { "url" : "/img/deco/flower3.png", "autorotate":false, "name" : "flower3", "description" : "Сахарная фигурка" },
-        { "url" : "/img/deco/flower4.png", "autorotate":false, "name" : "flower4", "description" : "Сахарная фигурка" },
-        { "url" : "/img/deco/flower5.png", "autorotate":false, "name" : "flower5", "description" : "Сахарная фигурка" },
-        { "url" : "/img/deco/flower6.png", "autorotate":false, "name" : "flower6", "description" : "Сахарная фигурка" }
+        { "url" : "/img/deco/flower1.png", "autorotate": false, "name" : "flower1", "description" : "Сахарная фигурка" },
+        { "url" : "/img/deco/flower2.png", "autorotate": false, "name" : "flower2", "description" : "Сахарная фигурка" },
+        { "url" : "/img/deco/flower3.png", "autorotate": false, "name" : "flower3", "description" : "Сахарная фигурка" },
+        { "url" : "/img/deco/flower4.png", "autorotate": false, "name" : "flower4", "description" : "Сахарная фигурка" },
+        { "url" : "/img/deco/flower5.png", "autorotate": false, "name" : "flower5", "description" : "Сахарная фигурка" },
+        { "url" : "/img/deco/flower6.png", "autorotate": false, "name" : "flower6", "description" : "Сахарная фигурка" }
     ]}
 ];
-
 
 /**
  * @override
@@ -100,14 +103,43 @@ DesignerController.prototype._initActions = function() {
     this.__designerSWF = this._container.getModuleInstanceByName
         ('swf', 'cake-designer');
 
-    model.currentBakery.addEventListener('update', function(event, bakery) {
-        model.dimensions.load({ 'bakery_id': bakery.id });
-    });
-
-    model.dimensions.addEventListener('update', function(event, dimensions) {
+    model.dimensions.addEventListener('update', function() {
         self.__designerSWF.reset();
     });
+};
 
+
+/**
+ * @override
+ */
+DesignerController.prototype.open = function(data) {
+    model.currentBakery.addEventListener('update', this.__handleBakeryUpdate);
+    this.__handleBakeryUpdate();
+
+    var cake = model.cakes.getItemById(data['cake-id']);
+    if (cake !== null) {
+        if (this.__movie === null) {
+            this.__cakePreset = cake.markup;
+        } else {
+            this.__movie['loadCakePreset'](cake.markup)
+        }
+    } else {
+        this.__cakePreset = null;
+    }
+};
+
+/**
+ * @override
+ */
+DesignerController.prototype.close = function() {
+    model.currentBakery.removeEventListener
+        ('update', this.__handleBakeryUpdate);
+};
+
+/**
+ * @private
+ */
+DesignerController.prototype.__handleBakeryUpdate = function() {
     var bakery = model.currentBakery.get();
     if (bakery !== null) {
         model.dimensions.load({ 'bakery_id': bakery.id });
@@ -150,15 +182,11 @@ DesignerController.prototype.__initDesigner = function() {
 DesignerController.prototype.confirmShapeChange = function(shape) {
     var self = this;
 
-    debugger;
-
     var weight = this.__movie['getCakeWeight']();
     var dimensions = model.dimensions.find(function(dimension) {
         return dimension.weight === weight &&
                dimension.shape === shape;
     });
-
-    debugger;
 
     if (dimensions.length > 0) {
         tuna.ui.popups.confirm(
@@ -213,37 +241,6 @@ DesignerController.prototype.canClose = function(nextStep) {
     }
 
     return false;
-};
-
-/**
- * @override
- */
-DesignerController.prototype.open = function(data) {
-    var cake = model.cakes.getItemById(data['cake-id']);
-
-    if (cake !== null) {
-        if (this.__movie === null) {
-            this.__cakePreset = cake.markup;
-        } else {
-            this.__movie['loadCakePreset'](cake.markup)
-        }
-    } else {
-        this.__cakePreset = null;
-    }
-};
-
-/**
- * @override
- */
-DesignerController.prototype.close = function() {
-
-
-    /*var cake = model.cakes.createCake
-        (data.shift(), data.shift(), data.shift());
-
-
-
-    model.cakes.setCurrentCake(cake);*/
 };
 
 /**

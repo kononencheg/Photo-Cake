@@ -104,8 +104,8 @@
                                 <tuna:attr tuna:target="t-cake-image" tuna:path="imageUrl" tuna:name="src"/>
                                 <tuna:attr tuna:target="t-cake-id" tuna:path="id" tuna:name="data-cake-id"/>
                         
-                                <tuna:spot tuna:target="t-cake-weight" tuna:path="weight" />
-                                <tuna:spot tuna:target="t-cake-persons" tuna:path="personsCount" />
+                                <tuna:spot tuna:target="t-cake-weight" tuna:path="dimension/weight" />
+                                <tuna:spot tuna:target="t-cake-persons" tuna:path="dimension/personsCount" />
                             </tuna:template>
                         
                             <ul>
@@ -491,6 +491,9 @@
                         <input class="t-recipe-id" type="hidden" name="recipe_id" />
                         <input class="t-bakery-id" type="hidden" name="bakery_id" />
                         <input class="t-cake-id"   type="hidden" name="cake_id" />
+            
+                        <input name="payment_method" type="hidden" value="0" />
+                        <input name="client_network" type="hidden" />
             
                         <fieldset>
                             <legend>Рецепт</legend>
@@ -919,10 +922,8 @@
 
 
             <script type="text/javascript" src="/js/app.js"></script>
-            <script type="text/javascript">
-                main(document.body);
-            </script>
 
+        <script type="text/javascript">main(document.body);</script>
 
 
     </body>

@@ -20,10 +20,6 @@ tuna.utils.extend(MainController, tuna.view.ViewController);
 MainController.prototype._initActions = function() {
     var self = this;
 
-    //tuna.rest.call('social.users.getCurrent', null, function(user) {
-    //    model.users.setCurrentUser(user);
-    //});
-
     var cityAutocomplete = this._container.getModuleInstanceByName
         ('autocomplete', 'city-popup');
 

@@ -4,10 +4,11 @@ JS_COMPRESSOR = uglifyjs --overwrite --max-line-len 32000 --lift-vars --no-copyr
 
 JS_COMPILER = java -jar utils/compiler.jar \
 			  --warning_level VERBOSE \
+			  --output_wrapper="(function(){%output%})();" \
 			  --compilation_level ADVANCED_OPTIMIZATIONS \
 			  --externs library/externs.js \
-			  --debug \
-			  --formatting PRETTY_PRINT \
+
+			  #--debug \
 
 
 TUNA_FILES = tuna.js \
@@ -166,9 +167,7 @@ APPLICATION_FILES = main.js \
 					view/steps/title-controller.js \
 					view/steps/designer-controller.js \
 					view/steps/order-controller.js \
-
-					#view/steps/recipe-controller.js \
-					#view/steps/result-controller.js	\
+					view/steps/result-controller.js	\
 
 
 SITE_FILES = view/steps/share/share-controller.js \
@@ -176,13 +175,11 @@ SITE_FILES = view/steps/share/share-controller.js \
 
 VK_FILES = view/steps/share/vk-share-controller.js \
 		   rest/social/vk/vk-method.js \
-		   rest/social/vk/users/get-current.js \
 		   rest/social/vk/friends/get-list.js \
 		   rest/social/vk/wall/post.js \
 
 
 OK_FILES = view/steps/share/ok-share-controller.js \
-		   rest/social/ok/users/get-current.js \
 
 
 JS_APP = $(addprefix $(LIBRARY_DIR)tuna/, $(TUNA_FILES)) \
