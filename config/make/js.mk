@@ -7,8 +7,7 @@ JS_COMPILER = java -jar utils/compiler.jar \
 			  --output_wrapper="(function(){%output%})();" \
 			  --compilation_level ADVANCED_OPTIMIZATIONS \
 			  --externs library/externs.js \
-
-			  #--debug \
+			  --debug \
 
 
 TUNA_FILES = tuna.js \
