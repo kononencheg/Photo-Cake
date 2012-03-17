@@ -68,10 +68,17 @@ OrderController.prototype._initActions = function() {
 
     orderForm.setValue('client_network', APP_NETWORK);
 
-    model.recipes.addEventListener('update', function(event, recipes) {
-        recipesTransformer.applyTransform
-            (tuna.model.serialize(recipes, model.currentCake.get()));
-    });
+    var updateRecipesList = function() {
+        var recipes = model.recipes.get();
+        var cake = model.currentCake.get();
+        if (recipes !== null && cake !== null) {
+            recipesTransformer.applyTransform
+                (tuna.model.serialize(recipes, cake));
+        }
+    };
+
+    model.recipes.addEventListener('update', updateRecipesList);
+    model.currentCake.addEventListener('update', updateRecipesList);
 };
 
 /**
