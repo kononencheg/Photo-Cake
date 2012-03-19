@@ -4282,6 +4282,16 @@ select.small-rest {
 .cake-list {
     height: 504px;
 }
+
+.recipes-list {
+    overflow: auto;
+    height: 326px;
+}
+
+.recipes-list li {
+    margin-left: 23px;
+}
+
 #app_container .intro  {
     margin-left: 10px;
 }

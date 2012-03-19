@@ -7,7 +7,7 @@ JS_COMPILER = java -jar utils/compiler.jar \
 			  --output_wrapper="(function(){%output%})();" \
 			  --compilation_level ADVANCED_OPTIMIZATIONS \
 			  --externs library/externs.js \
-			  --debug \
+			  #--debug \
 
 
 TUNA_FILES = tuna.js \
@@ -161,29 +161,31 @@ APPLICATION_FILES = main.js \
 					model/records/user.js \
 					model/model.js \
 					\
-					view/main-controller.js \
-					\
 					view/steps/title-controller.js \
 					view/steps/designer-controller.js \
 					view/steps/order-controller.js \
 					view/steps/result-controller.js	\
 
+BAKERY_FILES = view/steps/share/share-controller.js \
+	 		   view/bakery-main-controller.js \
 
 SITE_FILES = view/steps/share/share-controller.js \
-
+			 view/main-controller.js \
 
 VK_FILES = view/steps/share/vk-share-controller.js \
+		   view/main-controller.js \
 		   rest/social/vk/vk-method.js \
 		   rest/social/vk/friends/get-list.js \
 		   rest/social/vk/wall/post.js \
 
-
 OK_FILES = view/steps/share/ok-share-controller.js \
+		   view/main-controller.js \
 
 
 JS_APP = $(addprefix $(LIBRARY_DIR)tuna/, $(TUNA_FILES)) \
 		 $(addprefix $(APPLICATION_DIR), $(APPLICATION_FILES))
 
+JS_BAKERY = $(JS_APP) $(addprefix $(APPLICATION_DIR), $(BAKERY_FILES))
 JS_SITE = $(JS_APP) $(addprefix $(APPLICATION_DIR), $(SITE_FILES))
 JS_VK = $(JS_APP) $(addprefix $(APPLICATION_DIR), $(VK_FILES))
 JS_OK = $(JS_APP) $(addprefix $(APPLICATION_DIR), $(OK_FILES))

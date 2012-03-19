@@ -24,25 +24,6 @@
                 </small>
             </h1>
         
-                <div class="page-header-info-block"
-                     data-name="current-city"
-                     data-template-id="current_city_template">
-        
-                    <div class="page-header-quality-block">
-                        <h3>Гаратния качества профессиональной кондитерской!</h3>
-                    </div>
-                    <div class="page-header-delivery-block">
-                        <h3>
-                            Город:
-        
-                            <a class="t-bakery-city j-popup-button"
-                               data-name="city-popup"
-                               data-popup-id="city_popup">...</a>
-        
-                            <sup class="t-bakery-is-native">*</sup>
-                        </h3>
-                    </div>
-                </div>
         
         
         </div>
@@ -364,20 +345,6 @@
             
             
             
-                        <li>
-                            <a class="j-button btn primary large"
-                               data-action="send">
-                                Запостить на стену
-                            </a>
-                        </li>
-                        <li>
-                            <a class="j-popup-button btn primary large"
-                               data-popup-id="friend_list_popup">
-                                Послать другу
-                            </a>
-                        </li>
-            
-            
             
             
                 <li>
@@ -396,31 +363,6 @@
                     </a>
                 </li>
             </ul>
-            
-            
-                <div id="friend_list_popup" class="j-input-filter hide"
-                     data-template-id="friends_autocomplete_template">
-            
-                    <div class="modal-backdrop"></div>
-                    <div class="modal">
-                        <div class="modal-header friends-popup-header row-fluid">
-                            <div class="span6">
-                                <h3>Выберите кому отослать!</h3>
-                            </div>
-            
-                            <div class="span5">
-                                <input class="j-filtration pull-right"
-                                       type="text" placeholder="Имя друга" />
-                            </div>
-                        </div>
-                        <div class="modal-body friend-list-overlay">
-                            <ul class="t-friend-list friend-list unstyled"></ul>
-                        </div>
-                        <div class="modal-footer">
-                            <a class="j-popup-close btn">Закрыть</a>
-                        </div>
-                    </div>
-                </div>
             
             
             
@@ -854,38 +796,6 @@
             
             
             
-            
-                <!-- Share -->
-            
-                <tuna:template id="friends_autocomplete_template">
-                    <tuna:list tuna:target="t-friend-list" tuna:path=""
-                               tuna:item-renderer-id="friend_item_renderer"
-                               tuna:item-template-id="friend_item_template"
-                               tuna:key-path="$key" />
-                </tuna:template>
-            
-                <tuna:template id="friend_item_template">
-                    <tuna:spot tuna:target="t-user-name" tuna:path="name" />
-                    <tuna:attr tuna:target="t-userpic" tuna:name="src"
-                               tuna:path="userpicUrl" />
-            
-                    <tuna:attr tuna:target="t-user-id" tuna:name="data-user-id"
-                               tuna:path="id" />
-                </tuna:template>
-            
-                <ul>
-                    <li id="friend_item_renderer">
-                        <img class="t-userpic userpic" alt="Друг" width="50" height="50"/>
-            
-                        <span class="t-user-name"></span>
-            
-                        <a class="t-user-id j-button send-cake-button pull-right"
-                           data-action="send">
-                            Отправить
-                        </a>
-                    </li>
-                </ul>
-            
 
             <tuna:template id="current_bakery_template">
                 <tuna:spot tuna:target="t-bakery-city" tuna:path="city/name" />
@@ -905,11 +815,8 @@
         <script type="text/javascript" src="/js/json.js"></script>
         <!--<![endif]-->
 
-                <script type="text/javascript" src="/js/vk.js"></script>
 
-                <script src="http://vkontakte.ru/js/api/xd_connection.js"
-                        type="text/javascript"></script>
-
+                <script type="text/javascript" src="/js/bakery.js"></script>
 
 
         <script type="text/javascript">main(document.body);</script>

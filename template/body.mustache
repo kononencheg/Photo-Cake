@@ -10,25 +10,27 @@
         </small>
     </h1>
 
-    <div class="page-header-info-block"
-         data-name="current-city"
-         data-template-id="current_city_template">
+    {{^bakery_network}}
+        <div class="page-header-info-block"
+             data-name="current-city"
+             data-template-id="current_city_template">
 
-        <div class="page-header-quality-block">
-            <h3>Гаратния качества профессиональной кондитерской!</h3>
+            <div class="page-header-quality-block">
+                <h3>Гаратния качества профессиональной кондитерской!</h3>
+            </div>
+            <div class="page-header-delivery-block">
+                <h3>
+                    Город:
+
+                    <a class="t-bakery-city j-popup-button"
+                       data-name="city-popup"
+                       data-popup-id="city_popup">...</a>
+
+                    <sup class="t-bakery-is-native">*</sup>
+                </h3>
+            </div>
         </div>
-        <div class="page-header-delivery-block">
-            <h3>
-                Город:
-
-                <a class="t-bakery-city j-popup-button"
-                   data-name="city-popup"
-                   data-popup-id="city_popup">...</a>
-
-                <sup class="t-bakery-is-native">*</sup>
-            </h3>
-        </div>
-    </div>
+    {{/bakery_network}}
 
     {{^network}}
         <div class="share-block">
@@ -72,50 +74,52 @@
     {{> template/steps/result }}
 </div>
 
-<div id="city_popup" class="j-autocomplete hide"
-     data-name="city-popup"
-     data-template-id="city_autocomplete_template">
+{{^bakery}}
+    <div id="city_popup" class="j-autocomplete hide"
+         data-name="city-popup"
+         data-template-id="city_autocomplete_template">
 
-    <div class="modal-backdrop"></div>
-    <div class="modal">
-        <div class="modal-header">
-            <h3>Где вам нужен торт?</h3>
-        </div>
-        <div class="modal-body">
+        <div class="modal-backdrop"></div>
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Где вам нужен торт?</h3>
+            </div>
+            <div class="modal-body">
 
-            <div class="input clearfix">
-                <div class="input-append ">
-                    <input id="city_search" type="text"
-                           class="j-filtration" />
+                <div class="input clearfix">
+                    <div class="input-append ">
+                        <input id="city_search" type="text"
+                               class="j-filtration" />
 
-                    <label for="city_search" class="add-on btn">v</label>
+                        <label for="city_search" class="add-on btn">v</label>
+                    </div>
                 </div>
+
+                <ul class="j-autocomplete-body t-city-list unstyled hide"></ul>
+
+                <div class="help-block">
+                    * - если в списке нету вашего города, значит мы
+                    не можем доставить туда тортик.
+                </div>
+
             </div>
-
-            <ul class="j-autocomplete-body t-city-list unstyled hide"></ul>
-
-            <div class="help-block">
-                * - если в списке нету вашего города, значит мы
-                не можем доставить туда тортик.
+            <div class="modal-footer">
+                <a class="j-popup-close btn">Отмена</a>
+                <a class="j-popup-apply btn primary">OK</a>
             </div>
-
-        </div>
-        <div class="modal-footer">
-            <a class="j-popup-close btn">Отмена</a>
-            <a class="j-popup-apply btn primary">OK</a>
         </div>
     </div>
-</div>
 
-<div class="j-control-container hide">
-    <tuna:template id="city_autocomplete_template">
-        <tuna:list tuna:target="t-city-list" tuna:path=""
-                   tuna:item-renderer-id="city_item_renderer"
-                   tuna:item-template-id="city_item_template"
-                   tuna:key-path="$key" />
-    </tuna:template>
+    <div class="j-control-container hide">
+        <tuna:template id="city_autocomplete_template">
+            <tuna:list tuna:target="t-city-list" tuna:path=""
+                       tuna:item-renderer-id="city_item_renderer"
+                       tuna:item-template-id="city_item_template"
+                       tuna:key-path="$key" />
+        </tuna:template>
 
-    <tuna:template id="city_item_template">
-        <tuna:spot tuna:target="t-name" tuna:path="name" />
-    </tuna:template>
-</div>
+        <tuna:template id="city_item_template">
+            <tuna:spot tuna:target="t-name" tuna:path="name" />
+        </tuna:template>
+    </div>
+{{/bakery}}

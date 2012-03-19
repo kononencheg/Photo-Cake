@@ -5,12 +5,7 @@ STYLE_DIR		= style/
 
 include config/make/*.mk
 
-all: app vk ok
-
-minify:
-	$(HTML_COMPRESSOR) -o public/index.html public/index.html ; \
-	$(HTML_COMPRESSOR) -o public/vk.html public/vk.html ; \
-	$(HTML_COMPRESSOR) -o public/ok.html public/ok.html ; \
+all: app vk ok bakery
 
 #
 #   VK application
@@ -41,6 +36,20 @@ js-vk: $(JS_VK)
 					  $(addprefix --js_output_file $(JS_PUBLIC_DIR), vk.js)
 
 #
+#   Bakery application
+#
+
+bakery: js-bakery html-bakery css-app
+
+html-bakery: $(YAML_BAKERY)
+			 mustache $^ $(LAYOUT_TEMPLATE) > \
+					  $(addprefix $(HTML_PUBLIC_DIR), bakery.html)
+
+js-bakery: $(JS_BAKERY)
+		   $(JS_COMPILER) $(addprefix --js , $^) \
+						  $(addprefix --js_output_file $(JS_PUBLIC_DIR), bakery.js)
+
+#
 #   Main application
 #
 
@@ -51,7 +60,7 @@ html-app: $(YAML_SITE)
 				   $(addprefix $(HTML_PUBLIC_DIR), index.html)
 
 js-app: $(JS_SITE)
-		$(JS_COMPILER)  --define 'APP_NETWORK=0' $(addprefix --js , $^) \
+		$(JS_COMPILER) $(addprefix --js , $^) \
 					   $(addprefix --js_output_file $(JS_PUBLIC_DIR), app.js)
 
 css-app: $(CSS_SITE)

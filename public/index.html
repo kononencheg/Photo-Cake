@@ -24,25 +24,25 @@
                 </small>
             </h1>
         
-            <div class="page-header-info-block"
-                 data-name="current-city"
-                 data-template-id="current_city_template">
+                <div class="page-header-info-block"
+                     data-name="current-city"
+                     data-template-id="current_city_template">
         
-                <div class="page-header-quality-block">
-                    <h3>Гаратния качества профессиональной кондитерской!</h3>
+                    <div class="page-header-quality-block">
+                        <h3>Гаратния качества профессиональной кондитерской!</h3>
+                    </div>
+                    <div class="page-header-delivery-block">
+                        <h3>
+                            Город:
+        
+                            <a class="t-bakery-city j-popup-button"
+                               data-name="city-popup"
+                               data-popup-id="city_popup">...</a>
+        
+                            <sup class="t-bakery-is-native">*</sup>
+                        </h3>
+                    </div>
                 </div>
-                <div class="page-header-delivery-block">
-                    <h3>
-                        Город:
-        
-                        <a class="t-bakery-city j-popup-button"
-                           data-name="city-popup"
-                           data-popup-id="city_popup">...</a>
-        
-                        <sup class="t-bakery-is-native">*</sup>
-                    </h3>
-                </div>
-            </div>
         
                 <div class="share-block">
                     <div class="j-yandex-share ya-share"></div>
@@ -60,11 +60,6 @@
                         <div class="intro">
                             <h2 class="intro-title">Поздравьте любимых оригинально!</h2>
                         
-                            <!--p class="intro-important-text">
-                                Внимание – акция! Торты к <b>8 Марта</b> по специальной цене!
-                                Доставка бесплатно только при заказе до 4 марта, спешите!
-                            </p-->
-                        
                             <p>
                                 Фантазируйте и создавайте дизайн Вашего тортика сами с помощью
                                 конструктора тортиков – выбирайте размеры, добавляйте картинки
@@ -81,7 +76,7 @@
                         
                             <p>
                                 Заказы так же принимаем по телефону <b>8 (812) 323-52-18</b> и
-                                по почте <b>visser@creat-present.ru</b>!
+                                по почте <b>fotonatorte@gmail.com</b>!
                             </p>
                         </div>                    </div>
             
@@ -670,7 +665,7 @@
                 </div>
             </form>
             
-            <form id="recipe_popup" class="j-template-transformer j-form hide"
+            <form id="recipe_popup" class="j-template-transformer j-button-group j-form hide"
                   data-name="recipes-list"
                   data-template-id="recipe_list_template">
             
@@ -679,8 +674,8 @@
                     <div class="modal-header">
                         <h3>Выбор рецепта торта</h3>
                     </div>
-                    <div class="modal-body">
-                        <ul class="t-recipes-list recipes-list thumbnails"></ul>
+                    <div class="modal-body recipes-list">
+                        <ul class="t-recipes-list thumbnails"></ul>
                     </div>
                     <div class="modal-footer">
                         <a class="j-popup-apply btn primary">Выбрать</a>
@@ -689,8 +684,8 @@
                 </div>
             </form>
             
-            <div class="j-template-transformer j-popup hide"
-                 data-name="recipe-popup"
+            <div class="j-popup j-template-transformer hide"
+                 data-name="recipe-info-popup"
                  data-template-id="recipe_template">
             
                 <div class="modal-backdrop"></div>
@@ -733,9 +728,8 @@
                     <li id="recipe_list_item_renderer">
                         <div class="recipe-tile thumbnail">
                             <img alt="Рецепт" width="90" height="90"
-                                 class="j-button j-recipe-image
-                                    t-recipe-img t-recipe-id"
-                                 data-action="show-recipe" />
+                                 class="j-button t-recipe-img t-recipe-id"
+                                 data-action="show" />
             
                             <label class="recipe-label">
                                 <input type="radio" name="recipe_id"
@@ -796,60 +790,61 @@
                 </li>
             
                 <li>
-                    <a class="j-navigation-link btn primary large" data-href="title_step">
+                    <a class="j-navigation-link btn primary large" data-href="title">
                         В начало!
                     </a>
                 </li>
             </ul>
         </div>
         
-        <div id="city_popup" class="j-autocomplete hide"
-             data-name="city-popup"
-             data-template-id="city_autocomplete_template">
+            <div id="city_popup" class="j-autocomplete hide"
+                 data-name="city-popup"
+                 data-template-id="city_autocomplete_template">
         
-            <div class="modal-backdrop"></div>
-            <div class="modal">
-                <div class="modal-header">
-                    <h3>Где вам нужен торт?</h3>
-                </div>
-                <div class="modal-body">
+                <div class="modal-backdrop"></div>
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3>Где вам нужен торт?</h3>
+                    </div>
+                    <div class="modal-body">
         
-                    <div class="input clearfix">
-                        <div class="input-append ">
-                            <input id="city_search" type="text"
-                                   class="j-filtration" />
+                        <div class="input clearfix">
+                            <div class="input-append ">
+                                <input id="city_search" type="text"
+                                       class="j-filtration" />
         
-                            <label for="city_search" class="add-on btn">v</label>
+                                <label for="city_search" class="add-on btn">v</label>
+                            </div>
                         </div>
+        
+                        <ul class="j-autocomplete-body t-city-list unstyled hide"></ul>
+        
+                        <div class="help-block">
+                            * - если в списке нету вашего города, значит мы
+                            не можем доставить туда тортик.
+                        </div>
+        
                     </div>
-        
-                    <ul class="j-autocomplete-body t-city-list unstyled hide"></ul>
-        
-                    <div class="help-block">
-                        * - если в списке нету вашего города, значит мы
-                        не можем доставить туда тортик.
+                    <div class="modal-footer">
+                        <a class="j-popup-close btn">Отмена</a>
+                        <a class="j-popup-apply btn primary">OK</a>
                     </div>
-        
-                </div>
-                <div class="modal-footer">
-                    <a class="j-popup-close btn">Отмена</a>
-                    <a class="j-popup-apply btn primary">OK</a>
                 </div>
             </div>
-        </div>
         
-        <div class="j-control-container hide">
-            <tuna:template id="city_autocomplete_template">
-                <tuna:list tuna:target="t-city-list" tuna:path=""
-                           tuna:item-renderer-id="city_item_renderer"
-                           tuna:item-template-id="city_item_template"
-                           tuna:key-path="$key" />
-            </tuna:template>
+            <div class="j-control-container hide">
+                <tuna:template id="city_autocomplete_template">
+                    <tuna:list tuna:target="t-city-list" tuna:path=""
+                               tuna:item-renderer-id="city_item_renderer"
+                               tuna:item-template-id="city_item_template"
+                               tuna:key-path="$key" />
+                </tuna:template>
         
-            <tuna:template id="city_item_template">
-                <tuna:spot tuna:target="t-name" tuna:path="name" />
-            </tuna:template>
-        </div>
+                <tuna:template id="city_item_template">
+                    <tuna:spot tuna:target="t-name" tuna:path="name" />
+                </tuna:template>
+            </div>
+
         <iframe id="support_frame" name="support_frame" class="hide"
                         width="0" height="0"></iframe>
         
