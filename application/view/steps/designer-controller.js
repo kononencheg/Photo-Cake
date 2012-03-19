@@ -118,9 +118,9 @@ DesignerController.prototype.open = function(data) {
 
     var cake = model.cakes.getItemById(data['cake-id']);
     if (cake !== null) {
-        if (this.__movie === null) {
-            this.__cakePreset = cake.markup;
-        } else {
+        this.__cakePreset = cake.markup;
+        
+        if (this.__movie !== null) {
             this.__movie['loadCakePreset'](cake.markup)
         }
     } else {
