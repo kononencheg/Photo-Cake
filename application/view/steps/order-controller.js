@@ -101,9 +101,7 @@ OrderController.prototype._initActions = function() {
     });
 
     recipeInfoPopup.addEventListener('popup-apply', function() {
-        model.currentRecipe.set(popupRecipe);
         recipesForm.setValue('recipe_id', popupRecipe.id);
-
         recipePopup.open();
     });
 

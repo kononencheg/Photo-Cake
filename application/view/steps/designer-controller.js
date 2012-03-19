@@ -119,7 +119,7 @@ DesignerController.prototype.open = function(data) {
     var cake = model.cakes.getItemById(data['cake-id']);
     if (cake !== null) {
         this.__cakePreset = cake.markup;
-        
+
         if (this.__movie !== null) {
             this.__movie['loadCakePreset'](cake.markup)
         }
@@ -225,9 +225,18 @@ DesignerController.prototype.canClose = function(nextStep) {
         var data = this.__movie['getCakeData']();
 
         if (nextStep === 'order') {
-            tuna.rest.call('cakes.add', data, function(cake) {
-                model.currentCake.set(cake);
-            }, 'cake');
+            var dimension = model.dimensions.findOne(function(dimension) {
+                return dimension.weight === data['weight'] &&
+                       dimension.shape === data['shape'];
+            });
+
+            if (dimension !== null) {
+                data['dimension_id'] = dimension.id;
+                tuna.rest.call('cakes.add', data, function(cake) {
+                    model.currentCake.set(cake);
+                }, 'cake');
+            }
+
         }
 
         if (this.__cakeImage === null) {
