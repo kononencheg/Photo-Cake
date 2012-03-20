@@ -5,33 +5,56 @@
  */
 var DataImage = function(target) {
     tuna.ui.ModuleInstance.call(this, target);
+
+    /**
+     * @type {?string}
+     * @protected
+     */
+    this._data = null;
+
+    /**
+     * @type {string}
+     * @protected
+     */
+    this.type = 'image/jpeg';
 };
 
 tuna.utils.extend(DataImage, tuna.ui.ModuleInstance);
 
 /**
- * @param {string} data
- * @param {string} type
+ * @param {!string} data
  */
-DataImage.prototype.setData = function(data, type) {
-    if (type === undefined) {
-        type = 'image/jpeg';
-    }
+DataImage.prototype.setData = function(data) {
+    this._data = data;
 
+    this.__updateImage();
+};
+
+/**
+ * @return {?string}
+ */
+DataImage.prototype.getData = function() {
+    return this._data;
+};
+
+/**
+ * @private
+ */
+DataImage.prototype.__updateImage = function() {
     if (!tuna.IS_IE) {
-        this._target.src = 'data:' + type + ';base64,' + data;
+        this._target.src = 'data:' + this.type + ';base64,' + this._data;
         this.dispatch('loaded', this._target);
     } else {
         var self = this;
         var form = document.createElement('form');
         form.method = 'POST';
         form.target = 'support_frame';
-        form.action = '/api/?method=utils.base64Echo&type=' + type;
+        form.action = '/api/?method=utils.base64Echo&type=' + this.type;
 
         var dataInput = document.createElement('input');
         dataInput.type = 'hidden';
         dataInput.name = 'data';
-        dataInput.value = data;
+        dataInput.value = this._data;
 
         form.appendChild(dataInput);
 

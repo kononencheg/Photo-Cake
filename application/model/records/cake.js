@@ -15,24 +15,24 @@ var Cake = function() {
     this.imageUrl = '';
 
     /**
-     * @type {string}
+     * @type {?string}
      */
-    this.photoUrl = '';
+    this.photoUrl = null;
 
     /**
-     * @type {string}
+     * @type {?string}
      */
-    this.markup = '';
+    this.markup = null;
 
     /**
-     * @type {string}
+     * @type {Object}
      */
-    this.shape = 'round';
+    this.__markupJson = null;
 
     /**
-     * @type {number}
+     * @type {model.records.Dimension}
      */
-    this.weight = 0;
+    this.dimension = null;
 };
 
 tuna.utils.extend(Cake, tuna.model.Record);
@@ -44,10 +44,10 @@ tuna.utils.extend(Cake, tuna.model.Record);
 Cake.prototype.populate = function(data) {
     this.id = data['id'];
     this.imageUrl = data['image_url'];
-    this.photoUrl = data['photo_url'];
+    this.photoUrl = data['photo_url'] || null;
     this.markup = data['markup'];
-    this.shape = data['dimension']['shape'];
-    this.weight = data['dimension']['weight'];
+    this.__markupJson = JSON.parse(data['markup']);
+    this.dimension = new model.records.Dimension(data['dimension']);
 };
 
 /**
@@ -58,11 +58,20 @@ Cake.prototype.serialize = function() {
         'id': this.id,
         'imageUrl': this.imageUrl,
         'photoUrl': this.photoUrl,
-        'shape': this.shape,
-        'weight': this.weight
+        'dimension': this.dimension.serialize()
     };
 };
 
+/**
+ * @return {Object}
+ */
+Cake.prototype.getDecorations = function() {
+    if (this.__markupJson['content']['deco'] !== undefined) {
+        return this.__markupJson['content']['deco'];
+    }
+
+    return null;
+};
 
 /**
  * @extends {Cake}

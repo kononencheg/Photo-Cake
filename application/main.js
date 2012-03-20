@@ -1,4 +1,9 @@
 /**
+ * @define {number}
+ */
+var APP_NETWORK = 0;
+
+/**
  * @namespace
  */
 var model = {};
@@ -54,7 +59,6 @@ rest.social.ok.users = {};
 var ui = {};
 
 /**
- *
  * @param {!Node} body
  */
 window['main'] = function(body) {
@@ -67,13 +71,26 @@ window['main'] = function(body) {
 
     tuna.view.init(body);
 
-    // Fucking ok!
-    var args = tuna.utils.config.get('custom_args');
-    if (args !== null && args.indexOf('ok_cake_url=') !== -1) {
-        var url = args.split('ok_cake_url=').pop().split('&').shift();
-        tuna.ui.popups.alert(
-            '<img src="http://files.fotonatorte.ru/ok-image/' +
-                url + '" alt="Мой тортик!" />'
-        )
+    if (APP_NETWORK === 2) {
+        FAPI.init(
+            tuna.utils.config.get('api_server'),
+            tuna.utils.config.get('apiconnection'),
+            function() {
+                FAPI.Client.initialize();
+            }
+        );
+
+        var args = tuna.utils.config.get('custom_args');
+        if (args !== null && args.indexOf('ok_cake_url=') !== -1) {
+            var url = args.split('ok_cake_url=').pop().split('&').shift();
+            tuna.ui.popups.alert(
+                '<img src="http://files.fotonatorte.ru/ok-image/' +
+                    url + '" alt="Мой тортик!" />'
+            )
+        }
+    }
+
+    if (APP_NETWORK === 1) {
+        VK.init();
     }
 };

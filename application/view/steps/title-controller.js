@@ -18,36 +18,24 @@ tuna.utils.extend(TitleController, tuna.view.PageViewController);
  * @override
  */
 TitleController.prototype._initActions = function() {
-    var self = this;
-    var cakes = [];
-
     var cakeListTransformer = this._container.getModuleInstanceByName
                                     ('template-transformer', 'cake-list');
 
-    var cakesControls = this._container.getModuleInstanceByName
-                                        ('button-group', 'cake-list');
-
-    cakesControls.addEventListener('buy', function(event, button) {
-        var cakeId = button.getStringOption('cake-id');
-
-        var i = 0,
-            l = cakes.length;
-
-        while (i < l) {
-            if (cakes[i].id === cakeId) {
-                break;
-            }
-
-            i++;
-        }
-
-        self._navigation.navigate('designer', cakes[i]);
+    model.cakes.addEventListener('update', function(event, cakes) {
+        cakeListTransformer.applyTransform(tuna.model.serialize(cakes));
     });
 
-    tuna.rest.call('cakes.getPromoted', null, function(result) {
-        cakes = result;
-        cakeListTransformer.applyTransform(tuna.model.serialize(cakes));
-    }, 'cake');
+    model.cakes.load();
+};
+
+/**
+ * @override
+ */
+TitleController.prototype.canClose = function() {
+    var decorations = model.decorations.get();
+    var bakery = model.currentBakery.get();
+
+    return bakery !== null && decorations.length > 0;
 };
 
 tuna.view.registerController('title_step', new TitleController());

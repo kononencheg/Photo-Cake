@@ -6,6 +6,19 @@ var OKShareController = function() {
     tuna.view.PageViewController.call(this);
 
     /**
+     * @type {Node}
+     * @private
+     */
+    this.__downloadDataInput = null;
+
+    /**
+     * @private
+     * @type ?tuna.ui.ModuleInstance|ui.DataImage
+     */
+    this.__cakeImage = null;
+
+
+    /**
      * @type {?string}
      * @private
      */
@@ -26,11 +39,8 @@ tuna.utils.extend(OKShareController, tuna.view.PageViewController);
  * @override
  */
 OKShareController.prototype.open = function() {
-    var downloadDataInput = tuna.dom.selectOne('#download_data_input');
-    var currentCake = model.cakes.getCurrentCake();
-
-    if (currentCake !== null && downloadDataInput !== null) {
-        downloadDataInput.value = currentCake.imageBase64;
+    if (this.__cakeImage !== null && this.__downloadDataInput !== null) {
+        this.__downloadDataInput.value = this.__cakeImage.getData();
     }
 };
 
@@ -38,6 +48,10 @@ OKShareController.prototype.open = function() {
  * @override
  */
 OKShareController.prototype._initActions = function() {
+    this.__downloadDataInput = tuna.dom.selectOne('#download_data_input');
+    this.__cakeImage = this._container.getModuleInstanceByName
+        ('data-image-copy', 'cake-image');
+
     var self = this;
 
     var sendControls = this._container.getOneModuleInstance('button-group');
@@ -142,12 +156,11 @@ OKShareController.prototype.__getAlbum = function(callback) {
  */
 OKShareController.prototype.__uploadPhoto = function(callback) {
     var self = this;
-    var currentCake = model.cakes.getCurrentCake();
 
     tuna.rest.call('social.ok.uploadImage', {
-        'image': currentCake.imageBase64,
+        'image': this.__cakeImage.getData(),
         'upload_url': 'http://api.odnoklassniki.ru/api/photos/upload',
-        'album_id': self.__albumId,
+        'album_id': this.__albumId,
         'session_key': FAPI.Client['sessionKey'],
         'application_key' : FAPI.Client['applicationKey'],
         'secret_key' : FAPI.Client['sessionSecretKey']

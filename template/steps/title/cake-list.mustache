@@ -1,4 +1,43 @@
-<ul class="j-template-transformer j-button-group
-           t-cake-list cake-list thumbnails"
+<ul class="j-template-transformer t-cake-list cake-list thumbnails"
     data-name="cake-list"
     data-template-id="cake_list_template"></ul>
+
+<div class="j-control-container hide">
+    <tuna:template id="cake_list_template">
+
+        <tuna:list tuna:target="t-cake-list" tuna:path=""
+                   tuna:item-renderer-id="cake_list_item_renderer"
+                   tuna:item-template-id="cake_template"
+                   tuna:key-path="$key" />
+
+    </tuna:template>
+
+    <tuna:template id="cake_template">
+        <tuna:attr tuna:target="t-cake-image" tuna:path="imageUrl" tuna:name="src"/>
+        <tuna:attr tuna:target="t-cake-id" tuna:path="id" tuna:name="data-cake-id"/>
+
+        <tuna:spot tuna:target="t-cake-weight" tuna:path="dimension/weight" />
+        <tuna:spot tuna:target="t-cake-persons" tuna:path="dimension/personsCount" />
+    </tuna:template>
+
+    <ul>
+        <li id="cake_list_item_renderer" >
+            <div class="thumbnail">
+                <div class="cake-image-box">
+                    <img class="j-navigation-link t-cake-image t-cake-id"
+                         alt="Тортик" width="110" height="110"
+                         data-href="designer" />
+                </div>
+
+                <div class="cake-info">
+                    <span class="t-cake-weight"></span> кг.
+                    <span class="j-navigation-link t-cake-id
+                                 btn small pull-right primary"
+                          data-href="designer">
+                        Хочу!
+                    </span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

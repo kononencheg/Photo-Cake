@@ -9,6 +9,18 @@ var ShareController = function() {
      * @override
      */
     this._modules = [ 'data-image-copy' ];
+
+    /**
+     * @type {Node}
+     * @private
+     */
+    this.__downloadDataInput = null;
+
+    /**
+     * @private
+     * @type ?tuna.ui.ModuleInstance|ui.DataImage
+     */
+    this.__cakeImage = null;
 };
 
 tuna.utils.extend(ShareController, tuna.view.PageViewController);
@@ -16,12 +28,19 @@ tuna.utils.extend(ShareController, tuna.view.PageViewController);
 /**
  * @override
  */
-ShareController.prototype.open = function() {
-    var downloadDataInput = tuna.dom.selectOne('#download_data_input');
-    var currentCake = model.cakes.getCurrentCake();
+ShareController.prototype._initActions = function() {
+    this.__downloadDataInput = tuna.dom.selectOne('#download_data_input');
+    this.__cakeImage = this._container.getModuleInstanceByName
+        ('data-image-copy', 'cake-image');
 
-    if (currentCake !== null && downloadDataInput !== null) {
-        downloadDataInput.value = currentCake.imageBase64;
+};
+
+/**
+ * @override
+ */
+ShareController.prototype.open = function() {
+    if (this.__cakeImage !== null && this.__downloadDataInput !== null) {
+        this.__downloadDataInput.value = this.__cakeImage.getData();
     }
 };
 
