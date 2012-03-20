@@ -32,7 +32,10 @@ TitleController.prototype._initActions = function() {
  * @override
  */
 TitleController.prototype.canClose = function() {
-    return model.currentBakery.get() !== null;
+    var decorations = model.decorations.get();
+    var bakery = model.currentBakery.get();
+
+    return bakery !== null && decorations.length > 0;
 };
 
 tuna.view.registerController('title_step', new TitleController());

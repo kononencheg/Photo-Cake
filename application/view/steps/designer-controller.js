@@ -46,7 +46,7 @@ tuna.utils.extend(DesignerController, tuna.view.PageViewController);
 /**
  * @type {Array}
  */
-var DECO_SELECTORS = [
+/*var DECO_SELECTORS = [
     { "deco": [
         { "url" : "/img/deco/cherry.png", "autorotate":true, "name" : "cherry", "description" : "Вишня" },
         { "url" : "/img/deco/grape.png", "autorotate":true, "name" : "grape", "description" : "Виноград" },
@@ -92,7 +92,7 @@ var DECO_SELECTORS = [
         { "url" : "/img/deco/flower5.png", "autorotate": false, "name" : "flower5", "description" : "Сахарная фигурка" },
         { "url" : "/img/deco/flower6.png", "autorotate": false, "name" : "flower6", "description" : "Сахарная фигурка" }
     ]}
-];
+];*/
 
 /**
  * @override
@@ -150,27 +150,37 @@ DesignerController.prototype.__handleBakeryUpdate = function() {
  * @private
  */
 DesignerController.prototype.__initDesigner = function() {
+    var bakery = model.currentBakery.get();
+
     var weightsList = [];
     var ratiosList  = [];
     var personsList = [];
 
     model.dimensions.each(function(dimension) {
-        tuna.utils.indexOf(dimension.weight, weightsList) === -1 &&
+        if (tuna.utils.indexOf(dimension.weight, weightsList) === -1) {
             weightsList.push(dimension.weight);
-
-        tuna.utils.indexOf(dimension.ratio, ratiosList) === -1 &&
             ratiosList.push(dimension.ratio);
-
-        tuna.utils.indexOf(dimension.personsCount, personsList) === -1 &&
             personsList.push(dimension.personsCount);
+        }
     });
 
-    if (ratiosList.length > 0) {
+    var decoSelectors = [];
+    model.decorations.each(function(decoration) {
+        if (bakery.decorationPrices[decoration.id] !== undefined) {
+            if (decoSelectors[decoration.group] === undefined) {
+                decoSelectors[decoration.group] = [];
+            }
+
+            decoSelectors[decoration.group].push(decoration.serialize());
+        }
+    });
+
+    if (weightsList.length > 0) {
         this.__movie['initialize'](JSON.stringify({
             'weightsList': weightsList,
             'ratiosList': ratiosList,
             'personsList': personsList,
-            'decoSelectors': DECO_SELECTORS
+            'decoSelectors': decoSelectors
         }), 'round', ratiosList[0]);
     }
 };

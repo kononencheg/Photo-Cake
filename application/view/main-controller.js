@@ -75,6 +75,8 @@ MainController.prototype._initActions = function() {
         model.bakeries.load();
 
     }, 'city');
+
+    model.decorations.load();
 };
 
 /**

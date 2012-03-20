@@ -26,9 +26,9 @@ var Bakery = function(data) {
     this.deliveryPrice = 0;
 
     /**
-     * @type {Array.<string>}
+     * @type {Object.<string, number>}
      */
-    this.dimensionIds = null;
+    this.decorationPrices = null;
 
     /**
      * @type {boolean}
@@ -49,7 +49,12 @@ Bakery.prototype.populate = function(data) {
     this.email = data['email'];
     this.city = new model.records.City(data['city']);
     this.deliveryPrice = data['delivery_price'];
-    this.dimensionIds = data['available_dimension_ids'];
+    this.decorationPrices = {};
+
+    var prices = data['decoration_prices'];
+    for (var decorationId in prices) {
+        this.decorationPrices[decorationId] = prices[decorationId]['price'];
+    }
 };
 
 /**

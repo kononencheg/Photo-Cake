@@ -30,6 +30,8 @@ BakeryMainController.prototype._initActions = function() {
             model.currentBakery.set(bakery);
         }, 'bakery');
     }
+
+    model.decorations.load();
 };
 
 

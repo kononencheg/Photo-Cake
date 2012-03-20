@@ -31,7 +31,7 @@ tuna.utils.extend(Order, tuna.model.Record);
  * @override
  */
 Order.prototype.serialize = function() {
-    var decorationPrice = this.__getDecorationPrice();
+    var decorationPrice = this.__getDecorationPrice(this.bakery);
     var recipePrice = this.__getRecipePrice();
     var deliveryPrice = this.__getDeliveryPrice();
 
@@ -71,10 +71,11 @@ Order.prototype.__getRecipePrice = function() {
 };
 
 /**
+ * @param {model.records.Bakery} bakery
  * @return {number}
  * @private
  */
-Order.prototype.__getDecorationPrice = function() {
+Order.prototype.__getDecorationPrice = function(bakery) {
     var price = 0;
 
     if (this.cake !== null) {
@@ -84,7 +85,7 @@ Order.prototype.__getDecorationPrice = function() {
                 l = deco.length;
 
             while (i < l) {
-                price += this.__getDecorationItemPrice(deco[i]['name']);
+                price += bakery.decorationPrices[deco[i]['name']];
                 i++;
             }
         }
@@ -92,41 +93,6 @@ Order.prototype.__getDecorationPrice = function() {
 
     return price;
 };
-
-/**
- * @param {string} name
- * @return {number}
- * @private
- */
-Order.prototype.__getDecorationItemPrice = function(name) {
-    switch (name) {
-        case 'cherry': case 'grape': case 'kiwi': case 'raspberry':
-        case 'strawberry': case 'orange': case 'peach': case 'lemon':
-        case 'blueberry': case 'currant':
-        return 10;
-
-        case 'pig1': case 'car1': case 'hare1': case 'hedgehog1':
-        case 'moose1': case 'owl1': case 'pin1': case 'sheep1':
-        case 'raven1': case 'bear1': case 'car2': case 'car3': case 'mat1':
-        case 'ia': case 'ladybug': case 'pig': case 'rabbit': case 'tiger':
-        case 'winnie': case 'winnie1': case 'bootes':
-        return 250;
-
-        case 'doll1': case 'doll2':
-        return 350;
-
-        case 'flower1': case 'flower2':
-        return 300;
-
-        case 'flower3': case 'flower4': case 'flower5': case 'flower6':
-        case 'physalis':
-            return 200;
-
-        default:
-            return 0;
-    }
-};
-
 
 /**
  * @extends {Order}
