@@ -93,8 +93,8 @@ MainController.prototype.__updateCurrentBakery = function(city) {
         bakeries = model.bakeries.get();
     }
 
-    // TODO: Make selection random
-    model.currentBakery.set(bakeries[0]);
+    model.currentBakery.set
+        (bakeries[Math.floor(bakeries.length * Math.random())]);
 };
 
 tuna.view.setMainController(new MainController());
