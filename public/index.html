@@ -920,29 +920,41 @@
         <script type="text/javascript">main(document.body);</script>
 
         <center><p><small>ООО «Фотонаторте» ОГРН 1127847095364</small></p></center>
-        <!-- Yandex.Metrika counter -->
+        
         <div style="display:none;">
+            <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
             <script type="text/javascript">
-        (function(w, c) {
-            (w[c] = w[c] || []).push(function() {
-                try {
-                    w.yaCounter12630325 = new Ya.Metrika({id:12630325, enableAll: true, webvisor:true});
-                }
-                catch(e) { }
-            });
-        })(window, "yandex_metrika_callbacks");
-        </script></div>
-        <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
-        <noscript><div><img src="//mc.yandex.ru/watch/12630325" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <!-- /Yandex.Metrika counter -->        <!--LiveInternet counter--><script type="text/javascript">
-        document.write("<a class='hide' href='http://www.liveinternet.ru/click' "+
-        "target=_blank><img src='//counter.yadro.ru/hit?t44.1;r"+
-        escape(document.referrer)+((typeof(screen)=="undefined")?"":
-        ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
-        screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
-        ";"+Math.random()+
-        "' alt='' title='LiveInternet' "+
-        "border='0' width='31' height='31'><\/a>")
-        </script><!--/LiveInternet-->
+                (function(w, c) {
+                    (w[c] = w[c] || []).push(function() {
+                        try {
+                            w.yaCounter12630325 = new Ya.Metrika({id:12630325, enableAll: true, webvisor:true});
+                        }
+                        catch(e) { }
+                    });
+                })(window, "yandex_metrika_callbacks");
+            </script>
+        </div>
+        
+        <noscript>
+            <div>
+                <img src="//mc.yandex.ru/watch/12630325" style="position:absolute; left:-9999px;" alt="" />
+            </div>
+        </noscript>
+        <script type="text/javascript">
+        
+        document.write(
+            "<a class='hide' href='http://www.liveinternet.ru/click' target=_blank>" +
+                 "<img alt='' title='LiveInternet' border='0' width='31' height='31' src='//counter.yadro.ru/hit?t44.1;r" +
+        
+                    encodeURIComponent(document.referrer) +
+                    (( window.screen === undefined ? "" : ";s" + screen.width + "*" +
+                            screen.height + "*" +
+                            ( screen.colorDepth ? screen.colorDepth :
+                                    screen.pixelDepth )) +
+                            ";u" + encodeURIComponent(document.URL) + ";" + Math.random()) + "'>" +
+            "</a>"
+        );
+        
+        </script>
     </body>
 </html>
