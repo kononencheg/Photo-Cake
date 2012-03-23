@@ -45,6 +45,7 @@ OrderController.prototype._initActions = function() {
         ('popup-button', 'recipe-popup');
 
     var recipePopup = recipePopupButton.getPopup();
+    recipePopup.open();
 
     var recipesTransformer = this._container.getModuleInstanceByName
         ('template-transformer', 'recipes-list');
