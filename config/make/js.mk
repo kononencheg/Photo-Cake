@@ -7,8 +7,8 @@ JS_COMPILER = java -jar utils/compiler.jar \
 			  --output_wrapper="(function(){%output%})();" \
 			  --compilation_level ADVANCED_OPTIMIZATIONS \
 			  --externs library/externs.js \
-			  #--formatting PRETTY_PRINT \
-			  #--debug \
+			  --formatting PRETTY_PRINT \
+			  --debug \
 
 #ADVANCED_OPTIMIZATIONS
 

@@ -61,18 +61,20 @@ DataImage.prototype.__updateImage = function() {
         document.body.appendChild(form);
 
         var frame = tuna.dom.selectOne('#support_frame');
-        tuna.dom.addOneEventListener(frame, 'load', function() {
-            var image = tuna.dom.selectOne
-                ('img', frame.contentWindow.document.body);
+        if (frame !== null) {
+            tuna.dom.addOneEventListener(frame, 'load', function() {
+                var image = tuna.dom.selectOne
+                    ('img', frame.contentWindow.document.body);
 
-            if (image !== null) {
-                self.__replaceTarget(image);
-            } else {
-                self.dispatch('error');
-            }
+                if (image !== null) {
+                    self.__replaceTarget(image);
+                } else {
+                    self.dispatch('error');
+                }
 
-            document.body.removeChild(form);
-        });
+                document.body.removeChild(form);
+            });
+        }
 
         form.submit();
     }
