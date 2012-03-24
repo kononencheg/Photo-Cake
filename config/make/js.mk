@@ -180,9 +180,11 @@ VK_FILES = view/steps/share/vk-share-controller.js \
 		   rest/social/vk/vk-method.js \
 		   rest/social/vk/friends/get-list.js \
 		   rest/social/vk/wall/post.js \
+		   rest/social/vk/cities/get-current.js \
 
 OK_FILES = view/steps/share/ok-share-controller.js \
 		   view/main-controller.js \
+		   rest/social/ok/cities/get-current.js \
 
 
 JS_APP = $(addprefix $(LIBRARY_DIR)tuna/, $(TUNA_FILES)) \
