@@ -2578,7 +2578,7 @@ $OKShareController$$.prototype.$_initActions$ = function $$OKShareController$$$$
   this.$__cakeImage$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "data-image-copy", "cake-image");
   var $self$$18$$ = this, $sendControls$$ = this.$_container$.$__instances$["button-group"] !== $JSCompiler_alias_VOID$$ && this.$_container$.$__instances$["button-group"][0] !== $JSCompiler_alias_VOID$$ ? this.$_container$.$__instances$["button-group"][0] : $JSCompiler_alias_NULL$$;
   $sendControls$$.addEventListener("publish", function() {
-    this.$__albumId$ === $JSCompiler_alias_NULL$$ ? $JSCompiler_StaticMethods___getAlbum$$($self$$18$$, $self$$18$$.$__post$) : $JSCompiler_StaticMethods___uploadPhoto$$($self$$18$$, $self$$18$$.$__post$)
+    $self$$18$$.$__albumId$ === $JSCompiler_alias_NULL$$ ? $JSCompiler_StaticMethods___getAlbum$$($self$$18$$, $self$$18$$.$__post$) : $JSCompiler_StaticMethods___uploadPhoto$$($self$$18$$, $self$$18$$.$__post$)
   });
   $sendControls$$.addEventListener("notify", function() {
     $self$$18$$.$__albumId$ === $JSCompiler_alias_NULL$$ ? $JSCompiler_StaticMethods___getAlbum$$($self$$18$$, $self$$18$$.$__showFriendsPopup$) : $JSCompiler_StaticMethods___uploadPhoto$$($self$$18$$, $self$$18$$.$__showFriendsPopup$)

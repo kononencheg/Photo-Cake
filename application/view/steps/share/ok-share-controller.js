@@ -56,7 +56,7 @@ OKShareController.prototype._initActions = function() {
 
     var sendControls = this._container.getOneModuleInstance('button-group');
     sendControls.addEventListener('publish', function() {
-        if (this.__albumId === null) {
+        if (self.__albumId === null) {
             self.__getAlbum(self.__post);
         } else {
             self.__uploadPhoto(self.__post);
