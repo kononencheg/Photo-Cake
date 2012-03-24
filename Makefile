@@ -7,6 +7,8 @@ include config/make/*.mk
 
 all: app vk ok bakery
 
+html: html-app html-vk html-ok html-bakery
+
 #
 #   VK application
 #
