@@ -57,9 +57,9 @@ OKShareController.prototype._initActions = function() {
     var sendControls = this._container.getOneModuleInstance('button-group');
     sendControls.addEventListener('publish', function() {
         if (this.__albumId === null) {
-            this.__getAlbum(this.__post);
+            self.__getAlbum(self.__post);
         } else {
-            this.__uploadPhoto(this.__post);
+            self.__uploadPhoto(self.__post);
         }
     });
 
