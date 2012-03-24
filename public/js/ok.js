@@ -2688,8 +2688,8 @@ function $GetCurrent$$() {
 $tuna$utils$extend$$($GetCurrent$$, $Method$$);
 $GetCurrent$$.prototype.call = function $$GetCurrent$$$$call$() {
   var $self$$22$$ = this;
-  FAPI.Client.call({method:"users.getInfo", fields:"current_location", uids:FAPI.Client.uid}, function($status$$7_value$$61$$, $city$$4_data$$66$$, $error$$9$$) {
-    "ok" === $status$$7_value$$61$$ && $city$$4_data$$66$$ !== $JSCompiler_alias_NULL$$ && 0 < $city$$4_data$$66$$.length ? ($status$$7_value$$61$$ = $city$$4_data$$66$$.shift(), $city$$4_data$$66$$ = new $City$$, $city$$4_data$$66$$.name = $status$$7_value$$61$$.location.city, $self$$22$$.$dispatch$("result", $city$$4_data$$66$$)) : $self$$22$$.$dispatch$("error", $error$$9$$)
+  FAPI.Client.call({method:"users.getInfo", fields:"current_location", uids:FAPI.Client.uid}, function($city$$4_status$$7$$, $data$$66_value$$61$$, $error$$9$$) {
+    "ok" === $city$$4_status$$7$$ ? ($city$$4_status$$7$$ = new $City$$, $data$$66_value$$61$$ !== $JSCompiler_alias_NULL$$ && 0 < $data$$66_value$$61$$.length ? ($data$$66_value$$61$$ = $data$$66_value$$61$$.shift(), $city$$4_status$$7$$.name = $data$$66_value$$61$$.location.city) : $city$$4_status$$7$$.name = "\u041c\u043e\u0441\u043a\u0432\u0430", $self$$22$$.$dispatch$("result", $city$$4_status$$7$$)) : $self$$22$$.$dispatch$("error", $error$$9$$)
   })
 };
 var $method$$inline_396$$ = new $GetCurrent$$;

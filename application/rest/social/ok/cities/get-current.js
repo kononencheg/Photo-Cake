@@ -18,11 +18,15 @@ GetCurrent.prototype.call = function() {
         'fields': 'current_location',
         'uids': FAPI.Client['uid']
     }, function(status, data, error) {
-        if (status === 'ok' && data !== null && data.length > 0) {
-            var value = data.shift();
-
+        if (status === 'ok') {
             var city = new model.records.City();
-            city.name =  value['location']['city'];
+
+            if (data !== null && data.length > 0) {
+                var value = data.shift();
+                city.name =  value['location']['city'];
+            } else {
+                city.name = 'Москва';
+            }
 
             self.dispatch('result', city);
         } else {
