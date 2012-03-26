@@ -1,3 +1,8 @@
+namespace :deploy do
+  task :to_memory, :roles => :web do
+    run "rm -rf /mnt/ram/www/fotonatorte.ru/*; cp -r /var/www/fotonatorte.ru/current/public/* /mnt/ram/www/fotonatorte.ru/"
+  end
+end
 
 set :stages, %w(production staging)
 set :default_stage, "staging"
@@ -21,3 +26,4 @@ default_run_options[:pty] = true
 set :ssh_options, { :forward_agent => true }
 set :use_sudo, false
 
+after "deploy", "deploy:to_memory"
