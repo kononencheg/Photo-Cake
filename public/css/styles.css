@@ -3932,6 +3932,8 @@ a {
     left: -2px;
     width: 1px;
 
+    height: 772px;
+
     opacity: 0.01;
     filter: alpha(opacity=1);
 }
@@ -4301,6 +4303,13 @@ select.small-rest {
     height: 326px;
 }
 
+.popover-btn {
+    cursor: pointer;
+}
+
+.popover-btn:hover .popover {
+    display: block;
+}
 #app_container .intro  {
     margin-left: 10px;
 }
