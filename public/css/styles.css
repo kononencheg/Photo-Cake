@@ -3873,6 +3873,10 @@ body {
     font-family: "Times New Roman", Times, serif;
 }
 
+a {
+    cursor: pointer;
+}
+
 .container-fluid {
     padding: 0;
     height: 900px;
@@ -4290,6 +4294,11 @@ select.small-rest {
 
 .recipes-list li {
     margin-left: 23px;
+}
+
+.modal-body {
+    overflow: auto;
+    height: 326px;
 }
 
 #app_container .intro  {
