@@ -73,16 +73,19 @@
     height: 28px;
     position: absolute;
     bottom: 0;
+    bottom: 40px\9;
     left: 0;
     right: 0;
+
 }
 
 .how-to-popup .modal-body img {
-    height: 100%;
-    width: auto;
+    height: 583px;
+    width: 700px;
     margin: auto;
 
     display: inline;
     text-align: center;
 }
+
 
