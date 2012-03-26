@@ -125,7 +125,8 @@ DesignerController.prototype.__initDesigner = function() {
     });
 
     if (APP_NETWORK !== 0) {
-        delete decoSelectors[1];
+        decoSelectors[1] = decoSelectors[2];
+        decoSelectors[2] = [];
     }
 
     if (weightsList.length > 0) {
