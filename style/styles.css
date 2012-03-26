@@ -429,7 +429,7 @@ select.small-rest {
     margin-left: 23px;
 }
 
-.modal-body {
+.modal-content {
     overflow: auto;
     height: 326px;
 }
