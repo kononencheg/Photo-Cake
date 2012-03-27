@@ -9,6 +9,7 @@ JS_COMPILER = java -jar utils/compiler.jar \
 			  --externs library/externs.js \
 			  #--formatting PRETTY_PRINT \
 			  #--debug \
+			  #WHITESPACE_ONLY
 
 #ADVANCED_OPTIMIZATIONS
 
