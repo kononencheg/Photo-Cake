@@ -62,14 +62,14 @@ var ui = {};
  * @param {!Node} body
  */
 window['main'] = function(body) {
-    tuna.utils.config.init(tuna.net.decode(location.search.substr(1)));
+    tuna.utils.config.init(tuna.utils.urlDecode(location.search.substr(1)));
     tuna.dom.setSelectorEngine($.find);
 
-    tuna.ui.modules.addIsolator('j-module-container');
+    tuna.ui.addIsolator('j-module-container');
     tuna.ui.popups.registerConfirm(tuna.dom.selectOne('#confirm_popup'));
     tuna.ui.popups.registerAlert(tuna.dom.selectOne('#alert_popup'));
 
-    tuna.view.init(body);
+    tuna.control.init(body);
 
     if (APP_NETWORK === 2) {
         FAPI.init(

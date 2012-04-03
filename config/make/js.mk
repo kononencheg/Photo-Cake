@@ -7,8 +7,8 @@ JS_COMPILER = java -jar utils/compiler.jar \
 			  --output_wrapper="(function(){%output%})();" \
 			  --compilation_level ADVANCED_OPTIMIZATIONS \
 			  --externs library/externs.js \
-			  #--formatting PRETTY_PRINT \
-			  #--debug \
+			  --formatting PRETTY_PRINT \
+			  --debug \
 			  #WHITESPACE_ONLY
 
 #ADVANCED_OPTIMIZATIONS
@@ -25,17 +25,19 @@ TUNA_FILES = tuna.js \
 			 \
 			 net/i-request.js \
 			 net/request.js \
-			 net/net.js \
 			 \
 			 model/i-resource.js \
 			 model/list-resource.js \
 			 model/item-resource.js \
+			 model/record-factory.js \
 			 model/record.js \
 			 model/model.js \
 			 \
 			 rest/i-method.js \
 			 rest/method.js \
+			 rest/default-method.js \
 			 rest/i-method-factory.js \
+			 rest/method-factory.js \
 			 rest/rest.js \
 			 \
 			 tmpl/data/data-node.js \
@@ -57,9 +59,17 @@ TUNA_FILES = tuna.js \
 			 tmpl/markup/checkbox-extractor.js \
 			 tmpl/markup/markup-template-builder.js \
 			 \
-			 tmpl/units/i-list-item-router.js \
-			 tmpl/units/list-container-router.js \
-			 tmpl/units/compiled-unit.js \
+			 tmpl/units/list/i-list-item-router.js \
+			 tmpl/units/list/list-container-router.js \
+			 tmpl/units/condition/class-action.js \
+			 tmpl/units/condition/condition-action.js \
+			 tmpl/units/condition/condition-operator.js \
+			 tmpl/units/condition/equals-operator.js \
+			 tmpl/units/condition/isset-operator.js \
+			 tmpl/units/condition/not-equals-operator.js \
+			 tmpl/units/condition/notset-operator.js \
+			 tmpl/units/i-unit.js \
+			 tmpl/units/unit.js \
 			 tmpl/units/spot.js \
 			 tmpl/units/attribute.js \
 			 tmpl/units/condition.js \
@@ -80,7 +90,7 @@ TUNA_FILES = tuna.js \
 			 ui/module.js \
 			 ui/module-instance.js \
 			 ui/module-container.js \
-			 ui/modules/modules.js \
+			 ui/ui.js \
 			 \
 			 ui/popups/popup.js \
 			 ui/popups/popups.js \
@@ -123,36 +133,36 @@ TUNA_FILES = tuna.js \
 			 ui/selection/view/abstract-selection-view.js \
 			 ui/selection/view/class-selection-view.js \
 			 \
-			 ui/modules/form.js \
-			 ui/modules/navigation.js \
-			 ui/modules/popup.js \
-			 ui/modules/button.js \
-			 ui/modules/popup-button.js \
-			 ui/modules/selection-group.js \
-			 ui/modules/template-transformer.js \
-			 ui/modules/button-group.js \
-			 ui/modules/swf.js \
-			 ui/modules/input-filter.js \
-			 ui/modules/autocomplete.js \
-			 ui/modules/carousel.js \
+			 control/control.js \
+			 control/view-controller.js \
+			 control/page-view-controller.js \
 			 \
-			 view/view.js \
-			 view/view-controller.js \
-			 view/page-view-controller.js \
-			 
+             modules/navigation.js \
+             modules/popup.js \
+             modules/button.js \
+             modules/popup-button.js \
+             modules/selection-group.js \
+             modules/template-transformer.js \
+             modules/button-group.js \
+             modules/swf.js \
+             modules/input-filter.js \
+             modules/autocomplete.js \
+             modules/form.js \
+             modules/carousel.js \
 
 APPLICATION_FILES = main.js \
 					\
 					ui/data-image.js \
+					ui/inner-html.js \
 					\
 					ui/modules/datepicker.js \
+					ui/modules/inner-html.js \
 					ui/modules/data-image.js \
 					ui/modules/data-image-copy.js \
 					ui/modules/yandex-share.js \
 					ui/modules/vk-share.js \
 					\
 					rest/common-method.js \
-					rest/common-factory.js \
 					\
 					model/records/dimension.js \
 					model/records/city.js \
@@ -165,26 +175,26 @@ APPLICATION_FILES = main.js \
 					model/records/decoration.js \
 					model/model.js \
 					\
-					view/steps/title-controller.js \
-					view/steps/designer-controller.js \
-					view/steps/order-controller.js \
-					view/steps/result-controller.js	\
+					control/steps/title-controller.js \
+					control/steps/designer-controller.js \
+					control/steps/order-controller.js \
+					control/steps/result-controller.js	\
 
-BAKERY_FILES = view/steps/share/share-controller.js \
-	 		   view/bakery-main-controller.js \
+BAKERY_FILES = control/steps/share/share-controller.js \
+	 		   control/bakery-main-controller.js \
 
-SITE_FILES = view/steps/share/share-controller.js \
-			 view/main-controller.js \
+SITE_FILES = control/steps/share/share-controller.js \
+			 control/main-controller.js \
 
-VK_FILES = view/steps/share/vk-share-controller.js \
-		   view/main-controller.js \
+VK_FILES = control/steps/share/vk-share-controller.js \
+		   control/main-controller.js \
 		   rest/social/vk/vk-method.js \
 		   rest/social/vk/friends/get-list.js \
 		   rest/social/vk/wall/post.js \
 		   rest/social/vk/cities/get-current.js \
 
-OK_FILES = view/steps/share/ok-share-controller.js \
-		   view/main-controller.js \
+OK_FILES = control/steps/share/ok-share-controller.js \
+		   control/main-controller.js \
 		   rest/social/ok/cities/get-current.js \
 
 

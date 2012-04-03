@@ -34,4 +34,4 @@ YandexShareModule.prototype.initInstance = function(target) {
     return null;
 };
 
-tuna.ui.modules.register('yandex-share', new YandexShareModule());
+tuna.ui.registerModule('yandex-share', new YandexShareModule());

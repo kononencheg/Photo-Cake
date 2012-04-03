@@ -1,9 +1,9 @@
 /**
- * @extends {tuna.view.PageViewController}
+ * @extends {tuna.control.PageViewController}
  * @constructor
  */
 var ShareController = function() {
-    tuna.view.PageViewController.call(this);
+    tuna.control.PageViewController.call(this);
 
     /**
      * @override
@@ -23,7 +23,7 @@ var ShareController = function() {
     this.__cakeImage = null;
 };
 
-tuna.utils.extend(ShareController, tuna.view.PageViewController);
+tuna.utils.extend(ShareController, tuna.control.PageViewController);
 
 /**
  * @override
@@ -44,4 +44,4 @@ ShareController.prototype.open = function() {
     }
 };
 
-tuna.view.registerController('share_step', new ShareController());
+tuna.control.registerController('share_step', new ShareController());

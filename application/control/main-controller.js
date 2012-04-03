@@ -1,9 +1,9 @@
 /**
- * @extends {tuna.view.ViewController}
+ * @extends tuna.control.ViewController
  * @constructor
  */
 var MainController = function() {
-    tuna.view.ViewController.call(this);
+    tuna.control.ViewController.call(this);
 
     /**
      * @override
@@ -12,7 +12,7 @@ var MainController = function() {
                       'autocomplete', 'yandex-share' ]
 };
 
-tuna.utils.extend(MainController, tuna.view.ViewController);
+tuna.utils.extend(MainController, tuna.control.ViewController);
 
 /**
  * @override
@@ -32,7 +32,7 @@ MainController.prototype._initActions = function() {
 
     var cityPopup = cityPopupButton.getPopup();
 
-    cityPopup.addEventListener('popup-apply', function() {
+    cityPopup.addEventListener('apply', function() {
         var city = cityAutocomplete.getSelectedData();
         if (city !== null) {
             self.__updateCurrentBakery(city);
@@ -97,5 +97,5 @@ MainController.prototype.__updateCurrentBakery = function(city) {
         (bakeries[Math.floor(bakeries.length * Math.random())]);
 };
 
-tuna.view.setMainController(new MainController());
+tuna.control.setMainController(new MainController());
 

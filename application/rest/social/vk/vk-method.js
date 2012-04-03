@@ -1,12 +1,17 @@
 /**
  * @extends {tuna.rest.Method}
- * @param {string} name
  * @constructor
  */
-var VKMethod = function(name) {
-    tuna.rest.Method.call(this, name);
+var VKMethod = function() {
+  tuna.rest.Method.call(this);
 
-    this._handleResponse = tuna.utils.bind(this._handleResponse, this);
+  /**
+   * @type {?string}
+   * @private
+   */
+  this._name = null;
+
+  this._handleResponse = tuna.utils.bind(this._handleResponse, this);
 };
 
 tuna.utils.extend(VKMethod, tuna.rest.Method);
@@ -15,7 +20,9 @@ tuna.utils.extend(VKMethod, tuna.rest.Method);
  * @param {Object} args
  */
 VKMethod.prototype.call = function(args) {
+  if (this._name !== null) {
     VK.api(this._name, this._completeArguments(args), this._handleResponse);
+  }
 };
 
 /**

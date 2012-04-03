@@ -45,4 +45,4 @@ DataImageCopy.prototype.initInstance = function(target) {
     return null;
 };
 
-tuna.ui.modules.register('data-image-copy', new DataImageCopy());
+tuna.ui.registerModule('data-image-copy', new DataImageCopy());

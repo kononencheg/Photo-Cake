@@ -28,4 +28,4 @@ VKShareModule.prototype.initInstance = function(target) {
     return null;
 };
 
-tuna.ui.modules.register('vk-share', new VKShareModule());
+tuna.ui.registerModule('vk-share', new VKShareModule());

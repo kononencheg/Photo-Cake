@@ -29,6 +29,26 @@
 </div>
 
 <div>
-    * - Нажимая на кнопку, вы принимаете условие <a href="/files/offer.pdf" target="_blank">оферты</a>.
+    * - Нажимая на кнопку, вы принимаете условие
+    <a class="j-popup-button" data-name="offer" data-popup-id="offer_popup"
+       target="_blank">оферты</a>.
 </div>
 
+
+<div id="offer_popup" class="hide">
+    <div class="modal-backdrop"></div>
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Соглашение об использовании системы «Фотонаторте»</h3>
+        </div>
+        <div class="j-inner-html modal-body modal-content"
+             data-name="offer"
+             data-html-url="/files/offer.html"
+             style="text-align: justify;">
+
+        </div>
+        <div class="modal-footer">
+            <a class="j-popup-close btn">Закрыть</a>
+        </div>
+    </div>
+</div>

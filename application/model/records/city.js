@@ -1,6 +1,6 @@
 /**
  * @constructor
- * @param {Object=} data
+ * @param {!Object=} data
  * @extends {tuna.model.Record}
  */
 var City = function (data) {

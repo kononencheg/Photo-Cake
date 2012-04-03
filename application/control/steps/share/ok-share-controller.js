@@ -1,9 +1,9 @@
 /**
- * @extends {tuna.view.PageViewController}
+ * @extends {tuna.control.PageViewController}
  * @constructor
  */
 var OKShareController = function() {
-    tuna.view.PageViewController.call(this);
+    tuna.control.PageViewController.call(this);
 
     /**
      * @type {Node}
@@ -33,7 +33,7 @@ var OKShareController = function() {
     this._modules = [ 'data-image-copy', 'button-group' ];
 };
 
-tuna.utils.extend(OKShareController, tuna.view.PageViewController);
+tuna.utils.extend(OKShareController, tuna.control.PageViewController);
 
 /**
  * @override
@@ -54,7 +54,9 @@ OKShareController.prototype._initActions = function() {
 
     var self = this;
 
-    var sendControls = this._container.getOneModuleInstance('button-group');
+    var sendControls =
+      this._container.getModuleInstanceByName('button-group', 'share');
+
     sendControls.addEventListener('publish', function() {
         if (self.__albumId === null) {
             self.__getAlbum(self.__post);
@@ -242,4 +244,4 @@ OKShareController.prototype.__parsePhotoUrl = function(url) {
     return server + '/' + id;
 };
 
-tuna.view.registerController('share_step', new OKShareController());
+tuna.control.registerController('share_step', new OKShareController());

@@ -3,7 +3,9 @@
  * @constructor
  */
 var GetList = function() {
-    rest.social.vk.VKMethod.call(this, 'friends.get');
+  rest.social.vk.VKMethod.call(this);
+
+  this._name = 'friends.get';
 };
 
 tuna.utils.extend(GetList, rest.social.vk.VKMethod);

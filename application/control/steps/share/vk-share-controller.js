@@ -1,9 +1,9 @@
 /**
- * @extends {tuna.view.PageViewController}
+ * @extends {tuna.control.PageViewController}
  * @constructor
  */
 var VKShareController = function() {
-    tuna.view.PageViewController.call(this);
+    tuna.control.PageViewController.call(this);
 
     /**
      * @type {Node}
@@ -24,7 +24,7 @@ var VKShareController = function() {
                       'button-group' ];
 };
 
-tuna.utils.extend(VKShareController, tuna.view.PageViewController);
+tuna.utils.extend(VKShareController, tuna.control.PageViewController);
 
 /**
  * @override
@@ -34,7 +34,8 @@ VKShareController.prototype._initActions = function() {
     this.__cakeImage = this._container.getModuleInstanceByName
         ('data-image-copy', 'cake-image');
 
-    var inputFilter = this._container.getOneModuleInstance('input-filter');
+    var inputFilter = this._container.getModuleInstanceByName
+      ('input-filter', 'friends-autocomplete');
 
     tuna.rest.call('social.friends.get', null, function(result) {
         inputFilter.setData(tuna.model.serialize(result));
@@ -42,7 +43,7 @@ VKShareController.prototype._initActions = function() {
 
     var self = this;
 
-    var sendControls = this._container.getOneModuleInstance('button-group');
+    var sendControls = this._container.getModuleInstanceByName('button-group', 'share');
     sendControls.addEventListener('send', function(event, button) {
         tuna.rest.call('social.wall.post', {
             'image': self.__cakeImage.getData(),
@@ -62,4 +63,4 @@ VKShareController.prototype.open = function() {
     }
 };
 
-tuna.view.registerController('share_step', new VKShareController());
+tuna.control.registerController('share_step', new VKShareController());

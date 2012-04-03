@@ -15,4 +15,4 @@ DataImageModule.prototype.initInstance = function(target) {
     return ui.createDataImage(target);
 };
 
-tuna.ui.modules.register('data-image', new DataImageModule());
+tuna.ui.registerModule('data-image', new DataImageModule());

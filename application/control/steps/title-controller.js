@@ -1,9 +1,9 @@
 /**
- * @extends {tuna.view.PageViewController}
+ * @extends {tuna.control.PageViewController}
  * @constructor
  */
 var TitleController = function() {
-    tuna.view.PageViewController.call(this);
+    tuna.control.PageViewController.call(this);
 
     /**
      * @override
@@ -12,7 +12,7 @@ var TitleController = function() {
                       'popup-button', 'button-group', 'selection-group' ];
 };
 
-tuna.utils.extend(TitleController, tuna.view.PageViewController);
+tuna.utils.extend(TitleController, tuna.control.PageViewController);
 
 /**
  * @override
@@ -38,5 +38,5 @@ TitleController.prototype.canClose = function() {
     return bakery !== null && decorations.length > 0;
 };
 
-tuna.view.registerController('title_step', new TitleController());
+tuna.control.registerController('title_step', new TitleController());
 

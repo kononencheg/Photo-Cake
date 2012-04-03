@@ -3,12 +3,15 @@
  * @constructor
  */
 var GetCurrent = function() {
-    rest.social.vk.VKMethod.call(this, 'getProfiles');
+  rest.social.vk.VKMethod.call(this);
 
-    this.__handleCity = tuna.utils.bind(this.__handleCity, this);
+  this._name = 'getProfiles';
+
+  this.__handleCity = tuna.utils.bind(this.__handleCity, this);
 };
 
 tuna.utils.extend(GetCurrent, rest.social.vk.VKMethod);
+
 
 /**
  * @override

@@ -483,10 +483,29 @@
             </div>
             
             <div>
-                * - Нажимая на кнопку, вы принимаете условие <a href="/files/offer.pdf" target="_blank">оферты</a>.
+                * - Нажимая на кнопку, вы принимаете условие
+                <a class="j-popup-button" data-name="offer" data-popup-id="offer_popup"
+                   target="_blank">оферты</a>.
             </div>
             
-        </div>
+            
+            <div id="offer_popup" class="hide">
+                <div class="modal-backdrop"></div>
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3>Соглашение об использовании системы «Фотонаторте»</h3>
+                    </div>
+                    <div class="j-inner-html modal-body modal-content"
+                         data-name="offer"
+                         data-html-url="/files/offer.html"
+                         style="text-align: justify;">
+            
+                    </div>
+                    <div class="modal-footer">
+                        <a class="j-popup-close btn">Закрыть</a>
+                    </div>
+                </div>
+            </div>        </div>
         
         <div id="share_step"
              class="j-button-group j-navigation-page j-control-container step row-fluid"
@@ -592,7 +611,9 @@
                             </div>
             
                             <div class="j-client_email-input control-group">
-                                <label class="control-label">Email *</label>
+                                <label class="control-label">
+                                    Email *
+                                </label>
                                 <div class="controls">
                                     <div class="input">
                                         <input name="client_email" type="text" />
@@ -925,7 +946,6 @@
             <a href="/files/partnership.pdf" target="_blank">Сотрудничество</a> |
             Поддержка: support@fotonatorte.ru | Тел.: +7 (812) 323-52-18
         </center>
-        
 
         <iframe id="support_frame" name="support_frame" class="hide"
                         width="0" height="0"></iframe>

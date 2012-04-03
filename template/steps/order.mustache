@@ -64,7 +64,9 @@
                 </div>
 
                 <div class="j-client_email-input control-group">
-                    <label class="control-label">Email *</label>
+                    <label class="control-label">
+                        Email {{^ok_network}}*{{/ok_network}}
+                    </label>
                     <div class="controls">
                         <div class="input">
                             <input name="client_email" type="text" />

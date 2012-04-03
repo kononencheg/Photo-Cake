@@ -377,10 +377,29 @@
             </div>
             
             <div>
-                * - Нажимая на кнопку, вы принимаете условие <a href="/files/offer.pdf" target="_blank">оферты</a>.
+                * - Нажимая на кнопку, вы принимаете условие
+                <a class="j-popup-button" data-name="offer" data-popup-id="offer_popup"
+                   target="_blank">оферты</a>.
             </div>
             
-        </div>
+            
+            <div id="offer_popup" class="hide">
+                <div class="modal-backdrop"></div>
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3>Соглашение об использовании системы «Фотонаторте»</h3>
+                    </div>
+                    <div class="j-inner-html modal-body modal-content"
+                         data-name="offer"
+                         data-html-url="/files/offer.html"
+                         style="text-align: justify;">
+            
+                    </div>
+                    <div class="modal-footer">
+                        <a class="j-popup-close btn">Закрыть</a>
+                    </div>
+                </div>
+            </div>        </div>
         
         <div id="share_step"
              class="j-button-group j-navigation-page j-control-container step row-fluid"
@@ -489,7 +508,9 @@
                             </div>
             
                             <div class="j-client_email-input control-group">
-                                <label class="control-label">Email *</label>
+                                <label class="control-label">
+                                    Email *
+                                </label>
                                 <div class="controls">
                                     <div class="input">
                                         <input name="client_email" type="text" />
@@ -797,7 +818,31 @@
                 </tuna:template>
             </div>
         
-        
+        <center>
+            <div class="popover-btn">
+                ООО «Фотонаторте» ОГРН 1127847095364
+                <div class="popover fade top in" style="top: 625px; left: 50%; margin-left: -143px;">
+                    <div class="arrow"></div>
+                    <div class="popover-inner">
+                        <h3 class="popover-title">Реквизиты</h3>
+                        <div class="popover-content">
+                            <ul class="unstyled">
+                                <li>Общество с ограниченной ответственностью «Фотонаторте»</li>
+                                <li>ИНН 7813526995</li>
+                                <li>КПП 781301001</li>
+                                <li>ОГРН 1127847095364</li>
+                                <li>ОКВЭД 51.70, 52.24.22 63.40, 72.4</li>
+                                <li>Телефон (812) 323-52-18</li>
+                                <li>Место нахождения: 199078, Санкт-Петербург, 11-я лин ВО 16/32</li>
+                                <li>Почтовый адрес: 197022, Санкт-Петербург, Каменноостровский пр., 61 лит А пом 12Н</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="/files/partnership.pdf" target="_blank">Сотрудничество</a> |
+            Поддержка: support@fotonatorte.ru | Тел.: +7 (812) 323-52-18
+        </center>
 
         <iframe id="support_frame" name="support_frame" class="hide"
                         width="0" height="0"></iframe>

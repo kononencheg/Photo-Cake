@@ -1,9 +1,9 @@
 /**
- * @extends {tuna.view.ViewController}
+ * @extends tuna.control.ViewController
  * @constructor
  */
 var BakeryMainController = function() {
-    tuna.view.ViewController.call(this);
+    tuna.control.ViewController.call(this);
 
     /**
      * @override
@@ -11,7 +11,7 @@ var BakeryMainController = function() {
     this._modules = [ 'navigation', 'template-transformer' ];
 };
 
-tuna.utils.extend(BakeryMainController, tuna.view.ViewController);
+tuna.utils.extend(BakeryMainController, tuna.control.ViewController);
 
 /**
  * @override
@@ -35,5 +35,5 @@ BakeryMainController.prototype._initActions = function() {
 };
 
 
-tuna.view.setMainController(new BakeryMainController());
+tuna.control.setMainController(new BakeryMainController());
 

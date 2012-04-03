@@ -20,4 +20,4 @@ DatepickerModule.prototype.initInstance = function(target) {
     return null;
 };
 
-tuna.ui.modules.register('datepicker', new DatepickerModule());
+tuna.ui.registerModule('datepicker', new DatepickerModule());

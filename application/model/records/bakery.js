@@ -1,6 +1,6 @@
 /**
  * @extends {tuna.model.Record}
- * @param {Object=} data
+ * @param {!Object=} data
  * @constructor
  */
 var Bakery = function(data) {

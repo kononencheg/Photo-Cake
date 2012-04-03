@@ -22,7 +22,7 @@ var DataImage = function(target) {
 tuna.utils.extend(DataImage, tuna.ui.ModuleInstance);
 
 /**
- * @param {!string} data
+ * @param {string} data
  */
 DataImage.prototype.setData = function(data) {
     this._data = data;

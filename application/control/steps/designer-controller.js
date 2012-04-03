@@ -1,9 +1,9 @@
 /**
- * @extends {tuna.view.PageViewController}
+ * @extends tuna.control.PageViewController
  * @constructor
  */
 var DesignerController = function() {
-    tuna.view.PageViewController.call(this);
+    tuna.control.PageViewController.call(this);
 
     /**
      * @type {function()}
@@ -38,10 +38,10 @@ var DesignerController = function() {
     /**
      * @override
      */
-    this._modules = [ 'data-image', 'swf' ];
+    this._modules = [ 'data-image', 'swf', 'popup-button', 'inner-html' ];
 };
 
-tuna.utils.extend(DesignerController, tuna.view.PageViewController);
+tuna.utils.extend(DesignerController, tuna.control.PageViewController);
 
 /**
  * @override
@@ -55,6 +55,20 @@ DesignerController.prototype._initActions = function() {
     model.dimensions.addEventListener('update', function() {
         self.__designerSWF.reset();
     });
+
+    var offerPopupButton = this._container.getModuleInstanceByName
+        ('popup-button', 'offer');
+    var offerPopup = offerPopupButton.getPopup();
+
+    var offerHtml = this._container.getModuleInstanceByName
+        ('inner-html', 'offer');
+
+    var listener = function() {
+        offerHtml.load();
+        offerPopup.removeEventListener('open', listener);
+    };
+
+    offerPopup.addEventListener('open', listener);
 };
 
 
@@ -225,4 +239,4 @@ window['confirmShapeChange'] = tuna.utils.bind(controller.confirmShapeChange, co
 window['openMessageBox'] = tuna.ui.popups.alert;
 window['onDecoElementsLoaded'] = tuna.utils.bind(controller.onDecoElementsLoaded, controller);
 
-tuna.view.registerController('designer_step', controller);
+tuna.control.registerController('designer_step', controller);

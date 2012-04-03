@@ -1,9 +1,9 @@
 /**
- * @extends {tuna.view.PageViewController}
+ * @extends {tuna.control.PageViewController}
  * @constructor
  */
 var OrderController = function() {
-    tuna.view.PageViewController.call(this);
+    tuna.control.PageViewController.call(this);
 
     /**
      * @private
@@ -30,7 +30,7 @@ var OrderController = function() {
                       'form', 'popup', 'popup-button', 'button-group' ];
 };
 
-tuna.utils.extend(OrderController, tuna.view.PageViewController);
+tuna.utils.extend(OrderController, tuna.control.PageViewController);
 
 /**
  * @override
@@ -53,7 +53,7 @@ OrderController.prototype._initActions = function() {
     var recipesForm = this._container.getModuleInstanceByName
         ('form', 'recipes-list');
 
-    recipePopup.addEventListener('popup-apply', function() {
+    recipePopup.addEventListener('apply', function() {
         var recipeIds = recipesForm.getValue('recipe_id');
         var recipe = model.recipes.getItemById(recipeIds.shift());
 
@@ -101,12 +101,12 @@ OrderController.prototype._initActions = function() {
         }
     });
 
-    recipeInfoPopup.addEventListener('popup-apply', function() {
+    recipeInfoPopup.addEventListener('apply', function() {
         recipesForm.setValue('recipe_id', popupRecipe.id);
         recipePopup.open();
     });
 
-    recipeInfoPopup.addEventListener('popup-close', function() {
+    recipeInfoPopup.addEventListener('close', function() {
         recipePopup.open();
     });
 
@@ -169,4 +169,4 @@ OrderController.prototype.__updateOrder = function() {
     this.__orderTransformer.applyTransform(tuna.model.serialize(order));
 };
 
-tuna.view.registerController('order_step', new OrderController());
+tuna.control.registerController('order_step', new OrderController());
