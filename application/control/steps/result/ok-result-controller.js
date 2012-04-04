@@ -48,7 +48,7 @@ OkResultController.prototype._initActions = function() {
             };
 
             FAPI.UI.showPayment
-                ('Тортик', 'Покупаете тортик?', self.__orderId, '0', null, null, 'ok', 'true');
+                ('Тортик', 'Покупаете тортик?', self.__orderId, 10, null, null, 'RUR', 'true');
         }
     });
 };
@@ -58,7 +58,6 @@ OkResultController.prototype._initActions = function() {
  */
 OkResultController.prototype.open = function(orderId) {
     if (orderId !== null) {
-        debugger;
         this.__orderId = orderId + '';
     }
 };
