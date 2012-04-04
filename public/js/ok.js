@@ -2274,7 +2274,7 @@ $Cake$$.prototype.$serialize$ = function $$Cake$$$$$serialize$$() {
 var $record$$inline_391$$ = new $Cake$$;
 $tuna$model$recordFactory$$.$__prototypes$.cake = $record$$inline_391$$;
 function $model$records$Order$$($opt_rawData$$2$$) {
-  this.$payment$ = this.$recipe$ = this.$bakery$ = this.$cake$ = $JSCompiler_alias_NULL$$;
+  this.$recipe$ = this.$bakery$ = this.$cake$ = $JSCompiler_alias_NULL$$;
   $tuna$model$Record$$.call(this, $opt_rawData$$2$$)
 }
 $tuna$utils$extend$$($model$records$Order$$, $tuna$model$Record$$);
@@ -2283,7 +2283,7 @@ $model$records$Order$$.prototype.$populate$ = function $$model$records$Order$$$$
   this.$cake$ = new $Cake$$($data$$52$$.cake);
   this.$bakery$ = new $Bakery$$($data$$52$$.bakery);
   this.$recipe$ = new $model$records$Recipe$$($data$$52$$.recipe);
-  this.$payment$ = new $model$records$Payment$$($data$$52$$.payment)
+  new $model$records$Payment$$($data$$52$$.payment)
 };
 $model$records$Order$$.prototype.$serialize$ = function $$model$records$Order$$$$$serialize$$() {
   var $decorationPrice_price$$inline_395$$;
@@ -2616,7 +2616,6 @@ $tuna$control$__controllerTable$$.share_step = $controller$$inline_425$$;
 function $OkResultController$$() {
   $tuna$control$PageViewController$$.call(this);
   this.$__orderId$ = $JSCompiler_alias_NULL$$;
-  this.$__totalPrice$ = -1;
   this.$_modules$ = ["data-image-copy", "button"]
 }
 $tuna$utils$extend$$($OkResultController$$, $tuna$control$PageViewController$$);
@@ -2633,11 +2632,11 @@ $OkResultController$$.prototype.$_initActions$ = function $$OkResultController$$
         alert($attrs$$1$$)
       }
       window.$API_callback$ = $JSCompiler_alias_NULL$$
-    }, FAPI.UI.showPayment("\u0422\u043e\u0440\u0442\u0438\u043a", "\u041f\u043e\u043a\u0443\u043f\u0430\u0435\u0442\u0435 \u0442\u043e\u0440\u0442\u0438\u043a?", $self$$21$$.$__orderId$, $self$$21$$.$__totalPrice$, $JSCompiler_alias_NULL$$, $JSCompiler_alias_NULL$$, "RUR", "true"))
+    }, FAPI.UI.showPayment("\u0422\u043e\u0440\u0442\u0438\u043a", "\u041f\u043e\u043a\u0443\u043f\u0430\u0435\u0442\u0435 \u0442\u043e\u0440\u0442\u0438\u043a?", $self$$21$$.$__orderId$, 0, $JSCompiler_alias_NULL$$, $JSCompiler_alias_NULL$$, "RUR", "true"))
   })
 };
 $OkResultController$$.prototype.open = function $$OkResultController$$$$open$($order$$2$$) {
-  $order$$2$$ !== $JSCompiler_alias_NULL$$ && (this.$__orderId$ = $order$$2$$.id, this.$__totalPrice$ = $order$$2$$.$payment$.$decoPrice$ + $order$$2$$.$payment$.$recipePrice$ + $order$$2$$.$payment$.$deliveryPrice$)
+  $order$$2$$ !== $JSCompiler_alias_NULL$$ && (this.$__orderId$ = $order$$2$$.id)
 };
 $tuna$control$__controllerTable$$.result_step = new $OkResultController$$;
 function $MainController$$() {
