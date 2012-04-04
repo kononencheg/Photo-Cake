@@ -26,7 +26,7 @@ FAPI.init = {};
 FAPI.UI.showPermissions = {};
 FAPI.UI.showNotification = {};
 FAPI.UI.showConfirmation ={};
-
+FAPI.UI.showPayment = {};
 FAPI.Util.calcSignature = {};
 
 FAPI.Client.call = {};

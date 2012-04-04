@@ -178,22 +178,24 @@ APPLICATION_FILES = main.js \
 					control/steps/title-controller.js \
 					control/steps/designer-controller.js \
 					control/steps/order-controller.js \
-					control/steps/result-controller.js	\
 
 BAKERY_FILES = control/steps/share/share-controller.js \
 	 		   control/bakery-main-controller.js \
 
 SITE_FILES = control/steps/share/share-controller.js \
+             control/steps/result/result-controller.js	\
 			 control/main-controller.js \
 
 VK_FILES = control/steps/share/vk-share-controller.js \
 		   control/main-controller.js \
+            control/steps/result/result-controller.js	\
 		   rest/social/vk/vk-method.js \
 		   rest/social/vk/friends/get-list.js \
 		   rest/social/vk/wall/post.js \
 		   rest/social/vk/cities/get-current.js \
 
 OK_FILES = control/steps/share/ok-share-controller.js \
+           control/steps/result/ok-result-controller.js	\
 		   control/main-controller.js \
 		   rest/social/ok/cities/get-current.js \
 

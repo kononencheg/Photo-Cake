@@ -63,8 +63,8 @@ OrderController.prototype._initActions = function() {
     var orderForm = this._container.getModuleInstanceByName
         ('form', 'order-form');
 
-    orderForm.addEventListener('result', function() {
-        self._navigation.navigate('result');
+    orderForm.addEventListener('result', function(event, order) {
+        self._navigation.navigate('result', order['id']);
     });
 
     orderForm.setValue('client_network', APP_NETWORK);

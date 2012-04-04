@@ -2472,12 +2472,12 @@ $JSCompiler_prototypeAlias$$.$_initActions$ = function $$JSCompiler_prototypeAli
     $model$currentRecipe$$.set($recipe_recipeIds$$)
   });
   var $orderForm$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "form", "order-form");
-  $orderForm$$.addEventListener("result", function() {
-    $self$$17$$.$_navigation$.navigate("result")
+  $orderForm$$.addEventListener("result", function($event$$34$$, $order$$) {
+    $self$$17$$.$_navigation$.navigate("result", $order$$.id)
   });
   $JSCompiler_StaticMethods_setValue$$($orderForm$$, "client_network", 2);
   var $popupRecipe$$ = $JSCompiler_alias_NULL$$, $recipeInfoPopup$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "popup", "recipe-info-popup"), $recipeInfoTransformer$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "template-transformer", "recipe-info-popup");
-  $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "button-group", "recipes-list").addEventListener("show", function($event$$34$$, $button$$5$$) {
+  $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "button-group", "recipes-list").addEventListener("show", function($event$$35$$, $button$$5$$) {
     $popupRecipe$$ = $JSCompiler_StaticMethods_getItemById$$($model$recipes$$, $JSCompiler_StaticMethods_getStringOption$$($button$$5$$, "recipe-id"));
     $popupRecipe$$ !== $JSCompiler_alias_NULL$$ && ($JSCompiler_StaticMethods_applyTransform$$($recipeInfoTransformer$$, $popupRecipe$$.$serialize$()), $recipeInfoPopup$$.open(), $recipePopup$$.close())
   });
@@ -2511,21 +2511,15 @@ $JSCompiler_prototypeAlias$$.$__handleBakeryUpdate$ = function $$JSCompiler_prot
   this.$_navigation$.navigate("title")
 };
 $JSCompiler_prototypeAlias$$.$__updateOrder$ = function $$JSCompiler_prototypeAlias$$$$__updateOrder$$() {
-  var $order$$ = $model$currentOrder$$.get();
-  $order$$ === $JSCompiler_alias_NULL$$ && ($order$$ = new $Order$$, $model$currentOrder$$.set($order$$));
-  $order$$.$cake$ = $model$currentCake$$.get();
-  $order$$.$bakery$ = $model$currentBakery$$.get();
-  $order$$.$recipe$ = $model$currentRecipe$$.get();
-  $JSCompiler_StaticMethods_applyTransform$$(this.$__orderTransformer$, $tuna$model$serialize$$($order$$))
+  var $order$$1$$ = $model$currentOrder$$.get();
+  $order$$1$$ === $JSCompiler_alias_NULL$$ && ($order$$1$$ = new $Order$$, $model$currentOrder$$.set($order$$1$$));
+  $order$$1$$.$cake$ = $model$currentCake$$.get();
+  $order$$1$$.$bakery$ = $model$currentBakery$$.get();
+  $order$$1$$.$recipe$ = $model$currentRecipe$$.get();
+  $JSCompiler_StaticMethods_applyTransform$$(this.$__orderTransformer$, $tuna$model$serialize$$($order$$1$$))
 };
 var $controller$$inline_418$$ = new $OrderController$$;
 $tuna$control$__controllerTable$$.order_step = $controller$$inline_418$$;
-function $ResultController$$() {
-  $tuna$control$PageViewController$$.call(this);
-  this.$_modules$ = ["data-image-copy"]
-}
-$tuna$utils$extend$$($ResultController$$, $tuna$control$PageViewController$$);
-$tuna$control$__controllerTable$$.result_step = new $ResultController$$;
 function $OKShareController$$() {
   $tuna$control$PageViewController$$.call(this);
   this.$__albumId$ = this.$__cakeImage$ = this.$__downloadDataInput$ = $JSCompiler_alias_NULL$$;
@@ -2599,8 +2593,37 @@ function $JSCompiler_StaticMethods___parsePhotoUrl$$($url$$25$$) {
   var $id$$5$$ = $url$$25$$.split("photoId=").pop().split("&").shift();
   return $url$$25$$.split("//").pop().split(".").shift() + "/" + $id$$5$$
 }
-var $controller$$inline_424$$ = new $OKShareController$$;
-$tuna$control$__controllerTable$$.share_step = $controller$$inline_424$$;
+var $controller$$inline_421$$ = new $OKShareController$$;
+$tuna$control$__controllerTable$$.share_step = $controller$$inline_421$$;
+function $OkResultController$$() {
+  $tuna$control$PageViewController$$.call(this);
+  this.$__orderId$ = $JSCompiler_alias_NULL$$;
+  this.$_modules$ = ["data-image-copy", "button"]
+}
+$tuna$utils$extend$$($OkResultController$$, $tuna$control$PageViewController$$);
+$OkResultController$$.prototype.$_initActions$ = function $$OkResultController$$$$$_initActions$$() {
+  var $self$$21$$ = this, $payButton$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "button", "pay-button");
+  $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "button", "cash-button").addEventListener("click", function() {
+    $tuna$ui$popups$alert$$("\u0421\u043f\u0430\u0441\u0438\u0431\u043e \u0437\u0430 \u0437\u0430\u043a\u0430\u0437!");
+    $self$$21$$.$_navigation$.navigate("title")
+  });
+  $payButton$$.addEventListener("click", function() {
+    $self$$21$$.$__orderId$ !== $JSCompiler_alias_NULL$$ && (window.$API_callback$ = function $window$$API_callback$$($method$$8$$, $status$$7$$, $attrs$$1$$) {
+      if("ok" === $status$$7$$ && "showPayment" === $method$$8$$) {
+        debugger;
+        alert($attrs$$1$$)
+      }
+      window.$API_callback$ = $JSCompiler_alias_NULL$$
+    }, FAPI.UI.showPayment("\u0422\u043e\u0440\u0442\u0438\u043a", "", $self$$21$$.$__orderId$, "0", $JSCompiler_alias_NULL$$, $JSCompiler_alias_NULL$$, "ok", "true"))
+  })
+};
+$OkResultController$$.prototype.open = function $$OkResultController$$$$open$($orderId$$) {
+  if($orderId$$ !== $JSCompiler_alias_NULL$$) {
+    debugger;
+    this.$__orderId$ = $orderId$$ + ""
+  }
+};
+$tuna$control$__controllerTable$$.result_step = new $OkResultController$$;
 function $MainController$$() {
   $tuna$control$ViewController$$.call(this);
   this.$_modules$ = ["navigation", "popup-button", "template-transformer", "autocomplete", "yandex-share"]
@@ -2616,10 +2639,10 @@ $MainController$$.prototype.$_initActions$ = function $$MainController$$$$$_init
     $city$$1$$ !== $JSCompiler_alias_NULL$$ && $JSCompiler_StaticMethods___updateCurrentBakery$$($city$$1$$)
   });
   var $bakeryTransformer$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "template-transformer", "current-bakery");
-  $model$currentBakery$$.addEventListener("update", function($event$$35$$, $bakery$$6$$) {
+  $model$currentBakery$$.addEventListener("update", function($event$$36$$, $bakery$$6$$) {
     $JSCompiler_StaticMethods_applyTransform$$($bakeryTransformer$$, $tuna$model$serialize$$($bakery$$6$$))
   });
-  $model$cities$$.addEventListener("update", function($event$$36$$, $cities$$) {
+  $model$cities$$.addEventListener("update", function($event$$37$$, $cities$$) {
     $cityAutocomplete$$.setData($cities$$)
   });
   $tuna$rest$call$$("cities.getCurrent", $JSCompiler_alias_NULL$$, function($city$$2$$) {
@@ -2651,9 +2674,9 @@ function $GetCurrent$$() {
 }
 $tuna$utils$extend$$($GetCurrent$$, $tuna$rest$Method$$);
 $GetCurrent$$.prototype.call = function $$GetCurrent$$$$call$() {
-  var $self$$22$$ = this;
-  FAPI.Client.call({method:"users.getInfo", fields:"current_location", uids:FAPI.Client.uid}, function($city$$4_status$$7$$, $data$$61_value$$60$$, $error$$9$$) {
-    "ok" === $city$$4_status$$7$$ ? ($city$$4_status$$7$$ = new $City$$, $data$$61_value$$60$$ !== $JSCompiler_alias_NULL$$ && 0 < $data$$61_value$$60$$.length ? ($data$$61_value$$60$$ = $data$$61_value$$60$$.shift(), $city$$4_status$$7$$.name = $data$$61_value$$60$$.location.city) : $city$$4_status$$7$$.name = "\u041c\u043e\u0441\u043a\u0432\u0430", $self$$22$$.$dispatch$("result", $city$$4_status$$7$$)) : $self$$22$$.$dispatch$("error", $error$$9$$)
+  var $self$$23$$ = this;
+  FAPI.Client.call({method:"users.getInfo", fields:"current_location", uids:FAPI.Client.uid}, function($city$$4_status$$8$$, $data$$61_value$$60$$, $error$$9$$) {
+    "ok" === $city$$4_status$$8$$ ? ($city$$4_status$$8$$ = new $City$$, $data$$61_value$$60$$ !== $JSCompiler_alias_NULL$$ && 0 < $data$$61_value$$60$$.length ? ($data$$61_value$$60$$ = $data$$61_value$$60$$.shift(), $city$$4_status$$8$$.name = $data$$61_value$$60$$.location.city) : $city$$4_status$$8$$.name = "\u041c\u043e\u0441\u043a\u0432\u0430", $self$$23$$.$dispatch$("result", $city$$4_status$$8$$)) : $self$$23$$.$dispatch$("error", $error$$9$$)
   })
 };
 $tuna$rest$methodFactory$$.$__methods$["cities.getCurrent"] = new $GetCurrent$$;
