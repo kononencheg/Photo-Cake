@@ -1,14 +1,9 @@
 /**
  * @extends {tuna.model.Record}
+ * @param {!*=} opt_rawData Исходные данные экземпляра.
  * @constructor
  */
-var Recipe = function() {
-
-    /**
-     *
-     * @type {string}
-     */
-    this.id = '';
+var Recipe = function(opt_rawData) {
 
     /**
      *
@@ -33,6 +28,8 @@ var Recipe = function() {
      * @type {Object.<string, Object.<string, number>>}
      */
     this.dimensionPrices = {};
+
+    tuna.model.Record.call(this, opt_rawData);
 };
 
 tuna.utils.extend(Recipe, tuna.model.Record);

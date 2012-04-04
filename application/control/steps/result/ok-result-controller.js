@@ -12,6 +12,12 @@ var OkResultController = function() {
     this.__orderId = null;
 
     /**
+     * @type {number}
+     * @private
+     */
+    this.__totalPrice = -1;
+
+    /**
      * @override
      */
     this._modules = [ 'data-image-copy', 'button' ];
@@ -47,8 +53,11 @@ OkResultController.prototype._initActions = function() {
                 window.API_callback = null;
             };
 
-            FAPI.UI.showPayment
-                ('Тортик', 'Покупаете тортик?', self.__orderId, 10, null, null, 'RUR', 'true');
+            FAPI.UI.showPayment(
+                'Тортик', 'Покупаете тортик?',
+                self.__orderId, this.__totalPrice,
+                null, null, 'RUR', 'true'
+            );
         }
     });
 };
@@ -56,9 +65,10 @@ OkResultController.prototype._initActions = function() {
 /**
  * @override
  */
-OkResultController.prototype.open = function(orderId) {
-    if (orderId !== null) {
-        this.__orderId = orderId + '';
+OkResultController.prototype.open = function(order) {
+    if (order !== null) {
+        this.__orderId = order.id;
+        this.__totalPrice = order.payment.getTotalPrice();
     }
 };
 

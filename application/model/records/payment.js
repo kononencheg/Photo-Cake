@@ -1,8 +1,9 @@
 /**
  * @extends {tuna.model.Record}
+ * @param {!*=} opt_rawData Исходные данные экземпляра.
  * @constructor
  */
-var Payment = function() {
+model.records.Payment = function(opt_rawData) {
     /**
      * @type {number}
      */
@@ -17,24 +18,36 @@ var Payment = function() {
      * @type {number}
      */
     this.deliveryPrice = 0;
+
+    tuna.model.Record.call(this, opt_rawData);
 };
 
-tuna.utils.extend(Payment, tuna.model.Record);
+tuna.utils.extend(model.records.Payment, tuna.model.Record);
 
 /**
  * @override
  */
-Payment.prototype.serialize = function() {
+model.records.Payment.prototype.populate = function(data) {
+    this.decoPrice = data['decoration_price'];
+    this.recipePrice = data['recipe_price'];
+    this.deliveryPrice = data['delivery_price'];
+};
+
+/**
+ * @override
+ */
+model.records.Payment.prototype.serialize = function() {
     return {
         'decoPrice': this.decoPrice,
         'recipePrice': this.recipePrice,
         'deliveryPrice': this.deliveryPrice,
-        'totalPrice': this.decoPrice + this.recipePrice + this.deliveryPrice
+        'totalPrice': this.getTotalPrice()
     };
 };
 
 /**
- * @extends {Payment}
- * @constructor
+ * @return {number}
  */
-model.records.Payment = Payment;
+model.records.Payment.prototype.getTotalPrice = function() {
+    return this.decoPrice + this.recipePrice + this.deliveryPrice;
+};

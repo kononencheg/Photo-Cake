@@ -115,20 +115,20 @@ function $tuna$dom$addOneEventListener$$($element$$11$$, $type$$50$$, $handler$$
     $handler$$5$$.call($element$$11$$, $event$$5_listenerId$$inline_22$$);
     $event$$5_listenerId$$inline_22$$ = $element$$11$$.$__onceTargetId$ + "_" + $type$$50$$;
     if($handler$$5$$[$event$$5_listenerId$$inline_22$$] !== $JSCompiler_alias_VOID$$) {
-      var $handler$$inline_433$$ = $handler$$5$$[$event$$5_listenerId$$inline_22$$];
+      var $handler$$inline_437$$ = $handler$$5$$[$event$$5_listenerId$$inline_22$$];
       if($element$$11$$.removeEventListener !== $JSCompiler_alias_VOID$$) {
-        $element$$11$$.removeEventListener($type$$50$$, $handler$$inline_433$$, $JSCompiler_alias_FALSE$$)
+        $element$$11$$.removeEventListener($type$$50$$, $handler$$inline_437$$, $JSCompiler_alias_FALSE$$)
       }else {
         if($element$$11$$.detachEvent !== $JSCompiler_alias_VOID$$) {
           if($element$$11$$["on" + $type$$50$$] === $JSCompiler_alias_VOID$$) {
-            var $handlers$$inline_434_listenerId$$inline_436$$ = $element$$11$$["__" + $type$$50$$];
-            if($handlers$$inline_434_listenerId$$inline_436$$ !== $JSCompiler_alias_VOID$$) {
-              for(var $i$$inline_435$$ = $handlers$$inline_434_listenerId$$inline_436$$.length - 1;0 <= $i$$inline_435$$;) {
-                $handlers$$inline_434_listenerId$$inline_436$$[$i$$inline_435$$] === $handler$$inline_433$$ && $handlers$$inline_434_listenerId$$inline_436$$.splice($i$$inline_435$$, 1), $i$$inline_435$$--
+            var $handlers$$inline_438_listenerId$$inline_440$$ = $element$$11$$["__" + $type$$50$$];
+            if($handlers$$inline_438_listenerId$$inline_440$$ !== $JSCompiler_alias_VOID$$) {
+              for(var $i$$inline_439$$ = $handlers$$inline_438_listenerId$$inline_440$$.length - 1;0 <= $i$$inline_439$$;) {
+                $handlers$$inline_438_listenerId$$inline_440$$[$i$$inline_439$$] === $handler$$inline_437$$ && $handlers$$inline_438_listenerId$$inline_440$$.splice($i$$inline_439$$, 1), $i$$inline_439$$--
               }
             }
           }else {
-            $handlers$$inline_434_listenerId$$inline_436$$ = $element$$11$$.$__ieTargetId$ + "_" + $type$$50$$, $handler$$inline_433$$[$handlers$$inline_434_listenerId$$inline_436$$] !== $JSCompiler_alias_VOID$$ && ($element$$11$$.detachEvent("on" + $type$$50$$, $handler$$inline_433$$[$handlers$$inline_434_listenerId$$inline_436$$]), delete $handler$$inline_433$$[$handlers$$inline_434_listenerId$$inline_436$$])
+            $handlers$$inline_438_listenerId$$inline_440$$ = $element$$11$$.$__ieTargetId$ + "_" + $type$$50$$, $handler$$inline_437$$[$handlers$$inline_438_listenerId$$inline_440$$] !== $JSCompiler_alias_VOID$$ && ($element$$11$$.detachEvent("on" + $type$$50$$, $handler$$inline_437$$[$handlers$$inline_438_listenerId$$inline_440$$]), delete $handler$$inline_437$$[$handlers$$inline_438_listenerId$$inline_440$$])
           }
         }
       }
@@ -765,12 +765,12 @@ $tuna$tmpl$units$Attribute$$.prototype.$_applyValue$ = function $$tuna$tmpl$unit
 };
 $tuna$tmpl$units$Attribute$$.prototype.$__dispatchAttribute$ = function $$tuna$tmpl$units$Attribute$$$$$__dispatchAttribute$$() {
   for(var $i$$25$$ = this.$_nodes$.length - 1;0 <= $i$$25$$;) {
-    var $element$$inline_438_element$$inline_81$$ = this.$_nodes$[$i$$25$$], $type$$inline_82$$ = this.$__attributeName$, $event$$inline_439_event$$inline_83$$ = $JSCompiler_alias_NULL$$;
+    var $element$$inline_442_element$$inline_81$$ = this.$_nodes$[$i$$25$$], $type$$inline_82$$ = this.$__attributeName$, $event$$inline_443_event$$inline_83$$ = $JSCompiler_alias_NULL$$;
     if(document.createEventObject !== $JSCompiler_alias_VOID$$) {
-      var $event$$inline_439_event$$inline_83$$ = document.createEventObject(), $eventName$$inline_84$$ = "on" + $type$$inline_82$$;
-      $element$$inline_438_element$$inline_81$$[$eventName$$inline_84$$] === $JSCompiler_alias_VOID$$ ? ($event$$inline_439_event$$inline_83$$.$__type$ = $type$$inline_82$$, $element$$inline_438_element$$inline_81$$.fireEvent("onhelp", $event$$inline_439_event$$inline_83$$)) : $element$$inline_438_element$$inline_81$$.fireEvent($eventName$$inline_84$$, $event$$inline_439_event$$inline_83$$)
+      var $event$$inline_443_event$$inline_83$$ = document.createEventObject(), $eventName$$inline_84$$ = "on" + $type$$inline_82$$;
+      $element$$inline_442_element$$inline_81$$[$eventName$$inline_84$$] === $JSCompiler_alias_VOID$$ ? ($event$$inline_443_event$$inline_83$$.$__type$ = $type$$inline_82$$, $element$$inline_442_element$$inline_81$$.fireEvent("onhelp", $event$$inline_443_event$$inline_83$$)) : $element$$inline_442_element$$inline_81$$.fireEvent($eventName$$inline_84$$, $event$$inline_443_event$$inline_83$$)
     }else {
-      $event$$inline_439_event$$inline_83$$ = document.createEvent("UIEvents"), $event$$inline_439_event$$inline_83$$.initUIEvent($type$$inline_82$$, $JSCompiler_alias_TRUE$$, $JSCompiler_alias_TRUE$$, window, 1), $element$$inline_438_element$$inline_81$$.dispatchEvent($event$$inline_439_event$$inline_83$$)
+      $event$$inline_443_event$$inline_83$$ = document.createEvent("UIEvents"), $event$$inline_443_event$$inline_83$$.initUIEvent($type$$inline_82$$, $JSCompiler_alias_TRUE$$, $JSCompiler_alias_TRUE$$, window, 1), $element$$inline_442_element$$inline_81$$.dispatchEvent($event$$inline_443_event$$inline_83$$)
     }
     $i$$25$$--
   }
@@ -1287,29 +1287,29 @@ $JSCompiler_prototypeAlias$$.init = function $$JSCompiler_prototypeAlias$$$init$
   var $self$$7$$ = this;
   $tuna$dom$addEventListener$$(this.$_target$, "submit", function($event$$21$$) {
     $self$$7$$.isEnabled() ? ($callbackInput$$.value = "form_callback" + (Math.random() + "").substr(2), window[$callbackInput$$.value] = function $window$$callbackInput$$$value$($data$$inline_180_errors$$inline_182_response$$) {
-      var $data$$inline_180_errors$$inline_182_response$$ = JSON.parse(JSON.stringify($data$$inline_180_errors$$inline_182_response$$)), $i$$inline_450_response$$inline_181$$ = $data$$inline_180_errors$$inline_182_response$$.response, $data$$inline_180_errors$$inline_182_response$$ = $data$$inline_180_errors$$inline_182_response$$.errors;
-      if($i$$inline_450_response$$inline_181$$ !== $JSCompiler_alias_VOID$$) {
-        $self$$7$$.$__recordName$ !== $JSCompiler_alias_NULL$$ && ($i$$inline_450_response$$inline_181$$ = $tuna$rest$populateRecords$$($i$$inline_450_response$$inline_181$$, $self$$7$$.$__recordName$)), $self$$7$$.$dispatch$("result", $i$$inline_450_response$$inline_181$$)
+      var $data$$inline_180_errors$$inline_182_response$$ = JSON.parse(JSON.stringify($data$$inline_180_errors$$inline_182_response$$)), $i$$inline_454_response$$inline_181$$ = $data$$inline_180_errors$$inline_182_response$$.response, $data$$inline_180_errors$$inline_182_response$$ = $data$$inline_180_errors$$inline_182_response$$.errors;
+      if($i$$inline_454_response$$inline_181$$ !== $JSCompiler_alias_VOID$$) {
+        $self$$7$$.$__recordName$ !== $JSCompiler_alias_NULL$$ && ($i$$inline_454_response$$inline_181$$ = $tuna$rest$populateRecords$$($i$$inline_454_response$$inline_181$$, $self$$7$$.$__recordName$)), $self$$7$$.$dispatch$("result", $i$$inline_454_response$$inline_181$$)
       }else {
         if($data$$inline_180_errors$$inline_182_response$$ !== $JSCompiler_alias_VOID$$) {
-          for(var $i$$inline_450_response$$inline_181$$ = 0, $l$$inline_451$$ = $data$$inline_180_errors$$inline_182_response$$.length, $error$$inline_452_name$$inline_482$$ = $JSCompiler_alias_NULL$$;$i$$inline_450_response$$inline_181$$ < $l$$inline_451$$;) {
-            $error$$inline_452_name$$inline_482$$ = $data$$inline_180_errors$$inline_182_response$$[$i$$inline_450_response$$inline_181$$];
-            if($error$$inline_452_name$$inline_482$$.param !== $JSCompiler_alias_VOID$$) {
-              var $JSCompiler_StaticMethods___showInputError$self$$inline_453_JSCompiler_StaticMethods_showErrorMessage$self$$inline_487$$ = $self$$7$$, $message$$inline_454_message$$inline_488$$ = $error$$inline_452_name$$inline_482$$.message, $JSCompiler_StaticMethods___getFormInput$self$$inline_481_formInput$$inline_455$$;
-              $JSCompiler_StaticMethods___getFormInput$self$$inline_481_formInput$$inline_455$$ = $JSCompiler_StaticMethods___showInputError$self$$inline_453_JSCompiler_StaticMethods_showErrorMessage$self$$inline_487$$;
-              var $error$$inline_452_name$$inline_482$$ = $error$$inline_452_name$$inline_482$$.param, $result$$inline_483$$ = $JSCompiler_alias_NULL$$;
-              if($JSCompiler_StaticMethods___getFormInput$self$$inline_481_formInput$$inline_455$$.$__inputTable$[$error$$inline_452_name$$inline_482$$] === $JSCompiler_alias_VOID$$) {
-                var $input$$inline_485_inputWrapper$$inline_484$$ = $tuna$dom$selectOne$$(".j-" + $error$$inline_452_name$$inline_482$$ + "-input", $JSCompiler_StaticMethods___getFormInput$self$$inline_481_formInput$$inline_455$$.$_target$);
-                $input$$inline_485_inputWrapper$$inline_484$$ !== $JSCompiler_alias_NULL$$ && ($input$$inline_485_inputWrapper$$inline_484$$ = new $tuna$ui$forms$FormInput$$($input$$inline_485_inputWrapper$$inline_484$$), $input$$inline_485_inputWrapper$$inline_484$$.init(), $JSCompiler_StaticMethods___getFormInput$self$$inline_481_formInput$$inline_455$$.$__inputTable$[$error$$inline_452_name$$inline_482$$] = $input$$inline_485_inputWrapper$$inline_484$$)
+          for(var $i$$inline_454_response$$inline_181$$ = 0, $l$$inline_455$$ = $data$$inline_180_errors$$inline_182_response$$.length, $error$$inline_456_name$$inline_486$$ = $JSCompiler_alias_NULL$$;$i$$inline_454_response$$inline_181$$ < $l$$inline_455$$;) {
+            $error$$inline_456_name$$inline_486$$ = $data$$inline_180_errors$$inline_182_response$$[$i$$inline_454_response$$inline_181$$];
+            if($error$$inline_456_name$$inline_486$$.param !== $JSCompiler_alias_VOID$$) {
+              var $JSCompiler_StaticMethods___showInputError$self$$inline_457_JSCompiler_StaticMethods_showErrorMessage$self$$inline_491$$ = $self$$7$$, $message$$inline_458_message$$inline_492$$ = $error$$inline_456_name$$inline_486$$.message, $JSCompiler_StaticMethods___getFormInput$self$$inline_485_formInput$$inline_459$$;
+              $JSCompiler_StaticMethods___getFormInput$self$$inline_485_formInput$$inline_459$$ = $JSCompiler_StaticMethods___showInputError$self$$inline_457_JSCompiler_StaticMethods_showErrorMessage$self$$inline_491$$;
+              var $error$$inline_456_name$$inline_486$$ = $error$$inline_456_name$$inline_486$$.param, $result$$inline_487$$ = $JSCompiler_alias_NULL$$;
+              if($JSCompiler_StaticMethods___getFormInput$self$$inline_485_formInput$$inline_459$$.$__inputTable$[$error$$inline_456_name$$inline_486$$] === $JSCompiler_alias_VOID$$) {
+                var $input$$inline_489_inputWrapper$$inline_488$$ = $tuna$dom$selectOne$$(".j-" + $error$$inline_456_name$$inline_486$$ + "-input", $JSCompiler_StaticMethods___getFormInput$self$$inline_485_formInput$$inline_459$$.$_target$);
+                $input$$inline_489_inputWrapper$$inline_488$$ !== $JSCompiler_alias_NULL$$ && ($input$$inline_489_inputWrapper$$inline_488$$ = new $tuna$ui$forms$FormInput$$($input$$inline_489_inputWrapper$$inline_488$$), $input$$inline_489_inputWrapper$$inline_488$$.init(), $JSCompiler_StaticMethods___getFormInput$self$$inline_485_formInput$$inline_459$$.$__inputTable$[$error$$inline_456_name$$inline_486$$] = $input$$inline_489_inputWrapper$$inline_488$$)
               }
-              $JSCompiler_StaticMethods___getFormInput$self$$inline_481_formInput$$inline_455$$.$__inputTable$[$error$$inline_452_name$$inline_482$$] !== $JSCompiler_alias_VOID$$ && ($result$$inline_483$$ = $JSCompiler_StaticMethods___getFormInput$self$$inline_481_formInput$$inline_455$$.$__inputTable$[$error$$inline_452_name$$inline_482$$]);
-              $JSCompiler_StaticMethods___getFormInput$self$$inline_481_formInput$$inline_455$$ = $result$$inline_483$$;
-              $JSCompiler_StaticMethods___getFormInput$self$$inline_481_formInput$$inline_455$$ !== $JSCompiler_alias_NULL$$ ? ($JSCompiler_StaticMethods___showInputError$self$$inline_453_JSCompiler_StaticMethods_showErrorMessage$self$$inline_487$$ = $JSCompiler_StaticMethods___getFormInput$self$$inline_481_formInput$$inline_455$$, $tuna$dom$addClass$$($JSCompiler_StaticMethods___showInputError$self$$inline_453_JSCompiler_StaticMethods_showErrorMessage$self$$inline_487$$.$_target$, "error"), $JSCompiler_StaticMethods___showInputError$self$$inline_453_JSCompiler_StaticMethods_showErrorMessage$self$$inline_487$$.$__message$ !== 
-              $JSCompiler_alias_NULL$$ && ($JSCompiler_StaticMethods___showInputError$self$$inline_453_JSCompiler_StaticMethods_showErrorMessage$self$$inline_487$$.$__message$.innerHTML = $message$$inline_454_message$$inline_488$$)) : $JSCompiler_StaticMethods___showErrorMessage$$($JSCompiler_StaticMethods___showInputError$self$$inline_453_JSCompiler_StaticMethods_showErrorMessage$self$$inline_487$$, $message$$inline_454_message$$inline_488$$)
+              $JSCompiler_StaticMethods___getFormInput$self$$inline_485_formInput$$inline_459$$.$__inputTable$[$error$$inline_456_name$$inline_486$$] !== $JSCompiler_alias_VOID$$ && ($result$$inline_487$$ = $JSCompiler_StaticMethods___getFormInput$self$$inline_485_formInput$$inline_459$$.$__inputTable$[$error$$inline_456_name$$inline_486$$]);
+              $JSCompiler_StaticMethods___getFormInput$self$$inline_485_formInput$$inline_459$$ = $result$$inline_487$$;
+              $JSCompiler_StaticMethods___getFormInput$self$$inline_485_formInput$$inline_459$$ !== $JSCompiler_alias_NULL$$ ? ($JSCompiler_StaticMethods___showInputError$self$$inline_457_JSCompiler_StaticMethods_showErrorMessage$self$$inline_491$$ = $JSCompiler_StaticMethods___getFormInput$self$$inline_485_formInput$$inline_459$$, $tuna$dom$addClass$$($JSCompiler_StaticMethods___showInputError$self$$inline_457_JSCompiler_StaticMethods_showErrorMessage$self$$inline_491$$.$_target$, "error"), $JSCompiler_StaticMethods___showInputError$self$$inline_457_JSCompiler_StaticMethods_showErrorMessage$self$$inline_491$$.$__message$ !== 
+              $JSCompiler_alias_NULL$$ && ($JSCompiler_StaticMethods___showInputError$self$$inline_457_JSCompiler_StaticMethods_showErrorMessage$self$$inline_491$$.$__message$.innerHTML = $message$$inline_458_message$$inline_492$$)) : $JSCompiler_StaticMethods___showErrorMessage$$($JSCompiler_StaticMethods___showInputError$self$$inline_457_JSCompiler_StaticMethods_showErrorMessage$self$$inline_491$$, $message$$inline_458_message$$inline_492$$)
             }else {
-              $JSCompiler_StaticMethods___showErrorMessage$$($self$$7$$, $error$$inline_452_name$$inline_482$$.message)
+              $JSCompiler_StaticMethods___showErrorMessage$$($self$$7$$, $error$$inline_456_name$$inline_486$$.message)
             }
-            $i$$inline_450_response$$inline_181$$++
+            $i$$inline_454_response$$inline_181$$++
           }
           $self$$7$$.$dispatch$("error", $data$$inline_180_errors$$inline_182_response$$)
         }
@@ -1363,11 +1363,11 @@ $JSCompiler_prototypeAlias$$.reset = function $$JSCompiler_prototypeAlias$$$rese
 $JSCompiler_prototypeAlias$$.$serialize$ = function $$JSCompiler_prototypeAlias$$$$serialize$$() {
   return $tuna$ui$forms$serialize$$(this.$_target$)
 };
-function $JSCompiler_StaticMethods___prepareTo$$($JSCompiler_StaticMethods___prepareTo$self$$, $JSCompiler_StaticMethods_cleanup$self$$inline_457_type$$73$$, $event$$23$$) {
-  if($JSCompiler_StaticMethods___prepareTo$self$$.$dispatch$($JSCompiler_StaticMethods_cleanup$self$$inline_457_type$$73$$)) {
+function $JSCompiler_StaticMethods___prepareTo$$($JSCompiler_StaticMethods___prepareTo$self$$, $JSCompiler_StaticMethods_cleanup$self$$inline_461_type$$73$$, $event$$23$$) {
+  if($JSCompiler_StaticMethods___prepareTo$self$$.$dispatch$($JSCompiler_StaticMethods_cleanup$self$$inline_461_type$$73$$)) {
     $JSCompiler_StaticMethods___prepareTo$self$$.$__formMessage$ !== $JSCompiler_alias_NULL$$ && ($JSCompiler_StaticMethods___prepareTo$self$$.$__formMessage$.innerHTML = "", $tuna$dom$addClass$$($JSCompiler_StaticMethods___prepareTo$self$$.$__formMessage$, "hide"));
     for(var $name$$inline_187$$ in $JSCompiler_StaticMethods___prepareTo$self$$.$__inputTable$) {
-      $JSCompiler_StaticMethods_cleanup$self$$inline_457_type$$73$$ = $JSCompiler_StaticMethods___prepareTo$self$$.$__inputTable$[$name$$inline_187$$], $tuna$dom$removeClass$$($JSCompiler_StaticMethods_cleanup$self$$inline_457_type$$73$$.$_target$, "error"), $JSCompiler_StaticMethods_cleanup$self$$inline_457_type$$73$$.$__message$ !== $JSCompiler_alias_NULL$$ && ($JSCompiler_StaticMethods_cleanup$self$$inline_457_type$$73$$.$__message$.innerHTML = $JSCompiler_StaticMethods_cleanup$self$$inline_457_type$$73$$.$__defaultMessage$)
+      $JSCompiler_StaticMethods_cleanup$self$$inline_461_type$$73$$ = $JSCompiler_StaticMethods___prepareTo$self$$.$__inputTable$[$name$$inline_187$$], $tuna$dom$removeClass$$($JSCompiler_StaticMethods_cleanup$self$$inline_461_type$$73$$.$_target$, "error"), $JSCompiler_StaticMethods_cleanup$self$$inline_461_type$$73$$.$__message$ !== $JSCompiler_alias_NULL$$ && ($JSCompiler_StaticMethods_cleanup$self$$inline_461_type$$73$$.$__message$.innerHTML = $JSCompiler_StaticMethods_cleanup$self$$inline_461_type$$73$$.$__defaultMessage$)
     }
   }else {
     $event$$23$$ !== $JSCompiler_alias_VOID$$ && $tuna$dom$preventDefault$$($event$$23$$)
@@ -1588,10 +1588,10 @@ function $tuna$ui$selection$Navigation$$($target$$60$$) {
 $tuna$utils$extend$$($tuna$ui$selection$Navigation$$, $tuna$ui$ModuleInstance$$);
 $tuna$ui$selection$Navigation$$.prototype.init = function $$tuna$ui$selection$Navigation$$$$init$() {
   this.$__navigationRule$ = new $tuna$ui$selection$rule$NavigationSelectionRule$$;
-  var $buttonSelector$$inline_229_buttons$$inline_231_currentIndex$$inline_237_itemsCollection$$inline_224$$ = new $tuna$ui$selection$items$NamedElementsCollection$$("data-name"), $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$ = new $tuna$ui$selection$view$ClassSelectionView$$(this.$_target$), $className$$inline_460_l$$inline_233_selector$$inline_463$$ = $JSCompiler_StaticMethods_getStringOption$$(this, "selection-class");
-  $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$.$_selectionClass$ = $className$$inline_460_l$$inline_233_selector$$inline_463$$;
-  $className$$inline_460_l$$inline_233_selector$$inline_463$$ = $JSCompiler_StaticMethods_getStringOption$$(this, "item-selector");
-  $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$.$_itemSelector$ = $className$$inline_460_l$$inline_233_selector$$inline_463$$;
+  var $buttonSelector$$inline_229_buttons$$inline_231_currentIndex$$inline_237_itemsCollection$$inline_224$$ = new $tuna$ui$selection$items$NamedElementsCollection$$("data-name"), $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$ = new $tuna$ui$selection$view$ClassSelectionView$$(this.$_target$), $className$$inline_464_l$$inline_233_selector$$inline_467$$ = $JSCompiler_StaticMethods_getStringOption$$(this, "selection-class");
+  $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$.$_selectionClass$ = $className$$inline_464_l$$inline_233_selector$$inline_467$$;
+  $className$$inline_464_l$$inline_233_selector$$inline_467$$ = $JSCompiler_StaticMethods_getStringOption$$(this, "item-selector");
+  $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$.$_itemSelector$ = $className$$inline_464_l$$inline_233_selector$$inline_467$$;
   $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$.$_selectionRule$ = this.$__navigationRule$;
   $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$.$setItemsCollection$($buttonSelector$$inline_229_buttons$$inline_231_currentIndex$$inline_237_itemsCollection$$inline_224$$);
   this.$__navigationRule$.$_eventDispatcher$ = this;
@@ -1604,8 +1604,8 @@ $tuna$ui$selection$Navigation$$.prototype.init = function $$tuna$ui$selection$Na
   $buttonSelector$$inline_229_buttons$$inline_231_currentIndex$$inline_237_itemsCollection$$inline_224$$ = $JSCompiler_StaticMethods_getStringOption$$(this, "button-selector");
   if($i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$ !== $JSCompiler_alias_NULL$$ && $buttonSelector$$inline_229_buttons$$inline_231_currentIndex$$inline_237_itemsCollection$$inline_224$$ !== $JSCompiler_alias_NULL$$ && ($i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$ = $tuna$dom$selectOne$$($i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$, this.$_target$), $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$ !== 
   $JSCompiler_alias_NULL$$)) {
-    for(var $buttonSelector$$inline_229_buttons$$inline_231_currentIndex$$inline_237_itemsCollection$$inline_224$$ = $tuna$dom$select$$($buttonSelector$$inline_229_buttons$$inline_231_currentIndex$$inline_237_itemsCollection$$inline_224$$, $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$), $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$ = 0, $className$$inline_460_l$$inline_233_selector$$inline_463$$ = $buttonSelector$$inline_229_buttons$$inline_231_currentIndex$$inline_237_itemsCollection$$inline_224$$.length, 
-    $href$$inline_234_index$$inline_235$$ = $JSCompiler_alias_NULL$$, $button$$inline_236$$ = $href$$inline_234_index$$inline_235$$ = $JSCompiler_alias_NULL$$;$i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$ < $className$$inline_460_l$$inline_233_selector$$inline_463$$;) {
+    for(var $buttonSelector$$inline_229_buttons$$inline_231_currentIndex$$inline_237_itemsCollection$$inline_224$$ = $tuna$dom$select$$($buttonSelector$$inline_229_buttons$$inline_231_currentIndex$$inline_237_itemsCollection$$inline_224$$, $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$), $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$ = 0, $className$$inline_464_l$$inline_233_selector$$inline_467$$ = $buttonSelector$$inline_229_buttons$$inline_231_currentIndex$$inline_237_itemsCollection$$inline_224$$.length, 
+    $href$$inline_234_index$$inline_235$$ = $JSCompiler_alias_NULL$$, $button$$inline_236$$ = $href$$inline_234_index$$inline_235$$ = $JSCompiler_alias_NULL$$;$i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$ < $className$$inline_464_l$$inline_233_selector$$inline_467$$;) {
       $button$$inline_236$$ = $tuna$ui$buttons$create$$($buttonSelector$$inline_229_buttons$$inline_231_currentIndex$$inline_237_itemsCollection$$inline_224$$[$i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$]), $href$$inline_234_index$$inline_235$$ = $JSCompiler_StaticMethods_getStringOption$$($button$$inline_236$$, "href"), $href$$inline_234_index$$inline_235$$ !== $JSCompiler_alias_NULL$$ && ($href$$inline_234_index$$inline_235$$ = $href$$inline_234_index$$inline_235$$.split("/").shift(), 
       this.$__menuLinks$[$href$$inline_234_index$$inline_235$$] === $JSCompiler_alias_VOID$$ && (this.$__menuLinks$[$href$$inline_234_index$$inline_235$$] = []), this.$__menuLinks$[$href$$inline_234_index$$inline_235$$].push($button$$inline_236$$)), $i$$inline_232_menu$$inline_230_menuSelector$$inline_228_selectionView$$inline_225$$++
     }
@@ -1621,11 +1621,11 @@ function $JSCompiler_StaticMethods___initControls$$($JSCompiler_StaticMethods___
     $event$$26$$.preventDefault();
     var $index$$66$$ = $JSCompiler_StaticMethods_getStringOption$$($button$$2$$, "href");
     if($index$$66$$ !== $JSCompiler_alias_NULL$$) {
-      for(var $result$$inline_475$$ = {}, $attrs$$inline_476$$ = $button$$2$$.$_target$.attributes, $i$$inline_477$$ = 0, $l$$inline_478$$ = $attrs$$inline_476$$.length;$i$$inline_477$$ < $l$$inline_478$$;) {
-        0 === $attrs$$inline_476$$[$i$$inline_477$$].name.indexOf("data-") && ($result$$inline_475$$[$attrs$$inline_476$$[$i$$inline_477$$].name.substr(5)] = $attrs$$inline_476$$[$i$$inline_477$$].value), $i$$inline_477$$++
+      for(var $result$$inline_479$$ = {}, $attrs$$inline_480$$ = $button$$2$$.$_target$.attributes, $i$$inline_481$$ = 0, $l$$inline_482$$ = $attrs$$inline_480$$.length;$i$$inline_481$$ < $l$$inline_482$$;) {
+        0 === $attrs$$inline_480$$[$i$$inline_481$$].name.indexOf("data-") && ($result$$inline_479$$[$attrs$$inline_480$$[$i$$inline_481$$].name.substr(5)] = $attrs$$inline_480$$[$i$$inline_481$$].value), $i$$inline_481$$++
       }
-      delete $result$$inline_475$$.href;
-      $JSCompiler_StaticMethods___initControls$self$$.navigate($index$$66$$, $result$$inline_475$$)
+      delete $result$$inline_479$$.href;
+      $JSCompiler_StaticMethods___initControls$self$$.navigate($index$$66$$, $result$$inline_479$$)
     }
   });
   $controls$$.addEventListener("back", function($event$$27$$) {
@@ -2254,9 +2254,10 @@ $Bakery$$.prototype.$serialize$ = function $$Bakery$$$$$serialize$$() {
 };
 var $record$$inline_387$$ = new $Bakery$$;
 $tuna$model$recordFactory$$.$__prototypes$.bakery = $record$$inline_387$$;
-function $Cake$$() {
-  this.$imageUrl$ = this.id = "";
-  this.$dimension$ = this.$__markupJson$ = this.$markup$ = this.$photoUrl$ = $JSCompiler_alias_NULL$$
+function $Cake$$($opt_rawData$$1$$) {
+  this.$imageUrl$ = "";
+  this.$dimension$ = this.$__markupJson$ = this.$markup$ = this.$photoUrl$ = $JSCompiler_alias_NULL$$;
+  $tuna$model$Record$$.call(this, $opt_rawData$$1$$)
 }
 $tuna$utils$extend$$($Cake$$, $tuna$model$Record$$);
 $Cake$$.prototype.$populate$ = function $$Cake$$$$$populate$$($data$$51$$) {
@@ -2272,11 +2273,19 @@ $Cake$$.prototype.$serialize$ = function $$Cake$$$$$serialize$$() {
 };
 var $record$$inline_391$$ = new $Cake$$;
 $tuna$model$recordFactory$$.$__prototypes$.cake = $record$$inline_391$$;
-function $Order$$() {
-  this.$recipe$ = this.$bakery$ = this.$cake$ = $JSCompiler_alias_NULL$$
+function $model$records$Order$$($opt_rawData$$2$$) {
+  this.$payment$ = this.$recipe$ = this.$bakery$ = this.$cake$ = $JSCompiler_alias_NULL$$;
+  $tuna$model$Record$$.call(this, $opt_rawData$$2$$)
 }
-$tuna$utils$extend$$($Order$$, $tuna$model$Record$$);
-$Order$$.prototype.$serialize$ = function $$Order$$$$$serialize$$() {
+$tuna$utils$extend$$($model$records$Order$$, $tuna$model$Record$$);
+$model$records$Order$$.prototype.$populate$ = function $$model$records$Order$$$$$populate$$($data$$52$$) {
+  this.id = $data$$52$$.id;
+  this.$cake$ = new $Cake$$($data$$52$$.cake);
+  this.$bakery$ = new $Bakery$$($data$$52$$.bakery);
+  this.$recipe$ = new $model$records$Recipe$$($data$$52$$.recipe);
+  this.$payment$ = new $model$records$Payment$$($data$$52$$.payment)
+};
+$model$records$Order$$.prototype.$serialize$ = function $$model$records$Order$$$$$serialize$$() {
   var $decorationPrice_price$$inline_395$$;
   $decorationPrice_price$$inline_395$$ = 0;
   if(this.$cake$ !== $JSCompiler_alias_NULL$$) {
@@ -2291,24 +2300,33 @@ $Order$$.prototype.$serialize$ = function $$Order$$$$$serialize$$() {
   $deliveryPrice_i$$inline_397$$ = this.$bakery$ !== $JSCompiler_alias_NULL$$ ? this.$bakery$.$deliveryPrice$ : 0;
   return{cake:$tuna$model$serialize$$(this.$cake$), recipe:$tuna$model$serialize$$(this.$recipe$), bakery:$tuna$model$serialize$$(this.$bakery$), decorationPrice:$decorationPrice_price$$inline_395$$, recipePrice:$deco$$inline_396_recipePrice$$, deliveryPrice:$deliveryPrice_i$$inline_397$$, totalPrice:$decorationPrice_price$$inline_395$$ + $deco$$inline_396_recipePrice$$ + $deliveryPrice_i$$inline_397$$}
 };
-function $Payment$$() {
-  this.$deliveryPrice$ = this.$recipePrice$ = this.$decoPrice$ = 0
+var $record$$inline_402$$ = new $model$records$Order$$;
+$tuna$model$recordFactory$$.$__prototypes$.order = $record$$inline_402$$;
+function $model$records$Payment$$($opt_rawData$$3$$) {
+  this.$deliveryPrice$ = this.$recipePrice$ = this.$decoPrice$ = 0;
+  $tuna$model$Record$$.call(this, $opt_rawData$$3$$)
 }
-$tuna$utils$extend$$($Payment$$, $tuna$model$Record$$);
-$Payment$$.prototype.$serialize$ = function $$Payment$$$$$serialize$$() {
+$tuna$utils$extend$$($model$records$Payment$$, $tuna$model$Record$$);
+$model$records$Payment$$.prototype.$populate$ = function $$model$records$Payment$$$$$populate$$($data$$53$$) {
+  this.$decoPrice$ = $data$$53$$.decoration_price;
+  this.$recipePrice$ = $data$$53$$.recipe_price;
+  this.$deliveryPrice$ = $data$$53$$.delivery_price
+};
+$model$records$Payment$$.prototype.$serialize$ = function $$model$records$Payment$$$$$serialize$$() {
   return{decoPrice:this.$decoPrice$, recipePrice:this.$recipePrice$, deliveryPrice:this.$deliveryPrice$, totalPrice:this.$decoPrice$ + this.$recipePrice$ + this.$deliveryPrice$}
 };
-function $Recipe$$() {
-  this.$imageUrl$ = this.$desc$ = this.name = this.id = "";
-  this.$dimensionPrices$ = {}
+function $Recipe$$($opt_rawData$$4$$) {
+  this.$imageUrl$ = this.$desc$ = this.name = "";
+  this.$dimensionPrices$ = {};
+  $tuna$model$Record$$.call(this, $opt_rawData$$4$$)
 }
 $tuna$utils$extend$$($Recipe$$, $tuna$model$Record$$);
-$Recipe$$.prototype.$populate$ = function $$Recipe$$$$$populate$$($data$$52$$) {
-  this.id = $data$$52$$.id;
-  this.$imageUrl$ = $data$$52$$.image_url;
-  this.$desc$ = $data$$52$$.desc;
-  this.name = $data$$52$$.name;
-  this.$dimensionPrices$ = $data$$52$$.dimension_prices || $JSCompiler_alias_NULL$$
+$Recipe$$.prototype.$populate$ = function $$Recipe$$$$$populate$$($data$$54$$) {
+  this.id = $data$$54$$.id;
+  this.$imageUrl$ = $data$$54$$.image_url;
+  this.$desc$ = $data$$54$$.desc;
+  this.name = $data$$54$$.name;
+  this.$dimensionPrices$ = $data$$54$$.dimension_prices || $JSCompiler_alias_NULL$$
 };
 $Recipe$$.prototype.$serialize$ = function $$Recipe$$$$$serialize$$($cake$$) {
   var $result$$21$$ = {id:this.id, imageUrl:this.$imageUrl$, desc:this.$desc$, name:this.name};
@@ -2319,8 +2337,8 @@ function $JSCompiler_StaticMethods_getWeightPrice$$($JSCompiler_StaticMethods_ge
   var $weightKey$$ = $weight$$.toString().replace(".", "_");
   return $JSCompiler_StaticMethods_getWeightPrice$self$$.$dimensionPrices$ !== $JSCompiler_alias_NULL$$ && $JSCompiler_StaticMethods_getWeightPrice$self$$.$dimensionPrices$[$weightKey$$] !== $JSCompiler_alias_VOID$$ ? $JSCompiler_StaticMethods_getWeightPrice$self$$.$dimensionPrices$[$weightKey$$].price : 0
 }
-var $record$$inline_402$$ = new $Recipe$$;
-$tuna$model$recordFactory$$.$__prototypes$.recipe = $record$$inline_402$$;
+var $model$records$Recipe$$ = $Recipe$$, $record$$inline_406$$ = new $model$records$Recipe$$;
+$tuna$model$recordFactory$$.$__prototypes$.recipe = $record$$inline_406$$;
 function $User$$() {
   this.$network$ = this.$userpicUrl$ = this.city = this.name = this.id = ""
 }
@@ -2328,25 +2346,25 @@ $tuna$utils$extend$$($User$$, $tuna$model$Record$$);
 $User$$.prototype.$serialize$ = function $$User$$$$$serialize$$() {
   return{id:this.id, name:this.name, network:this.$network$, userpicUrl:this.$userpicUrl$}
 };
-function $Decoration$$($data$$53$$) {
+function $Decoration$$($data$$55$$) {
   this.$imageUrl$ = this.name = "";
   this.group = 0;
   this.$isAutorotate$ = $JSCompiler_alias_FALSE$$;
-  $tuna$model$Record$$.call(this, $data$$53$$)
+  $tuna$model$Record$$.call(this, $data$$55$$)
 }
 $tuna$utils$extend$$($Decoration$$, $tuna$model$Record$$);
-$Decoration$$.prototype.$populate$ = function $$Decoration$$$$$populate$$($data$$54$$) {
-  this.id = $data$$54$$.id;
-  this.name = $data$$54$$.name;
-  this.group = $data$$54$$.group;
-  this.$imageUrl$ = $data$$54$$.image_url;
-  this.$isAutorotate$ = $data$$54$$.is_autorotate
+$Decoration$$.prototype.$populate$ = function $$Decoration$$$$$populate$$($data$$56$$) {
+  this.id = $data$$56$$.id;
+  this.name = $data$$56$$.name;
+  this.group = $data$$56$$.group;
+  this.$imageUrl$ = $data$$56$$.image_url;
+  this.$isAutorotate$ = $data$$56$$.is_autorotate
 };
 $Decoration$$.prototype.$serialize$ = function $$Decoration$$$$$serialize$$() {
   return{name:this.id, description:this.name, url:this.$imageUrl$, autorotate:this.$isAutorotate$}
 };
-var $record$$inline_406$$ = new $Decoration$$;
-$tuna$model$recordFactory$$.$__prototypes$.decoration = $record$$inline_406$$;
+var $record$$inline_410$$ = new $Decoration$$;
+$tuna$model$recordFactory$$.$__prototypes$.decoration = $record$$inline_410$$;
 var $model$bakeries$$ = new $tuna$model$ListResource$$("users.getBakeries", "bakery"), $model$cities$$ = new $tuna$model$ListResource$$, $model$cakes$$ = new $tuna$model$ListResource$$("cakes.getPromoted", "cake"), $model$dimensions$$ = new $tuna$model$ListResource$$("dimensions.get", "dimension"), $model$decorations$$ = new $tuna$model$ListResource$$("decorations.get", "decoration"), $model$recipes$$ = new $tuna$model$ListResource$$("recipes.get", "recipe"), $model$currentBakery$$ = new $tuna$model$ItemResource$$, 
 $model$currentCake$$ = new $tuna$model$ItemResource$$, $model$currentRecipe$$ = new $tuna$model$ItemResource$$, $model$currentOrder$$ = new $tuna$model$ItemResource$$;
 function $TitleController$$() {
@@ -2387,11 +2405,11 @@ $JSCompiler_prototypeAlias$$.$_initActions$ = function $$JSCompiler_prototypeAli
   var $offerPopup$$ = $JSCompiler_StaticMethods_getPopup$$($JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "popup-button", "offer")), $offerHtml$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "inner-html", "offer");
   $offerPopup$$.addEventListener("open", $listener$$33$$)
 };
-$JSCompiler_prototypeAlias$$.open = function $$JSCompiler_prototypeAlias$$$open$($cake$$1_data$$55$$) {
+$JSCompiler_prototypeAlias$$.open = function $$JSCompiler_prototypeAlias$$$open$($cake$$1_data$$57$$) {
   $model$currentBakery$$.addEventListener("update", this.$__handleBakeryUpdate$);
   this.$__handleBakeryUpdate$();
-  $cake$$1_data$$55$$ = $JSCompiler_StaticMethods_getItemById$$($model$cakes$$, $cake$$1_data$$55$$["cake-id"]);
-  $cake$$1_data$$55$$ !== $JSCompiler_alias_NULL$$ ? (this.$__cakePreset$ = $cake$$1_data$$55$$.$markup$, this.$__movie$ !== $JSCompiler_alias_NULL$$ && this.$__movie$.loadCakePreset($cake$$1_data$$55$$.$markup$)) : this.$__cakePreset$ = $JSCompiler_alias_NULL$$
+  $cake$$1_data$$57$$ = $JSCompiler_StaticMethods_getItemById$$($model$cakes$$, $cake$$1_data$$57$$["cake-id"]);
+  $cake$$1_data$$57$$ !== $JSCompiler_alias_NULL$$ ? (this.$__cakePreset$ = $cake$$1_data$$57$$.$markup$, this.$__movie$ !== $JSCompiler_alias_NULL$$ && this.$__movie$.loadCakePreset($cake$$1_data$$57$$.$markup$)) : this.$__cakePreset$ = $JSCompiler_alias_NULL$$
 };
 $JSCompiler_prototypeAlias$$.close = function $$JSCompiler_prototypeAlias$$$close$() {
   $model$currentBakery$$.removeEventListener("update", this.$__handleBakeryUpdate$)
@@ -2424,21 +2442,21 @@ $JSCompiler_prototypeAlias$$.$onDecoElementsLoaded$ = function $$JSCompiler_prot
   this.$__cakePreset$ !== $JSCompiler_alias_NULL$$ && this.$__movie$.loadCakePreset(this.$__cakePreset$)
 };
 $JSCompiler_prototypeAlias$$.$onFlashReady$ = function $$JSCompiler_prototypeAlias$$$$onFlashReady$$() {
-  var $JSCompiler_StaticMethods_getMovie$self$$inline_412$$ = this.$__designerSWF$;
-  $JSCompiler_StaticMethods_getMovie$self$$inline_412$$.$__movieId$ !== $JSCompiler_alias_NULL$$ && $JSCompiler_StaticMethods_getMovie$self$$inline_412$$.$__movie$ === $JSCompiler_alias_NULL$$ && ($JSCompiler_StaticMethods_getMovie$self$$inline_412$$.$__movie$ = swfobject.getObjectById($JSCompiler_StaticMethods_getMovie$self$$inline_412$$.$__movieId$));
-  this.$__movie$ = $JSCompiler_StaticMethods_getMovie$self$$inline_412$$.$__movie$;
+  var $JSCompiler_StaticMethods_getMovie$self$$inline_416$$ = this.$__designerSWF$;
+  $JSCompiler_StaticMethods_getMovie$self$$inline_416$$.$__movieId$ !== $JSCompiler_alias_NULL$$ && $JSCompiler_StaticMethods_getMovie$self$$inline_416$$.$__movie$ === $JSCompiler_alias_NULL$$ && ($JSCompiler_StaticMethods_getMovie$self$$inline_416$$.$__movie$ = swfobject.getObjectById($JSCompiler_StaticMethods_getMovie$self$$inline_416$$.$__movieId$));
+  this.$__movie$ = $JSCompiler_StaticMethods_getMovie$self$$inline_416$$.$__movie$;
   $JSCompiler_StaticMethods___initDesigner$$(this)
 };
 $JSCompiler_prototypeAlias$$.$canClose$ = function $$JSCompiler_prototypeAlias$$$$canClose$$($dimension$$2_nextStep$$) {
   if(this.$__movie$ !== $JSCompiler_alias_NULL$$) {
-    var $data$$56$$ = this.$__movie$.getCakeData();
+    var $data$$58$$ = this.$__movie$.getCakeData();
     "order" === $dimension$$2_nextStep$$ && ($dimension$$2_nextStep$$ = $JSCompiler_StaticMethods_findOne$$(function($dimension$$3$$) {
-      return $dimension$$3$$.$weight$ === $data$$56$$.weight && $dimension$$3$$.shape === $data$$56$$.shape
-    }), $dimension$$2_nextStep$$ !== $JSCompiler_alias_NULL$$ && ($data$$56$$.dimension_id = $dimension$$2_nextStep$$.id, $tuna$rest$call$$("cakes.add", $data$$56$$, function($cake$$2$$) {
+      return $dimension$$3$$.$weight$ === $data$$58$$.weight && $dimension$$3$$.shape === $data$$58$$.shape
+    }), $dimension$$2_nextStep$$ !== $JSCompiler_alias_NULL$$ && ($data$$58$$.dimension_id = $dimension$$2_nextStep$$.id, $tuna$rest$call$$("cakes.add", $data$$58$$, function($cake$$2$$) {
       $model$currentCake$$.set($cake$$2$$)
     }, "cake")));
     this.$__cakeImage$ === $JSCompiler_alias_NULL$$ && (this.$__cakeImage$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "data-image", "cake-image"));
-    this.$__cakeImage$.setData($data$$56$$.image);
+    this.$__cakeImage$.setData($data$$58$$.image);
     return $JSCompiler_alias_TRUE$$
   }
   return $JSCompiler_alias_FALSE$$
@@ -2473,7 +2491,7 @@ $JSCompiler_prototypeAlias$$.$_initActions$ = function $$JSCompiler_prototypeAli
   });
   var $orderForm$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "form", "order-form");
   $orderForm$$.addEventListener("result", function($event$$34$$, $order$$) {
-    $self$$17$$.$_navigation$.navigate("result", $order$$.id)
+    $self$$17$$.$_navigation$.navigate("result", $order$$)
   });
   $JSCompiler_StaticMethods_setValue$$($orderForm$$, "client_network", 2);
   var $popupRecipe$$ = $JSCompiler_alias_NULL$$, $recipeInfoPopup$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "popup", "recipe-info-popup"), $recipeInfoTransformer$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "template-transformer", "recipe-info-popup");
@@ -2512,14 +2530,14 @@ $JSCompiler_prototypeAlias$$.$__handleBakeryUpdate$ = function $$JSCompiler_prot
 };
 $JSCompiler_prototypeAlias$$.$__updateOrder$ = function $$JSCompiler_prototypeAlias$$$$__updateOrder$$() {
   var $order$$1$$ = $model$currentOrder$$.get();
-  $order$$1$$ === $JSCompiler_alias_NULL$$ && ($order$$1$$ = new $Order$$, $model$currentOrder$$.set($order$$1$$));
+  $order$$1$$ === $JSCompiler_alias_NULL$$ && ($order$$1$$ = new $model$records$Order$$, $model$currentOrder$$.set($order$$1$$));
   $order$$1$$.$cake$ = $model$currentCake$$.get();
   $order$$1$$.$bakery$ = $model$currentBakery$$.get();
   $order$$1$$.$recipe$ = $model$currentRecipe$$.get();
   $JSCompiler_StaticMethods_applyTransform$$(this.$__orderTransformer$, $tuna$model$serialize$$($order$$1$$))
 };
-var $controller$$inline_418$$ = new $OrderController$$;
-$tuna$control$__controllerTable$$.order_step = $controller$$inline_418$$;
+var $controller$$inline_422$$ = new $OrderController$$;
+$tuna$control$__controllerTable$$.order_step = $controller$$inline_422$$;
 function $OKShareController$$() {
   $tuna$control$PageViewController$$.call(this);
   this.$__albumId$ = this.$__cakeImage$ = this.$__downloadDataInput$ = $JSCompiler_alias_NULL$$;
@@ -2554,15 +2572,15 @@ function $JSCompiler_StaticMethods___fetchAlbumId$$($JSCompiler_StaticMethods___
 }
 function $JSCompiler_StaticMethods___getAlbum$$($JSCompiler_StaticMethods___getAlbum$self$$, $callback$$37$$) {
   function $getAlbums$$() {
-    FAPI.Client.call({method:"photos.getAlbums"}, function($status$$, $data$$57$$) {
-      "ok" === $status$$ && ($JSCompiler_StaticMethods___fetchAlbumId$$($JSCompiler_StaticMethods___getAlbum$self$$, $data$$57$$.albums), $JSCompiler_StaticMethods___getAlbum$self$$.$__albumId$ === $JSCompiler_alias_NULL$$ ? FAPI.Client.call({method:"photos.createAlbum", title:"\u041c\u043e\u0438 \u0442\u043e\u0440\u0442\u0438\u043a\u0438", description:'\u0418\u0437 \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f "\u0424\u043e\u0442\u043e \u041d\u0430 \u0422\u043e\u0440\u0442\u0435"', 
+    FAPI.Client.call({method:"photos.getAlbums"}, function($status$$, $data$$59$$) {
+      "ok" === $status$$ && ($JSCompiler_StaticMethods___fetchAlbumId$$($JSCompiler_StaticMethods___getAlbum$self$$, $data$$59$$.albums), $JSCompiler_StaticMethods___getAlbum$self$$.$__albumId$ === $JSCompiler_alias_NULL$$ ? FAPI.Client.call({method:"photos.createAlbum", title:"\u041c\u043e\u0438 \u0442\u043e\u0440\u0442\u0438\u043a\u0438", description:'\u0418\u0437 \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f "\u0424\u043e\u0442\u043e \u041d\u0430 \u0422\u043e\u0440\u0442\u0435"', 
       type:"friends"}, function($status$$1$$, $aid$$) {
         "ok" === $status$$1$$ && ($JSCompiler_StaticMethods___getAlbum$self$$.$__albumId$ = $aid$$, $JSCompiler_StaticMethods___uploadPhoto$$($JSCompiler_StaticMethods___getAlbum$self$$, $callback$$37$$))
       }) : $JSCompiler_StaticMethods___uploadPhoto$$($JSCompiler_StaticMethods___getAlbum$self$$, $callback$$37$$))
     })
   }
-  FAPI.Client.call({method:"users.hasAppPermission", ext_perm:"PHOTO CONTENT"}, function($status$$2$$, $data$$58$$) {
-    $data$$58$$ ? $getAlbums$$() : (window.$API_callback$ = function $window$$API_callback$$($method$$6$$, $status$$3$$) {
+  FAPI.Client.call({method:"users.hasAppPermission", ext_perm:"PHOTO CONTENT"}, function($status$$2$$, $data$$60$$) {
+    $data$$60$$ ? $getAlbums$$() : (window.$API_callback$ = function $window$$API_callback$$($method$$6$$, $status$$3$$) {
       "ok" === $status$$3$$ && "showPermissions" === $method$$6$$ && $getAlbums$$();
       window.$API_callback$ = $JSCompiler_alias_NULL$$
     }, FAPI.UI.showPermissions('["PHOTO CONTENT"]'))
@@ -2570,8 +2588,8 @@ function $JSCompiler_StaticMethods___getAlbum$$($JSCompiler_StaticMethods___getA
 }
 function $JSCompiler_StaticMethods___uploadPhoto$$($JSCompiler_StaticMethods___uploadPhoto$self$$, $callback$$38$$) {
   $tuna$rest$call$$("social.ok.uploadImage", {image:$JSCompiler_StaticMethods___uploadPhoto$self$$.$__cakeImage$.getData(), upload_url:"http://api.odnoklassniki.ru/api/photos/upload", album_id:$JSCompiler_StaticMethods___uploadPhoto$self$$.$__albumId$, session_key:FAPI.Client.sessionKey, application_key:FAPI.Client.applicationKey, secret_key:FAPI.Client.sessionSecretKey}, function() {
-    FAPI.Client.call({method:"photos.getUserAlbumPhotos", aid:$JSCompiler_StaticMethods___uploadPhoto$self$$.$__albumId$, pagingDirection:"backward", count:1}, function($status$$4$$, $data$$59$$) {
-      $callback$$38$$($data$$59$$.photos.shift())
+    FAPI.Client.call({method:"photos.getUserAlbumPhotos", aid:$JSCompiler_StaticMethods___uploadPhoto$self$$.$__albumId$, pagingDirection:"backward", count:1}, function($status$$4$$, $data$$61$$) {
+      $callback$$38$$($data$$61$$.photos.shift())
     })
   })
 }
@@ -2582,7 +2600,7 @@ $OKShareController$$.prototype.$__post$ = function $$OKShareController$$$$$__pos
   var $photo$$1_sig_url$$24$$ = $photo$$1_sig_url$$24$$ ? $JSCompiler_StaticMethods___parsePhotoUrl$$($photo$$1_sig_url$$24$$.standard_url) : "url", $request$$3$$ = {application_key:FAPI.Client.applicationKey, session_key:FAPI.Client.sessionKey, format:FAPI.Client.format, method:"stream.publish", message:"\u0441\u0434\u0435\u043b\u0430\u043b\u0430 \u0442\u043e\u0440\u0442!", attachment:JSON.stringify({caption:"\u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0441\u0434\u0435\u043b\u0430\u0442\u044c \u0441\u0432\u043e\u0439 \u0442\u043e\u0440\u0442\u0438\u043a! \u0417\u0430\u043a\u0430\u0436\u0438\u0442\u0435 \u043d\u0430\u0441\u0442\u043e\u044f\u0449\u0438\u0439 \u0438\u043b\u0438 \u043e\u0442\u043f\u0440\u0430\u0432\u044c\u0442\u0435 \u0434\u0440\u0443\u0437\u044c\u044f\u043c!", 
   media:[{href:"link", src:$photo$$1_sig_url$$24$$, type:"image"}]}), action_links:JSON.stringify([{text:"\u041f\u043e\u0441\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0442\u043e\u0440\u0442\u0438\u043a!", href:"ok_cake_url=" + $photo$$1_sig_url$$24$$}, {text:"\u0421\u0434\u0435\u043b\u0430\u0442\u044c \u0441\u0432\u043e\u0439!", href:"action=create"}])}, $photo$$1_sig_url$$24$$ = FAPI.Util.calcSignature($request$$3$$, FAPI.Client.sessionSecretKey);
   window.API_callback = function $window$API_callback$($method$$7$$, $status$$5$$, $resig$$1$$) {
-    "ok" === $status$$5$$ && FAPI.Client.call($request$$3$$, function($status$$6$$, $data$$60$$, $error$$8$$) {
+    "ok" === $status$$5$$ && FAPI.Client.call($request$$3$$, function($status$$6$$, $data$$62$$, $error$$8$$) {
       "ok" === $status$$6$$ ? $tuna$ui$popups$alert$$("\u0422\u043e\u0440\u0442 \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u043e\u043f\u0443\u0431\u043b\u0438\u043a\u043e\u0432\u0430\u043d!") : $tuna$ui$popups$alert$$(JSON.stringify($error$$8$$))
     }, $resig$$1$$);
     window.API_callback = $JSCompiler_alias_NULL$$
@@ -2593,11 +2611,12 @@ function $JSCompiler_StaticMethods___parsePhotoUrl$$($url$$25$$) {
   var $id$$5$$ = $url$$25$$.split("photoId=").pop().split("&").shift();
   return $url$$25$$.split("//").pop().split(".").shift() + "/" + $id$$5$$
 }
-var $controller$$inline_421$$ = new $OKShareController$$;
-$tuna$control$__controllerTable$$.share_step = $controller$$inline_421$$;
+var $controller$$inline_425$$ = new $OKShareController$$;
+$tuna$control$__controllerTable$$.share_step = $controller$$inline_425$$;
 function $OkResultController$$() {
   $tuna$control$PageViewController$$.call(this);
   this.$__orderId$ = $JSCompiler_alias_NULL$$;
+  this.$__totalPrice$ = -1;
   this.$_modules$ = ["data-image-copy", "button"]
 }
 $tuna$utils$extend$$($OkResultController$$, $tuna$control$PageViewController$$);
@@ -2614,11 +2633,11 @@ $OkResultController$$.prototype.$_initActions$ = function $$OkResultController$$
         alert($attrs$$1$$)
       }
       window.$API_callback$ = $JSCompiler_alias_NULL$$
-    }, FAPI.UI.showPayment("\u0422\u043e\u0440\u0442\u0438\u043a", "\u041f\u043e\u043a\u0443\u043f\u0430\u0435\u0442\u0435 \u0442\u043e\u0440\u0442\u0438\u043a?", $self$$21$$.$__orderId$, 10, $JSCompiler_alias_NULL$$, $JSCompiler_alias_NULL$$, "RUR", "true"))
+    }, FAPI.UI.showPayment("\u0422\u043e\u0440\u0442\u0438\u043a", "\u041f\u043e\u043a\u0443\u043f\u0430\u0435\u0442\u0435 \u0442\u043e\u0440\u0442\u0438\u043a?", $self$$21$$.$__orderId$, this.$__totalPrice$, $JSCompiler_alias_NULL$$, $JSCompiler_alias_NULL$$, "RUR", "true"))
   })
 };
-$OkResultController$$.prototype.open = function $$OkResultController$$$$open$($orderId$$) {
-  $orderId$$ !== $JSCompiler_alias_NULL$$ && (this.$__orderId$ = $orderId$$ + "")
+$OkResultController$$.prototype.open = function $$OkResultController$$$$open$($order$$2$$) {
+  $order$$2$$ !== $JSCompiler_alias_NULL$$ && (this.$__orderId$ = $order$$2$$.id, this.$__totalPrice$ = $order$$2$$.$payment$.$decoPrice$ + $order$$2$$.$payment$.$recipePrice$ + $order$$2$$.$payment$.$deliveryPrice$)
 };
 $tuna$control$__controllerTable$$.result_step = new $OkResultController$$;
 function $MainController$$() {
@@ -2672,8 +2691,8 @@ function $GetCurrent$$() {
 $tuna$utils$extend$$($GetCurrent$$, $tuna$rest$Method$$);
 $GetCurrent$$.prototype.call = function $$GetCurrent$$$$call$() {
   var $self$$23$$ = this;
-  FAPI.Client.call({method:"users.getInfo", fields:"current_location", uids:FAPI.Client.uid}, function($city$$4_status$$8$$, $data$$61_value$$60$$, $error$$9$$) {
-    "ok" === $city$$4_status$$8$$ ? ($city$$4_status$$8$$ = new $City$$, $data$$61_value$$60$$ !== $JSCompiler_alias_NULL$$ && 0 < $data$$61_value$$60$$.length ? ($data$$61_value$$60$$ = $data$$61_value$$60$$.shift(), $city$$4_status$$8$$.name = $data$$61_value$$60$$.location.city) : $city$$4_status$$8$$.name = "\u041c\u043e\u0441\u043a\u0432\u0430", $self$$23$$.$dispatch$("result", $city$$4_status$$8$$)) : $self$$23$$.$dispatch$("error", $error$$9$$)
+  FAPI.Client.call({method:"users.getInfo", fields:"current_location", uids:FAPI.Client.uid}, function($city$$4_status$$8$$, $data$$63_value$$60$$, $error$$9$$) {
+    "ok" === $city$$4_status$$8$$ ? ($city$$4_status$$8$$ = new $City$$, $data$$63_value$$60$$ !== $JSCompiler_alias_NULL$$ && 0 < $data$$63_value$$60$$.length ? ($data$$63_value$$60$$ = $data$$63_value$$60$$.shift(), $city$$4_status$$8$$.name = $data$$63_value$$60$$.location.city) : $city$$4_status$$8$$.name = "\u041c\u043e\u0441\u043a\u0432\u0430", $self$$23$$.$dispatch$("result", $city$$4_status$$8$$)) : $self$$23$$.$dispatch$("error", $error$$9$$)
   })
 };
 $tuna$rest$methodFactory$$.$__methods$["cities.getCurrent"] = new $GetCurrent$$;

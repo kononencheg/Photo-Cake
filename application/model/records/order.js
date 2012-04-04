@@ -1,8 +1,9 @@
 /**
  * @extends {tuna.model.Record}
+ * @param {!*=} opt_rawData Исходные данные экземпляра.
  * @constructor
  */
-var Order = function() {
+model.records.Order = function(opt_rawData) {
 
     /**
      * @type {model.records.Cake}
@@ -23,14 +24,27 @@ var Order = function() {
      * @type {model.records.Payment}
      */
     this.payment = null;
+
+    tuna.model.Record.call(this, opt_rawData);
 };
 
-tuna.utils.extend(Order, tuna.model.Record);
+tuna.utils.extend(model.records.Order, tuna.model.Record);
 
 /**
  * @override
  */
-Order.prototype.serialize = function() {
+model.records.Order.prototype.populate = function(data) {
+    this.id = data['id'];
+    this.cake = new model.records.Cake(data['cake']);
+    this.bakery = new model.records.Bakery(data['bakery']);
+    this.recipe = new model.records.Recipe(data['recipe']);
+    this.payment = new model.records.Payment(data['payment']);
+};
+
+/**
+ * @override
+ */
+model.records.Order.prototype.serialize = function() {
     var decorationPrice = this.__getDecorationPrice(this.bakery);
     var recipePrice = this.__getRecipePrice();
     var deliveryPrice = this.__getDeliveryPrice();
@@ -50,7 +64,7 @@ Order.prototype.serialize = function() {
  * @return {number}
  * @private
  */
-Order.prototype.__getDeliveryPrice = function() {
+model.records.Order.prototype.__getDeliveryPrice = function() {
     if (this.bakery !== null) {
         return this.bakery.deliveryPrice;
     }
@@ -62,7 +76,7 @@ Order.prototype.__getDeliveryPrice = function() {
  * @return {number}
  * @private
  */
-Order.prototype.__getRecipePrice = function() {
+model.records.Order.prototype.__getRecipePrice = function() {
     if (this.recipe !== null && this.cake !== null) {
         return this.recipe.getWeightPrice(this.cake.dimension.weight);
     }
@@ -75,7 +89,7 @@ Order.prototype.__getRecipePrice = function() {
  * @return {number}
  * @private
  */
-Order.prototype.__getDecorationPrice = function(bakery) {
+model.records.Order.prototype.__getDecorationPrice = function(bakery) {
     var price = 0;
 
     if (this.cake !== null) {
@@ -94,8 +108,5 @@ Order.prototype.__getDecorationPrice = function(bakery) {
     return price;
 };
 
-/**
- * @extends {Order}
- * @constructor
- */
-model.records.Order = Order;
+
+tuna.model.recordFactory.registerRecord('order', new model.records.Order());

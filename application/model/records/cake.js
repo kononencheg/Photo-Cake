@@ -1,13 +1,9 @@
 /**
  * @extends {tuna.model.Record}
+ * @param {!*=} opt_rawData Исходные данные экземпляра.
  * @constructor
  */
-var Cake = function() {
-
-    /**
-     * @type {string}
-     */
-    this.id = '';
+var Cake = function(opt_rawData) {
 
     /**
      * @type {string}
@@ -33,6 +29,8 @@ var Cake = function() {
      * @type {model.records.Dimension}
      */
     this.dimension = null;
+
+    tuna.model.Record.call(this, opt_rawData);
 };
 
 tuna.utils.extend(Cake, tuna.model.Record);

@@ -64,7 +64,7 @@ OrderController.prototype._initActions = function() {
         ('form', 'order-form');
 
     orderForm.addEventListener('result', function(event, order) {
-        self._navigation.navigate('result', order['id']);
+        self._navigation.navigate('result', order);
     });
 
     orderForm.setValue('client_network', APP_NETWORK);
