@@ -49,6 +49,8 @@ OkResultController.prototype._initActions = function() {
                 self.__orderId, self.__totalPrice * 1.86,
                 null, null, 'RUR', 'true'
             );
+
+            self._navigation.navigate('title');
         }
     });
 };
