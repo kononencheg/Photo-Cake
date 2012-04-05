@@ -44,18 +44,9 @@ OkResultController.prototype._initActions = function() {
 
     payButton.addEventListener('click', function() {
         if (self.__orderId !== null) {
-            window.API_callback = function(method, status, attrs) {
-                if (status === 'ok' && method === 'showPayment') {
-                    debugger;
-                    alert(attrs);
-                }
-
-                window.API_callback = null;
-            };
-
             FAPI.UI.showPayment(
                 'Тортик', 'Покупаете тортик?',
-                self.__orderId, 1,
+                self.__orderId, self.__totalPrice * 1.86,
                 null, null, 'RUR', 'true'
             );
         }

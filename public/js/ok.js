@@ -2274,7 +2274,7 @@ $Cake$$.prototype.$serialize$ = function $$Cake$$$$$serialize$$() {
 var $record$$inline_391$$ = new $Cake$$;
 $tuna$model$recordFactory$$.$__prototypes$.cake = $record$$inline_391$$;
 function $model$records$Order$$($opt_rawData$$2$$) {
-  this.$recipe$ = this.$bakery$ = this.$cake$ = $JSCompiler_alias_NULL$$;
+  this.$payment$ = this.$recipe$ = this.$bakery$ = this.$cake$ = $JSCompiler_alias_NULL$$;
   $tuna$model$Record$$.call(this, $opt_rawData$$2$$)
 }
 $tuna$utils$extend$$($model$records$Order$$, $tuna$model$Record$$);
@@ -2283,7 +2283,7 @@ $model$records$Order$$.prototype.$populate$ = function $$model$records$Order$$$$
   this.$cake$ = new $Cake$$($data$$52$$.cake);
   this.$bakery$ = new $Bakery$$($data$$52$$.bakery);
   this.$recipe$ = new $model$records$Recipe$$($data$$52$$.recipe);
-  new $model$records$Payment$$($data$$52$$.payment)
+  this.$payment$ = new $model$records$Payment$$($data$$52$$.payment)
 };
 $model$records$Order$$.prototype.$serialize$ = function $$model$records$Order$$$$$serialize$$() {
   var $decorationPrice_price$$inline_395$$;
@@ -2616,6 +2616,7 @@ $tuna$control$__controllerTable$$.share_step = $controller$$inline_425$$;
 function $OkResultController$$() {
   $tuna$control$PageViewController$$.call(this);
   this.$__orderId$ = $JSCompiler_alias_NULL$$;
+  this.$__totalPrice$ = -1;
   this.$_modules$ = ["data-image-copy", "button"]
 }
 $tuna$utils$extend$$($OkResultController$$, $tuna$control$PageViewController$$);
@@ -2626,17 +2627,11 @@ $OkResultController$$.prototype.$_initActions$ = function $$OkResultController$$
     $self$$21$$.$_navigation$.navigate("title")
   });
   $payButton$$.addEventListener("click", function() {
-    $self$$21$$.$__orderId$ !== $JSCompiler_alias_NULL$$ && (window.$API_callback$ = function $window$$API_callback$$($method$$8$$, $status$$7$$, $attrs$$1$$) {
-      if("ok" === $status$$7$$ && "showPayment" === $method$$8$$) {
-        debugger;
-        alert($attrs$$1$$)
-      }
-      window.$API_callback$ = $JSCompiler_alias_NULL$$
-    }, FAPI.UI.showPayment("\u0422\u043e\u0440\u0442\u0438\u043a", "\u041f\u043e\u043a\u0443\u043f\u0430\u0435\u0442\u0435 \u0442\u043e\u0440\u0442\u0438\u043a?", $self$$21$$.$__orderId$, 1, $JSCompiler_alias_NULL$$, $JSCompiler_alias_NULL$$, "RUR", "true"))
+    $self$$21$$.$__orderId$ !== $JSCompiler_alias_NULL$$ && FAPI.UI.showPayment("\u0422\u043e\u0440\u0442\u0438\u043a", "\u041f\u043e\u043a\u0443\u043f\u0430\u0435\u0442\u0435 \u0442\u043e\u0440\u0442\u0438\u043a?", $self$$21$$.$__orderId$, 1.86 * $self$$21$$.$__totalPrice$, $JSCompiler_alias_NULL$$, $JSCompiler_alias_NULL$$, "RUR", "true")
   })
 };
 $OkResultController$$.prototype.open = function $$OkResultController$$$$open$($order$$2$$) {
-  $order$$2$$ !== $JSCompiler_alias_NULL$$ && (this.$__orderId$ = $order$$2$$.id)
+  $order$$2$$ !== $JSCompiler_alias_NULL$$ && (this.$__orderId$ = $order$$2$$.id, this.$__totalPrice$ = $order$$2$$.$payment$.$decoPrice$ + $order$$2$$.$payment$.$recipePrice$ + $order$$2$$.$payment$.$deliveryPrice$)
 };
 $tuna$control$__controllerTable$$.result_step = new $OkResultController$$;
 function $MainController$$() {
@@ -2690,8 +2685,8 @@ function $GetCurrent$$() {
 $tuna$utils$extend$$($GetCurrent$$, $tuna$rest$Method$$);
 $GetCurrent$$.prototype.call = function $$GetCurrent$$$$call$() {
   var $self$$23$$ = this;
-  FAPI.Client.call({method:"users.getInfo", fields:"current_location", uids:FAPI.Client.uid}, function($city$$4_status$$8$$, $data$$63_value$$60$$, $error$$9$$) {
-    "ok" === $city$$4_status$$8$$ ? ($city$$4_status$$8$$ = new $City$$, $data$$63_value$$60$$ !== $JSCompiler_alias_NULL$$ && 0 < $data$$63_value$$60$$.length ? ($data$$63_value$$60$$ = $data$$63_value$$60$$.shift(), $city$$4_status$$8$$.name = $data$$63_value$$60$$.location.city) : $city$$4_status$$8$$.name = "\u041c\u043e\u0441\u043a\u0432\u0430", $self$$23$$.$dispatch$("result", $city$$4_status$$8$$)) : $self$$23$$.$dispatch$("error", $error$$9$$)
+  FAPI.Client.call({method:"users.getInfo", fields:"current_location", uids:FAPI.Client.uid}, function($city$$4_status$$7$$, $data$$63_value$$60$$, $error$$9$$) {
+    "ok" === $city$$4_status$$7$$ ? ($city$$4_status$$7$$ = new $City$$, $data$$63_value$$60$$ !== $JSCompiler_alias_NULL$$ && 0 < $data$$63_value$$60$$.length ? ($data$$63_value$$60$$ = $data$$63_value$$60$$.shift(), $city$$4_status$$7$$.name = $data$$63_value$$60$$.location.city) : $city$$4_status$$7$$.name = "\u041c\u043e\u0441\u043a\u0432\u0430", $self$$23$$.$dispatch$("result", $city$$4_status$$7$$)) : $self$$23$$.$dispatch$("error", $error$$9$$)
   })
 };
 $tuna$rest$methodFactory$$.$__methods$["cities.getCurrent"] = new $GetCurrent$$;
