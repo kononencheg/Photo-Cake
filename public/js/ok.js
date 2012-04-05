@@ -2632,7 +2632,7 @@ $OkResultController$$.prototype.$_initActions$ = function $$OkResultController$$
         alert($attrs$$1$$)
       }
       window.$API_callback$ = $JSCompiler_alias_NULL$$
-    }, FAPI.UI.showPayment("\u0422\u043e\u0440\u0442\u0438\u043a", "\u041f\u043e\u043a\u0443\u043f\u0430\u0435\u0442\u0435 \u0442\u043e\u0440\u0442\u0438\u043a?", $self$$21$$.$__orderId$, 0, $JSCompiler_alias_NULL$$, $JSCompiler_alias_NULL$$, "RUR", "true"))
+    }, FAPI.UI.showPayment("\u0422\u043e\u0440\u0442\u0438\u043a", "\u041f\u043e\u043a\u0443\u043f\u0430\u0435\u0442\u0435 \u0442\u043e\u0440\u0442\u0438\u043a?", $self$$21$$.$__orderId$, 1, $JSCompiler_alias_NULL$$, $JSCompiler_alias_NULL$$, "RUR", "true"))
   })
 };
 $OkResultController$$.prototype.open = function $$OkResultController$$$$open$($order$$2$$) {

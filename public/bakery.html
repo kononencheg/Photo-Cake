@@ -444,6 +444,7 @@
         
             <form class="j-template-transformer j-form form-horizontal"
                   action="/api/" method="POST" target="support_frame"
+                  data-record-type="order"
                   data-name="order-form"
                   data-template-id="order_template">
             
@@ -475,7 +476,9 @@
                                         <span class="add-on">
                                             <a class="j-popup-button"
                                                data-name="recipe-popup"
-                                               data-popup-id="recipe_popup">Другой...</a>
+                                               data-popup-id="recipe_popup">
+                                                Другой...
+                                            </a>
                                         </span>
                                     </div>
                                     <p class="j-message help-block">Рецепт торта</p>

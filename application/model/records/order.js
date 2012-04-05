@@ -1,3 +1,6 @@
+
+
+
 /**
  * @extends {tuna.model.Record}
  * @param {!*=} opt_rawData Исходные данные экземпляра.
@@ -28,7 +31,9 @@ model.records.Order = function(opt_rawData) {
     tuna.model.Record.call(this, opt_rawData);
 };
 
+
 tuna.utils.extend(model.records.Order, tuna.model.Record);
+
 
 /**
  * @override
@@ -40,6 +45,7 @@ model.records.Order.prototype.populate = function(data) {
     this.recipe = new model.records.Recipe(data['recipe']);
     this.payment = new model.records.Payment(data['payment']);
 };
+
 
 /**
  * @override
@@ -60,6 +66,7 @@ model.records.Order.prototype.serialize = function() {
     };
 };
 
+
 /**
  * @return {number}
  * @private
@@ -72,6 +79,7 @@ model.records.Order.prototype.__getDeliveryPrice = function() {
     return 0;
 };
 
+
 /**
  * @return {number}
  * @private
@@ -83,6 +91,7 @@ model.records.Order.prototype.__getRecipePrice = function() {
 
     return 0;
 };
+
 
 /**
  * @param {model.records.Bakery} bakery

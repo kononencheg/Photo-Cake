@@ -55,7 +55,7 @@ OkResultController.prototype._initActions = function() {
 
             FAPI.UI.showPayment(
                 'Тортик', 'Покупаете тортик?',
-                self.__orderId, 0,
+                self.__orderId, 1,
                 null, null, 'RUR', 'true'
             );
         }
@@ -72,4 +72,4 @@ OkResultController.prototype.open = function(order) {
     }
 };
 
-    tuna.control.registerController('result_step', new OkResultController());
+tuna.control.registerController('result_step', new OkResultController());
