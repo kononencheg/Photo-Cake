@@ -2627,7 +2627,7 @@ $OkResultController$$.prototype.$_initActions$ = function $$OkResultController$$
     $self$$21$$.$_navigation$.navigate("title")
   });
   $payButton$$.addEventListener("click", function() {
-    $self$$21$$.$__orderId$ !== $JSCompiler_alias_NULL$$ && (FAPI.UI.showPayment("\u0422\u043e\u0440\u0442\u0438\u043a", "\u041f\u043e\u043a\u0443\u043f\u0430\u0435\u0442\u0435 \u0442\u043e\u0440\u0442\u0438\u043a?", $self$$21$$.$__orderId$, 1.86 * $self$$21$$.$__totalPrice$, $JSCompiler_alias_NULL$$, $JSCompiler_alias_NULL$$, "RUR", "true"), $self$$21$$.$_navigation$.navigate("title"))
+    $self$$21$$.$__orderId$ !== $JSCompiler_alias_NULL$$ && (FAPI.UI.showPayment("\u0422\u043e\u0440\u0442\u0438\u043a", "\u041f\u043e\u043a\u0443\u043f\u0430\u0435\u0442\u0435 \u0442\u043e\u0440\u0442\u0438\u043a?", $self$$21$$.$__orderId$, $self$$21$$.$__totalPrice$, $JSCompiler_alias_NULL$$, $JSCompiler_alias_NULL$$, "RUR", "true"), $self$$21$$.$_navigation$.navigate("title"))
   })
 };
 $OkResultController$$.prototype.open = function $$OkResultController$$$$open$($order$$2$$) {

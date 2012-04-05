@@ -46,7 +46,7 @@ OkResultController.prototype._initActions = function() {
         if (self.__orderId !== null) {
             FAPI.UI.showPayment(
                 'Тортик', 'Покупаете тортик?',
-                self.__orderId, self.__totalPrice * 1.86,
+                self.__orderId, self.__totalPrice,
                 null, null, 'RUR', 'true'
             );
 
