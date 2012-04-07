@@ -83,6 +83,18 @@
             <fieldset>
                 <legend>Информация о доставке</legend>
 
+                <div class="j-delivery_is_pickup-input control-group">
+                    <label class="control-label">Самовывоз</label>
+                    <div class="controls">
+                        <div class="input">
+                            <input name="delivery_is_pickup" type="checkbox"
+                                   value="1"
+                                   class="j-button"
+                                   data-name="delivery-button" />
+                        </div>
+                    </div>
+                </div>
+
                 <div class="j-delivery_address-input control-group">
                     <label class="control-label">Адрес *</label>
                     <div class="controls">
@@ -92,6 +104,7 @@
                         <p class="j-message help-block">Куда нужно везти торт.</p>
                     </div>
                 </div>
+
 
                 <div class="j-delivery_date-input j-delivery_time-input control-group">
                     <label class="control-label">Дата *</label>
@@ -110,7 +123,9 @@
                                 <option value="72000">20:00-22:00</option>
                             </select>
 
-                            <p class="j-message help-block">Когда нужно везти торт.</p>
+                            <p class="j-message help-block">
+                                Когда нужен торт.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -119,7 +134,8 @@
                     <label class="control-label">Комментарий</label>
                     <div class="controls">
                         <div class="input">
-                            <textarea name="delivery_comment" rows="2"></textarea>
+                            <textarea name="delivery_comment"
+                                      rows="1"></textarea>
                             <p class="j-message help-block">Если вы что-то хотите добавить.</p>
                         </div>
                     </div>
@@ -129,8 +145,11 @@
                     <label class="control-label">Текст открытки</label>
                     <div class="controls">
                         <div class="input">
-                            <textarea name="delivery_message" rows="2"></textarea>
-                            <p class="j-message help-block">Записка к торту, если, например, торт в подарок.</p>
+                            <textarea name="delivery_message"
+                                      rows="1"></textarea>
+                            <p class="j-message help-block">
+                                Записка к торту, если, например, торт в подарок.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -230,3 +249,4 @@
     </tuna:template>
 
 </div>
+

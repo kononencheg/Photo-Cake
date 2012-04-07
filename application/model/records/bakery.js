@@ -11,17 +11,22 @@ var Bakery = function(data) {
     this.name = '';
 
     /**
-     * @type string
+     * @type {string}
      */
     this.email = '';
 
     /**
-     * @type model.records.City
+     * @type {string}
+     */
+    this.address = '';
+
+    /**
+     * @type {model.records.City}
      */
     this.city = null;
 
     /**
-     * @type number
+     * @type {number}
      */
     this.deliveryPrice = 0;
 
@@ -47,6 +52,7 @@ Bakery.prototype.populate = function(data) {
     this.id = data['id'];
     this.name = data['name'];
     this.email = data['email'];
+    this.address = data['address'];
     this.city = new model.records.City(data['city']);
     this.deliveryPrice = data['delivery_price'];
     this.decorationPrices = {};

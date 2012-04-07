@@ -7,9 +7,16 @@ var OrderController = function() {
 
     /**
      * @private
-     * @type tuna.ui.ModuleInstance|tuna.ui.transformers.TemplateTransformer
+     * @type {tuna.ui.ModuleInstance|tuna.ui.transformers.TemplateTransformer}
      */
     this.__orderTransformer = null;
+
+    /**
+     *
+     * @type {tuna.ui.ModuleInstance|tuna.ui.forms.Form}
+     * @private
+     */
+    this.__orderForm = null;
 
     /**
      * @type {function()}
@@ -27,7 +34,7 @@ var OrderController = function() {
      * @override
      */
     this._modules = [ 'template-transformer', 'data-image-copy', 'datepicker',
-                      'form', 'popup', 'popup-button', 'button-group' ];
+                      'form', 'popup', 'popup-button', 'button', 'button-group' ];
 };
 
 tuna.utils.extend(OrderController, tuna.control.PageViewController);
@@ -36,6 +43,7 @@ tuna.utils.extend(OrderController, tuna.control.PageViewController);
  * @override
  */
 OrderController.prototype._initActions = function() {
+
     this.__orderTransformer = this._container.getModuleInstanceByName
         ('template-transformer', 'order-form');
 
@@ -60,14 +68,26 @@ OrderController.prototype._initActions = function() {
         model.currentRecipe.set(recipe);
     });
 
-    var orderForm = this._container.getModuleInstanceByName
+    this.__orderForm = this._container.getModuleInstanceByName
         ('form', 'order-form');
 
-    orderForm.addEventListener('result', function(event, order) {
+    this.__orderForm.addEventListener('result', function(event, order) {
         self._navigation.navigate('result', order);
     });
 
-    orderForm.setValue('client_network', APP_NETWORK);
+    this.__orderForm.setValue('client_network', APP_NETWORK);
+
+    var deliveryButton = this._container.getModuleInstanceByName
+        ('button', 'delivery-button');
+
+    deliveryButton.addEventListener('click', function() {
+        var isPickup = self.__orderForm.getValue('delivery_is_pickup') !== null;
+        var bakery = model.currentBakery.get();
+
+        self.__orderForm.setValue('delivery_address', isPickup ? bakery.address : '');
+        self.__orderForm.setInputEnabled('delivery_address', !isPickup);
+    });
+
 
     var updateRecipesList = function() {
         var recipes = model.recipes.get();
@@ -129,6 +149,10 @@ OrderController.prototype.open = function() {
     if (bakery !== null) {
         model.recipes.load({ 'bakery_id': bakery.id });
     }
+
+    this.__orderForm.setValue('delivery_address', '');
+    this.__orderForm.setValue('delivery_is_pickup', null);
+    this.__orderForm.setInputEnabled('delivery_address', true);
 };
 
 /**
