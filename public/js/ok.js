@@ -1352,6 +1352,18 @@ function $JSCompiler_StaticMethods_setValue$$($JSCompiler_StaticMethods_setValue
     }
   }
 }
+function $JSCompiler_StaticMethods_setInputEnabled$$($JSCompiler_StaticMethods_setInputEnabled$self$$, $isEnabled$$1$$) {
+  var $element$$51$$ = $JSCompiler_StaticMethods_setInputEnabled$self$$.$_target$.elements.delivery_address;
+  if($element$$51$$ !== $JSCompiler_alias_VOID$$) {
+    if($element$$51$$.value === $JSCompiler_alias_VOID$$) {
+      for(var $i$$40$$ = 0, $l$$27$$ = $element$$51$$.length;$i$$40$$ < $l$$27$$;) {
+        $isEnabled$$1$$ ? $element$$51$$[$i$$40$$].removeAttribute("disabled") : $element$$51$$[$i$$40$$].setAttribute("disabled", $JSCompiler_alias_TRUE$$), $i$$40$$++
+      }
+    }else {
+      $isEnabled$$1$$ ? $element$$51$$.removeAttribute("disabled") : $element$$51$$.setAttribute("disabled", $JSCompiler_alias_TRUE$$)
+    }
+  }
+}
 $JSCompiler_prototypeAlias$$.submit = function $$JSCompiler_prototypeAlias$$$submit$() {
   $JSCompiler_StaticMethods___prepareTo$$(this, "submit");
   this.$_target$.submit()
@@ -1429,8 +1441,8 @@ function $JSCompiler_StaticMethods__filterData$$($JSCompiler_StaticMethods__filt
   if(!$term$$1$$ || 0 === $term$$1$$.length) {
     $result$$15$$ = $JSCompiler_StaticMethods__filterData$self$$.$_data$.slice(0)
   }else {
-    for(var $needle$$ = $term$$1$$.toUpperCase(), $i$$41$$ = 0, $l$$28$$ = $JSCompiler_StaticMethods__filterData$self$$.$_data$.length, $core$$ = $JSCompiler_alias_NULL$$;$i$$41$$ < $l$$28$$;) {
-      $core$$ = $JSCompiler_StaticMethods__filterData$self$$.$_itemSerializeCallback$($JSCompiler_StaticMethods__filterData$self$$.$_data$[$i$$41$$]), -1 !== $core$$.toUpperCase().indexOf($needle$$) && $result$$15$$.push($JSCompiler_StaticMethods__filterData$self$$.$_data$[$i$$41$$]), $i$$41$$++
+    for(var $needle$$ = $term$$1$$.toUpperCase(), $i$$42$$ = 0, $l$$29$$ = $JSCompiler_StaticMethods__filterData$self$$.$_data$.length, $core$$ = $JSCompiler_alias_NULL$$;$i$$42$$ < $l$$29$$;) {
+      $core$$ = $JSCompiler_StaticMethods__filterData$self$$.$_itemSerializeCallback$($JSCompiler_StaticMethods__filterData$self$$.$_data$[$i$$42$$]), -1 !== $core$$.toUpperCase().indexOf($needle$$) && $result$$15$$.push($JSCompiler_StaticMethods__filterData$self$$.$_data$[$i$$42$$]), $i$$42$$++
     }
   }
   return $result$$15$$
@@ -1484,8 +1496,8 @@ $tuna$ui$forms$Autocomplete$$.prototype.update = function $$tuna$ui$forms$Autoco
   this.$clearSelection$()
 };
 function $tuna$ui$forms$serialize$$($elements$$4_formElement$$) {
-  for(var $result$$16$$ = {}, $elements$$4_formElement$$ = $elements$$4_formElement$$.elements, $i$$42$$ = 0, $l$$29$$ = $elements$$4_formElement$$.length, $name$$78$$ = $JSCompiler_alias_NULL$$;$i$$42$$ < $l$$29$$;) {
-    $name$$78$$ = $elements$$4_formElement$$[$i$$42$$].name, $result$$16$$[$name$$78$$] !== $JSCompiler_alias_VOID$$ ? ($result$$16$$[$name$$78$$] instanceof Array || ($result$$16$$[$name$$78$$] = [$result$$16$$[$name$$78$$]]), $result$$16$$[$name$$78$$].push($elements$$4_formElement$$[$i$$42$$].value)) : $result$$16$$[$name$$78$$] = $elements$$4_formElement$$[$i$$42$$].value, $i$$42$$++
+  for(var $result$$16$$ = {}, $elements$$4_formElement$$ = $elements$$4_formElement$$.elements, $i$$43$$ = 0, $l$$30$$ = $elements$$4_formElement$$.length, $name$$79$$ = $JSCompiler_alias_NULL$$;$i$$43$$ < $l$$30$$;) {
+    $name$$79$$ = $elements$$4_formElement$$[$i$$43$$].name, $result$$16$$[$name$$79$$] !== $JSCompiler_alias_VOID$$ ? ($result$$16$$[$name$$79$$] instanceof Array || ($result$$16$$[$name$$79$$] = [$result$$16$$[$name$$79$$]]), $result$$16$$[$name$$79$$].push($elements$$4_formElement$$[$i$$43$$].value)) : $result$$16$$[$name$$79$$] = $elements$$4_formElement$$[$i$$43$$].value, $i$$43$$++
   }
   return $result$$16$$
 }
@@ -1634,10 +1646,10 @@ function $JSCompiler_StaticMethods___initControls$$($JSCompiler_StaticMethods___
   });
   $controls$$.init()
 }
-function $JSCompiler_StaticMethods___updateMenu$$($JSCompiler_StaticMethods___updateMenu$self_buttons$$1$$, $i$$44_path$$9$$, $isSelected$$) {
-  if($i$$44_path$$9$$ !== $JSCompiler_alias_NULL$$ && ($JSCompiler_StaticMethods___updateMenu$self_buttons$$1$$ = $JSCompiler_StaticMethods___updateMenu$self_buttons$$1$$.$__menuLinks$[$i$$44_path$$9$$], $JSCompiler_StaticMethods___updateMenu$self_buttons$$1$$ !== $JSCompiler_alias_VOID$$)) {
-    for(var $i$$44_path$$9$$ = 0, $l$$31$$ = $JSCompiler_StaticMethods___updateMenu$self_buttons$$1$$.length;$i$$44_path$$9$$ < $l$$31$$;) {
-      $JSCompiler_StaticMethods___updateMenu$self_buttons$$1$$[$i$$44_path$$9$$].setActive($isSelected$$), $i$$44_path$$9$$++
+function $JSCompiler_StaticMethods___updateMenu$$($JSCompiler_StaticMethods___updateMenu$self_buttons$$1$$, $i$$45_path$$9$$, $isSelected$$) {
+  if($i$$45_path$$9$$ !== $JSCompiler_alias_NULL$$ && ($JSCompiler_StaticMethods___updateMenu$self_buttons$$1$$ = $JSCompiler_StaticMethods___updateMenu$self_buttons$$1$$.$__menuLinks$[$i$$45_path$$9$$], $JSCompiler_StaticMethods___updateMenu$self_buttons$$1$$ !== $JSCompiler_alias_VOID$$)) {
+    for(var $i$$45_path$$9$$ = 0, $l$$32$$ = $JSCompiler_StaticMethods___updateMenu$self_buttons$$1$$.length;$i$$45_path$$9$$ < $l$$32$$;) {
+      $JSCompiler_StaticMethods___updateMenu$self_buttons$$1$$[$i$$45_path$$9$$].setActive($isSelected$$), $i$$45_path$$9$$++
     }
   }
 }
@@ -1761,11 +1773,11 @@ $JSCompiler_prototypeAlias$$.clear = function $$JSCompiler_prototypeAlias$$$clea
   this.$__items$ = {}
 };
 $JSCompiler_prototypeAlias$$.$getItemsCount$ = function $$JSCompiler_prototypeAlias$$$$getItemsCount$$() {
-  var $i$$46$$ = 0, $_$$;
+  var $i$$47$$ = 0, $_$$;
   for($_$$ in this.$__items$) {
-    $i$$46$$++
+    $i$$47$$++
   }
-  return $i$$46$$
+  return $i$$47$$
 };
 function $tuna$ui$selection$rule$AbstractSelectionRule$$() {
   this.$_eventDispatcher$ = this.$_selectionView$ = this.$_itemsCollection$ = $JSCompiler_alias_NULL$$;
@@ -1882,8 +1894,8 @@ $tuna$ui$selection$view$ClassSelectionView$$.prototype.update = function $$tuna$
   if(this.$_itemSelector$ !== $JSCompiler_alias_NULL$$) {
     this.$_selectionRule$.$clearSelection$();
     this.$_itemsCollection$.clear();
-    for(var $possibleItems$$ = $tuna$dom$select$$(this.$_itemSelector$, this.$_target$), $i$$47$$ = 0, $l$$33$$ = $possibleItems$$.length, $index$$103$$ = $JSCompiler_alias_NULL$$, $item$$31$$ = $JSCompiler_alias_NULL$$;$i$$47$$ < $l$$33$$;) {
-      $item$$31$$ = $possibleItems$$[$i$$47$$], $tuna$dom$getParentMatches$$($item$$31$$, this.$_itemSelector$, this.$_target$) === $JSCompiler_alias_NULL$$ && ($index$$103$$ = this.$_itemsCollection$.$addItem$($item$$31$$), $index$$103$$ !== $JSCompiler_alias_NULL$$ && this.$_selectionClass$ !== $JSCompiler_alias_NULL$$ && $tuna$dom$hasClass$$($item$$31$$, this.$_selectionClass$) && this.$_selectionRule$.$selectIndex$($index$$103$$)), $i$$47$$++
+    for(var $possibleItems$$ = $tuna$dom$select$$(this.$_itemSelector$, this.$_target$), $i$$48$$ = 0, $l$$34$$ = $possibleItems$$.length, $index$$103$$ = $JSCompiler_alias_NULL$$, $item$$31$$ = $JSCompiler_alias_NULL$$;$i$$48$$ < $l$$34$$;) {
+      $item$$31$$ = $possibleItems$$[$i$$48$$], $tuna$dom$getParentMatches$$($item$$31$$, this.$_itemSelector$, this.$_target$) === $JSCompiler_alias_NULL$$ && ($index$$103$$ = this.$_itemsCollection$.$addItem$($item$$31$$), $index$$103$$ !== $JSCompiler_alias_NULL$$ && this.$_selectionClass$ !== $JSCompiler_alias_NULL$$ && $tuna$dom$hasClass$$($item$$31$$, this.$_selectionClass$) && this.$_selectionRule$.$selectIndex$($index$$103$$)), $i$$48$$++
     }
   }
 };
@@ -2186,9 +2198,9 @@ function $rest$CommonMethod$$($opt_name$$4$$) {
   $tuna$rest$DefaultMethod$$.call(this, $opt_name$$4$$)
 }
 $tuna$utils$extend$$($rest$CommonMethod$$, $tuna$rest$Method$$);
-$rest$CommonMethod$$.prototype.$setName$ = function $$rest$CommonMethod$$$$$setName$$($name$$80$$) {
+$rest$CommonMethod$$.prototype.$setName$ = function $$rest$CommonMethod$$$$$setName$$($name$$81$$) {
   this.$__request$ === $JSCompiler_alias_NULL$$ && (this.$__request$ = new $tuna$net$Request$$, this.$__request$.$__method$ = "POST", this.$__request$.addEventListener("complete", this.$__completeHandler$));
-  this.$__request$.$__url$ = "/api/?method=" + $name$$80$$
+  this.$__request$.$__url$ = "/api/?method=" + $name$$81$$
 };
 $rest$CommonMethod$$.prototype.call = function $$rest$CommonMethod$$$$call$($args$$6$$) {
   this.$__request$.send($args$$6$$)
@@ -2230,7 +2242,7 @@ $City$$.prototype.$serialize$ = function $$City$$$$$serialize$$() {
 var $record$$inline_383$$ = new $City$$;
 $tuna$model$recordFactory$$.$__prototypes$.city = $record$$inline_383$$;
 function $Bakery$$($data$$49$$) {
-  this.name = "";
+  this.$address$ = this.name = "";
   this.city = $JSCompiler_alias_NULL$$;
   this.$deliveryPrice$ = 0;
   this.$decorationPrices$ = $JSCompiler_alias_NULL$$;
@@ -2241,6 +2253,7 @@ $tuna$utils$extend$$($Bakery$$, $tuna$model$Record$$);
 $Bakery$$.prototype.$populate$ = function $$Bakery$$$$$populate$$($data$$50_prices$$) {
   this.id = $data$$50_prices$$.id;
   this.name = $data$$50_prices$$.name;
+  this.$address$ = $data$$50_prices$$.address;
   this.city = new $City$$($data$$50_prices$$.city);
   this.$deliveryPrice$ = $data$$50_prices$$.delivery_price;
   this.$decorationPrices$ = {};
@@ -2469,10 +2482,10 @@ window.onDecoElementsLoaded = $tuna$utils$bind$$($controller$$.$onDecoElementsLo
 $tuna$control$__controllerTable$$.designer_step = $controller$$;
 function $OrderController$$() {
   $tuna$control$PageViewController$$.call(this);
-  this.$__orderTransformer$ = $JSCompiler_alias_NULL$$;
+  this.$__orderForm$ = this.$__orderTransformer$ = $JSCompiler_alias_NULL$$;
   this.$__handleBakeryUpdate$ = $tuna$utils$bind$$(this.$__handleBakeryUpdate$, this);
   this.$__updateOrder$ = $tuna$utils$bind$$(this.$__updateOrder$, this);
-  this.$_modules$ = "template-transformer,data-image-copy,datepicker,form,popup,popup-button,button-group".split(",")
+  this.$_modules$ = "template-transformer,data-image-copy,datepicker,form,popup,popup-button,button,button-group".split(",")
 }
 $tuna$utils$extend$$($OrderController$$, $tuna$control$PageViewController$$);
 $JSCompiler_prototypeAlias$$ = $OrderController$$.prototype;
@@ -2489,11 +2502,16 @@ $JSCompiler_prototypeAlias$$.$_initActions$ = function $$JSCompiler_prototypeAli
     var $recipe_recipeIds$$ = $recipesForm$$.$getValue$("recipe_id"), $recipe_recipeIds$$ = $JSCompiler_StaticMethods_getItemById$$($model$recipes$$, $recipe_recipeIds$$.shift());
     $model$currentRecipe$$.set($recipe_recipeIds$$)
   });
-  var $orderForm$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "form", "order-form");
-  $orderForm$$.addEventListener("result", function($event$$34$$, $order$$) {
+  this.$__orderForm$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "form", "order-form");
+  this.$__orderForm$.addEventListener("result", function($event$$34$$, $order$$) {
     $self$$17$$.$_navigation$.navigate("result", $order$$)
   });
-  $JSCompiler_StaticMethods_setValue$$($orderForm$$, "client_network", 2);
+  $JSCompiler_StaticMethods_setValue$$(this.$__orderForm$, "client_network", 2);
+  $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "button", "delivery-button").addEventListener("click", function() {
+    var $isPickup$$ = $self$$17$$.$__orderForm$.$getValue$("delivery_is_pickup") !== $JSCompiler_alias_NULL$$, $bakery$$4$$ = $model$currentBakery$$.get();
+    $JSCompiler_StaticMethods_setValue$$($self$$17$$.$__orderForm$, "delivery_address", $isPickup$$ ? $bakery$$4$$.$address$ : "");
+    $JSCompiler_StaticMethods_setInputEnabled$$($self$$17$$.$__orderForm$, !$isPickup$$)
+  });
   var $popupRecipe$$ = $JSCompiler_alias_NULL$$, $recipeInfoPopup$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "popup", "recipe-info-popup"), $recipeInfoTransformer$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "template-transformer", "recipe-info-popup");
   $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "button-group", "recipes-list").addEventListener("show", function($event$$35$$, $button$$5$$) {
     $popupRecipe$$ = $JSCompiler_StaticMethods_getItemById$$($model$recipes$$, $JSCompiler_StaticMethods_getStringOption$$($button$$5$$, "recipe-id"));
@@ -2515,8 +2533,11 @@ $JSCompiler_prototypeAlias$$.open = function $$JSCompiler_prototypeAlias$$$open$
   $model$currentCake$$.addEventListener("update", this.$__updateOrder$);
   $model$currentRecipe$$.addEventListener("update", this.$__updateOrder$);
   this.$__updateOrder$();
-  var $bakery$$4$$ = $model$currentBakery$$.get();
-  $bakery$$4$$ !== $JSCompiler_alias_NULL$$ && $model$recipes$$.load({bakery_id:$bakery$$4$$.id})
+  var $bakery$$5$$ = $model$currentBakery$$.get();
+  $bakery$$5$$ !== $JSCompiler_alias_NULL$$ && $model$recipes$$.load({bakery_id:$bakery$$5$$.id});
+  $JSCompiler_StaticMethods_setValue$$(this.$__orderForm$, "delivery_address", "");
+  $JSCompiler_StaticMethods_setValue$$(this.$__orderForm$, "delivery_is_pickup", $JSCompiler_alias_NULL$$);
+  $JSCompiler_StaticMethods_setInputEnabled$$(this.$__orderForm$, $JSCompiler_alias_TRUE$$)
 };
 $JSCompiler_prototypeAlias$$.close = function $$JSCompiler_prototypeAlias$$$close$() {
   $model$currentBakery$$.removeEventListener("update", this.$__handleBakeryUpdate$);
@@ -2524,8 +2545,8 @@ $JSCompiler_prototypeAlias$$.close = function $$JSCompiler_prototypeAlias$$$clos
   $model$currentRecipe$$.addEventListener("update", this.$__updateOrder$)
 };
 $JSCompiler_prototypeAlias$$.$__handleBakeryUpdate$ = function $$JSCompiler_prototypeAlias$$$$__handleBakeryUpdate$$() {
-  var $bakery$$5$$ = $model$currentBakery$$.get();
-  $bakery$$5$$ !== $JSCompiler_alias_NULL$$ && $model$recipes$$.load({bakery_id:$bakery$$5$$.id});
+  var $bakery$$6$$ = $model$currentBakery$$.get();
+  $bakery$$6$$ !== $JSCompiler_alias_NULL$$ && $model$recipes$$.load({bakery_id:$bakery$$6$$.id});
   this.$_navigation$.navigate("title")
 };
 $JSCompiler_prototypeAlias$$.$__updateOrder$ = function $$JSCompiler_prototypeAlias$$$$__updateOrder$$() {
@@ -2561,13 +2582,13 @@ $OKShareController$$.prototype.$_initActions$ = function $$OKShareController$$$$
   })
 };
 function $JSCompiler_StaticMethods___fetchAlbumId$$($JSCompiler_StaticMethods___fetchAlbumId$self$$, $albums$$) {
-  for(var $i$$50$$ = 0, $l$$36$$ = $albums$$.length, $album$$ = $JSCompiler_alias_NULL$$;$i$$50$$ < $l$$36$$;) {
-    $album$$ = $albums$$[$i$$50$$];
+  for(var $i$$51$$ = 0, $l$$37$$ = $albums$$.length, $album$$ = $JSCompiler_alias_NULL$$;$i$$51$$ < $l$$37$$;) {
+    $album$$ = $albums$$[$i$$51$$];
     if("\u041c\u043e\u0438 \u0442\u043e\u0440\u0442\u0438\u043a\u0438" === $album$$.title && '\u0418\u0437 \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f "\u0424\u043e\u0442\u043e \u041d\u0430 \u0422\u043e\u0440\u0442\u0435"' === $album$$.description) {
       $JSCompiler_StaticMethods___fetchAlbumId$self$$.$__albumId$ = $album$$.aid;
       break
     }
-    $i$$50$$++
+    $i$$51$$++
   }
 }
 function $JSCompiler_StaticMethods___getAlbum$$($JSCompiler_StaticMethods___getAlbum$self$$, $callback$$37$$) {
@@ -2649,8 +2670,8 @@ $MainController$$.prototype.$_initActions$ = function $$MainController$$$$$_init
     $city$$1$$ !== $JSCompiler_alias_NULL$$ && $JSCompiler_StaticMethods___updateCurrentBakery$$($city$$1$$)
   });
   var $bakeryTransformer$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "template-transformer", "current-bakery");
-  $model$currentBakery$$.addEventListener("update", function($event$$36$$, $bakery$$6$$) {
-    $JSCompiler_StaticMethods_applyTransform$$($bakeryTransformer$$, $tuna$model$serialize$$($bakery$$6$$))
+  $model$currentBakery$$.addEventListener("update", function($event$$36$$, $bakery$$7$$) {
+    $JSCompiler_StaticMethods_applyTransform$$($bakeryTransformer$$, $tuna$model$serialize$$($bakery$$7$$))
   });
   $model$cities$$.addEventListener("update", function($event$$37$$, $cities$$) {
     $cityAutocomplete$$.setData($cities$$)
@@ -2659,10 +2680,10 @@ $MainController$$.prototype.$_initActions$ = function $$MainController$$$$$_init
     function $listener$$34$$() {
       $model$bakeries$$.removeEventListener("update", $listener$$34$$);
       var $ids$$ = [];
-      $model$cities$$.set($model$bakeries$$.map(function($bakery$$7$$) {
-        $bakery$$7$$.$isNative$ = $bakery$$7$$.city.name === $city$$2$$.name;
-        var $id$$6$$ = $bakery$$7$$.city.id;
-        return-1 === $tuna$utils$indexOf$$($id$$6$$, $ids$$) ? ($ids$$.push($id$$6$$), $bakery$$7$$.city) : $JSCompiler_alias_NULL$$
+      $model$cities$$.set($model$bakeries$$.map(function($bakery$$8$$) {
+        $bakery$$8$$.$isNative$ = $bakery$$8$$.city.name === $city$$2$$.name;
+        var $id$$6$$ = $bakery$$8$$.city.id;
+        return-1 === $tuna$utils$indexOf$$($id$$6$$, $ids$$) ? ($ids$$.push($id$$6$$), $bakery$$8$$.city) : $JSCompiler_alias_NULL$$
       }));
       $JSCompiler_StaticMethods___updateCurrentBakery$$($city$$2$$)
     }
@@ -2672,8 +2693,8 @@ $MainController$$.prototype.$_initActions$ = function $$MainController$$$$$_init
   $model$decorations$$.load()
 };
 function $JSCompiler_StaticMethods___updateCurrentBakery$$($city$$3$$) {
-  var $bakeries$$ = $model$bakeries$$.find(function($bakery$$8$$) {
-    return $bakery$$8$$.city.name === $city$$3$$.name
+  var $bakeries$$ = $model$bakeries$$.find(function($bakery$$9$$) {
+    return $bakery$$9$$.city.name === $city$$3$$.name
   });
   0 === $bakeries$$.length && ($bakeries$$ = $model$bakeries$$.get());
   $model$currentBakery$$.set($bakeries$$[Math.floor($bakeries$$.length * Math.random())])
