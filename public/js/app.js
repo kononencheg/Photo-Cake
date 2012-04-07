@@ -2277,6 +2277,7 @@ var $record$$inline_395$$ = new $Cake$$;
 $tuna$model$recordFactory$$.$__prototypes$.cake = $record$$inline_395$$;
 function $model$records$Order$$($opt_rawData$$2$$) {
   this.$recipe$ = this.$bakery$ = this.$cake$ = $JSCompiler_alias_NULL$$;
+  this.$isPickup$ = $JSCompiler_alias_FALSE$$;
   $tuna$model$Record$$.call(this, $opt_rawData$$2$$)
 }
 $tuna$utils$extend$$($model$records$Order$$, $tuna$model$Record$$);
@@ -2299,7 +2300,7 @@ $model$records$Order$$.prototype.$serialize$ = function $$model$records$Order$$$
     }
   }
   $deco$$inline_400_recipePrice$$ = this.$recipe$ !== $JSCompiler_alias_NULL$$ && this.$cake$ !== $JSCompiler_alias_NULL$$ ? $JSCompiler_StaticMethods_getWeightPrice$$(this.$recipe$, this.$cake$.$dimension$.$weight$) : 0;
-  $deliveryPrice_i$$inline_401$$ = this.$bakery$ !== $JSCompiler_alias_NULL$$ ? this.$bakery$.$deliveryPrice$ : 0;
+  $deliveryPrice_i$$inline_401$$ = !this.$isPickup$ && this.$bakery$ !== $JSCompiler_alias_NULL$$ ? this.$bakery$.$deliveryPrice$ : 0;
   return{cake:$tuna$model$serialize$$(this.$cake$), recipe:$tuna$model$serialize$$(this.$recipe$), bakery:$tuna$model$serialize$$(this.$bakery$), decorationPrice:$decorationPrice_price$$inline_399$$, recipePrice:$deco$$inline_400_recipePrice$$, deliveryPrice:$deliveryPrice_i$$inline_401$$, totalPrice:$decorationPrice_price$$inline_399$$ + $deco$$inline_400_recipePrice$$ + $deliveryPrice_i$$inline_401$$}
 };
 var $record$$inline_406$$ = new $model$records$Order$$;
@@ -2498,7 +2499,8 @@ $JSCompiler_prototypeAlias$$.$_initActions$ = function $$JSCompiler_prototypeAli
   $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "button", "delivery-button").addEventListener("click", function() {
     var $isPickup$$ = $self$$17$$.$__orderForm$.$getValue$("delivery_is_pickup") !== $JSCompiler_alias_NULL$$, $bakery$$4$$ = $model$currentBakery$$.get();
     $JSCompiler_StaticMethods_setValue$$($self$$17$$.$__orderForm$, "delivery_address", $isPickup$$ ? $bakery$$4$$.$address$ : "");
-    $JSCompiler_StaticMethods_setInputEnabled$$($self$$17$$.$__orderForm$, !$isPickup$$)
+    $JSCompiler_StaticMethods_setInputEnabled$$($self$$17$$.$__orderForm$, !$isPickup$$);
+    $self$$17$$.$__updateOrder$()
   });
   var $popupRecipe$$ = $JSCompiler_alias_NULL$$, $recipeInfoPopup$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "popup", "recipe-info-popup"), $recipeInfoTransformer$$ = $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "template-transformer", "recipe-info-popup");
   $JSCompiler_StaticMethods_getModuleInstanceByName$$(this.$_container$, "button-group", "recipes-list").addEventListener("show", function($event$$35$$, $button$$5$$) {
@@ -2520,12 +2522,12 @@ $JSCompiler_prototypeAlias$$.open = function $$JSCompiler_prototypeAlias$$$open$
   $model$currentBakery$$.addEventListener("update", this.$__handleBakeryUpdate$);
   $model$currentCake$$.addEventListener("update", this.$__updateOrder$);
   $model$currentRecipe$$.addEventListener("update", this.$__updateOrder$);
-  this.$__updateOrder$();
   var $bakery$$5$$ = $model$currentBakery$$.get();
   $bakery$$5$$ !== $JSCompiler_alias_NULL$$ && $model$recipes$$.load({bakery_id:$bakery$$5$$.id});
   $JSCompiler_StaticMethods_setValue$$(this.$__orderForm$, "delivery_address", "");
   $JSCompiler_StaticMethods_setValue$$(this.$__orderForm$, "delivery_is_pickup", $JSCompiler_alias_NULL$$);
-  $JSCompiler_StaticMethods_setInputEnabled$$(this.$__orderForm$, $JSCompiler_alias_TRUE$$)
+  $JSCompiler_StaticMethods_setInputEnabled$$(this.$__orderForm$, $JSCompiler_alias_TRUE$$);
+  this.$__updateOrder$()
 };
 $JSCompiler_prototypeAlias$$.close = function $$JSCompiler_prototypeAlias$$$close$() {
   $model$currentBakery$$.removeEventListener("update", this.$__handleBakeryUpdate$);
@@ -2543,6 +2545,7 @@ $JSCompiler_prototypeAlias$$.$__updateOrder$ = function $$JSCompiler_prototypeAl
   $order$$1$$.$cake$ = $model$currentCake$$.get();
   $order$$1$$.$bakery$ = $model$currentBakery$$.get();
   $order$$1$$.$recipe$ = $model$currentRecipe$$.get();
+  $order$$1$$.$isPickup$ = this.$__orderForm$.$getValue$("delivery_is_pickup") !== $JSCompiler_alias_NULL$$;
   $JSCompiler_StaticMethods_applyTransform$$(this.$__orderTransformer$, $tuna$model$serialize$$($order$$1$$))
 };
 var $controller$$inline_426$$ = new $OrderController$$;

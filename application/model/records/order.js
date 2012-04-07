@@ -28,6 +28,11 @@ model.records.Order = function(opt_rawData) {
      */
     this.payment = null;
 
+    /**
+     * @type {boolean}
+     */
+    this.isPickup = false;
+
     tuna.model.Record.call(this, opt_rawData);
 };
 
@@ -72,7 +77,7 @@ model.records.Order.prototype.serialize = function() {
  * @private
  */
 model.records.Order.prototype.__getDeliveryPrice = function() {
-    if (this.bakery !== null) {
+    if (!this.isPickup && this.bakery !== null) {
         return this.bakery.deliveryPrice;
     }
 

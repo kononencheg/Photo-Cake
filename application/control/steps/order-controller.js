@@ -84,8 +84,11 @@ OrderController.prototype._initActions = function() {
         var isPickup = self.__orderForm.getValue('delivery_is_pickup') !== null;
         var bakery = model.currentBakery.get();
 
-        self.__orderForm.setValue('delivery_address', isPickup ? bakery.address : '');
         self.__orderForm.setInputEnabled('delivery_address', !isPickup);
+        self.__orderForm.setValue
+            ('delivery_address', isPickup ? bakery.address : '');
+
+        self.__updateOrder();
     });
 
 
@@ -143,8 +146,6 @@ OrderController.prototype.open = function() {
     model.currentCake.addEventListener('update', this.__updateOrder);
     model.currentRecipe.addEventListener('update', this.__updateOrder);
 
-    this.__updateOrder();
-
     var bakery = model.currentBakery.get();
     if (bakery !== null) {
         model.recipes.load({ 'bakery_id': bakery.id });
@@ -153,6 +154,8 @@ OrderController.prototype.open = function() {
     this.__orderForm.setValue('delivery_address', '');
     this.__orderForm.setValue('delivery_is_pickup', null);
     this.__orderForm.setInputEnabled('delivery_address', true);
+
+    this.__updateOrder();
 };
 
 /**
@@ -189,6 +192,7 @@ OrderController.prototype.__updateOrder = function() {
     order.cake = model.currentCake.get();
     order.bakery = model.currentBakery.get();
     order.recipe = model.currentRecipe.get();
+    order.isPickup = this.__orderForm.getValue('delivery_is_pickup') !== null;
 
     this.__orderTransformer.applyTransform(tuna.model.serialize(order));
 };
