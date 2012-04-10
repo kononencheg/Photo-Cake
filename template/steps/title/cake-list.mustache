@@ -5,7 +5,7 @@
 <div class="j-control-container hide">
     <tuna:template id="cake_list_template">
 
-        <tuna:list tuna:target="t-cake-list" tuna:path=""
+        <tuna:list tuna:target=".t-cake-list" tuna:path=""
                    tuna:item-renderer-id="cake_list_item_renderer"
                    tuna:item-template-id="cake_template"
                    tuna:key-path="$key" />
@@ -13,11 +13,11 @@
     </tuna:template>
 
     <tuna:template id="cake_template">
-        <tuna:attr tuna:target="t-cake-image" tuna:path="imageUrl" tuna:name="src"/>
-        <tuna:attr tuna:target="t-cake-id" tuna:path="id" tuna:name="data-cake-id"/>
+        <tuna:attr tuna:target=".t-cake-image" tuna:path="imageUrl" tuna:name="src"/>
+        <tuna:attr tuna:target=".t-cake-id" tuna:path="id" tuna:name="data-cake-id"/>
 
-        <tuna:spot tuna:target="t-cake-weight" tuna:path="dimension/weight" />
-        <tuna:spot tuna:target="t-cake-persons" tuna:path="dimension/personsCount" />
+        <tuna:spot tuna:target=".t-cake-weight" tuna:path="dimension/weight" />
+        <tuna:spot tuna:target=".t-cake-persons" tuna:path="dimension/personsCount" />
     </tuna:template>
 
     <ul>

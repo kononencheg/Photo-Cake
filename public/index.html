@@ -136,7 +136,7 @@
                         <div class="j-control-container hide">
                             <tuna:template id="cake_list_template">
                         
-                                <tuna:list tuna:target="t-cake-list" tuna:path=""
+                                <tuna:list tuna:target=".t-cake-list" tuna:path=""
                                            tuna:item-renderer-id="cake_list_item_renderer"
                                            tuna:item-template-id="cake_template"
                                            tuna:key-path="$key" />
@@ -144,11 +144,11 @@
                             </tuna:template>
                         
                             <tuna:template id="cake_template">
-                                <tuna:attr tuna:target="t-cake-image" tuna:path="imageUrl" tuna:name="src"/>
-                                <tuna:attr tuna:target="t-cake-id" tuna:path="id" tuna:name="data-cake-id"/>
+                                <tuna:attr tuna:target=".t-cake-image" tuna:path="imageUrl" tuna:name="src"/>
+                                <tuna:attr tuna:target=".t-cake-id" tuna:path="id" tuna:name="data-cake-id"/>
                         
-                                <tuna:spot tuna:target="t-cake-weight" tuna:path="dimension/weight" />
-                                <tuna:spot tuna:target="t-cake-persons" tuna:path="dimension/personsCount" />
+                                <tuna:spot tuna:target=".t-cake-weight" tuna:path="dimension/weight" />
+                                <tuna:spot tuna:target=".t-cake-persons" tuna:path="dimension/personsCount" />
                             </tuna:template>
                         
                             <ul>
@@ -803,22 +803,22 @@
             
             <div class="j-control-container hide">
                 <tuna:template id="recipe_list_template">
-                    <tuna:list tuna:target="t-recipes-list" tuna:path=""
+                    <tuna:list tuna:target=".t-recipes-list" tuna:path=""
                                tuna:item-renderer-id="recipe_list_item_renderer"
                                tuna:item-template-id="recipe_template"
                                tuna:key-path="$key" />
                 </tuna:template>
             
                 <tuna:template id="recipe_template">
-                    <tuna:attr tuna:target="t-recipe-img" tuna:path="imageUrl" tuna:name="src"/>
-                    <tuna:attr tuna:target="t-recipe-img" tuna:path="name" tuna:name="alt"/>
+                    <tuna:attr tuna:target=".t-recipe-img" tuna:path="imageUrl" tuna:name="src"/>
+                    <tuna:attr tuna:target=".t-recipe-img" tuna:path="name" tuna:name="alt"/>
             
-                    <tuna:attr tuna:target="t-recipe-id" tuna:path="id" tuna:name="data-recipe-id" />
-                    <tuna:attr tuna:target="t-recipe-input" tuna:path="id" tuna:name="value" />
+                    <tuna:attr tuna:target=".t-recipe-id" tuna:path="id" tuna:name="data-recipe-id" />
+                    <tuna:attr tuna:target=".t-recipe-input" tuna:path="id" tuna:name="value" />
             
-                    <tuna:spot tuna:target="t-recipe-name" tuna:path="name" />
-                    <tuna:spot tuna:target="t-recipe-desc" tuna:path="desc" />
-                    <tuna:spot tuna:target="t-recipe-price" tuna:path="price" />
+                    <tuna:spot tuna:target=".t-recipe-name" tuna:path="name" />
+                    <tuna:spot tuna:target=".t-recipe-desc" tuna:path="desc" />
+                    <tuna:spot tuna:target=".t-recipe-price" tuna:path="price" />
                 </tuna:template>
             
                 <ul>
@@ -842,28 +842,28 @@
             
                 <tuna:template id="order_template">
             
-                    <tuna:attr tuna:name="value" tuna:target="t-recipe-id"
+                    <tuna:attr tuna:name="value" tuna:target=".t-recipe-id"
                                tuna:path="recipe/id" />
             
-                    <tuna:attr tuna:name="value" tuna:target="t-bakery-id"
+                    <tuna:attr tuna:name="value" tuna:target=".t-bakery-id"
                                tuna:path="bakery/id" />
             
-                    <tuna:attr tuna:name="value" tuna:target="t-cake-id"
+                    <tuna:attr tuna:name="value" tuna:target=".t-cake-id"
                                tuna:path="cake/id" />
             
-                    <tuna:spot tuna:target="t-recipe-name"
+                    <tuna:spot tuna:target=".t-recipe-name"
                                tuna:path="recipe/name" />
             
-                    <tuna:spot tuna:target="t-recipe-price"
+                    <tuna:spot tuna:target=".t-recipe-price"
                                tuna:path="recipePrice" />
             
-                    <tuna:spot tuna:target="t-delivery-price"
+                    <tuna:spot tuna:target=".t-delivery-price"
                                tuna:path="deliveryPrice" />
             
-                    <tuna:spot tuna:target="t-decoration-price"
+                    <tuna:spot tuna:target=".t-decoration-price"
                                tuna:path="decorationPrice" />
             
-                    <tuna:spot tuna:target="t-total-price"
+                    <tuna:spot tuna:target=".t-total-price"
                                tuna:path="totalPrice" />
             
                 </tuna:template>
@@ -934,14 +934,14 @@
         
             <div class="j-control-container hide">
                 <tuna:template id="city_autocomplete_template">
-                    <tuna:list tuna:target="t-city-list" tuna:path=""
+                    <tuna:list tuna:target=".t-city-list" tuna:path=""
                                tuna:item-renderer-id="city_item_renderer"
                                tuna:item-template-id="city_item_template"
                                tuna:key-path="$key" />
                 </tuna:template>
         
                 <tuna:template id="city_item_template">
-                    <tuna:spot tuna:target="t-name" tuna:path="name" />
+                    <tuna:spot tuna:target=".t-name" tuna:path="name" />
                 </tuna:template>
             </div>
         
@@ -1000,10 +1000,10 @@
             <!-- Common -->
             
             <tuna:template id="price_template">
-                <tuna:spot tuna:target="t-total-price"    tuna:path="totalPrice" />
-                <tuna:spot tuna:target="t-deco-price"     tuna:path="decoPrice" />
-                <tuna:spot tuna:target="t-recipe-price"   tuna:path="recipePrice" />
-                <tuna:spot tuna:target="t-delivery-price" tuna:path="deliveryPrice" />
+                <tuna:spot tuna:target=".t-total-price"    tuna:path="totalPrice" />
+                <tuna:spot tuna:target=".t-deco-price"     tuna:path="decoPrice" />
+                <tuna:spot tuna:target=".t-recipe-price"   tuna:path="recipePrice" />
+                <tuna:spot tuna:target=".t-delivery-price" tuna:path="deliveryPrice" />
             </tuna:template>
             
             
@@ -1023,10 +1023,10 @@
             
 
             <tuna:template id="current_bakery_template">
-                <tuna:spot tuna:target="t-bakery-city" tuna:path="city/name" />
+                <tuna:spot tuna:target=".t-bakery-city" tuna:path="city/name" />
 
                 <tuna:if tuna:path="isNative" tuna:eq="true" tuna:class="hide"
-                         tuna:target="t-bakery-is-native"/>
+                         tuna:target=".t-bakery-is-native"/>
 
             </tuna:template>
 

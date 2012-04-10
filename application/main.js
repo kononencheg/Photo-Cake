@@ -65,7 +65,7 @@ window['main'] = function(body) {
     tuna.utils.config.init(tuna.utils.urlDecode(location.search.substr(1)));
     tuna.dom.setSelectorEngine($.find);
 
-    tuna.ui.addIsolator('j-module-container');
+    tuna.ui.addIsolator('j-control-container');
     tuna.ui.popups.registerConfirm(tuna.dom.selectOne('#confirm_popup'));
     tuna.ui.popups.registerAlert(tuna.dom.selectOne('#alert_popup'));
 

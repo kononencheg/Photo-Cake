@@ -20,10 +20,10 @@
             {{> template/templates }}
 
             <tuna:template id="current_bakery_template">
-                <tuna:spot tuna:target="t-bakery-city" tuna:path="city/name" />
+                <tuna:spot tuna:target=".t-bakery-city" tuna:path="city/name" />
 
                 <tuna:if tuna:path="isNative" tuna:eq="true" tuna:class="hide"
-                         tuna:target="t-bakery-is-native"/>
+                         tuna:target=".t-bakery-is-native"/>
 
             </tuna:template>
 
