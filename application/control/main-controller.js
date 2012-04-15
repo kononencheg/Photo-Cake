@@ -93,8 +93,10 @@ MainController.prototype.__updateCurrentBakery = function(city) {
         bakeries = model.bakeries.get();
     }
 
-    model.currentBakery.set
-        (bakeries[Math.floor(bakeries.length * Math.random())]);
+    var bakery = bakeries[Math.floor(bakeries.length * Math.random())];
+
+    model.currentBakery.set(bakery);
+    model.cakes.load({ 'bakery_id': bakery.id });
 };
 
 tuna.control.setMainController(new MainController());

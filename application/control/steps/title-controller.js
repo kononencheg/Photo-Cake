@@ -21,11 +21,12 @@ TitleController.prototype._initActions = function() {
     var cakeListTransformer = this._container.getModuleInstanceByName
                                     ('template-transformer', 'cake-list');
 
-    model.cakes.addEventListener('update', function(event, cakes) {
-        cakeListTransformer.applyTransform(tuna.model.serialize(cakes));
+    model.cakes.addEventListener('update', function() {
+        cakeListTransformer.applyTransform
+            (tuna.model.serialize(model.cakes.get()));
     });
 
-    model.cakes.load();
+    cakeListTransformer.applyTransform(tuna.model.serialize(model.cakes.get()));
 };
 
 /**
