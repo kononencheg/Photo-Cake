@@ -26,4 +26,3 @@ default_run_options[:pty] = true
 set :ssh_options, { :forward_agent => true }
 set :use_sudo, false
 
-after "deploy", "deploy:to_memory"

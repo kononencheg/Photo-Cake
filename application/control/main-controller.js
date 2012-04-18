@@ -100,4 +100,3 @@ MainController.prototype.__updateCurrentBakery = function(city) {
 };
 
 tuna.control.setMainController(new MainController());
-

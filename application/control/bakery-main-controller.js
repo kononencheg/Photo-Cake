@@ -26,6 +26,8 @@ BakeryMainController.prototype._initActions = function() {
 
     var id = tuna.utils.config.get('bakery_id');
     if (id !== null) {
+        tuna.utils.config.set('partner_id', id);
+
         tuna.rest.call('users.getBakeries', { 'id': id }, function(bakery) {
             model.currentBakery.set(bakery);
         }, 'bakery');

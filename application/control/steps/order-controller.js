@@ -75,7 +75,7 @@ OrderController.prototype._initActions = function() {
         self._navigation.navigate('result', order);
     });
 
-    this.__orderForm.setValue('client_network', APP_NETWORK);
+    this.__orderForm.setValue('partner_id', tuna.utils.config.get('partner_id'));
 
     var deliveryButton = this._container.getModuleInstanceByName
         ('button', 'delivery-button');
