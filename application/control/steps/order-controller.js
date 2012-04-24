@@ -62,9 +62,15 @@ OrderController.prototype._initActions = function() {
         ('form', 'recipes-list');
 
     recipePopup.addEventListener('apply', function() {
+        var recipeId = null;
         var recipeIds = recipesForm.getValue('recipe_id');
-        var recipe = model.recipes.getItemById(recipeIds.shift());
+        if (recipeIds instanceof Array) {
+            recipeId = recipeIds.shift()
+        } else {
+            recipeId = recipeIds;
+        }
 
+        var recipe = model.recipes.getItemById(recipeId);
         model.currentRecipe.set(recipe);
     });
 
