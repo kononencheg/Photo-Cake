@@ -159,7 +159,6 @@ APPLICATION_FILES = main.js \
 					ui/modules/inner-html.js \
 					ui/modules/data-image.js \
 					ui/modules/data-image-copy.js \
-					ui/modules/yandex-share.js \
 					ui/modules/vk-share.js \
 					\
 					rest/common-method.js \

@@ -9,7 +9,7 @@ var MainController = function() {
      * @override
      */
     this._modules = [ 'navigation', 'popup-button', 'template-transformer',
-                      'autocomplete', 'yandex-share' ]
+                      'autocomplete' ]
 };
 
 tuna.utils.extend(MainController, tuna.control.ViewController);
