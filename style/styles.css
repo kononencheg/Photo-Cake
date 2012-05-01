@@ -441,3 +441,41 @@ select.small-rest {
 .popover-btn:hover .popover {
     display: block;
 }
+
+.recipe-image-box {
+    width: 90px;
+    height: 95px;
+}
+
+.recipe-image-box img {
+    position: relative;
+}
+
+.recipe-image-box .recipe-price-box {
+    display: none;
+    position: relative;
+    margin-top: -92px;
+
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+
+    text-align: center;
+    background-color: black;
+
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.recipe-image-box:hover .recipe-price-box {
+    display: block;
+}
+
+.recipe-image-box .recipe-price-box span {
+    color: white;
+    font-size: large;
+}
+
+abbr {
+    text-transform: none;
+}

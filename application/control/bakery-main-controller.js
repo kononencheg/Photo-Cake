@@ -30,6 +30,7 @@ BakeryMainController.prototype._initActions = function() {
 
         tuna.rest.call('users.getBakeries', { 'id': id }, function(bakery) {
             model.currentBakery.set(bakery);
+            model.cakes.load({ 'bakery_id': bakery.id });
         }, 'bakery');
     }
 

@@ -19,6 +19,13 @@ var OrderController = function() {
     this.__orderForm = null;
 
     /**
+     *
+     * @type {tuna.ui.ModuleInstance|tuna.ui.popups.Popup}
+     * @private
+     */
+    this.__recipePopup = null;
+
+    /**
      * @type {function()}
      * @private
      */
@@ -52,8 +59,7 @@ OrderController.prototype._initActions = function() {
     var recipePopupButton = this._container.getModuleInstanceByName
         ('popup-button', 'recipe-popup');
 
-    var recipePopup = recipePopupButton.getPopup();
-    recipePopup.open();
+    this.__recipePopup = recipePopupButton.getPopup();
 
     var recipesTransformer = this._container.getModuleInstanceByName
         ('template-transformer', 'recipes-list');
@@ -61,7 +67,7 @@ OrderController.prototype._initActions = function() {
     var recipesForm = this._container.getModuleInstanceByName
         ('form', 'recipes-list');
 
-    recipePopup.addEventListener('apply', function() {
+    this.__recipePopup.addEventListener('apply', function() {
         var recipeId = null;
         var recipeIds = recipesForm.getValue('recipe_id');
         if (recipeIds instanceof Array) {
@@ -126,17 +132,17 @@ OrderController.prototype._initActions = function() {
         if (popupRecipe !== null) {
             recipeInfoTransformer.applyTransform(popupRecipe.serialize());
             recipeInfoPopup.open();
-            recipePopup.close();
+            self.__recipePopup.close();
         }
     });
 
     recipeInfoPopup.addEventListener('apply', function() {
         recipesForm.setValue('recipe_id', popupRecipe.id);
-        recipePopup.open();
+        self.__recipePopup.open();
     });
 
     recipeInfoPopup.addEventListener('close', function() {
-        recipePopup.open();
+        self.__recipePopup.open();
     });
 
     model.recipes.addEventListener('update', updateRecipesList);
@@ -160,6 +166,8 @@ OrderController.prototype.open = function() {
     this.__orderForm.setValue('delivery_address', '');
     this.__orderForm.setValue('delivery_is_pickup', null);
     this.__orderForm.setInputEnabled('delivery_address', true);
+
+    this.__recipePopup.open();
 
     this.__updateOrder();
 };

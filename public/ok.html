@@ -647,7 +647,7 @@
             
                                 <table class="table table-condensed">
                                     <tr>
-                                        <th>Оформление: </th>
+                                        <th><abbr title="На цену влияет количество элементов декора. Вы сможете изменить их, вернувшись назад.">Оформление <sup>?</sup></abbr>: </th>
                                         <td>
                                             <span class="t-decoration-price">0</span> рублей
                                         </td>
@@ -745,15 +745,20 @@
             
                     <tuna:spot tuna:target=".t-recipe-name" tuna:path="name" />
                     <tuna:spot tuna:target=".t-recipe-desc" tuna:path="desc" />
-                    <tuna:spot tuna:target=".t-recipe-price" tuna:path="price" />
+                    <tuna:spot tuna:target=".t-recipe-price" tuna:path="price" tuna:pattern="$$ руб." />
                 </tuna:template>
             
                 <ul>
                     <li id="recipe_list_item_renderer">
                         <div class="recipe-tile thumbnail">
-                            <img alt="Рецепт" width="90" height="90"
-                                 class="j-button t-recipe-img t-recipe-id"
-                                 data-action="show" />
+                            <div class="recipe-image-box">
+                                <img alt="Рецепт" width="90" height="90"
+                                     class="j-button t-recipe-img t-recipe-id"
+                                     data-action="show" />
+                                <div class="recipe-price-box">
+                                    <span class="t-recipe-price"></span>
+                                </div>
+                            </div>
             
                             <label class="recipe-label">
                                 <input type="radio" name="recipe_id"
