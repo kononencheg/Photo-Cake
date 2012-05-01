@@ -83,8 +83,8 @@
                             </p>
                         
                             <p>
-                                Заказы так же принимаем по телефону <b>8 (812) 323-52-18</b> и
-                                по почте <b>fotonatorte@gmail.com</b>!
+                                Заказы так же принимаем по телефону <b class="t-bakery-phone">8 (812) 323-52-18</b> и
+                                по почте <b  class="t-bakery-email">fotonatorte@gmail.com</b>!
                             </p>
                         
                         </div>
@@ -1031,6 +1031,7 @@
             <tuna:template id="current_bakery_template">
                 <tuna:spot tuna:target=".t-bakery-city" tuna:path="city/name" />
                 <tuna:spot tuna:target=".t-bakery-phone" tuna:path="phone" />
+                <tuna:spot tuna:target=".t-bakery-email" tuna:path="email" />
 
                 <tuna:if tuna:path="isNative" tuna:eq="true" tuna:class="hide"
                          tuna:target=".t-bakery-is-native"/>
