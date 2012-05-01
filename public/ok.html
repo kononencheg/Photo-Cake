@@ -41,6 +41,12 @@
         
                             <sup class="t-bakery-is-native">*</sup>
                         </h3>
+                        <br/>
+                        <h3>
+                            Телефон:
+        
+                            <span class="t-bakery-phone">...</span>
+                        </h3>
                     </div>
                 </div>
         
@@ -961,6 +967,7 @@
 
             <tuna:template id="current_bakery_template">
                 <tuna:spot tuna:target=".t-bakery-city" tuna:path="city/name" />
+                <tuna:spot tuna:target=".t-bakery-phone" tuna:path="phone" />
 
                 <tuna:if tuna:path="isNative" tuna:eq="true" tuna:class="hide"
                          tuna:target=".t-bakery-is-native"/>

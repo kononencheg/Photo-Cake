@@ -3748,10 +3748,10 @@ a.thumbnail:hover {
 }
 
 .page-header-info-block {
-    width: 360px;
+    width: 380px;
     float: left;
 
-    margin-left: 60px;
+    margin-left: 40px;
     margin-top: 30px;
 }
 
@@ -3771,7 +3771,7 @@ a.thumbnail:hover {
 }
 
 .page-header-delivery-block {
-    width: 160px;
+    width: 200px;
     float: right;
 }
 

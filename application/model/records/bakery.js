@@ -21,6 +21,11 @@ var Bakery = function(data) {
     this.address = '';
 
     /**
+     * @type {string}
+     */
+    this.phone = '';
+
+    /**
      * @type {model.records.City}
      */
     this.city = null;
@@ -53,6 +58,7 @@ Bakery.prototype.populate = function(data) {
     this.name = data['name'];
     this.email = data['email'];
     this.address = data['address'];
+    this.phone = data['phone'];
     this.city = new model.records.City(data['city']);
     this.deliveryPrice = data['delivery_price'];
     this.decorationPrices = {};
@@ -71,6 +77,7 @@ Bakery.prototype.serialize = function() {
         'id': this.id,
         'city': this.city.serialize(),
         'isNative': this.isNative,
+        'phone': this.phone,
         'deliveryPrice': this.deliveryPrice
     };
 };
