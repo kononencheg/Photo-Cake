@@ -1,11 +1,16 @@
-<form id="recipe_popup" class="j-template-transformer j-button-group j-form hide"
+<div id="recipe_popup" class="j-template-transformer j-button-group hide"
       data-name="recipes-list"
       data-template-id="recipe_list_template">
 
     <div class="modal-backdrop"></div>
     <div class="modal">
         <div class="modal-header">
-            <h3>Выбор рецепта торта</h3>
+            <h3>
+                Выбор рецепта торта
+                <small>
+                    Цена начинки тортика за <span class="t-cake-weight"></span> кг.
+                </small>
+            </h3>
         </div>
         <div class="modal-body recipes-list">
             <ul class="t-recipes-list thumbnails"></ul>
@@ -15,7 +20,7 @@
             <a class="j-popup-close btn">Отмена</a>
         </div>
     </div>
-</form>
+</div>
 
 <div class="j-popup j-template-transformer hide"
      data-name="recipe-info-popup"
@@ -60,10 +65,11 @@
     <ul>
         <li id="recipe_list_item_renderer">
             <div class="recipe-tile thumbnail">
-                <div class="recipe-image-box">
+                <div class="j-button t-recipe-id recipe-image-box"
+                     data-action="show">
+
                     <img alt="Рецепт" width="90" height="90"
-                         class="j-button t-recipe-img t-recipe-id"
-                         data-action="show" />
+                         class="t-recipe-img" />
                     <div class="recipe-price-box">
                         <span class="t-recipe-price"></span>
                     </div>

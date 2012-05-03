@@ -64,12 +64,10 @@ OrderController.prototype._initActions = function() {
     var recipesTransformer = this._container.getModuleInstanceByName
         ('template-transformer', 'recipes-list');
 
-    var recipesForm = this._container.getModuleInstanceByName
-        ('form', 'recipes-list');
-
     this.__recipePopup.addEventListener('apply', function() {
         var recipeId = null;
-        var recipeIds = recipesForm.getValue('recipe_id');
+
+        var recipeIds = self.__orderForm.getValue('recipe_id');
         if (recipeIds instanceof Array) {
             recipeId = recipeIds.shift()
         } else {
@@ -137,7 +135,7 @@ OrderController.prototype._initActions = function() {
     });
 
     recipeInfoPopup.addEventListener('apply', function() {
-        recipesForm.setValue('recipe_id', popupRecipe.id);
+        self.__orderForm.setValue('recipe_id', popupRecipe.id);
         self.__recipePopup.open();
     });
 
@@ -153,7 +151,6 @@ OrderController.prototype._initActions = function() {
  * @override
  */
 OrderController.prototype.open = function() {
-    model.currentRecipe.clear();
     model.currentBakery.addEventListener('update', this.__handleBakeryUpdate);
     model.currentCake.addEventListener('update', this.__updateOrder);
     model.currentRecipe.addEventListener('update', this.__updateOrder);

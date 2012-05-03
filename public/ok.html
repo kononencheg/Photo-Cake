@@ -478,11 +478,13 @@
              class="j-navigation-page j-control-container row-fluid step"
              data-name="order">
         
+            
             <form class="j-template-transformer j-form form-horizontal"
                   action="/api/" method="POST" target="support_frame"
                   data-record-type="order"
                   data-name="order-form"
                   data-template-id="order_template">
+            
             
                 <div class="row-fluid">
                     <div class="span7">
@@ -491,7 +493,6 @@
                         <input type="hidden" name="method" value="orders.add" />
                         <input type="hidden" name="format" value="frame-callback" />
             
-                        <input class="t-recipe-id" type="hidden" name="recipe_id" />
                         <input class="t-bakery-id" type="hidden" name="bakery_id" />
                         <input class="t-cake-id"   type="hidden" name="cake_id" />
             
@@ -693,89 +694,96 @@
                         </fieldset>
                     </div>
                 </div>
-            </form>
             
-            <form id="recipe_popup" class="j-template-transformer j-button-group j-form hide"
-                  data-name="recipes-list"
-                  data-template-id="recipe_list_template">
-            
-                <div class="modal-backdrop"></div>
-                <div class="modal">
-                    <div class="modal-header">
-                        <h3>Выбор рецепта торта</h3>
-                    </div>
-                    <div class="modal-body recipes-list">
-                        <ul class="t-recipes-list thumbnails"></ul>
-                    </div>
-                    <div class="modal-footer">
-                        <a class="j-popup-apply btn primary">Выбрать</a>
-                        <a class="j-popup-close btn">Отмена</a>
-                    </div>
-                </div>
-            </form>
-            
-            <div class="j-popup j-template-transformer hide"
-                 data-name="recipe-info-popup"
-                 data-template-id="recipe_template">
-            
-                <div class="modal-backdrop"></div>
-                <div class="modal">
-                    <div class="modal-header">
-                        <a  class="j-popup-close close">×</a>
-                        <h3 class="t-recipe-name"></h3>
-                    </div>
-                    <div class="modal-body">
-                        <p class="t-recipe-desc"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <a  class="j-popup-apply btn primary">Выбрать</a>
-                        <a  class="j-popup-close btn">Закрыть</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="j-control-container hide">
-                <tuna:template id="recipe_list_template">
-                    <tuna:list tuna:target=".t-recipes-list" tuna:path=""
-                               tuna:item-renderer-id="recipe_list_item_renderer"
-                               tuna:item-template-id="recipe_template"
-                               tuna:key-path="$key" />
-                </tuna:template>
-            
-                <tuna:template id="recipe_template">
-                    <tuna:attr tuna:target=".t-recipe-img" tuna:path="imageUrl" tuna:name="src"/>
-                    <tuna:attr tuna:target=".t-recipe-img" tuna:path="name" tuna:name="alt"/>
-            
-                    <tuna:attr tuna:target=".t-recipe-id" tuna:path="id" tuna:name="data-recipe-id" />
-                    <tuna:attr tuna:target=".t-recipe-input" tuna:path="id" tuna:name="value" />
-            
-                    <tuna:spot tuna:target=".t-recipe-name" tuna:path="name" />
-                    <tuna:spot tuna:target=".t-recipe-desc" tuna:path="desc" />
-                    <tuna:spot tuna:target=".t-recipe-price" tuna:path="price" tuna:pattern="$$ руб." />
-                </tuna:template>
-            
-                <ul>
-                    <li id="recipe_list_item_renderer">
-                        <div class="recipe-tile thumbnail">
-                            <div class="recipe-image-box">
-                                <img alt="Рецепт" width="90" height="90"
-                                     class="j-button t-recipe-img t-recipe-id"
-                                     data-action="show" />
-                                <div class="recipe-price-box">
-                                    <span class="t-recipe-price"></span>
-                                </div>
-                            </div>
-            
-                            <label class="recipe-label">
-                                <input type="radio" name="recipe_id"
-                                       class="t-recipe-input" />
-            
-                                <span class="t-recipe-name"></span>
-                            </label>
+                <div id="recipe_popup" class="j-template-transformer j-button-group hide"
+                      data-name="recipes-list"
+                      data-template-id="recipe_list_template">
+                
+                    <div class="modal-backdrop"></div>
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h3>
+                                Выбор рецепта торта
+                                <small>
+                                    Цена начинки тортика за <span class="t-cake-weight"></span> кг.
+                                </small>
+                            </h3>
                         </div>
-                    </li>
-                </ul>
-            </div>            
+                        <div class="modal-body recipes-list">
+                            <ul class="t-recipes-list thumbnails"></ul>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="j-popup-apply btn primary">Выбрать</a>
+                            <a class="j-popup-close btn">Отмена</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="j-popup j-template-transformer hide"
+                     data-name="recipe-info-popup"
+                     data-template-id="recipe_template">
+                
+                    <div class="modal-backdrop"></div>
+                    <div class="modal">
+                        <div class="modal-header">
+                            <a  class="j-popup-close close">×</a>
+                            <h3 class="t-recipe-name"></h3>
+                        </div>
+                        <div class="modal-body">
+                            <p class="t-recipe-desc"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <a  class="j-popup-apply btn primary">Выбрать</a>
+                            <a  class="j-popup-close btn">Закрыть</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="j-control-container hide">
+                    <tuna:template id="recipe_list_template">
+                        <tuna:list tuna:target=".t-recipes-list" tuna:path=""
+                                   tuna:item-renderer-id="recipe_list_item_renderer"
+                                   tuna:item-template-id="recipe_template"
+                                   tuna:key-path="$key" />
+                    </tuna:template>
+                
+                    <tuna:template id="recipe_template">
+                        <tuna:attr tuna:target=".t-recipe-img" tuna:path="imageUrl" tuna:name="src"/>
+                        <tuna:attr tuna:target=".t-recipe-img" tuna:path="name" tuna:name="alt"/>
+                
+                        <tuna:attr tuna:target=".t-recipe-id" tuna:path="id" tuna:name="data-recipe-id" />
+                        <tuna:attr tuna:target=".t-recipe-input" tuna:path="id" tuna:name="value" />
+                
+                        <tuna:spot tuna:target=".t-recipe-name" tuna:path="name" />
+                        <tuna:spot tuna:target=".t-recipe-desc" tuna:path="desc" />
+                        <tuna:spot tuna:target=".t-recipe-price" tuna:path="price" tuna:pattern="$$ руб." />
+                    </tuna:template>
+                
+                    <ul>
+                        <li id="recipe_list_item_renderer">
+                            <div class="recipe-tile thumbnail">
+                                <div class="j-button t-recipe-id recipe-image-box"
+                                     data-action="show">
+                
+                                    <img alt="Рецепт" width="90" height="90"
+                                         class="t-recipe-img" />
+                                    <div class="recipe-price-box">
+                                        <span class="t-recipe-price"></span>
+                                    </div>
+                                </div>
+                
+                                <label class="recipe-label">
+                                    <input type="radio" name="recipe_id"
+                                           class="t-recipe-input" />
+                
+                                    <span class="t-recipe-name"></span>
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>            
+            </form>
+            
             <div class="j-control-container hide">
             
                 <tuna:template id="order_template">
@@ -788,6 +796,9 @@
             
                     <tuna:attr tuna:name="value" tuna:target=".t-cake-id"
                                tuna:path="cake/id" />
+            
+                    <tuna:spot tuna:target=".t-cake-weight"
+                               tuna:path="cake/dimension/weight" />
             
                     <tuna:spot tuna:target=".t-recipe-name"
                                tuna:path="recipe/name" />

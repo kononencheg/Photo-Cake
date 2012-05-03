@@ -1,8 +1,10 @@
+
 <form class="j-template-transformer j-form form-horizontal"
       action="/api/" method="POST" target="support_frame"
       data-record-type="order"
       data-name="order-form"
       data-template-id="order_template">
+
 
     <div class="row-fluid">
         <div class="span7">
@@ -11,7 +13,6 @@
             <input type="hidden" name="method" value="orders.add" />
             <input type="hidden" name="format" value="frame-callback" />
 
-            <input class="t-recipe-id" type="hidden" name="recipe_id" />
             <input class="t-bakery-id" type="hidden" name="bakery_id" />
             <input class="t-cake-id"   type="hidden" name="cake_id" />
 
@@ -213,9 +214,10 @@
             </fieldset>
         </div>
     </div>
-</form>
 
-{{> template/steps/order/recipe-popup }}
+    {{> template/steps/order/recipe-popup }}
+
+</form>
 
 <div class="j-control-container hide">
 
@@ -229,6 +231,9 @@
 
         <tuna:attr tuna:name="value" tuna:target=".t-cake-id"
                    tuna:path="cake/id" />
+
+        <tuna:spot tuna:target=".t-cake-weight"
+                   tuna:path="cake/dimension/weight" />
 
         <tuna:spot tuna:target=".t-recipe-name"
                    tuna:path="recipe/name" />
