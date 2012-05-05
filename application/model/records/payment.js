@@ -28,9 +28,9 @@ tuna.utils.extend(model.records.Payment, tuna.model.Record);
  * @override
  */
 model.records.Payment.prototype.populate = function(data) {
-    this.decoPrice = data['decoration_price'];
-    this.recipePrice = data['recipe_price'];
-    this.deliveryPrice = data['delivery_price'];
+    this.decoPrice = data['decoration_price'] || 0;
+    this.recipePrice = data['recipe_price'] || 0;
+    this.deliveryPrice = data['delivery_price'] || 0;
 };
 
 /**
