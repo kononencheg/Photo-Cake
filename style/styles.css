@@ -54,6 +54,11 @@ a {
     font-size: 24px;
 }
 
+.btn.primary.x-large {
+    padding: 16px 24px 16px;
+    font-size: 24px;
+}
+
 .step {
     position: absolute;
 
