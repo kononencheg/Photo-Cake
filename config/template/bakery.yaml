@@ -4,32 +4,71 @@ bakery_network: true
 
 slides:
   - block:
-    - photo_src: /img/title/photo_small_1.jpg
-      before_src: /img/title/before_small_1.jpg
-      after_src: /img/title/after_small_1.jpg
+    - before:       /img/title/1/before.jpg
+      before_small: /img/title/1/before_small.jpg
+      after:        /img/title/1/after.jpg
+      after_small:  /img/title/1/after_small.jpg
       block_active: true
 
-    - photo_src: /img/title/photo_small_2.jpg
-      before_src: /img/title/before_small_2.jpg
-      after_src: /img/title/after_small_2.jpg
+    - before:       /img/title/2/before.jpg
+      before_small: /img/title/2/before_small.jpg
+      after:        /img/title/2/after.jpg
+      after_small:  /img/title/2/after_small.jpg
 
-    - photo_src: /img/title/photo_small_3.jpg
-      before_src: /img/title/before_small_3.jpg
-      after_src: /img/title/after_small_3.jpg
+    - before:       /img/title/3/before.jpg
+      before_small: /img/title/3/before_small.jpg
+      after:        /img/title/3/after.jpg
+      after_small:  /img/title/3/after_small.jpg
+
+    - before:       /img/title/4/before.jpg
+      before_small: /img/title/4/before_small.jpg
+      after:        /img/title/4/after.jpg
+      after_small:  /img/title/4/after_small.jpg
 
     active: true
 
   - block:
-    - photo_src: /img/title/photo_small_4.jpg
-      before_src: /img/title/before_small_4.jpg
-      after_src: /img/title/after_small_4.jpg
+    - before:       /img/title/5/before.jpg
+      before_small: /img/title/5/before_small.jpg
+      after:        /img/title/5/after.jpg
+      after_small:  /img/title/5/after_small.jpg
       block_active: true
 
-    - photo_src: /img/title/photo_small_5.jpg
-      before_src: /img/title/before_small_5.jpg
-      after_src: /img/title/after_small_5.jpg
+    - before:       /img/title/6/before.jpg
+      before_small: /img/title/6/before_small.jpg
+      after:        /img/title/6/after.jpg
+      after_small:  /img/title/6/after_small.jpg
 
-    - photo_src: /img/title/photo_small_6.jpg
-      before_src: /img/title/before_small_6.jpg
-      after_src: /img/title/after_small_6.jpg
+    - before:       /img/title/7/before.jpg
+      before_small: /img/title/7/before_small.jpg
+      after:        /img/title/7/after.jpg
+      after_small:  /img/title/7/after_small.jpg
+
+    - before:       /img/title/8/before.jpg
+      before_small: /img/title/8/before_small.jpg
+      after:        /img/title/8/after.jpg
+      after_small:  /img/title/8/after_small.jpg
+
+  - block:
+    - before:       /img/title/9/before.jpg
+      before_small: /img/title/9/before_small.jpg
+      after:        /img/title/9/after.jpg
+      after_small:  /img/title/9/after_small.jpg
+      block_active: true
+
+    - before:       /img/title/10/before.jpg
+      before_small: /img/title/10/before_small.jpg
+      after:        /img/title/10/after.jpg
+      after_small:  /img/title/10/after_small.jpg
+
+    - before:       /img/title/11/before.jpg
+      before_small: /img/title/11/before_small.jpg
+      after:        /img/title/11/after.jpg
+      after_small:  /img/title/11/after_small.jpg
+
+    - before:       /img/title/12/before.jpg
+      before_small: /img/title/12/before_small.jpg
+      after:        /img/title/12/after.jpg
+      after_small:  /img/title/12/after_small.jpg
+
 ---

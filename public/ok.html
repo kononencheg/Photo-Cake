@@ -1,3 +1,75 @@
+---
+network: true
+ok_network: true
+
+slides:
+  - block:
+    - before:       /img/title/1/before.jpg
+      before_small: /img/title/1/before_small.jpg
+      after:        /img/title/1/after.jpg
+      after_small:  /img/title/1/after_small.jpg
+      block_active: true
+
+    - before:       /img/title/2/before.jpg
+      before_small: /img/title/2/before_small.jpg
+      after:        /img/title/2/after.jpg
+      after_small:  /img/title/2/after_small.jpg
+
+    - before:       /img/title/3/before.jpg
+      before_small: /img/title/3/before_small.jpg
+      after:        /img/title/3/after.jpg
+      after_small:  /img/title/3/after_small.jpg
+
+    - before:       /img/title/4/before.jpg
+      before_small: /img/title/4/before_small.jpg
+      after:        /img/title/4/after.jpg
+      after_small:  /img/title/4/after_small.jpg
+
+    active: true
+
+  - block:
+    - before:       /img/title/5/before.jpg
+      before_small: /img/title/5/before_small.jpg
+      after:        /img/title/5/after.jpg
+      after_small:  /img/title/5/after_small.jpg
+      block_active: true
+
+    - before:       /img/title/6/before.jpg
+      before_small: /img/title/6/before_small.jpg
+      after:        /img/title/6/after.jpg
+      after_small:  /img/title/6/after_small.jpg
+
+    - before:       /img/title/7/before.jpg
+      before_small: /img/title/7/before_small.jpg
+      after:        /img/title/7/after.jpg
+      after_small:  /img/title/7/after_small.jpg
+
+    - before:       /img/title/8/before.jpg
+      before_small: /img/title/8/before_small.jpg
+      after:        /img/title/8/after.jpg
+      after_small:  /img/title/8/after_small.jpg
+
+  - block:
+    - before:       /img/title/9/before.jpg
+      before_small: /img/title/9/before_small.jpg
+      after:        /img/title/9/after.jpg
+      after_small:  /img/title/9/after_small.jpg
+      block_active: true
+
+    - before:       /img/title/10/before.jpg
+      before_small: /img/title/10/before_small.jpg
+      after:        /img/title/10/after.jpg
+      after_small:  /img/title/10/after_small.jpg
+
+    - before:       /img/title/11/before.jpg
+      before_small: /img/title/11/before_small.jpg
+      after:        /img/title/11/after.jpg
+      after_small:  /img/title/11/after_small.jpg
+
+    - before:       /img/title/12/before.jpg
+      before_small: /img/title/12/before_small.jpg
+      after:        /img/title/12/after.jpg
+      after_small:  /img/title/12/after_small.jpg
 <!DOCTYPE html>
 <html xmlns:tuna>
     <head>
@@ -12,7 +84,7 @@
 
         <link rel="stylesheet" type="text/css" href="/css/styles.css" />
     </head>
-    <body id="app_container"
+    <body id="site_container"
           class="j-template-transformer j-navigation container-fluid"
           data-name="current-bakery"
           data-template-id="current_bakery_template">
@@ -59,68 +131,181 @@
         
         <div id="title_step" class="j-navigation-page j-control-container row-fluid step active"
              data-name="title">
-                <div class="span5">
-                    <div class="intro">
-                        <h2 class="intro-title">Поздравьте любимых оригинально!</h2>
-                    
-                        <p>Фантазируйте и создавайте дизайн Вашего тортика сами с помощью конструктора:
-                        выбирайте форму, размеры, добавляйте картинки и надписи, украшайте по своему вкусу.
-                        Будьте лучшим кондитером в истории, хвастайтесь своим произведением!</p>
-                    
-                        <p>
+            
+                <div class="span8 row-fluid">
+            
+                    <div class="span4">
+                        <div class="intro">
+                            <h2 class="intro-title">Поздравьте любимых оригинально!</h2>
+                        
+                            <p>Фантазируйте и создавайте дизайн Вашего тортика сами с помощью конструктора:
+                            выбирайте форму, размеры, добавляйте картинки и надписи, украшайте по своему вкусу.
+                            Будьте лучшим кондитером в истории, хвастайтесь своим произведением!</p>
+                        
+                            <p>
+                                <a class="j-popup-button"
+                                   data-popup-id="delivery_info_popup">
+                                    Доставка и оплата
+                                </a>
+                            </p>
+                        
+                            <p>
+                                Заказы так же принимаем по телефону <b class="t-bakery-phone">8 (812) 323-52-18</b> и
+                                по почте <b  class="t-bakery-email">fotonatorte@gmail.com</b>!
+                            </p>
+                        
+                            <p style="text-align: center; width: 100%; padding-top: 20px">
+                                <a class="j-navigation-link btn primary large"
+                                   data-href="designer">
+                                    Начнём &raquo;
+                                </a>
+                            </p>
+                        
+                        </div>
+                        
+                        <div id="delivery_info_popup" class="hide">
+                            <div class="modal-backdrop"></div>
+                            <div class="modal">
+                                <div class="modal-header">
+                                    <h3>Условия оплаты и доставки.</h3>
+                                </div>
+                                <div class="modal-body modal-content">
+                        
+                                    <p>Торт, который Вы заказываете, исполняется по Вашему уникальному
+                                        дизайну, и предназначен только Вам.  Мы сделаем все возможное,
+                                        чтобы выполнить Ваши пожелания по его внешнему оформлению.</p>
+                        
+                                    <p><em>Оплата.</em> Торт можно оплатить прямо из Приложения с
+                                        помощью: банковской карты, электронных денег (без комиссии),
+                                        платеж через телефон (мобильная коммерция): операторы связи
+                                        взимают комиссию: МТС - 13%, Мегафон - 13% и Билайн - 12%,
+                                        или платежные терминалы (уточняйте размер комиссии у оператора).</p>
+                        
+                                    <p>Возможен и наличный платеж при получении Торта (будьте готовы,
+                                        что если Вы сконструировали торт стоимостью больше 2 000 рублей,
+                                        мы попросим внести предоплату, способы ее внесения Вам предложат,
+                                        когда наш менеджер будет звонить Вам, чтобы уточнить детали Вашего Заказа).</p>
+                        
+                                    <p><em>Доставка.</em> Вы всегда сможете выбрать: доставка или самовывоз.
+                                        Стоимость доставки в Вашем городе всегда указана в форме заказа. Стоимость
+                                        доставки может возрасти, если место доставки находится на значительном
+                                        удалении от места производства, например, за городом;  доставка осуществляется
+                                        в необычное время – например, ночное, или, например, в предновогодние дни.
+                                        В любом случае, Вы будете предупреждены об этом заранее.</p>
+                        
+                                    <p>Доставку можно оплатить отдельно курьеру, при получении торта
+                                        (тогда в комментариях следует указать: "Доставка по такому-то адресу, доставку оплатим на месте".</p>
+                        
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="j-popup-close btn">Закрыть</a>
+                                </div>
+                            </div>
+                        </div>                    </div>
+            
+                    <div class="span8">
+                        <ul class="j-template-transformer t-cake-list cake-list thumbnails"
+                            data-name="cake-list"
+                            data-template-id="cake_list_template"></ul>
+                        
+                        <div class="j-control-container hide">
+                            <tuna:template id="cake_list_template">
+                        
+                                <tuna:list tuna:target=".t-cake-list" tuna:path=""
+                                           tuna:item-renderer-id="cake_list_item_renderer"
+                                           tuna:item-template-id="cake_template"
+                                           tuna:key-path="$key" />
+                        
+                            </tuna:template>
+                        
+                            <tuna:template id="cake_template">
+                                <tuna:attr tuna:target=".t-cake-image" tuna:path="imageUrl" tuna:name="src"/>
+                                <tuna:attr tuna:target=".t-cake-id" tuna:path="id" tuna:name="data-cake-id"/>
+                        
+                                <tuna:spot tuna:target=".t-cake-weight" tuna:path="dimension/weight" />
+                                <tuna:spot tuna:target=".t-cake-persons" tuna:path="dimension/personsCount" />
+                            </tuna:template>
+                        
+                            <ul>
+                                <li id="cake_list_item_renderer" >
+                                    <a class="thumbnail">
+                                        <div class="cake-image-box">
+                                            <img class="j-navigation-link t-cake-image t-cake-id"
+                                                 alt="Тортик" width="110" height="110"
+                                                 data-href="designer" />
+                                        </div>
+                        
+                                        <div class="cake-info">
+                                            <span class="t-cake-weight"></span> кг
+                                            <span class="j-navigation-link t-cake-id
+                                                         btn small pull-right primary"
+                                                  data-href="designer">
+                                                Хочу!
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>                    </div>
+            
+                    <div class="cake-gallery-title">
+                        <h3 class="pull-left">Галерея тортиков <small>(наведите мышку)</small></h3>
+                        <h3 class="pull-right">
                             <a class="j-popup-button"
-                               data-popup-id="delivery_info_popup">
-                                Доставка и оплата
+                               data-popup-id="how_to_popup">
+                                Как мы это делаем?
                             </a>
-                        </p>
+                        </h3>
+                    </div>
                     
-                        <p>
-                            Заказы так же принимаем по телефону <b class="t-bakery-phone">8 (812) 323-52-18</b> и
-                            по почте <b  class="t-bakery-email">fotonatorte@gmail.com</b>!
-                        </p>
+                    <div class="j-carousel j-cake-before-after row-fluid">
+                        <div class="span12 carousel cake-gallery">
                     
-                        <p style="text-align: center; width: 100%; padding-top: 20px">
-                            <a class="j-navigation-link btn primary large"
-                               data-href="designer">
-                                Начнём &raquo;
-                            </a>
-                        </p>
+                    
+                    
+                            <div class="cake-gallery-controls">
+                                <a class="j-carousel-next pull-left">&laquo; Назад</a>
+                                <a class="j-carousel-next pull-right">Вперед &raquo;</a>
+                            </div>
+                    
+                        </div>
                     
                     </div>
                     
-                    <div id="delivery_info_popup" class="hide">
+                    <div id="how_to_popup" class="hide">
                         <div class="modal-backdrop"></div>
-                        <div class="modal">
+                        <div class="how-to-popup modal">
                             <div class="modal-header">
-                                <h3>Условия оплаты и доставки.</h3>
+                                <h3>Как мы это делаем?</h3>
                             </div>
-                            <div class="modal-body modal-content">
+                            <div class="modal-body">
+                                <img src="img/info.jpg" alt="Как мы это делаем?"
+                                     width="1200" height="1000" />
+                            </div>
+                            <div class="modal-footer">
+                                <a class="j-popup-close btn">Закрыть</a>
+                            </div>
+                        </div>
+                    </div>
                     
-                                <p>Торт, который Вы заказываете, исполняется по Вашему уникальному
-                                    дизайну, и предназначен только Вам.  Мы сделаем все возможное,
-                                    чтобы выполнить Ваши пожелания по его внешнему оформлению.</p>
                     
-                                <p><em>Оплата.</em> Торт можно оплатить прямо из Приложения с
-                                    помощью: банковской карты, электронных денег (без комиссии),
-                                    платеж через телефон (мобильная коммерция): операторы связи
-                                    взимают комиссию: МТС - 13%, Мегафон - 13% и Билайн - 12%,
-                                    или платежные терминалы (уточняйте размер комиссии у оператора).</p>
-                    
-                                <p>Возможен и наличный платеж при получении Торта (будьте готовы,
-                                    что если Вы сконструировали торт стоимостью больше 2 000 рублей,
-                                    мы попросим внести предоплату, способы ее внесения Вам предложат,
-                                    когда наш менеджер будет звонить Вам, чтобы уточнить детали Вашего Заказа).</p>
-                    
-                                <p><em>Доставка.</em> Вы всегда сможете выбрать: доставка или самовывоз.
-                                    Стоимость доставки в Вашем городе всегда указана в форме заказа. Стоимость
-                                    доставки может возрасти, если место доставки находится на значительном
-                                    удалении от места производства, например, за городом;  доставка осуществляется
-                                    в необычное время – например, ночное, или, например, в предновогодние дни.
-                                    В любом случае, Вы будете предупреждены об этом заранее.</p>
-                    
-                                <p>Доставку можно оплатить отдельно курьеру, при получении торта
-                                    (тогда в комментариях следует указать: "Доставка по такому-то адресу, доставку оплатим на месте".</p>
-                    
+                    <div id="before_after_popup" class="hide">
+                        <div class="modal-backdrop"></div>
+                        <div class="before-after-popup modal">
+                            <div class="modal-header">
+                                <h3>До и после</h3>
+                            </div>
+                            <div class="modal-body">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <img class="j-before" />
+                                        </td>
+                                        <td>
+                                            <img class="j-after" />
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="modal-footer">
                                 <a class="j-popup-close btn">Закрыть</a>
@@ -128,249 +313,98 @@
                         </div>
                     </div>                </div>
             
-                <div class="span7">
-                    <ul class="j-template-transformer t-cake-list cake-list thumbnails"
-                        data-name="cake-list"
-                        data-template-id="cake_list_template"></ul>
-                    
-                    <div class="j-control-container hide">
-                        <tuna:template id="cake_list_template">
-                    
-                            <tuna:list tuna:target=".t-cake-list" tuna:path=""
-                                       tuna:item-renderer-id="cake_list_item_renderer"
-                                       tuna:item-template-id="cake_template"
-                                       tuna:key-path="$key" />
-                    
-                        </tuna:template>
-                    
-                        <tuna:template id="cake_template">
-                            <tuna:attr tuna:target=".t-cake-image" tuna:path="imageUrl" tuna:name="src"/>
-                            <tuna:attr tuna:target=".t-cake-id" tuna:path="id" tuna:name="data-cake-id"/>
-                    
-                            <tuna:spot tuna:target=".t-cake-weight" tuna:path="dimension/weight" />
-                            <tuna:spot tuna:target=".t-cake-persons" tuna:path="dimension/personsCount" />
-                        </tuna:template>
-                    
-                        <ul>
-                            <li id="cake_list_item_renderer" >
-                                <a class="thumbnail">
-                                    <div class="cake-image-box">
-                                        <img class="j-navigation-link t-cake-image t-cake-id"
-                                             alt="Тортик" width="110" height="110"
-                                             data-href="designer" />
-                                    </div>
-                    
-                                    <div class="cake-info">
-                                        <span class="t-cake-weight"></span> кг
-                                        <span class="j-navigation-link t-cake-id
-                                                     btn small pull-right primary"
-                                              data-href="designer">
-                                            Хочу!
-                                        </span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>                </div>
-            
-                <div class="cake-gallery-title">
-                    <h3 class="pull-left">Галерея тортиков <small>(наведите мышку)</small></h3>
-                    <h3 class="pull-right">
-                        <a class="j-popup-button"
-                           data-popup-id="how_to_popup">
-                            Как мы это делаем?
+                <div class="span4">
+                    <div style="width: 100%; height: 160px; padding-top: 40px; text-align: center;">
+                        <a class="j-navigation-link btn primary large"
+                           data-href="designer">
+                            &laquo; Начнём
                         </a>
-                    </h3>
-                </div>
-                
-                <div class="j-carousel j-cake-before-after row-fluid">
-                    <div class="span12 carousel cake-gallery">
-                
-                
-                            <ul class="j-carousel-item carousel-item active
-                                       j-selection-group thumbnails cake-gallery-body"
-                                data-selection-event="mouseover">
-                
-                
-                                    <li class="j-selection-item active">
-                                        <div class="j-button thumbnail"
-                                             data-before=""
-                                             data-after="">
-                                            <span class="expand-item second">
-                                                <span class="image-box image-center">
-                                                    <img class="expanded-image vertical" alt="До"
-                                                         src="" width="90" height="90" />
-                                                </span>
-                                            </span>
-                                            <span class="expand-item third">
-                                                <span class="image-box image-center">
-                                                    <img class="expanded-image horizontal" alt="После"
-                                                         src="" width="90" height="90" />
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </li>
-                
-                
-                                    <li class="j-selection-item ">
-                                        <div class="j-button thumbnail"
-                                             data-before=""
-                                             data-after="">
-                                            <span class="expand-item second">
-                                                <span class="image-box image-center">
-                                                    <img class="expanded-image vertical" alt="До"
-                                                         src="" width="90" height="90" />
-                                                </span>
-                                            </span>
-                                            <span class="expand-item third">
-                                                <span class="image-box image-center">
-                                                    <img class="expanded-image horizontal" alt="После"
-                                                         src="" width="90" height="90" />
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </li>
-                
-                
-                                    <li class="j-selection-item ">
-                                        <div class="j-button thumbnail"
-                                             data-before=""
-                                             data-after="">
-                                            <span class="expand-item second">
-                                                <span class="image-box image-center">
-                                                    <img class="expanded-image vertical" alt="До"
-                                                         src="" width="90" height="90" />
-                                                </span>
-                                            </span>
-                                            <span class="expand-item third">
-                                                <span class="image-box image-center">
-                                                    <img class="expanded-image horizontal" alt="После"
-                                                         src="" width="90" height="90" />
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </li>
-                
-                            </ul>
-                
-                
-                            <ul class="j-carousel-item carousel-item 
-                                       j-selection-group thumbnails cake-gallery-body"
-                                data-selection-event="mouseover">
-                
-                
-                                    <li class="j-selection-item active">
-                                        <div class="j-button thumbnail"
-                                             data-before=""
-                                             data-after="">
-                                            <span class="expand-item second">
-                                                <span class="image-box image-center">
-                                                    <img class="expanded-image vertical" alt="До"
-                                                         src="" width="90" height="90" />
-                                                </span>
-                                            </span>
-                                            <span class="expand-item third">
-                                                <span class="image-box image-center">
-                                                    <img class="expanded-image horizontal" alt="После"
-                                                         src="" width="90" height="90" />
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </li>
-                
-                
-                                    <li class="j-selection-item ">
-                                        <div class="j-button thumbnail"
-                                             data-before=""
-                                             data-after="">
-                                            <span class="expand-item second">
-                                                <span class="image-box image-center">
-                                                    <img class="expanded-image vertical" alt="До"
-                                                         src="" width="90" height="90" />
-                                                </span>
-                                            </span>
-                                            <span class="expand-item third">
-                                                <span class="image-box image-center">
-                                                    <img class="expanded-image horizontal" alt="После"
-                                                         src="" width="90" height="90" />
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </li>
-                
-                
-                                    <li class="j-selection-item ">
-                                        <div class="j-button thumbnail"
-                                             data-before=""
-                                             data-after="">
-                                            <span class="expand-item second">
-                                                <span class="image-box image-center">
-                                                    <img class="expanded-image vertical" alt="До"
-                                                         src="" width="90" height="90" />
-                                                </span>
-                                            </span>
-                                            <span class="expand-item third">
-                                                <span class="image-box image-center">
-                                                    <img class="expanded-image horizontal" alt="После"
-                                                         src="" width="90" height="90" />
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </li>
-                
-                            </ul>
-                
-                
-                
-                        <div class="cake-gallery-controls">
-                            <a class="j-carousel-next pull-left">&laquo; Назад</a>
-                            <a class="j-carousel-next pull-right">Вперед &raquo;</a>
-                        </div>
-                
+                        <br />
+                        <br />
+                        Нажмите сюда для перехода в конструктор тортиков!
+                        <br />
+                        <span style="color: #750000;">Это интересно!</span>
                     </div>
-                
-                </div>
-                
-                <div id="how_to_popup" class="hide">
-                    <div class="modal-backdrop"></div>
-                    <div class="how-to-popup modal">
-                        <div class="modal-header">
-                            <h3>Как мы это делаем?</h3>
+            
+                    <div class="j-carousel">
+                        <div class="j-carousel-item carousel-item">
+                            <div class="alert alert-comment alert-block">
+                                <h3>Федоров Сергей Анатольевич</h3>
+                    
+                                <blockquote>
+                                    <img src="/img/comments/comment_1.png" alt="Тортик"
+                                         width="55" height="52" />
+                                    Всё отлично, но мало: ТОРТ ВКУСНЫЙ, дочка довольна! Скоро у жены д/р,
+                                    буду думать.
+                                </blockquote>
+                    
+                                <address>Менеджер отдела продаж <br /> ООО "ОптКрепеж"</address>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <img src="img/info.jpg" alt="Как мы это делаем?"
-                                 width="1200" height="1000" />
+                    
+                        <div class="j-carousel-item carousel-item">
+                            <div class="alert alert-comment alert-block">
+                                <h3>Ольга Васильева</h3>
+                    
+                                <blockquote>
+                                    <img src="/img/comments/comment_2.png" alt="Тортик"
+                                         width="55" height="51" />
+                                    Спасибо, торт был чудесным! Завтра у нас в редакции в прямом
+                                    эфире с 15.00-16.00 будет выступать вратарь "Зенита" - Малафеев.
+                                    Возможно ли сделать торт сверху написать  «Аиф Онлайн»,
+                                    а посередине его фотографию?
+                                </blockquote>
+                    
+                                <address>
+                                    Менеджер по рекламе <br />
+                                    ЗАО "Аргументы и факты - Петербург"
+                                </address>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <a class="j-popup-close btn">Закрыть</a>
+                    
+                        <div class="j-carousel-item carousel-item active">
+                            <div class="alert alert-comment alert-block">
+                                <h3>Юлия Сержантова</h3>
+                    
+                                <blockquote>
+                                    <img src="/img/comments/comment_3.png" alt="Тортик"
+                                         width="55" height="50" />
+                                    Ольга, все просто супер!!!! Спасибо огромное...
+                                    Его правда теперь есть бояться))))
+                                    ну в смысле, что как сам себя сможет съесть)))))))
+                                </blockquote>
+                    
+                                <address>Сотрудник банка ВТБ 24</address>
+                            </div>
+                        </div>
+                    
+                        <div class="j-carousel-item carousel-item active">
+                    
+                            <div class="alert alert-comment alert-block">
+                                <h3>Мари Руж</h3>
+                    
+                                <blockquote>
+                                    <img src="/img/comments/comment_4.jpg" alt="Тортик"
+                                         width="55" height="38" />
+                                    Извините, что такой задержкой Вам пишу)))
+                                    Торт был очень красивый и наивкуснейший (так сказали виновники и гости)))))))
+                                    Я безмерно благодарна Вам))))
+                                </blockquote>
+                    
+                                <address>
+                                    Страница в контакте <br/>
+                                    <a href="http://vk.com/id135829396">http://vk.com/id135829396</a>
+                                </address>
+                            </div>
+                        </div>
+                    
+                        <div class="row-fluid">
+                            <a class="j-carousel-next pull-right">Еще &raquo;</a>
                         </div>
                     </div>
+                    <hr />
+                    <div class="j-vk-share"></div>
                 </div>
-                
-                
-                <div id="before_after_popup" class="hide">
-                    <div class="modal-backdrop"></div>
-                    <div class="before-after-popup modal">
-                        <div class="modal-header">
-                            <h3>До и после</h3>
-                        </div>
-                        <div class="modal-body">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <img class="j-before" />
-                                    </td>
-                                    <td>
-                                        <img class="j-after" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <a class="j-popup-close btn">Закрыть</a>
-                        </div>
-                    </div>
-                </div>            
         </div>
         
         <div id="designer_step"
@@ -443,21 +477,6 @@
                         data-image-selector="#base_cake_image"
                         width="317" height="317" />
                 </li>
-            
-            
-            
-            
-                        <li>
-                            <a class="j-button btn primary large" data-action="publish">
-                                Запостить в ленту
-                            </a>
-                        </li>
-                        <li>
-                            <a class="j-button btn primary large" data-action="notify">
-                                Послать другу
-                            </a>
-                        </li>
-            
             
             
                 <li>
@@ -556,7 +575,7 @@
             
                             <div class="j-client_email-input control-group">
                                 <label class="control-label">
-                                    Email 
+                                    Email *
                                 </label>
                                 <div class="controls">
                                     <div class="input">
@@ -844,17 +863,12 @@
                          width="317" height="317" data-image-selector="#base_cake_image" />
                 </li>
             
-                    <li>
-                        <a class="j-button btn primary large" data-name="pay-button">
-                            Оплатить сейчас
-                        </a>
-                    </li>
-                    <li>
-                        <a class="j-button btn primary large" data-name="cash-button">
-                            Оплатить наличными
-                        </a>
-                    </li>
             
+                <li>
+                    <a class="j-navigation-link btn primary large" data-href="title">
+                        В начало!
+                    </a>
+                </li>
             </ul>
         </div>
         
@@ -1007,12 +1021,8 @@
         <script type="text/javascript" src="/js/json.js"></script>
         <!-- <![endif] -->
 
-                <script type="text/javascript" src="/js/ok.js"></script>
 
-                <script src="http://api.odnoklassniki.ru/js/fapi.js"
-                        type="text/javascript"></script>
-
-
+            <script type="text/javascript" src="/js/app.js"></script>
 
         <script type="text/javascript">main(document.body);</script>
 
