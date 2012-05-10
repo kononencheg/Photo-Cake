@@ -9,7 +9,8 @@ var TitleController = function() {
      * @override
      */
     this._modules = [ 'template-transformer', 'carousel', 'vk-share',
-                      'popup-button', 'button-group', 'selection-group' ];
+                      'popup-button', 'button-group', 'selection-group',
+                      'cake-before-after' ];
 };
 
 tuna.utils.extend(TitleController, tuna.control.PageViewController);

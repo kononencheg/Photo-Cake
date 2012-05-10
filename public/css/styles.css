@@ -4312,8 +4312,8 @@ select.small-rest {
     cursor: pointer;
 }
 
-.popover-btn:hover .popover {
-    display: block;
+.popover-inner {
+    position: relative;
 }
 
 .recipe-image-box {
@@ -4353,6 +4353,47 @@ select.small-rest {
 abbr {
     text-transform: none;
 }
+
+.popover-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: default;
+}
+
+.cake-gallery-body li {
+    margin-left: 6px;
+}
+
+.before-after-popup {
+    top: 30px;
+    bottom: 30px;
+
+    width: 700px;
+    margin: auto;
+
+    margin-left: -350px;
+}
+
+.before-after-popup .modal-body {
+    width: 700px;
+    padding: 0;
+    height: 397px;
+}
+
+.before-after-popup table {
+    width: 100%;
+    height: 100%;
+}
+
+
+.before-after-popup td {
+    vertical-align: middle;
+    text-align: center;
+}
+
 #app_container .intro  {
     margin-left: 10px;
 }

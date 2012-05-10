@@ -17,6 +17,10 @@ slides:
       before_src: /img/title/before_small_3.jpg
       after_src: /img/title/after_small_3.jpg
 
+    - photo_src: /img/title/photo_small_4.jpg
+      before_src: /img/title/before_small_4.jpg
+      after_src: /img/title/after_small_4.jpg
+
     active: true
 
   - block:

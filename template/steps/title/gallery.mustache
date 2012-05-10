@@ -8,7 +8,7 @@
     </h3>
 </div>
 
-<div class="j-carousel row-fluid">
+<div class="j-carousel j-cake-before-after row-fluid">
     <div class="span12 carousel cake-gallery">
 
         {{#slides}}
@@ -20,23 +20,19 @@
                 {{#block}}
 
                     <li class="j-selection-item {{#block_active}}active{{/block_active}}">
-                        <div class="thumbnail">
-                            <span class="expand-item">
-                                <span class="image-box image-center">
-                                    <img class="expanded-image vertical" alt="Фото"
-                                         src="{{photo_src}}" width="90" height="90" />
-                                </span>
-                            </span>
+                        <div class="j-button thumbnail"
+                             data-before="{{before}}"
+                             data-after="{{after}}">
                             <span class="expand-item second">
                                 <span class="image-box image-center">
                                     <img class="expanded-image vertical" alt="До"
-                                         src="{{before_src}}" width="90" height="90" />
+                                         src="{{before_small}}" width="90" height="90" />
                                 </span>
                             </span>
                             <span class="expand-item third">
                                 <span class="image-box image-center">
                                     <img class="expanded-image horizontal" alt="После"
-                                         src="{{after_src}}" width="90" height="90" />
+                                         src="{{after_small}}" width="90" height="90" />
                                 </span>
                             </span>
                         </div>
@@ -66,6 +62,31 @@
         <div class="modal-body">
             <img src="img/info.jpg" alt="Как мы это делаем?"
                  width="1200" height="1000" />
+        </div>
+        <div class="modal-footer">
+            <a class="j-popup-close btn">Закрыть</a>
+        </div>
+    </div>
+</div>
+
+
+<div id="before_after_popup" class="hide">
+    <div class="modal-backdrop"></div>
+    <div class="before-after-popup modal">
+        <div class="modal-header">
+            <h3>До и после</h3>
+        </div>
+        <div class="modal-body">
+            <table>
+                <tr>
+                    <td>
+                        <img class="j-before" />
+                    </td>
+                    <td>
+                        <img class="j-after" />
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="modal-footer">
             <a class="j-popup-close btn">Закрыть</a>

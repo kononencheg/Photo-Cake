@@ -155,6 +155,7 @@ APPLICATION_FILES = main.js \
 					ui/data-image.js \
 					ui/inner-html.js \
 					\
+					ui/modules/cake-before-after.js \
 					ui/modules/datepicker.js \
 					ui/modules/inner-html.js \
 					ui/modules/data-image.js \
