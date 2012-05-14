@@ -81,9 +81,20 @@ OrderController.prototype._initActions = function() {
     this.__orderForm = this._container.getModuleInstanceByName
         ('form', 'order-form');
 
+    this.__orderForm.addEventListener('submit', function() {
+        self.__orderForm.setEnabled(false);
+    });
+
+    this.__orderForm.addEventListener('error', function() {
+        self.__orderForm.setEnabled(true);
+    });
+
     this.__orderForm.addEventListener('result', function(event, order) {
         self._navigation.navigate('result', order);
+        self.__orderForm.setEnabled(true);
     });
+
+
 
     this.__orderForm.setValue('partner_id', tuna.utils.config.get('partner_id'));
 
