@@ -94,8 +94,6 @@ OrderController.prototype._initActions = function() {
         self.__orderForm.setEnabled(true);
     });
 
-
-
     this.__orderForm.setValue('partner_id', tuna.utils.config.get('partner_id'));
 
     var deliveryButton = this._container.getModuleInstanceByName

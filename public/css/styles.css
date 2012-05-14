@@ -1709,7 +1709,7 @@ table .span12 {
   color: rgba(0, 0, 0, 0.5);
   outline: 0;
 }
-.btn.disabled, .btn[disabled] {
+.btn.disabled, .btn[disabled], form.disabled input[type="submit"].btn {
   cursor: default;
   background-image: none;
   background-color: #e6e6e6;
