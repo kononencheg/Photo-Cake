@@ -105,7 +105,7 @@ OrderController.prototype._initActions = function() {
 
         self.__orderForm.setInputEnabled('delivery_address', !isPickup);
         self.__orderForm.setValue
-            ('delivery_address', isPickup ? bakery.address : '');
+            ('delivery_address', isPickup ? bakery.address : 'г. ' + bakery.city.name + ', ');
 
         self.__updateOrder();
     });
@@ -169,7 +169,7 @@ OrderController.prototype.open = function() {
         model.recipes.load({ 'bakery_id': bakery.id });
     }
 
-    this.__orderForm.setValue('delivery_address', '');
+    this.__orderForm.setValue('delivery_address', 'г. ' + bakery.city.name + ', ');
     this.__orderForm.setValue('delivery_is_pickup', null);
     this.__orderForm.setInputEnabled('delivery_address', true);
 
