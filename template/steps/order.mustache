@@ -102,6 +102,10 @@
                         <div class="input">
                             <textarea name="delivery_address" rows="2"></textarea>
                         </div>
+                        <p class="j-message help-block">
+                            Торт может быть доставлен по городу
+                            <span class="t-bakery-city"></span>
+                        </p>
                     </div>
                 </div>
 
@@ -228,6 +232,9 @@
 
         <tuna:attr tuna:name="value" tuna:target=".t-bakery-id"
                    tuna:path="bakery/id" />
+
+        <tuna:spot tuna:target=".t-bakery-city"
+                   tuna:path="bakery/city/name" />
 
         <tuna:attr tuna:name="value" tuna:target=".t-cake-id"
                    tuna:path="cake/id" />
