@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:tuna>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords"
+              content="фото на торте, фото, торт, торт на заказ,
+                       доставка тортов, купить торт, Торт на заказ,
+                       заказать торт, фототорт, заказ торта в СПб,
+                       заказать торт Москва, детский торт, необычный подарок" />
+
+        <title>Фото на торте</title>
+
+        <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    </head>
+    <body id="{{#network}}app_container{{/network}}{{^network}}site_container{{/network}}"
+          class="j-template-transformer j-navigation container-fluid"
+          data-name="current-bakery"
+          data-template-id="current_bakery_template">
+
+        {{> body }}
+
+        {{> support }}
+
+        <div class="j-control-container hide">
+            {{> templates }}
+
+            <tuna:template id="current_bakery_template">
+                <tuna:spot tuna:target=".t-bakery-city" tuna:path="city/name" />
+                <tuna:spot tuna:target=".t-bakery-phone" tuna:path="phone" />
+                <tuna:spot tuna:target=".t-bakery-email" tuna:path="email" />
+
+                <tuna:if tuna:path="isNative" tuna:eq="true" tuna:class="hide"
+                         tuna:target=".t-bakery-is-native"/>
+
+            </tuna:template>
+
+        </div>
+
+        <script type="text/javascript" src="js/swfobject.js"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+
+        <!-- [if IE]> -->
+        <script type="text/javascript" src="js/json.js"></script>
+        <!-- <![endif] -->
+
+        {{#network}}
+            {{#vk_network}}
+                <script type="text/javascript" src="js/vk.js"></script>
+
+                <script src="http://vkontakte.ru/js/api/xd_connection.js"
+                        type="text/javascript"></script>
+            {{/vk_network}}
+            {{#ok_network}}
+                <script type="text/javascript" src="js/ok.js"></script>
+
+                <script src="http://api.odnoklassniki.ru/js/fapi.js"
+                        type="text/javascript"></script>
+            {{/ok_network}}
+
+            {{#bakery_network}}
+                <script type="text/javascript" src="js/bakery.js"></script>
+            {{/bakery_network}}
+        {{/network}}
+
+        {{^network}}
+            <script type="text/javascript" src="js/app.js"></script>
+        {{/network}}
+
+        <script type="text/javascript">main(document.body);</script>
+
+        {{> counters/ya }}
+        {{> counters/li }}
+        {{> counters/ga }}
+
+    </body>
+</html>

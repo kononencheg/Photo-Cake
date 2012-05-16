@@ -1,0 +1,42 @@
+{{#network}}
+    <div class="span5">
+        {{> steps/title/intro }}
+    </div>
+
+    <div class="span7">
+        {{> steps/title/cake-list }}
+    </div>
+
+    {{> steps/title/gallery }}
+{{/network}}
+
+{{^network}}
+    <div class="span8 row-fluid">
+
+        <div class="span4">
+            {{> steps/title/intro }}
+        </div>
+
+        <div class="span8">
+            {{> steps/title/cake-list }}
+        </div>
+
+        {{> steps/title/gallery }}
+    </div>
+
+    <div class="span4">
+        <div style="width: 100%; height: 160px; padding-top: 40px; text-align: center;">
+            <a class="j-navigation-link btn primary large"
+               data-href="designer">
+                &laquo; Let’s start
+            </a>
+            <br />
+            <br />
+            Нажмите сюда для перехода в конструктор тортиков!
+            <br />
+            <span style="color: #750000;">Это интересно!</span>
+        </div>
+
+        {{> steps/title/comments }}
+    </div>
+{{/network}}

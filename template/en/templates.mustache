@@ -1,0 +1,58 @@
+<!-- Common -->
+
+<tuna:template id="price_template">
+    <tuna:spot tuna:target=".t-total-price"    tuna:path="totalPrice" />
+    <tuna:spot tuna:target=".t-deco-price"     tuna:path="decoPrice" />
+    <tuna:spot tuna:target=".t-recipe-price"   tuna:path="recipePrice" />
+    <tuna:spot tuna:target=".t-delivery-price" tuna:path="deliveryPrice" />
+</tuna:template>
+
+
+<select>
+    <option id="option_renderer" class="t-option"></option>
+</select>
+
+<ul>
+    <li id="city_item_renderer" class="j-autocomplete-item">
+        <a class="t-name"></a>
+    </li>
+</ul>
+
+<!-- Order -->
+
+
+
+{{#vk_network}}
+
+    <!-- Share -->
+
+    <tuna:template id="friends_autocomplete_template">
+        <tuna:list tuna:target=".t-friend-list" tuna:path=""
+                   tuna:item-renderer-id="friend_item_renderer"
+                   tuna:item-template-id="friend_item_template"
+                   tuna:key-path="$key" />
+    </tuna:template>
+
+    <tuna:template id="friend_item_template">
+        <tuna:spot tuna:target=".t-user-name" tuna:path="name" />
+        <tuna:attr tuna:target=".t-userpic" tuna:name="src"
+                   tuna:path="userpicUrl" />
+
+        <tuna:attr tuna:target=".t-user-id" tuna:name="data-user-id"
+                   tuna:path="id" />
+    </tuna:template>
+
+    <ul>
+        <li id="friend_item_renderer">
+            <img class="t-userpic userpic" alt="Друг" width="50" height="50"/>
+
+            <span class="t-user-name"></span>
+
+            <a class="t-user-id j-button send-cake-button pull-right"
+               data-action="send">
+                Send
+            </a>
+        </li>
+    </ul>
+
+{{/vk_network}}

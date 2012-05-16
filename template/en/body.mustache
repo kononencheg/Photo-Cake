@@ -1,0 +1,150 @@
+<div class="page-header">
+    <h1 class="page-header-title">
+        <img class="j-navigation-link page-header-logo"
+             src="img/logo.png" alt="Фото на торте!"
+             data-href="title"/>
+
+        <small class="page-header-subtitle">
+            Best sweets in your design!
+        </small>
+    </h1>
+
+    {{^bakery_network}}
+        <div class="page-header-info-block"
+             data-name="current-city"
+             data-template-id="current_city_template">
+
+            <div class="page-header-quality-block">
+                <h3>Quality  guaranteed</h3>
+            </div>
+            <div class="page-header-delivery-block">
+                <h3>
+                    City:
+
+                    <a class="t-bakery-city j-popup-button"
+                       data-name="city-popup"
+                       data-popup-id="city_popup">...</a>
+
+                    <sup class="t-bakery-is-native">*</sup>
+                </h3>
+                <br/>
+                <h3>
+                    Phone:
+
+                    <span class="t-bakery-phone">...</span>
+                </h3>
+            </div>
+        </div>
+    {{/bakery_network}}
+
+</div>
+
+<div id="title_step" class="j-navigation-page j-control-container row-fluid step active"
+     data-name="title">
+    {{> steps/title }}
+</div>
+
+<div id="designer_step"
+     class="j-navigation-page j-control-container row-fluid step"
+     data-name="designer">
+
+    {{> steps/designer }}
+</div>
+
+<div id="share_step"
+     class="j-button-group j-navigation-page j-control-container step row-fluid"
+     data-name="share">
+
+    {{> steps/share }}
+</div>
+
+<div id="order_step"
+     class="j-navigation-page j-control-container row-fluid step"
+     data-name="order">
+
+    {{> steps/order }}
+</div>
+
+<div id="result_step"
+     class="j-navigation-page j-control-container step row-fluid span12"
+     data-name="result">
+
+    {{> steps/result }}
+</div>
+
+{{^bakery}}
+    <div id="city_popup" class="j-autocomplete hide"
+         data-name="city-popup"
+         data-template-id="city_autocomplete_template">
+
+        <div class="modal-backdrop"></div>
+        <div class="modal">
+            <div class="modal-header">
+                <h3>
+                    Select city
+                    <span class="j-popup-close close">&times;</span>
+                </h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="input clearfix">
+                    <div class="input-append ">
+                        <input id="city_search" type="text"
+                               class="j-filtration" />
+
+                        <label for="city_search" class="add-on btn">v</label>
+                    </div>
+                </div>
+
+                <ul class="j-autocomplete-body t-city-list unstyled hide"></ul>
+            </div>
+            <div class="modal-footer">
+                <a class="j-popup-close btn">Cancel</a>
+                <a class="j-popup-apply btn primary">OK</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="j-control-container hide">
+        <tuna:template id="city_autocomplete_template">
+            <tuna:list tuna:target=".t-city-list" tuna:path=""
+                       tuna:item-renderer-id="city_item_renderer"
+                       tuna:item-template-id="city_item_template"
+                       tuna:key-path="$key" />
+        </tuna:template>
+
+        <tuna:template id="city_item_template">
+            <tuna:spot tuna:target=".t-name" tuna:path="name" />
+        </tuna:template>
+    </div>
+{{/bakery}}
+
+<center>
+    <div class="popover-btn">
+        <a class="j-popup-button" data-popup-id="info_popup">
+            ООО «Фотонаторте» ОГРН 1127847095364
+        </a>
+    </div>
+    <div id="info_popup" class="popover fade top in" style="top: 625px; left: 50%; margin-left: -143px;">
+        <div class="j-popup-close popover-overlay"></div>
+        <div class="arrow"></div>
+        <div class="popover-inner">
+            <h3 class="popover-title">Реквизиты</h3>
+            <div class="popover-content">
+                <ul class="unstyled">
+                    <li>Общество с ограниченной ответственностью «Фотонаторте»</li>
+                    <li>ИНН 7813526995</li>
+                    <li>КПП 781301001</li>
+                    <li>ОГРН 1127847095364</li>
+                    <li>ОКВЭД 51.70, 52.24.22 63.40, 72.4</li>
+                    <li>Телефон (812) 323-52-18</li>
+                    <li>Место нахождения: 199078, Санкт-Петербург, 11-я лин ВО 16/32</li>
+                    <li>Почтовый адрес: 197022, Санкт-Петербург, Каменноостровский пр., 61 лит А пом 12Н</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <a href="files/partnership_en.pdf" target="_blank">Сотрудничество</a> |
+    Support: support@fotonatorte.ru | Phone: +7 (812) 323-52-18
+</center>

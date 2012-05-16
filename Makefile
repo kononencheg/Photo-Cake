@@ -1,73 +1,83 @@
 APPLICATION_DIR = application/
-TEMPLATE_DIR	= template/
+TEMPLATE_DIR_RU	= template/ru/
+TEMPLATE_DIR_EN	= template/en/
 LIBRARY_DIR		= library/
 STYLE_DIR		= style/
 
 include config/make/*.mk
 
-all: app vk ok bakery
-
-html: html-app html-vk html-ok html-bakery
+all: html css js
 
 #
-#   VK application
+#   HTML
 #
 
-ok: js-ok html-ok css-app
+html: html-app html-vk html-ok html-bakery html-en
 
-html-ok: $(YAML_OK)
-		 mustache $^ $(LAYOUT_TEMPLATE) > \
+
+html-ok:
+		 cd $(TEMPLATE_DIR_RU) && mustache $(YAML_OK) layout.mustache > \
 				  $(addprefix $(HTML_PUBLIC_DIR), ok.html)
+
+
+html-vk:
+		 cd $(TEMPLATE_DIR_RU) && mustache $(YAML_VK) layout.mustache > \
+         				  $(addprefix $(HTML_PUBLIC_DIR), vk.html)
+
+
+html-bakery:
+			 cd $(TEMPLATE_DIR_RU) && mustache $(YAML_BAKERY) layout.mustache > \
+             				  $(addprefix $(HTML_PUBLIC_DIR), bakery.html)
+
+
+html-app:
+		  cd $(TEMPLATE_DIR_RU) && mustache $(YAML_SITE) layout.mustache > \
+                              $(addprefix $(HTML_PUBLIC_DIR), index.html)
+
+
+html-en:
+		 cd $(TEMPLATE_DIR_EN) && mustache $(YAML_SITE) layout.mustache > \
+                              $(addprefix $(HTML_PUBLIC_DIR), en.html)
+
+
+#
+#   JS
+#
+
+js: js-ok js-vk js-bakery js-app
 
 js-ok: $(JS_OK)
 	   $(JS_COMPILER) --define 'APP_NETWORK=2' $(addprefix --js , $^) \
 					  $(addprefix --js_output_file $(JS_PUBLIC_DIR), ok.js)
 
-#
-#   VK application
-#
-
-vk: js-vk html-vk css-app
-
-html-vk: $(YAML_VK)
-		 mustache $^ $(LAYOUT_TEMPLATE) > \
-				  $(addprefix $(HTML_PUBLIC_DIR), vk.html)
 
 js-vk: $(JS_VK)
 	   $(JS_COMPILER) --define 'APP_NETWORK=1' $(addprefix --js , $^) \
 					  $(addprefix --js_output_file $(JS_PUBLIC_DIR), vk.js)
 
-#
-#   Bakery application
-#
-
-bakery: js-bakery html-bakery css-app
-
-html-bakery: $(YAML_BAKERY)
-			 mustache $^ $(LAYOUT_TEMPLATE) > \
-					  $(addprefix $(HTML_PUBLIC_DIR), bakery.html)
 
 js-bakery: $(JS_BAKERY)
 		   $(JS_COMPILER) $(addprefix --js , $^) \
 						  $(addprefix --js_output_file $(JS_PUBLIC_DIR), bakery.js)
 
-#
-#   Main application
-#
-
-app: js-app html-app css-app
-
-html-app: $(YAML_SITE)
-		  mustache $^ $(LAYOUT_TEMPLATE) > \
-				   $(addprefix $(HTML_PUBLIC_DIR), index.html)
 
 js-app: $(JS_SITE)
 		$(JS_COMPILER) $(addprefix --js , $^) \
 					   $(addprefix --js_output_file $(JS_PUBLIC_DIR), app.js)
 
-css-app: $(CSS_SITE)
-		 $(CSS_COMBINER) $(addprefix --css , $^) \
-						 $(addprefix --css_output_file $(CSS_PUBLIC_DIR), styles.css)
+
+#
+#   CSS
+#
+
+css: $(CSS_SITE)
+	 $(CSS_COMBINER) $(addprefix --css , $^) \
+				     $(addprefix --css_output_file $(CSS_PUBLIC_DIR), styles.css)
+
+
+#
+#   Clean
+#
 
 clean:
 	rm $(addprefix $(JS_PUBLIC_DIR), *.js) \
